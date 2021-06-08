@@ -1,7 +1,7 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 /* Layout */
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -30,25 +30,27 @@ import Layout from '@/layout'
 export const constantRoutes = [
   {
     path: '/login',
-    component: () => import('@/views/login'),
+    component: () => import('@/views/login/index.vue'),
     hidden: true
   },
 
   {
     path: '/404',
-    component: () => import('@/views/error/404'),
+    component: () => import('@/views/error/404.vue'),
     hidden: true
   },
   {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/dashboard'),
-      meta: {title: '首页', icon: 'dashboard'}
-    }]
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/dashboard.vue'),
+        meta: { title: '首页', icon: 'dashboard' }
+      }
+    ]
   },
 
   {
@@ -56,49 +58,49 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/sys/org',
     name: 'sys',
-    meta: {title: '系统管理', icon: 'el-icon-s-help'},
+    meta: { title: '系统管理', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'org',
         name: 'Org',
-        component: () => import('@/views/sys/org'),
-        meta: {title: '组织管理', icon: 'table'}
+        component: () => import('@/views/sys/org/index.vue'),
+        meta: { title: '组织管理', icon: 'table' }
       },
       {
         path: 'role',
         name: 'Role',
-        component: () => import('@/views/sys/role'),
-        meta: {title: '角色管理', icon: 'table'}
+        component: () => import('@/views/sys/role/index.vue'),
+        meta: { title: '角色管理', icon: 'table' }
       },
       {
         path: 'operator',
         name: 'Operator',
-        component: () => import('@/views/sys/operator'),
-        meta: {title: '员工管理', icon: 'table'}
+        component: () => import('@/views/sys/operator/index.vue'),
+        meta: { title: '员工管理', icon: 'table' }
       },
       {
         path: 'permission',
         name: 'Permission',
-        component: () => import('@/views/sys/permission'),
-        meta: {title: '权限管理', icon: 'tree'}
+        component: () => import('@/views/sys/permission/index.vue'),
+        meta: { title: '权限管理', icon: 'tree' }
       },
       {
         path: 'dict',
         name: 'Dict',
-        component: () => import('@/views/sys/dict'),
-        meta: {title: '字典管理', icon: 'table'}
+        component: () => import('@/views/sys/dict/index.vue'),
+        meta: { title: '字典管理', icon: 'table' }
       },
       {
         path: 'config',
         name: 'Config',
-        component: () => import('@/views/sys/config'),
-        meta: {title: '系统设置', icon: 'table'}
+        component: () => import('@/views/sys/config/index.vue'),
+        meta: { title: '系统设置', icon: 'table' }
       }
     ]
   },
   {
     path: '/401',
-    component: () => import('@/views/error/401'),
+    component: () => import('@/views/error/401.vue'),
     hidden: true,
     name: 'Page401'
   },
@@ -109,12 +111,12 @@ export const constantRoutes = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index')
+        component: () => import('@/views/redirect/index.vue')
       }
     ]
   },
   // 404 page must be placed at the end !!!
-  {path: '/:catchAll(.*)', redirect: '/404', hidden: true}
+  { path: '/:catchAll(.*)', redirect: '/404', hidden: true }
 ]
 export const asyncRoutes = []
 
@@ -122,13 +124,14 @@ const router = createRouter({
   history: createWebHistory(),
   routes: constantRoutes.concat(asyncRoutes)
 })
+
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-  const newRouter = createRouter({
-    history: createWebHistory(),
-    routes: constantRoutes.concat(asyncRoutes)
-  })
-  router.matcher = newRouter.matcher // reset router
+  // const newRouter = createRouter({
+  //   history: createWebHistory(),
+  //   routes: constantRoutes.concat(asyncRoutes)
+  // })
+  // router.matcher = newRouter.matcher // reset router
 }
 
 export default router

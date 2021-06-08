@@ -1,8 +1,8 @@
-import {asyncRoutes} from '@/router'
-import {getPermissions} from '@/api/sys/permission'
-import Layout from '@/layout'
-import {isNotEmptyCollection} from '@/utils/common'
-import {CommonEnum} from '@/constants/common'
+import { asyncRoutes } from '@/router'
+import { getPermissions } from '@/api/sys/permission'
+import Layout from '@/layout/index.vue'
+import { isNotEmptyCollection } from '@/utils/common'
+import { CommonEnum } from '@/constants/common'
 
 const state = {
   // 树状路由
@@ -25,13 +25,15 @@ const mutations = {
 }
 // 后台返回的权限列表转router格式
 function convertRoute(routes, data) {
-  data.forEach(item => {
+  data.forEach((item) => {
     const menu = {
       path: item.path,
-      component: isNotEmptyCollection(item.children) ? Layout : (resolve) => require([`@/views${item.path}`], resolve),
+      component: isNotEmptyCollection(item.children)
+        ? Layout
+        : (resolve) => require([`@/views${item.path}`], resolve),
       name: item.name,
       hidden: item.type === CommonEnum.permissionMenu ? item.hidden : true, // 是页面的话根据按钮是否隐藏赋值，不是页面的话直接隐藏
-      meta: {title: item.name, icon: item.icon, type: item.type},
+      meta: { title: item.name, icon: item.icon, type: item.type },
       children: []
     }
     if (item.children) {
@@ -47,7 +49,7 @@ function convertRoute(routes, data) {
  * @param routeList list
  */
 function convertRouteList(treeRoutes, routeList) {
-  treeRoutes.forEach(item => {
+  treeRoutes.forEach((item) => {
     if (item.children) {
       convertRouteList(item.children, routeList)
     }
@@ -56,9 +58,9 @@ function convertRouteList(treeRoutes, routeList) {
 }
 
 const actions = {
-  generateRoutes({commit}) {
-    return new Promise(resolve => {
-      getPermissions().then(response => {
+  generateRoutes({ commit }) {
+    return new Promise((resolve) => {
+      getPermissions().then((response) => {
         // 根节点不显示
         const loadMenuData = response.data[0].children
         // 清空之前的路由
