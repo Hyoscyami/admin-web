@@ -20,7 +20,7 @@ const data = Mock.mock({
     }
   ]
 })
-module.exports = [
+export default [
   {
     url: '/mock/dict/list',
     type: 'post',

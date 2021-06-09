@@ -9,7 +9,7 @@ function param2Obj(url) {
   }
   const obj = {}
   const searchArr = search.split('&')
-  searchArr.forEach(v => {
+  searchArr.forEach((v) => {
     const index = v.indexOf('=')
     if (index !== -1) {
       const name = v.substring(0, index)
@@ -20,6 +20,6 @@ function param2Obj(url) {
   return obj
 }
 
-module.exports = {
+export default {
   param2Obj
 }
