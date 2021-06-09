@@ -8,7 +8,7 @@ function pathResolve(dir: string) {
 }
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), svgBuilder('./src/icons/svg/')], // 配置需要使用的插件列表，这里将vue添加进去
+  plugins: [vue(), svgBuilder('./src/icons/svg/')], // 配置需要使用的插件列表，这里将vue和图标添加进去
   // 配置文件别名 vite1.0是/@/  2.0改为/@
   // 这里是将src目录配置别名为 /@ 方便在项目中导入src目录下的文件
   resolve: {
@@ -29,6 +29,7 @@ export default defineConfig({
   },
   // 本地运行配置，及反向代理配置
   server: {
+    port: 9528,
     cors: true, // 默认启用并允许任何源
     open: true, // 在服务器启动时自动在浏览器中打开应用程序
     //反向代理配置，注意rewrite写法，开始没看文档在这里踩了坑
