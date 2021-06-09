@@ -12,10 +12,21 @@
           :index="resolvePath(onlyOneChild.path)"
           :class="{ 'submenu-title-noDropdown': !isNest }"
         >
-          <item
-            :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
-            :title="onlyOneChild.meta.title"
-          />
+          <template #title>
+            <svg
+              v-if="item.meta && item.meta.icon"
+              class="icon"
+              aria-hidden="true"
+              font-size="16px"
+            >
+              <use :xlink:href="item.meta.icon" />
+            </svg>
+            <span v-if="item.meta && item.meta.title">{{ t('route.' + item.meta.title) }}</span>
+            <!--            <item-->
+            <!--              :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"-->
+            <!--              :title="onlyOneChild.meta.title"-->
+            <!--            />-->
+          </template>
         </el-menu-item>
       </app-link>
     </template>
@@ -39,13 +50,13 @@
 <script>
   import path from 'path'
   import { isExternal } from '@/utils/validate'
-  import Item from './Item.vue'
+  // import Item from './Item.vue'
   import AppLink from './Link.vue'
   import FixiOSBug from './FixiOSBug.js'
 
   export default {
     name: 'SidebarItem',
-    components: { Item, AppLink },
+    components: { AppLink },
     mixins: [FixiOSBug],
     props: {
       // route object

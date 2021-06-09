@@ -1,5 +1,4 @@
-
-// register globally
-const req = require.context('./svg', false, /\.svg$/)
-const requireAll = requireContext => requireContext.keys().map(requireContext)
-requireAll(req)
+// // register globally
+// const req = import.meta.globEager('./svg/*.svg')
+// const requireAll = (req) => Object.keys(req).map(req)
+// requireAll(req)

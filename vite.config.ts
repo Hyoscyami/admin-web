@@ -1,13 +1,14 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path' // 主要用于alias文件路径别名
 import vue from '@vitejs/plugin-vue'
+import { svgBuilder } from './src/plugins/svgBuilder'
 
 function pathResolve(dir: string) {
   return resolve(__dirname, '.', dir)
 }
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()], // 配置需要使用的插件列表，这里将vue添加进去
+  plugins: [vue(), svgBuilder('./src/icons/svg/')], // 配置需要使用的插件列表，这里将vue添加进去
   // 配置文件别名 vite1.0是/@/  2.0改为/@
   // 这里是将src目录配置别名为 /@ 方便在项目中导入src目录下的文件
   resolve: {
