@@ -19,27 +19,33 @@
       className: {
         type: String,
         default: ''
-      },
-      setup() {
-        const isExternal = computed(() => {
-          return /^(https?:|mailto:|tel:)/.test(this.iconClass)
-        })
-        const iconName = computed(() => {
-          return `#icon-${this.iconClass}`
-        })
-        const svgClass = computed(() => {
-          if (this.className) {
-            return 'svg-icon ' + this.className
-          } else {
-            return 'svg-icon'
-          }
-        })
-        const styleExternalIcon = computed(() => {
-          return {
-            mask: `url(${this.iconClass}) no-repeat 50% 50%`,
-            '-webkit-mask': `url(${this.iconClass}) no-repeat 50% 50%`
-          }
-        })
+      }
+    },
+    setup(props) {
+      const isExternal = computed(() => {
+        return /^(https?:|mailto:|tel:)/.test(props.iconClass)
+      })
+      const iconName = computed(() => {
+        return `#icon-${props.iconClass}`
+      })
+      const svgClass = computed(() => {
+        if (props.className) {
+          return 'svg-icon ' + props.className
+        } else {
+          return 'svg-icon'
+        }
+      })
+      const styleExternalIcon = computed(() => {
+        return {
+          mask: `url(${props.iconClass}) no-repeat 50% 50%`,
+          '-webkit-mask': `url(${props.iconClass}) no-repeat 50% 50%`
+        }
+      })
+      return {
+        isExternal,
+        iconName,
+        svgClass,
+        styleExternalIcon
       }
     }
   })
