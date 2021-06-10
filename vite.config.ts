@@ -11,9 +11,12 @@ export default defineConfig({
   plugins: [vue(), svgBuilder('./src/icons/svg/')], // 配置需要使用的插件列表，这里将vue和图标添加进去
   // 配置文件别名 vite1.0是/@/  2.0改为/@
   // 这里是将src目录配置别名为 /@ 方便在项目中导入src目录下的文件
+
   resolve: {
     alias: {
-      '@': pathResolve('src')
+      '@': pathResolve('src'),
+      //解决path不能在浏览器使用的问题
+      path: 'path-browserify'
     }
   },
   // 强制预构建插件包
