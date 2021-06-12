@@ -1,8 +1,5 @@
 import request from '@/utils/request'
 import { AddConfigReq } from '@/model/req/add/AddConfigReq'
-import { ApiResponse } from '../../model/resp/base/ApiResponse'
-import { Page } from '../../model/resp/base/Page'
-import { ConfigVO } from '../../model/resp/vo/ConfigVO'
 import { UpdateConfigReq } from '../../model/req/update/UpdateConfigReq'
 
 export function add(data: AddConfigReq) {
@@ -31,7 +28,7 @@ export function getMaxSort() {
   })
 }
 
-export function list(data: ApiResponse<Page<ConfigVO>>) {
+export function list(data: UpdateConfigReq) {
   return request({
     url: '/config/list',
     method: 'post',

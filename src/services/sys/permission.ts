@@ -1,6 +1,9 @@
 import request from '@/utils/request'
+import { AddPermissionReq } from '../../model/req/add/AddPermissionReq'
+import { QueryPermissionReq } from '../../model/req/query/QueryPermissionReq'
+import { UpdatePermissionReq } from '../../model/req/update/UpdatePermissionReq'
 
-export function add(data) {
+export function add(data: AddPermissionReq) {
   return request({
     url: '/permission/add',
     method: 'post',
@@ -11,23 +14,23 @@ export function add(data) {
   })
 }
 
-export function del(id) {
+export function del(id: number) {
   return request({
     url: '/permission/delete',
     method: 'get',
-    params: {id}
+    params: { id }
   })
 }
 
-export function getMaxSort(id) {
+export function getMaxSort(id: number) {
   return request({
     url: '/permission/getMaxSort',
     method: 'get',
-    params: {parentId: id}
+    params: { parentId: id }
   })
 }
 
-export function getTree(data) {
+export function getTree(data: QueryPermissionReq) {
   return request({
     url: '/permission/tree',
     method: 'post',
@@ -37,7 +40,7 @@ export function getTree(data) {
     data
   })
 }
-export function update(data) {
+export function update(data: UpdatePermissionReq) {
   return request({
     url: '/permission/update',
     method: 'post',

@@ -1,6 +1,8 @@
 import request from '@/utils/request'
+import { AddRoleReq } from '../../model/req/add/AddRoleReq'
+import { QueryRoleReq } from '../../model/req/query/QueryRoleReq'
 
-export function add(data) {
+export function add(data: AddRoleReq) {
   return request({
     url: '/role/add',
     method: 'post',
@@ -11,23 +13,23 @@ export function add(data) {
   })
 }
 
-export function del(id) {
+export function del(id: number) {
   return request({
     url: '/role/delete',
     method: 'get',
-    params: {id}
+    params: { id }
   })
 }
 
-export function getMaxSort(id) {
+export function getMaxSort(id: number) {
   return request({
     url: '/role/getMaxSort',
     method: 'get',
-    params: {parentId: id}
+    params: { parentId: id }
   })
 }
 
-export function list(data) {
+export function list(data: QueryRoleReq) {
   return request({
     url: '/role/list',
     method: 'post',
@@ -38,23 +40,23 @@ export function list(data) {
   })
 }
 
-export function listChildrenById(id) {
+export function listChildrenById(id: number) {
   return request({
     url: '/listChildrenById',
     method: 'get',
-    params: {id}
+    params: { id }
   })
 }
 
-export function listChildrenByCode(code) {
+export function listChildrenByCode(code: string) {
   return request({
     url: '/dict/listChildrenByCode',
     method: 'get',
-    params: {code}
+    params: { code }
   })
 }
 
-export function update(data) {
+export function update(data: QueryRoleReq) {
   return request({
     url: '/role/update',
     method: 'post',
@@ -65,10 +67,10 @@ export function update(data) {
   })
 }
 
-export function getDetailByCode(code) {
+export function getDetailByCode(code: string) {
   return request({
     url: '/role/getDetailByCode',
     method: 'get',
-    params: {code}
+    params: { code }
   })
 }
