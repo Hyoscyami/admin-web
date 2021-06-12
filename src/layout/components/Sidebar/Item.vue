@@ -35,20 +35,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.el-submenu__title{
-  color:#fff !important;
-}
-.el-menu-item{
-  color:#fff !important;
-}
-.el-menu{
-  background-color:transparent !important;
-}
-.sub-el-icon {
-  color: currentColor;
-  width: 1em;
-  height: 1em;
-}
-</style>

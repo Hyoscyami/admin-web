@@ -11,14 +11,12 @@
               v-if="onlyOneChild.meta.title"
               slot="title"
           >{{ onlyOneChild.meta.title }}</span>
-<!--          <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" />-->
         </el-menu-item>
       </app-link>
     </template>
 
     <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
       <template #title>
-<!--        <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />-->
         <svg-icon
             v-if="onlyOneChild.meta.icon"
             :icon-class="onlyOneChild.meta.icon"
@@ -43,13 +41,12 @@
 <script>
   import path from 'path'
   import { isExternal } from '@/utils/validate'
-  import Item from './Item.vue'
   import AppLink from './Link.vue'
   import FixiOSBug from './FixiOSBug.js'
 
   export default {
     name: 'SidebarItem',
-    components: {Item, AppLink },
+    components: { AppLink },
     mixins: [FixiOSBug],
     props: {
       // route object
