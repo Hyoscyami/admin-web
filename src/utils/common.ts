@@ -1,12 +1,12 @@
-import {listChildrenByCode} from '@/api/sys/dict'
-import {ElMessage} from 'element-plus'
+import { listChildrenByCode } from '@/api/sys/dict'
+import { ElMessage } from 'element-plus'
 
 /**
  * 是否为空集合
  * @param collection
  * @returns {boolean} true：是，false：否
  */
-export function isEmptyCollection(collection) {
+export function isEmptyCollection(collection: Array<any>) {
   return collection === undefined || collection.length === 0
 }
 
@@ -15,7 +15,7 @@ export function isEmptyCollection(collection) {
  * @param collection
  * @returns {boolean} true：是，false：否
  */
-export function isNotEmptyCollection(collection) {
+export function isNotEmptyCollection(collection: Array<any>) {
   return !isEmptyCollection(collection)
 }
 
@@ -24,7 +24,7 @@ export function isNotEmptyCollection(collection) {
  * @param str
  * @returns {boolean}
  */
-export function isBlank(str) {
+export function isBlank(str: string) {
   return str === undefined || str.length === 0
 }
 
@@ -33,9 +33,9 @@ export function isBlank(str) {
  * @param code
  * @param value
  */
-export function dictConvert(code, value) {
-  listChildrenByCode(code).then(response => {
-    const dict = response.data.find(item => {
+export function dictConvert(code: string, value: string) {
+  listChildrenByCode(code).then((response) => {
+    const dict = response.data.find((item: any) => {
       return item.value === value
     })
     console.log('dict:', dict)
@@ -45,16 +45,16 @@ export function dictConvert(code, value) {
   return value
 }
 // 封装msg文案提示成功
-export function successMsg(msg) {
+export function successMsg(msg: string) {
   ElMessage.success({
     message: msg,
     type: 'success'
   })
 }
 // 封装msg文案提示警告
-export function warningMsg(msg) {
+export function warningMsg(msg: string) {
   ElMessage.warning({
     message: msg,
-    type: 'warring'
+    type: 'warning'
   })
 }
