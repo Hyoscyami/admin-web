@@ -1,6 +1,7 @@
 import request from '@/utils/request'
+import { Login } from '@/class/model/login'
 
-export function login(data) {
+export function login(data: Login) {
   return request({
     url: '/operator/login',
     method: 'post',
@@ -8,7 +9,7 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo(token: string) {
   return request({
     url: '/operator/getUserInfo',
     method: 'get',
@@ -24,6 +25,5 @@ export function logout() {
 }
 
 export function getCaptcha() {
-  return request({url: '/getCaptcha', method: 'get'})
+  return request({ url: '/getCaptcha', method: 'get' })
 }
-

@@ -212,7 +212,7 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
+import Pagination from '@/components/Pagination/index.vue'
 import {dictConvert} from '@/utils/common'
 import {format} from '@/utils/time'
 import {DictEnum} from '@/constants/dict'
