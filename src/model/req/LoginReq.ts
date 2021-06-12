@@ -1,4 +1,4 @@
-export interface Login {
+export interface LoginReq {
   /**
    * 用户名
    */

@@ -1,7 +1,7 @@
-import request from '@/utils/request'
-import { Login } from '@/class/model/login'
+import request from '../utils/request'
+import { LoginReq } from '../model/req/LoginReq'
 
-export function login(data: Login) {
+export function login(data: LoginReq) {
   return request({
     url: '/operator/login',
     method: 'post',

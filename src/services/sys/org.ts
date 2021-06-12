@@ -1,6 +1,11 @@
 import request from '@/utils/request'
+import { AddOrgReq } from '../../model/req/add/AddOrgReq'
+import { ApiResponse } from '../../model/resp/base/ApiResponse'
+import { Page } from '../../model/resp/base/Page'
+import { OrgVO } from '../../model/resp/vo/OrgVO'
+import { UpdateOrgReq } from '../../model/req/update/UpdateOrgReq'
 
-export function add(data) {
+export function add(data: AddOrgReq) {
   return request({
     url: '/org/add',
     method: 'post',
@@ -11,23 +16,23 @@ export function add(data) {
   })
 }
 
-export function del(id) {
+export function del(id: number) {
   return request({
     url: '/org/delete',
     method: 'get',
-    params: {id}
+    params: { id }
   })
 }
 
-export function getMaxSort(id) {
+export function getMaxSort(id: number) {
   return request({
     url: '/org/getMaxSort',
     method: 'get',
-    params: {parentId: id}
+    params: { parentId: id }
   })
 }
 
-export function list(data) {
+export function list(data: ApiResponse<Page<OrgVO>>) {
   return request({
     url: '/org/list',
     method: 'post',
@@ -38,23 +43,23 @@ export function list(data) {
   })
 }
 
-export function listChildrenById(id) {
+export function listChildrenById(id: number) {
   return request({
     url: '/listChildrenById',
     method: 'get',
-    params: {id}
+    params: { id }
   })
 }
 
-export function listChildrenByCode(code) {
+export function listChildrenByCode(code: string) {
   return request({
     url: '/dict/listChildrenByCode',
     method: 'get',
-    params: {code}
+    params: { code }
   })
 }
 
-export function update(data) {
+export function update(data: UpdateOrgReq) {
   return request({
     url: '/org/update',
     method: 'post',
@@ -65,10 +70,10 @@ export function update(data) {
   })
 }
 
-export function getDetailByCode(code) {
+export function getDetailByCode(code: string) {
   return request({
     url: '/org/getDetailByCode',
     method: 'get',
-    params: {code}
+    params: { code }
   })
 }
