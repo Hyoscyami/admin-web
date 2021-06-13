@@ -1,4 +1,4 @@
-import { BaseVO } from '../base/BaseVO'
+import { BaseVO } from '../resp/base/BaseVO'
 
 export interface PermissionVO extends BaseVO {
   /** 权限类型，1:页面，2:按钮 */

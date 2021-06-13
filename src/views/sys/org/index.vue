@@ -211,7 +211,7 @@
 import Pagination from '@/components/Pagination/index.vue'
 import {dictConvert} from '@/utils/common'
 import {format} from '@/utils/time'
-import {DictEnum} from '@/constants/dict'
+import {DictEnum} from '@/enums/dict'
 import {
   addFormRef,
   addFormSubmit,
@@ -251,7 +251,7 @@ export default {
     })
     // 日期转换
     const viewDetailDataCreateTime = computed(() => {
-      return format(this.dialog.viewDetailData.createTime)
+      return format(dialog.viewDetailData.createTime)
     })
     // 搜索树
     watch(() => tree.filterTreeText, (searchText) => filterTree(searchText))

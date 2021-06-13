@@ -1,82 +1,79 @@
-import {nextTick, reactive, ref} from 'vue'
-import {dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg} from '@/utils/common'
-import {DictEnum} from '@/constants/dict'
-import {add, del, getMaxSort, list, listChildrenByCode, update} from '@/api/sys/dict'
-import {CommonEnum} from '@/constants/common'
-import {toRaw} from '@vue/reactivity'
-import {Tree} from '@/class/Tree'
-import {Table} from '@/class/Table'
+import { nextTick, reactive, ref } from 'vue'
+import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
+import { DictEnum } from '@/enums/dict'
+import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/services/sys/dict'
+import { CommonEnum } from '@/enums/CommonEnum'
+import { toRaw } from '@vue/reactivity'
+import { useTable } from '@/model/req/query/Table'
+import { DictVO, useDictVO } from '@/model/vo/DictVO'
+import { QueryDictReq, useQueryDictReq } from '@/model/req/query/QueryDictReq'
+import { getTree } from '@/model/req/query/Tree'
+import { useDialog } from '../../../model/vo/Dialog'
+import { useAddDictReq, useDictRule } from '../../../model/req/add/AddDictReq'
+//数据字典查询对象
+const queryDictReq = useQueryDictReq()
 
 // 初始化树的对象
-const initTree = new Tree()
-initTree.rootNode.name = '数据字典'
+const initTree = getTree<QueryDictReq>('数据字典', queryDictReq)
+
 // 初始化表格的对象
-const initTable = new Table()
+const initTable = useTable<DictVO>(queryDictReq)
 
 // 树相关
-export const tree = reactive(initTree
-)
+export const tree = reactive(initTree)
 // 父数据字典表格数据
 export const table = reactive(initTable)
+
 // 对话框
-export const dialog = reactive({
-  // 新增数据字典弹框
-  addDialogFormVisible: false,
-  // 查看详情对话框
-  viewDialogVisible: false,
-  // 查看详情的数据
-  viewDetailData: {
-    code: '',
-    name: '',
-    value: '',
-    description: '',
-    status: undefined,
-    sort: 1,
-    createTime: '',
-    creatorName: '',
-    modifyTime: '',
-    modifierName: ''
-  },
-  // 新增或编辑数据字段对话框状态
-  dialogStatus: '',
-  // 新增或编辑数据字典弹框
-  textMap: {
-    update: '编辑',
-    create: '新增'
-  },
-  // 新增数据字段表单
-  addForm: {
-    code: '',
-    name: '',
-    value: '',
-    description: '',
-    status: 1,
-    sort: 1,
-    parentId: 0
-  },
-  // 新增数据字典规则
-  addFormRules: {
-    code: [
-      {required: true, message: '请输入码值', trigger: 'blur'},
-      {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
-    ],
-    name: [
-      {required: true, message: '请输入字典名称', trigger: 'change'}
-    ],
-    value: [
-      {message: '请输入值', trigger: 'change'}
-    ],
-    description: [
-      {message: '请输入描述信息', trigger: 'change'}
-    ],
-    status: [
-      {required: true, message: '请选择状态', trigger: 'change'}
-    ],
-    sort: [
-      {required: true, message: '请填写排序值', trigger: 'change'}
-    ]
-  }
-})
+export const dialog = useDialog(useDictVO(), useDictRule, useAddDictReq())
+// export const dialog = reactive({
+//   // 新增数据字典弹框
+//   addDialogFormVisible: false,
+//   // 查看详情对话框
+//   viewDialogVisible: false,
+//   // 查看详情的数据
+//   viewDetailData: {
+//     code: '',
+//     name: '',
+//     value: '',
+//     description: '',
+//     status: undefined,
+//     sort: 1,
+//     createTime: '',
+//     creatorName: '',
+//     modifyTime: '',
+//     modifierName: ''
+//   },
+//   // 新增或编辑数据字段对话框状态
+//   dialogStatus: '',
+//   // 新增或编辑数据字典弹框
+//   textMap: {
+//     update: '编辑',
+//     create: '新增'
+//   },
+//   // 新增数据字段表单
+//   addForm: {
+//     code: '',
+//     name: '',
+//     value: '',
+//     description: '',
+//     status: 1,
+//     sort: 1,
+//     parentId: 0
+//   },
+//   // 新增数据字典规则
+//   addFormRules: {
+//     code: [
+//       { required: true, message: '请输入码值', trigger: 'blur' },
+//       { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+//     ],
+//     name: [{ required: true, message: '请输入字典名称', trigger: 'change' }],
+//     value: [{ message: '请输入值', trigger: 'change' }],
+//     description: [{ message: '请输入描述信息', trigger: 'change' }],
+//     status: [{ required: true, message: '请选择状态', trigger: 'change' }],
+//     sort: [{ required: true, message: '请填写排序值', trigger: 'change' }]
+//   }
+// })
 // 树ref
 export const treeRef = ref(null)
 // 对话框新增数据字典表单ref
@@ -85,7 +82,7 @@ export const addFormRef = ref(null)
 export const searchFormRef = ref(null)
 // 初始化
 export function init() {
-// 初始化状态
+  // 初始化状态
   listStatus()
   // 初始化表格
   searchFormSubmit()
@@ -93,12 +90,12 @@ export function init() {
 
 // 状态转换
 export function viewDetailDataStatus() {
-  return dictConvert(DictEnum.DictStatus, dialog.viewDetailData.status)
+  return dictConvert(DictEnum.DictStatus, String(dialog.viewDetailData.status))
 }
 
 // 获取状态下拉框
 export function listStatus() {
-  listChildrenByCode(DictEnum.DictStatus).then(response => {
+  listChildrenByCode(DictEnum.DictStatus).then((response) => {
     table.statusSelect = response.data
   })
 }
@@ -110,7 +107,7 @@ export function searchFormSubmit() {
 }
 
 // 搜索tree
-export function filterTree(searchText) {
+export function filterTree(searchText: string) {
   // 重置树的搜索条件
   resetQuery(tree)
   if (isBlank(searchText)) {
@@ -118,23 +115,26 @@ export function filterTree(searchText) {
   }
   tree.listQuery.parentId = toRaw(tree).rootNode.id
   tree.listQuery.name = searchText
-  list(tree.listQuery).then(response => {
+  list(tree.listQuery).then((response) => {
     tree.total = response.data.total
-    treeRef.value.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
+    if (treeRef.value) {
+      // @ts-ignore
+      treeRef.value.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
+    }
   })
 }
 
 // 打开新增数据字典对话框
 export function openAddDialog() {
-  if (isBlank(tree.checkedNodeClick.id)) {
+  if (!tree.checkedNodeClick.id) {
     warningMsg('请先在左侧选择节点')
-    return false
+    return
   }
-  dialog.addDialogFormVisible = true
-  dialog.dialogStatus = CommonEnum.create
+  dialog.visible = true
+  dialog.dialogStatus = CommonEnum.CREATE
   getMaxSortValue(tree.checkedNodeClick.id)
-  dialog.addForm.parentId = toRaw(tree).checkedNodeClick.id
-  dialog.addForm.code = toRaw(tree).checkedNodeClick.code
+  dialog.form.parentId = toRaw(tree).checkedNodeClick.id
+  dialog.form.code = toRaw(tree).checkedNodeClick.code
 }
 
 // 查看详情
@@ -145,7 +145,7 @@ export function viewDetail(row) {
 
 // 获取当前最大排序值
 export function getMaxSortValue(id) {
-  getMaxSort(id).then(response => {
+  getMaxSort(id).then((response) => {
     dialog.addForm.sort = response.data + 1
   })
 }
@@ -154,7 +154,7 @@ export function addFormSubmit() {
   addFormRef.value.validate((valid) => {
     if (valid) {
       if (dialog.dialogStatus === CommonEnum.create) {
-        add(JSON.stringify(dialog.addForm)).then(response => {
+        add(JSON.stringify(dialog.addForm)).then((response) => {
           // 关闭弹框
           cancelAddForm()
           // 刷新表格
@@ -164,7 +164,7 @@ export function addFormSubmit() {
           treeRef.value.append(response.data, tree.checkedNodeClick)
         })
       } else if (dialog.dialogStatus === CommonEnum.update) {
-        update(JSON.stringify(dialog.addForm)).then(response => {
+        update(JSON.stringify(dialog.addForm)).then((response) => {
           // 关闭弹框
           cancelAddForm()
           // 刷新表格
@@ -191,7 +191,7 @@ export function cancelView() {
 export function getList() {
   table.listLoading = true
   table.listQuery.parentId = toRaw(tree).checkedNodeClick.id
-  list(table.listQuery).then(response => {
+  list(table.listQuery).then((response) => {
     table.tableData = response.data.records
     table.total = response.data.total
     table.listLoading = false
@@ -205,7 +205,7 @@ export function updateDetail(row) {
 }
 // 删除数据字典
 export function delRow(row) {
-  del(row.id).then(response => {
+  del(row.id).then((response) => {
     successMsg('操作成功')
     // 刷新表格数据
     searchFormSubmit()
@@ -228,7 +228,7 @@ export async function loadNode(node, resolve) {
       // 默认选中根节点
       treeRef.value.setCurrentKey(rootNode.id, true)
       Object.assign(tree.checkedNodeClick, rootNode)
-    }).then(r => node.childNodes[0].loadData())
+    }).then((r) => node.childNodes[0].loadData())
     return resolve([tree.rootNode])
   }
   if (node.level > 0) {
@@ -250,13 +250,13 @@ export function loadNextPageData() {
   Object.assign(tree.listQuery.parentId, tree.checkedNodeDropdown.data.id)
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = 1
-  list(tree.listQuery).then(response => {
+  list(tree.listQuery).then((response) => {
     tree.total = response.data.total
     // 数据不为空
     if (isNotEmptyCollection(response.data.records)) {
       // 追加树节点
       tree.loadChildrenTreeData = response.data.records
-      tree.loadChildrenTreeData.forEach(node => {
+      tree.loadChildrenTreeData.forEach((node) => {
         tree.value.append(node, tree.checkedNodeDropdown)
       })
       // 设置最后一个节点是否有下一页链接
@@ -274,7 +274,7 @@ export async function getChildrenNode(id) {
   tree.listQuery.parentId = id
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = 1
-  await list(tree.listQuery).then(response => {
+  await list(tree.listQuery).then((response) => {
     tree.loadChildrenTreeData = response.data.records
     tree.total = response.data.total
     // 设置最后一个节点是否有下一页链接
@@ -318,7 +318,7 @@ export function updateStatus(data) {
   } else {
     param.status = 1
   }
-  update(param).then(response => {
+  update(param).then((response) => {
     successMsg('操作成功')
     data.status = param.status
   })
@@ -348,9 +348,9 @@ export function resetSearchForm() {
 }
 // 单元格样式
 export function cellClass() {
-  return {borderColor: '#0e2231'}
+  return { borderColor: '#0e2231' }
 }
 // 表头样式
 export function headerClass() {
-  return {borderColor: '#0e2231', background: '#b1b3b8', color: '#151617'}
+  return { borderColor: '#0e2231', background: '#b1b3b8', color: '#151617' }
 }

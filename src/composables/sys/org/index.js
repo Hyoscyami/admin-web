@@ -1,9 +1,9 @@
-import {nextTick, reactive, ref} from 'vue'
-import {dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg} from '@/utils/common'
-import {DictEnum} from '@/constants/dict'
-import {add, del, getMaxSort, list, listChildrenByCode, update} from '@/api/sys/org'
-import {CommonEnum} from '@/constants/common'
-import {toRaw} from '@vue/reactivity'
+import { nextTick, reactive, ref } from 'vue'
+import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
+import { DictEnum } from '@/enums/dict'
+import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/services/sys/org'
+import { CommonEnum } from '@/enums/common'
+import { toRaw } from '@vue/reactivity'
 
 // 树相关
 export const tree = reactive({
@@ -107,18 +107,10 @@ export const dialog = reactive({
     //   {required: true, message: '请输入机构编号', trigger: 'blur'},
     //   {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
     // ],
-    name: [
-      {required: true, message: '请输入机构名称', trigger: 'change'}
-    ],
-    type: [
-      {required: true, message: '请选择机构类型', trigger: 'change'}
-    ],
-    status: [
-      {required: true, message: '请选择状态', trigger: 'change'}
-    ],
-    sort: [
-      {required: true, message: '请填写排序值', trigger: 'change'}
-    ]
+    name: [{ required: true, message: '请输入机构名称', trigger: 'change' }],
+    type: [{ required: true, message: '请选择机构类型', trigger: 'change' }],
+    status: [{ required: true, message: '请选择状态', trigger: 'change' }],
+    sort: [{ required: true, message: '请填写排序值', trigger: 'change' }]
   }
 })
 // 树ref
@@ -144,9 +136,9 @@ export function viewDetailDataStatus() {
 
 // 获取状态下拉框
 export function listStatus() {
-  listChildrenByCode(DictEnum.DictStatus).then(response => {
+  listChildrenByCode(DictEnum.DictStatus).then((response) => {
     table.statusSelect.length = 0
-    response.data.forEach(item => {
+    response.data.forEach((item) => {
       const status = {
         text: item.name,
         value: item.value
@@ -158,9 +150,9 @@ export function listStatus() {
 
 // 获取状态下拉框
 export function listTypes() {
-  listChildrenByCode(DictEnum.OrgTypes).then(response => {
+  listChildrenByCode(DictEnum.OrgTypes).then((response) => {
     table.typeSelect.length = 0
-    response.data.forEach(item => {
+    response.data.forEach((item) => {
       const type = {
         text: item.name,
         value: Number(item.value)
@@ -184,7 +176,7 @@ export function filterTree(searchText) {
   }
   tree.listQuery.parentId = toRaw(tree).rootNode.id
   tree.listQuery.name = searchText
-  list(tree.listQuery).then(response => {
+  list(tree.listQuery).then((response) => {
     tree.total = response.data.total
     treeRef.value.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
   })
@@ -210,7 +202,7 @@ export function viewDetail(row) {
 
 // 获取当前最大排序值
 export function getMaxSortValue(id) {
-  getMaxSort(id).then(response => {
+  getMaxSort(id).then((response) => {
     dialog.addForm.sort = response.data + 1
   })
 }
@@ -219,7 +211,7 @@ export function addFormSubmit() {
   addFormRef.value.validate((valid) => {
     if (valid) {
       if (dialog.dialogStatus === CommonEnum.create) {
-        add(JSON.stringify(dialog.addForm)).then(response => {
+        add(JSON.stringify(dialog.addForm)).then((response) => {
           // 关闭弹框
           cancelAddForm()
           // 刷新表格
@@ -228,7 +220,7 @@ export function addFormSubmit() {
           treeRef.value.append(response.data, tree.checkedNodeClick)
         })
       } else if (dialog.dialogStatus === CommonEnum.update) {
-        update(JSON.stringify(dialog.addForm)).then(response => {
+        update(JSON.stringify(dialog.addForm)).then((response) => {
           // 关闭弹框
           cancelAddForm()
           // 刷新表格
@@ -255,7 +247,7 @@ export function cancelView() {
 export function getList() {
   table.listLoading = true
   table.listQuery.parentId = toRaw(tree).checkedNodeClick.id
-  list(table.listQuery).then(response => {
+  list(table.listQuery).then((response) => {
     table.tableData = response.data.records
     table.total = response.data.total
     table.listLoading = false
@@ -269,7 +261,7 @@ export function updateDetail(row) {
 }
 // 删除机构
 export function delRow(row) {
-  del(row.id).then(response => {
+  del(row.id).then((response) => {
     successMsg('操作成功')
     // 刷新表格数据
     searchFormSubmit()
@@ -292,7 +284,7 @@ export async function loadNode(node, resolve) {
       // 默认选中根节点
       treeRef.value.setCurrentKey(rootNode.id, true)
       tree.checkedNodeClick.id = rootNode.data.id
-    }).then(r => node.childNodes[0].loadData())
+    }).then((r) => node.childNodes[0].loadData())
     return resolve([tree.rootNode])
   }
   if (node.level > 0) {
@@ -313,13 +305,13 @@ export function loadNextPageData() {
   Object.assign(tree.listQuery.parentId, tree.checkedNodeDropdown.data.id)
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = 1
-  list(tree.listQuery).then(response => {
+  list(tree.listQuery).then((response) => {
     tree.total = response.data.total
     // 数据不为空
     if (isNotEmptyCollection(response.data.records)) {
       // 追加树节点
       tree.loadChildrenTreeData = response.data.records
-      tree.loadChildrenTreeData.forEach(node => {
+      tree.loadChildrenTreeData.forEach((node) => {
         tree.value.append(node, tree.checkedNodeDropdown)
       })
       // 设置最后一个节点是否有下一页链接
@@ -337,7 +329,7 @@ export async function getChildrenNode(id) {
   tree.listQuery.parentId = id
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = 1
-  await list(tree.listQuery).then(response => {
+  await list(tree.listQuery).then((response) => {
     tree.loadChildrenTreeData = response.data.records
     tree.total = response.data.total
     // 设置最后一个节点是否有下一页链接
@@ -381,7 +373,7 @@ export function updateStatus(data) {
   } else {
     param.status = 1
   }
-  update(param).then(response => {
+  update(param).then((response) => {
     successMsg('操作成功')
     data.status = param.status
   })

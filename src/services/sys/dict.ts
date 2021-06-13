@@ -1,9 +1,7 @@
 import request from '@/utils/request'
 import { AddDictReq } from '../../model/req/add/AddDictReq'
-import { ApiResponse } from '../../model/resp/base/ApiResponse'
-import { Page } from '../../model/resp/base/Page'
-import { DictVO } from '../../model/resp/vo/DictVO'
 import { UpdateDictReq } from '../../model/req/update/UpdateDictReq'
+import { QueryDictReq } from '../../model/req/query/QueryDictReq'
 
 export function add(data: AddDictReq) {
   return request({
@@ -32,7 +30,7 @@ export function getMaxSort(id: number) {
   })
 }
 
-export function list(data: ApiResponse<Page<DictVO>>) {
+export function list(data: QueryDictReq) {
   return request({
     url: '/dict/list',
     method: 'post',

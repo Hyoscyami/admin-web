@@ -1,4 +1,4 @@
-import { BaseVO } from '../base/BaseVO'
+import { BaseVO } from '../resp/base/BaseVO'
 
 export interface DictVO extends BaseVO {
   /** 节点父ID */
@@ -18,9 +18,32 @@ export interface DictVO extends BaseVO {
   /** 描述 */
   description: string
   /** 是否启用，1：启用，0：禁用 */
-  status: number
+  status?: number
   /** 创建人 */
   creatorName: string
   /** 修改人ID */
   modifierName: string
+}
+
+/**
+ * 初始化
+ */
+export function useDictVO(): DictVO {
+  return {
+    id: 0,
+    completePath: '',
+    hasNext: false,
+    isLeaf: false,
+    parentId: 0,
+    code: '',
+    name: '',
+    value: '',
+    description: '',
+    status: undefined,
+    sort: 1,
+    createTime: '',
+    creatorName: '',
+    modifyTime: '',
+    modifierName: ''
+  }
 }

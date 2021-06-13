@@ -1,8 +1,8 @@
 import { asyncRoutes } from '@/router'
-import { getPermissions } from '@/api/sys/permission'
+import { getPermissions } from '@/services/sys/permission'
 import Layout from '@/layout/index.vue'
 import { isNotEmptyCollection } from '@/utils/common'
-import { CommonEnum } from '@/constants/common'
+import { CommonEnum } from '@/enums/common'
 
 const state = {
   // 树状路由

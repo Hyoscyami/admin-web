@@ -2,7 +2,7 @@ import request from '@/utils/request'
 import { AddOrgReq } from '../../model/req/add/AddOrgReq'
 import { ApiResponse } from '../../model/resp/base/ApiResponse'
 import { Page } from '../../model/resp/base/Page'
-import { OrgVO } from '../../model/resp/vo/OrgVO'
+import { OrgVO } from '../../model/vo/OrgVO'
 import { UpdateOrgReq } from '../../model/req/update/UpdateOrgReq'
 
 export function add(data: AddOrgReq) {

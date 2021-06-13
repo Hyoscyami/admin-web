@@ -1,6 +1,6 @@
-import {validUsername} from '@/utils/validate'
-import {getCaptcha} from '@/api/user'
-import {nextTick, unref} from 'vue'
+import { validUsername } from '@/utils/validate'
+import { getCaptcha } from '@/services/user'
+import { nextTick, unref } from 'vue'
 
 // 校验用户名
 export const validateUsername = (rule, value, callback) => {
@@ -28,11 +28,12 @@ export const validateVerifyCode = (rule, value, callback) => {
 }
 // 修改验证码
 export function useChangeVerifyCode(verifyCodeUrl, loginForm) {
-  const changeVerifyCode = () => getCaptcha().then(response => {
-    verifyCodeUrl.value = response.data.verifyCodeStr
-    loginForm.verifyCodeId = response.data.id
-  })
-  return {changeVerifyCode}
+  const changeVerifyCode = () =>
+    getCaptcha().then((response) => {
+      verifyCodeUrl.value = response.data.verifyCodeStr
+      loginForm.verifyCodeId = response.data.id
+    })
+  return { changeVerifyCode }
 }
 // 显示密码
 export function useShowPwd(passwordType, passwordRef) {
@@ -43,7 +44,9 @@ export function useShowPwd(passwordType, passwordRef) {
     } else {
       passwordType.value = 'password'
     }
-    nextTick(() => { passwordRef.value.focus() })
+    nextTick(() => {
+      passwordRef.value.focus()
+    })
   }
-  return {showPwd}
+  return { showPwd }
 }

@@ -1,4 +1,4 @@
-import { BaseVO } from '../base/BaseVO'
+import { BaseVO } from '../resp/base/BaseVO'
 
 export interface RoleVO extends BaseVO {
   /**

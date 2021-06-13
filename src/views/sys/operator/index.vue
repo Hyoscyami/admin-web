@@ -215,7 +215,7 @@
 import Pagination from '@/components/Pagination/index.vue'
 import {dictConvert} from '@/utils/common'
 import {format} from '@/utils/time'
-import {DictEnum} from '@/constants/dict'
+import {DictEnum} from '@/enums/dict'
 import {
   addFormRef,
   addFormSubmit,

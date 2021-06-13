@@ -1,11 +1,11 @@
-import {reactive, ref} from 'vue'
-import {add, getMaxSort, getTree, update} from '@/api/sys/permission'
-import {isNotEmptyCollection, successMsg, warningMsg} from '@/utils/common'
-import {listChildrenByCode} from '@/api/sys/dict'
-import {DictEnum} from '@/constants/dict'
-import {CommonEnum} from '@/constants/common'
-import {toRaw} from '@vue/reactivity'
-import {resetQuery} from '@/composables/sys/dict'
+import { reactive, ref } from 'vue'
+import { add, getMaxSort, getTree, update } from '@/services/sys/permission'
+import { isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
+import { listChildrenByCode } from '@/services/sys/dict'
+import { DictEnum } from '@/enums/dict'
+import { CommonEnum } from '@/enums/common'
+import { toRaw } from '@vue/reactivity'
+import { resetQuery } from '@/composables/sys/dict'
 // 树相关
 export const tree = reactive({
   // 搜索树的名称
@@ -90,18 +90,10 @@ function resetForm() {
 }
 // 新增和编辑表单规则
 export const rules = {
-  name: [
-    {required: true, message: '请输入权限名称', trigger: 'change'}
-  ],
-  type: [
-    {required: true, message: '请选择权限类型', trigger: 'change'}
-  ],
-  path: [
-    {required: true, message: '请输入路径', trigger: 'change'}
-  ],
-  status: [
-    {required: true, message: '请选择状态', trigger: 'change'}
-  ]
+  name: [{ required: true, message: '请输入权限名称', trigger: 'change' }],
+  type: [{ required: true, message: '请选择权限类型', trigger: 'change' }],
+  path: [{ required: true, message: '请输入路径', trigger: 'change' }],
+  status: [{ required: true, message: '请选择状态', trigger: 'change' }]
 }
 // treeRef
 export const treeRef = ref(null)
@@ -113,7 +105,7 @@ export function initTree() {
   resetQuery(tree)
   tree.listQuery.minDistance = 0
   tree.listQuery.parentId = toRaw(tree).rootNode.id
-  getTree(tree.listQuery).then(response => {
+  getTree(tree.listQuery).then((response) => {
     tree.data = response.data
     if (isNotEmptyCollection(tree.data)) {
       tree.defaultExpandedKeys.push(tree.data[0].id)
@@ -130,21 +122,21 @@ export function handleNodeClick(node) {
 
 // 初始化statusSelect
 export function initStatusSelect() {
-  listChildrenByCode(DictEnum.DictStatus).then(response => {
+  listChildrenByCode(DictEnum.DictStatus).then((response) => {
     tree.statusSelect = response.data
   })
 }
 
 // 初始化权限类型
 export function initTypeSelect() {
-  listChildrenByCode(DictEnum.PermissionTypes).then(response => {
+  listChildrenByCode(DictEnum.PermissionTypes).then((response) => {
     tree.typeSelect = response.data
   })
 }
 
 // 初始化权限图标
 export function initIconSelect() {
-  listChildrenByCode(DictEnum.PermissionIcon).then(response => {
+  listChildrenByCode(DictEnum.PermissionIcon).then((response) => {
     tree.iconSelect = response.data
   })
 }
@@ -158,12 +150,12 @@ export function save() {
     if (valid) {
       console.log('tree.formStatus', tree)
       if (CommonEnum.create === tree.formStatus) {
-        add(form).then(response => {
+        add(form).then((response) => {
           successMsg('新增成功')
           treeRef.value.append(response.data, checkedNode)
         })
       } else if (CommonEnum.update === tree.formStatus) {
-        update(form).then(response => {
+        update(form).then((response) => {
           successMsg('编辑成功')
           const node = treeRef.value.getNode(checkedNode.id)
           Object.assign(node.data, form)
@@ -205,7 +197,7 @@ export function handleAddClick() {
   form.parentId = checkedNode.id
   form.path = checkedNode.path
   form.status = 1
-  getMaxSort(checkedNode.id).then(response => {
+  getMaxSort(checkedNode.id).then((response) => {
     form.sort = response.data + 1
   })
 }
