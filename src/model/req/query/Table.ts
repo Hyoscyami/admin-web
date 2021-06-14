@@ -1,6 +1,5 @@
-import { BaseQuery } from '../base/BaseQuery'
-
-export interface Table<T> {
+// T is data, Q is query
+export interface Table<T, Q> {
   // 表格数据
   tableData: Array<T>
   // 总数
@@ -8,7 +7,7 @@ export interface Table<T> {
   // 加载状态
   listLoading: boolean
   // 查询条件
-  listQuery: BaseQuery
+  listQuery: Q
   // 状态选择器
   statusSelect: Array<number>
   // 类型选择器
@@ -19,7 +18,7 @@ export interface Table<T> {
  * 初始化table
  * @param query
  */
-export function useTable<T>(query: BaseQuery): Table<T> {
+export function useTable<T, Q>(query: Q): Table<T, Q> {
   return {
     tableData: [],
     total: 0,

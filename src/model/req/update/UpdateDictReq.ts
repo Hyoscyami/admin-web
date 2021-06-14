@@ -33,3 +33,18 @@ export interface UpdateDictReq {
    */
   description: string
 }
+
+/**
+ * 初始化
+ */
+export function useUpdateDictReq(): UpdateDictReq {
+  return {
+    code: '',
+    description: '',
+    id: 0,
+    parentId: 0,
+    sort: 0,
+    status: 0,
+    value: ''
+  }
+}

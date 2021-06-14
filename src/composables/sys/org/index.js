@@ -2,7 +2,7 @@ import { nextTick, reactive, ref } from 'vue'
 import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
 import { DictEnum } from '@/enums/dict'
 import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/services/sys/org'
-import { CommonEnum } from '@/enums/common'
+import { CommonEnum } from '@/enums/CommonEnum'
 import { toRaw } from '@vue/reactivity'
 
 // 树相关

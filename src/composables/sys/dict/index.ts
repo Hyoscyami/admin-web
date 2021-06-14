@@ -9,15 +9,16 @@ import { DictVO, useDictVO } from '@/model/vo/DictVO'
 import { QueryDictReq, useQueryDictReq } from '@/model/req/query/QueryDictReq'
 import { getTree } from '@/model/req/query/Tree'
 import { useDialog } from '../../../model/vo/Dialog'
-import { useAddDictReq, useDictRule } from '../../../model/req/add/AddDictReq'
+import { AddDictReq, DictRule, useAddDictReq, useDictRule } from '../../../model/req/add/AddDictReq'
+import { UpdateDictReq, useUpdateDictReq } from '../../../model/req/update/UpdateDictReq'
 //数据字典查询对象
 const queryDictReq = useQueryDictReq()
 
 // 初始化树的对象
-const initTree = getTree<QueryDictReq>('数据字典', queryDictReq)
+const initTree = getTree<QueryDictReq, DictVO>(queryDictReq, useDictVO())
 
 // 初始化表格的对象
-const initTable = useTable<DictVO>(queryDictReq)
+const initTable = useTable<DictVO, QueryDictReq>(queryDictReq)
 
 // 树相关
 export const tree = reactive(initTree)
@@ -25,7 +26,11 @@ export const tree = reactive(initTree)
 export const table = reactive(initTable)
 
 // 对话框
-export const dialog = useDialog(useDictVO(), useDictRule, useAddDictReq())
+export const dialog = useDialog<DictVO, DictRule, AddDictReq, UpdateDictReq>(
+  useDictVO(),
+  useDictRule(),
+  useAddDictReq()
+)
 // export const dialog = reactive({
 //   // 新增数据字典弹框
 //   addDialogFormVisible: false,
@@ -109,7 +114,7 @@ export function searchFormSubmit() {
 // 搜索tree
 export function filterTree(searchText: string) {
   // 重置树的搜索条件
-  resetQuery(tree)
+  resetQuery()
   if (isBlank(searchText)) {
     tree.listQuery.maxDistance = 1
   }
@@ -138,39 +143,41 @@ export function openAddDialog() {
 }
 
 // 查看详情
-export function viewDetail(row) {
-  dialog.viewDialogVisible = true
+export function viewDetail(row: any) {
+  dialog.visible = true
   Object.assign(dialog.viewDetailData, row)
 }
 
 // 获取当前最大排序值
-export function getMaxSortValue(id) {
+export function getMaxSortValue(id: number) {
   getMaxSort(id).then((response) => {
-    dialog.addForm.sort = response.data + 1
+    dialog.form.sort = response.data + 1
   })
 }
 // 新增数据字典表单提交
 export function addFormSubmit() {
+  // @ts-ignore
   addFormRef.value.validate((valid) => {
     if (valid) {
-      if (dialog.dialogStatus === CommonEnum.create) {
-        add(JSON.stringify(dialog.addForm)).then((response) => {
+      if (dialog.dialogStatus === CommonEnum.CREATE) {
+        add(dialog.form).then((response) => {
           // 关闭弹框
           cancelAddForm()
           // 刷新表格
           getList()
           // 刷新树
           console.log('刷新树:', response.data, tree.checkedNodeClick)
+          // @ts-ignore
           treeRef.value.append(response.data, tree.checkedNodeClick)
         })
-      } else if (dialog.dialogStatus === CommonEnum.update) {
-        update(JSON.stringify(dialog.addForm)).then((response) => {
+      } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
+        update(dialog.form).then(() => {
           // 关闭弹框
           cancelAddForm()
           // 刷新表格
           getList()
           // 刷新树
-          filterTree()
+          filterTree('')
         })
       }
     } else {
@@ -180,12 +187,13 @@ export function addFormSubmit() {
 }
 // 新增数据字典表单取消
 export function cancelAddForm() {
-  dialog.addDialogFormVisible = false
+  dialog.visible = false
+  // @ts-ignore
   addFormRef.value.resetFields()
 }
 // 查看详情字典弹框取消
 export function cancelView() {
-  dialog.viewDialogVisible = false
+  dialog.visible = false
 }
 // 获取父数据字典列表数据
 export function getList() {
@@ -198,14 +206,14 @@ export function getList() {
   })
 }
 // 修改数据字典详情
-export function updateDetail(row) {
-  dialog.dialogStatus = CommonEnum.update
-  dialog.addDialogFormVisible = true
-  Object.assign(dialog.addForm, row)
+export function updateDetail(row: any) {
+  dialog.dialogStatus = CommonEnum.UPDATE
+  dialog.visible = true
+  Object.assign(dialog.form, row)
 }
 // 删除数据字典
-export function delRow(row) {
-  del(row.id).then((response) => {
+export function delRow(row: any) {
+  del(row.id).then(() => {
     successMsg('操作成功')
     // 刷新表格数据
     searchFormSubmit()
@@ -217,7 +225,7 @@ export function delRow(row) {
  * @param resolve
  * @returns {*}
  */
-export async function loadNode(node, resolve) {
+export async function loadNode(node: any, resolve: any) {
   tree.checkedNodeDropdown = node
   if (node.level === 0) {
     // 最开始的时候，默认根节点被选中
@@ -226,9 +234,10 @@ export async function loadNode(node, resolve) {
       const rootNode = node.childNodes[0]
       rootNode.expanded = true
       // 默认选中根节点
+      // @ts-ignore
       treeRef.value.setCurrentKey(rootNode.id, true)
       Object.assign(tree.checkedNodeClick, rootNode)
-    }).then((r) => node.childNodes[0].loadData())
+    }).then(() => node.childNodes[0].loadData())
     return resolve([tree.rootNode])
   }
   if (node.level > 0) {
@@ -237,16 +246,16 @@ export async function loadNode(node, resolve) {
   }
 }
 // 清除node的子节点查看下一页的标识
-export function clearHasNext(node) {
+export function clearHasNext(node: any) {
   const childNodes = node.parent.childNodes
   // 取消之前下一页的链接
+  // @ts-ignore
   const lastNode = treeRef.value.getNode(childNodes[childNodes.length - 1].data.id)
   lastNode.data.hasNext = false
 }
 // 加载下一页的数据
 export function loadNextPageData() {
   tree.listQuery.page = tree.listQuery.page + 1
-  tree.listQuery.parentId = toRaw(tree).chec
   Object.assign(tree.listQuery.parentId, tree.checkedNodeDropdown.data.id)
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = 1
@@ -257,6 +266,7 @@ export function loadNextPageData() {
       // 追加树节点
       tree.loadChildrenTreeData = response.data.records
       tree.loadChildrenTreeData.forEach((node) => {
+        // @ts-ignore
         tree.value.append(node, tree.checkedNodeDropdown)
       })
       // 设置最后一个节点是否有下一页链接
@@ -268,9 +278,9 @@ export function loadNextPageData() {
  * 根据id获取直接子节点
  * @param id 当前节点id
  */
-export async function getChildrenNode(id) {
+export async function getChildrenNode(id: number) {
   // 重置查询条件
-  resetQuery(tree)
+  resetQuery()
   tree.listQuery.parentId = id
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = 1
@@ -289,7 +299,7 @@ export function setHasNext() {
   }
 }
 // 节点被点击
-export function handleNodeClick(data, node) {
+export function handleNodeClick(data: any) {
   // 保存被选择节点
   tree.checkedNodeClick = data
   table.listQuery.parentId = data.id
@@ -297,41 +307,42 @@ export function handleNodeClick(data, node) {
   getList()
 }
 // 节点被展开
-export function handleNodeExpand(data) {
+export function handleNodeExpand(data: any) {
   // 保存被选择节点
   Object.assign(tree.checkedNodeDropdown, data)
 }
 // 节点被关闭
-export function handleNodeCollapse(data) {
+export function handleNodeCollapse(data: any) {
   // 保存被选择节点，此时传当前被关闭的节点的父节点，因为当前节点被关闭，有下拉分页的需求最多是当前节点的父节点
   Object.assign(tree.checkedNodeDropdown, data.parent)
 }
 // 更新状态
-export function updateStatus(data) {
+export function updateStatus(data: any) {
   if (!data.id) {
     return
   }
-  const param = {}
+  const param = useUpdateDictReq()
   Object.assign(param, data)
   if (param.status === 1) {
     param.status = 0
   } else {
     param.status = 1
   }
-  update(param).then((response) => {
+
+  update(param).then(() => {
     successMsg('操作成功')
     data.status = param.status
   })
 }
 // 点击下一页
-export function viewNextPage(clickedNode) {
+export function viewNextPage(clickedNode: any) {
   // 加载下一页的数据
   loadNextPageData()
   // 清除之前的下一页超链接
   clearHasNext(clickedNode)
 }
 // 重置树的搜索条件
-export function resetQuery(tree) {
+export function resetQuery() {
   tree.listQuery.page = 1
   tree.listQuery.parentId = undefined
   tree.listQuery.code = ''
@@ -344,6 +355,7 @@ export function resetQuery(tree) {
 }
 // 表格的搜索表单重置
 export function resetSearchForm() {
+  // @ts-ignore
   searchFormRef.value.resetFields()
 }
 // 单元格样式

@@ -2,7 +2,7 @@ import { asyncRoutes } from '@/router'
 import { getPermissions } from '@/services/sys/permission'
 import Layout from '@/layout/index.vue'
 import { isNotEmptyCollection } from '@/utils/common'
-import { CommonEnum } from '@/enums/common'
+import { CommonEnum } from '@/enums/CommonEnum'
 
 const state = {
   // 树状路由

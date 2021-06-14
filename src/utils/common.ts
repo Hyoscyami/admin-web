@@ -24,7 +24,7 @@ export function isNotEmptyCollection(collection: Array<any>) {
  * @param str
  * @returns {boolean}
  */
-export function isBlank(str: string) {
+export function isBlank(str: string | undefined) {
   return str === undefined || str.length === 0
 }
 

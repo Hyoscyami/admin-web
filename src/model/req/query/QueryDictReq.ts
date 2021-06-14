@@ -27,7 +27,7 @@ export function useQueryDictReq(): QueryDictReq {
     description: '',
     types: undefined,
     name: '',
-    parentId: undefined,
+    parentId: 0,
     status: undefined,
     minDistance: undefined,
     maxDistance: undefined

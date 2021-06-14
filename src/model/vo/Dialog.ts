@@ -1,7 +1,7 @@
-// V是查看详情的VO，R是规则，A是新增的req
+// V是查看详情的VO，R是规则，A是新增的req，U是更新的req
 import { BaseVO } from '../resp/base/BaseVO'
 
-export interface Dialog<V extends BaseVO, R, A> {
+export interface Dialog<V extends BaseVO, R, A, U> {
   // 是否可见
   visible: boolean
   // 查看详情的数据
@@ -14,7 +14,7 @@ export interface Dialog<V extends BaseVO, R, A> {
     create: '新增'
   }
   // 新增数据字段表单
-  form: A
+  form: A | U
   // 新增规则
   rules: R
 }
@@ -25,7 +25,7 @@ export interface Dialog<V extends BaseVO, R, A> {
  * @param rule 表单提交规则
  * @param add
  */
-export function useDialog<V extends BaseVO, R, A>(vo: V, rule: R, add: A): Dialog<V, R, A> {
+export function useDialog<V extends BaseVO, R, A, U>(vo: V, rule: R, add: A): Dialog<V, R, A, U> {
   return {
     // 是否可见
     visible: false,

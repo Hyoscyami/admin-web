@@ -180,7 +180,7 @@ import {dictConvert} from '@/utils/common'
 import {format} from '@/utils/time'
 import {DictEnum} from '@/enums/dict'
 import {listChildrenByCode} from '@/services/sys/dict'
-import {CommonEnum} from '@/enums/common'
+import {CommonEnum} from '@/enums/CommonEnum'
 
 export default {
   name: 'Config',

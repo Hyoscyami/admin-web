@@ -3,14 +3,14 @@ import { AddDictReq } from '../../model/req/add/AddDictReq'
 import { UpdateDictReq } from '../../model/req/update/UpdateDictReq'
 import { QueryDictReq } from '../../model/req/query/QueryDictReq'
 
-export function add(data: AddDictReq) {
+export function add(data: AddDictReq | UpdateDictReq) {
   return request({
     url: '/dict/add',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     },
-    data
+    data: JSON.stringify(data)
   })
 }
 
@@ -57,14 +57,14 @@ export function listChildrenByCode(code: string) {
   })
 }
 
-export function update(data: UpdateDictReq) {
+export function update(data: AddDictReq | UpdateDictReq) {
   return request({
     url: '/dict/update',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     },
-    data
+    data: JSON.stringify(data)
   })
 }
 

@@ -30,16 +30,16 @@ export interface DictVO extends BaseVO {
  */
 export function useDictVO(): DictVO {
   return {
-    id: 0,
+    id: 1,
     completePath: '',
     hasNext: false,
     isLeaf: false,
     parentId: 0,
     code: '',
-    name: '',
+    name: '根节点',
     value: '',
     description: '',
-    status: undefined,
+    status: 1,
     sort: 1,
     createTime: '',
     creatorName: '',

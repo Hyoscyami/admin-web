@@ -3,7 +3,7 @@ import { add, getMaxSort, getTree, update } from '@/services/sys/permission'
 import { isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
 import { listChildrenByCode } from '@/services/sys/dict'
 import { DictEnum } from '@/enums/dict'
-import { CommonEnum } from '@/enums/common'
+import { CommonEnum } from '@/enums/CommonEnum'
 import { toRaw } from '@vue/reactivity'
 import { resetQuery } from '@/composables/sys/dict'
 // 树相关
