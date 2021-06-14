@@ -32,7 +32,7 @@ function convertRoute(routes, data) {
         ? Layout
         : (resolve) => require([`@/views${item.path}`], resolve),
       name: item.name,
-      hidden: item.type === CommonEnum.permissionMenu ? item.hidden : true, // 是页面的话根据按钮是否隐藏赋值，不是页面的话直接隐藏
+      hidden: item.type === CommonEnum.PERMISSION_MENU ? item.hidden : true, // 是页面的话根据按钮是否隐藏赋值，不是页面的话直接隐藏
       meta: { title: item.name, icon: item.icon, type: item.type },
       children: []
     }

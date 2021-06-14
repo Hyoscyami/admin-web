@@ -4,14 +4,14 @@ import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
-import hasPermission from '@/utils/permission'
+import hasPermission from './utils/permission'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login'] // no redirect whitelist
 const errorList = ['/401'] // 错误页面
 
-router.beforeEach(async(to, _from, next) => {
+router.beforeEach(async (to, _from, next) => {
   // start progress bar
   NProgress.start()
   // set page title
@@ -37,7 +37,7 @@ router.beforeEach(async(to, _from, next) => {
         if (!hasPermission(to.path)) {
           // 标签页右击刷新
           if (to.path.startsWith('/redirect')) {
-            next({path: '/' + to.params.path})
+            next({ path: '/' + to.params.path })
           } else {
             next({ path: '/401' })
           }
