@@ -33,17 +33,19 @@ export function isBlank(str: string | undefined) {
  * @param code
  * @param value
  */
-export function dictConvert(code: string, value: string): string {
-  console.log('value:', value)
-  listChildrenByCode(code).then((response) => {
+export async function dictConvert(code: string, value: string): Promise<string> {
+  let name: string = ''
+  await listChildrenByCode(code).then((response) => {
     const dict = response.data.find((item: any) => {
       return item.value === value
     })
     if (dict) {
-      return dict.name
+      name = dict.name
+      console.log('赋值了:', name)
     }
   })
-  return ''
+  console.log('返回了:', name)
+  return name
 }
 // 封装msg文案提示成功
 export function successMsg(msg: string) {

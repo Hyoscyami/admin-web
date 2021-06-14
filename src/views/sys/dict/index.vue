@@ -176,7 +176,7 @@
               <el-tag size="small">{{ dialog.viewDetailData.description }}</el-tag>
             </el-descriptions-item>
             <el-descriptions-item label="状态">
-              <el-tag size="small">{{ viewDetailDataStatus }}</el-tag>
+              <el-tag size="small">{{ dialog.viewDetailData.statusStr }}</el-tag>
             </el-descriptions-item>
             <el-descriptions-item label="排序值">
               <el-tag size="small">{{ dialog.viewDetailData.sort }}</el-tag>
@@ -238,8 +238,6 @@ import {
   viewNextPage
 } from '@/composables/sys/dict'
 import {computed, watch} from 'vue'
-import {DictEnum} from "../../../enums/DictEnum";
-import {dictConvert} from "../../../utils/common";
 
 export default {
   name: 'Dict',
@@ -247,9 +245,6 @@ export default {
   setup() {
     // 初始化
     init()
-    const viewDetailDataStatus = computed(() => {
-      return dictConvert(DictEnum.DICT_STATUS, dialog.viewDetailData.status)
-    })
     // 日期转换
     const viewDetailDataCreateTime = computed(() => {
       return format(dialog.viewDetailData.createTime)
@@ -264,7 +259,6 @@ export default {
       dialogFormRef,
       searchFormRef,
       viewDetailDataCreateTime,
-      viewDetailDataStatus,
       viewDetail,
       openAddDialog,
       updateDetail,

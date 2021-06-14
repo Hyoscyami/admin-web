@@ -97,15 +97,11 @@ export function openAddDialog() {
 }
 
 // 查看详情
-export function viewDetail(row: any) {
+export async function viewDetail(row: any) {
   dialog.viewDialogVisible = true
   Object.assign(dialog.viewDetailData, row)
-  dialog.viewDetailData.statusStr = dictConvert(
-    DictEnum.DICT_STATUS,
-    String(dialog.viewDetailData.status)
-  )
+  dialog.viewDetailData.statusStr = await dictConvert(DictEnum.DICT_STATUS, String(row.status))
 }
-
 // 获取当前最大排序值
 export function getMaxSortValue(id: number) {
   getMaxSort(id).then((response) => {
