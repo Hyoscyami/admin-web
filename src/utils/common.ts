@@ -33,16 +33,17 @@ export function isBlank(str: string | undefined) {
  * @param code
  * @param value
  */
-export function dictConvert(code: string, value: string) {
+export function dictConvert(code: string, value: string): string {
+  console.log('value:', value)
   listChildrenByCode(code).then((response) => {
     const dict = response.data.find((item: any) => {
       return item.value === value
     })
-    console.log('dict:', dict)
-    value = dict.name
-    console.log('value:', value)
+    if (dict) {
+      return dict.name
+    }
   })
-  return value
+  return ''
 }
 // 封装msg文案提示成功
 export function successMsg(msg: string) {

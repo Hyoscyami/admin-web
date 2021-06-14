@@ -19,6 +19,8 @@ export interface DictVO extends BaseVO {
   description: string
   /** 是否启用，1：启用，0：禁用 */
   status?: number
+  /** 状态对应的中文含义 */
+  statusStr?: string
   /** 创建人 */
   creatorName: string
   /** 修改人ID */
@@ -40,6 +42,7 @@ export function useDictVO(): DictVO {
     value: '',
     description: '',
     status: 1,
+    statusStr: '',
     sort: 1,
     createTime: '',
     creatorName: '',

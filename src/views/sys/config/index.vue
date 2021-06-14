@@ -178,7 +178,7 @@ import {add, del, getMaxSort, list, update} from '@/services/sys/config'
 import Pagination from '@/components/Pagination/index.vue'
 import {dictConvert} from '@/utils/common'
 import {format} from '@/utils/time'
-import {DictEnum} from '@/enums/dict'
+import {DictEnum} from '@/enums/DictEnum'
 import {listChildrenByCode} from '@/services/sys/dict'
 import {CommonEnum} from '@/enums/CommonEnum'
 
@@ -268,7 +268,7 @@ export default {
   computed: {
     // 状态转换
     viewDetailDataStatus: function() {
-      return dictConvert(DictEnum.DictStatus, this.dialog.viewDetailData.status)
+      return dictConvert(DictEnum.DICT_STATUS, this.dialog.viewDetailData.status)
     },
     // 日期转换
     viewDetailDataCreateTime: function() {
@@ -372,7 +372,7 @@ export default {
     },
     // 获取状态下拉框
     listStatus() {
-      listChildrenByCode(DictEnum.DictStatus).then(response => {
+      listChildrenByCode(DictEnum.DICT_STATUS).then(response => {
         this.table.statusSelect = response.data
       })
     },

@@ -4,6 +4,8 @@ import { BaseVO } from '../resp/base/BaseVO'
 export interface Dialog<V extends BaseVO, R, A, U> {
   // 是否可见
   visible: boolean
+  // 查看详情对话框
+  viewDialogVisible: boolean
   // 查看详情的数据
   viewDetailData: V
   // 对话框状态
@@ -29,6 +31,8 @@ export function useDialog<V extends BaseVO, R, A, U>(vo: V, rule: R, add: A): Di
   return {
     // 是否可见
     visible: false,
+    // 查看详情对话框
+    viewDialogVisible: false,
     // 查看详情的数据
     viewDetailData: vo,
     // 新增或编辑数据字段对话框状态

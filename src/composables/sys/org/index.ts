@@ -1,6 +1,6 @@
 import { nextTick, reactive, ref } from 'vue'
 import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
-import { DictEnum } from '@/enums/dict'
+import { DictEnum } from '../../../enums/DictEnum'
 import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/services/sys/org'
 import { CommonEnum } from '@/enums/CommonEnum'
 import { toRaw } from '@vue/reactivity'
@@ -131,12 +131,12 @@ export function init() {
 
 // 状态转换
 export function viewDetailDataStatus() {
-  return dictConvert(DictEnum.DictStatus, dialog.viewDetailData.status)
+  return dictConvert(DictEnum.DICT_STATUS, dialog.viewDetailData.status)
 }
 
 // 获取状态下拉框
 export function listStatus() {
-  listChildrenByCode(DictEnum.DictStatus).then((response) => {
+  listChildrenByCode(DictEnum.DICT_STATUS).then((response) => {
     table.statusSelect.length = 0
     response.data.forEach((item) => {
       const status = {
@@ -150,7 +150,7 @@ export function listStatus() {
 
 // 获取状态下拉框
 export function listTypes() {
-  listChildrenByCode(DictEnum.OrgTypes).then((response) => {
+  listChildrenByCode(DictEnum.ORG_TYPES).then((response) => {
     table.typeSelect.length = 0
     response.data.forEach((item) => {
       const type = {

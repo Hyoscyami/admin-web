@@ -215,7 +215,7 @@
 import Pagination from '@/components/Pagination/index.vue'
 import {dictConvert} from '@/utils/common'
 import {format} from '@/utils/time'
-import {DictEnum} from '@/enums/dict'
+import {DictEnum} from '@/enums/DictEnum'
 import {
   addFormRef,
   addFormSubmit,
@@ -252,7 +252,7 @@ export default {
     init()
     // 详情状态转换
     const viewDetailDataStatus = computed(() => {
-      return dictConvert(DictEnum.DictStatus, dialog.viewDetailData.status)
+      return dictConvert(DictEnum.DICT_STATUS, dialog.viewDetailData.status)
     })
     // 日期转换
     const viewDetailDataCreateTime = computed(() => {

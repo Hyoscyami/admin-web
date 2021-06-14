@@ -2,7 +2,7 @@ import { reactive, ref } from 'vue'
 import { add, getMaxSort, getTree, update } from '@/services/sys/permission'
 import { isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
 import { listChildrenByCode } from '@/services/sys/dict'
-import { DictEnum } from '@/enums/dict'
+import { DictEnum } from '@/enums/DictEnum'
 import { CommonEnum } from '@/enums/CommonEnum'
 import { toRaw } from '@vue/reactivity'
 import { resetQuery } from '@/composables/sys/dict'
@@ -122,21 +122,21 @@ export function handleNodeClick(node) {
 
 // 初始化statusSelect
 export function initStatusSelect() {
-  listChildrenByCode(DictEnum.DictStatus).then((response) => {
+  listChildrenByCode(DictEnum.DICT_STATUS).then((response) => {
     tree.statusSelect = response.data
   })
 }
 
 // 初始化权限类型
 export function initTypeSelect() {
-  listChildrenByCode(DictEnum.PermissionTypes).then((response) => {
+  listChildrenByCode(DictEnum.PERMISSION_TYPES).then((response) => {
     tree.typeSelect = response.data
   })
 }
 
 // 初始化权限图标
 export function initIconSelect() {
-  listChildrenByCode(DictEnum.PermissionIcon).then((response) => {
+  listChildrenByCode(DictEnum.PERMISSION_ICON).then((response) => {
     tree.iconSelect = response.data
   })
 }

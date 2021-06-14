@@ -1,6 +1,6 @@
 import { nextTick, reactive, ref } from 'vue'
 import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
-import { DictEnum } from '@/enums/dict'
+import { DictEnum } from '../../../enums/DictEnum'
 import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/services/sys/dict'
 import { CommonEnum } from '@/enums/CommonEnum'
 import { toRaw } from '@vue/reactivity'
@@ -25,64 +25,18 @@ export const tree = reactive(initTree)
 // 父数据字典表格数据
 export const table = reactive(initTable)
 
-// 对话框
-export const dialog = useDialog<DictVO, DictRule, AddDictReq, UpdateDictReq>(
+// 对话框初始化
+const initDialog = useDialog<DictVO, DictRule, AddDictReq, UpdateDictReq>(
   useDictVO(),
   useDictRule(),
   useAddDictReq()
 )
-// export const dialog = reactive({
-//   // 新增数据字典弹框
-//   addDialogFormVisible: false,
-//   // 查看详情对话框
-//   viewDialogVisible: false,
-//   // 查看详情的数据
-//   viewDetailData: {
-//     code: '',
-//     name: '',
-//     value: '',
-//     description: '',
-//     status: undefined,
-//     sort: 1,
-//     createTime: '',
-//     creatorName: '',
-//     modifyTime: '',
-//     modifierName: ''
-//   },
-//   // 新增或编辑数据字段对话框状态
-//   dialogStatus: '',
-//   // 新增或编辑数据字典弹框
-//   textMap: {
-//     update: '编辑',
-//     create: '新增'
-//   },
-//   // 新增数据字段表单
-//   addForm: {
-//     code: '',
-//     name: '',
-//     value: '',
-//     description: '',
-//     status: 1,
-//     sort: 1,
-//     parentId: 0
-//   },
-//   // 新增数据字典规则
-//   addFormRules: {
-//     code: [
-//       { required: true, message: '请输入码值', trigger: 'blur' },
-//       { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
-//     ],
-//     name: [{ required: true, message: '请输入字典名称', trigger: 'change' }],
-//     value: [{ message: '请输入值', trigger: 'change' }],
-//     description: [{ message: '请输入描述信息', trigger: 'change' }],
-//     status: [{ required: true, message: '请选择状态', trigger: 'change' }],
-//     sort: [{ required: true, message: '请填写排序值', trigger: 'change' }]
-//   }
-// })
+//对话框
+export const dialog = reactive(initDialog)
 // 树ref
 export const treeRef = ref(null)
 // 对话框新增数据字典表单ref
-export const addFormRef = ref(null)
+export const dialogFormRef = ref(null)
 // 搜索表格的搜索表单
 export const searchFormRef = ref(null)
 // 初始化
@@ -95,12 +49,12 @@ export function init() {
 
 // 状态转换
 export function viewDetailDataStatus() {
-  return dictConvert(DictEnum.DictStatus, String(dialog.viewDetailData.status))
+  return dictConvert(DictEnum.DICT_STATUS, String(dialog.viewDetailData.status))
 }
 
 // 获取状态下拉框
 export function listStatus() {
-  listChildrenByCode(DictEnum.DictStatus).then((response) => {
+  listChildrenByCode(DictEnum.DICT_STATUS).then((response) => {
     table.statusSelect = response.data
   })
 }
@@ -144,8 +98,12 @@ export function openAddDialog() {
 
 // 查看详情
 export function viewDetail(row: any) {
-  dialog.visible = true
+  dialog.viewDialogVisible = true
   Object.assign(dialog.viewDetailData, row)
+  dialog.viewDetailData.statusStr = dictConvert(
+    DictEnum.DICT_STATUS,
+    String(dialog.viewDetailData.status)
+  )
 }
 
 // 获取当前最大排序值
@@ -157,12 +115,12 @@ export function getMaxSortValue(id: number) {
 // 新增数据字典表单提交
 export function addFormSubmit() {
   // @ts-ignore
-  addFormRef.value.validate((valid) => {
+  dialogFormRef.value.validate((valid) => {
     if (valid) {
       if (dialog.dialogStatus === CommonEnum.CREATE) {
         add(dialog.form).then((response) => {
           // 关闭弹框
-          cancelAddForm()
+          cancelDialog()
           // 刷新表格
           getList()
           // 刷新树
@@ -173,7 +131,7 @@ export function addFormSubmit() {
       } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
         update(dialog.form).then(() => {
           // 关闭弹框
-          cancelAddForm()
+          cancelDialog()
           // 刷新表格
           getList()
           // 刷新树
@@ -186,14 +144,14 @@ export function addFormSubmit() {
   })
 }
 // 新增数据字典表单取消
-export function cancelAddForm() {
+export function cancelDialog() {
   dialog.visible = false
   // @ts-ignore
-  addFormRef.value.resetFields()
+  dialogFormRef.value.resetFields()
 }
 // 查看详情字典弹框取消
 export function cancelView() {
-  dialog.visible = false
+  dialog.viewDialogVisible = false
 }
 // 获取父数据字典列表数据
 export function getList() {
