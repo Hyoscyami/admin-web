@@ -185,16 +185,20 @@ export async function loadNode(node: any, resolve: any) {
     // 最开始的时候，默认根节点被选中
     // 默认展开第二级
     nextTick(() => {
+      console.log('初始化了node:', node)
       const rootNode = node.childNodes[0]
       rootNode.expanded = true
       // 默认选中根节点
       // @ts-ignore
       treeRef.value.setCurrentKey(rootNode.id, true)
+      console.log('rootNode:', rootNode)
       Object.assign(tree.checkedNodeClick, rootNode)
+      console.log('初始化了:tree.checkedNodeClick', tree.checkedNodeClick)
     }).then(() => node.childNodes[0].loadData())
-    return resolve([tree.rootNode])
+    return resolve([useDictVO()])
   }
   if (node.level > 0) {
+    console.log('开始获取数据:', node)
     await getChildrenNode(node.data.id)
     return resolve(tree.loadChildrenTreeData)
   }

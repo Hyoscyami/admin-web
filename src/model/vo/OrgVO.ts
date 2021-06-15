@@ -14,3 +14,22 @@ export interface OrgVO extends BaseVO {
   /** 是否启用，1：启用，0：禁用 */
   status: number
 }
+
+/**
+ * 初始化
+ */
+export function useOrgVO(): OrgVO {
+  return {
+    completePath: '',
+    createTime: '',
+    creatorName: '',
+    id: 1,
+    isLeaf: false,
+    modifierName: '',
+    modifyTime: '',
+    name: '总行',
+    orgNo: '',
+    status: 0,
+    type: 0
+  }
+}

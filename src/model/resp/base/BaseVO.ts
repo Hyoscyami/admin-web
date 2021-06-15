@@ -11,4 +11,6 @@ export interface BaseVO {
   creatorName: string
   /** 修改人ID */
   modifierName: string
+  /** 状态对应的中文含义 */
+  statusStr?: string
 }

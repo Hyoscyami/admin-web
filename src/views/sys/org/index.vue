@@ -124,29 +124,29 @@
         />
         <!--新增或编辑弹框-->
         <el-dialog
-          :model-value="dialog.addDialogFormVisible"
+          :model-value="dialog.visible"
           :title="dialog.textMap[dialog.dialogStatus]"
           :before-close="cancelAddForm"
         >
-          <el-form ref="addFormRef" :model="dialog.addForm" :rules="dialog.addFormRules" label-width="80px">
+          <el-form ref="addFormRef" :model="dialog.form" :rules="dialog.rules" label-width="80px">
             <el-form-item label="组织名称" prop="name">
-              <el-input v-model="dialog.addForm.name" autocomplete="off" tabindex="1" />
+              <el-input v-model="dialog.form.name" autocomplete="off" tabindex="1" />
             </el-form-item>
             <!--            <el-form-item label="机构编号" prop="orgNo">-->
             <!--              <el-input v-model="dialog.addForm.orgNo" autocomplete="off" tabindex="2" />-->
             <!--            </el-form-item>-->
             <el-form-item label="机构类型" prop="type" tabindex="3">
-              <el-select v-model="dialog.addForm.type" placeholder="请选择机构类型" clearable>
+              <el-select v-model="dialog.form.type" placeholder="请选择机构类型" clearable>
                 <el-option v-for="item in table.typeSelect" :key="item.id" :label="item.text" :value="item.value" />
               </el-select>
             </el-form-item>
             <el-form-item label="排序值" prop="sort" tabindex="4">
-              <el-input v-model="dialog.addForm.sort" autocomplete="off" tabindex="5" />
+              <el-input v-model="dialog.form.sort" autocomplete="off" tabindex="5" />
             </el-form-item>
             <el-form-item label="状态" prop="status" tabindex="6">
-              <el-radio-group v-model="dialog.addForm.status">
-                <el-radio v-model="dialog.addForm.status" :label="1">启用</el-radio>
-                <el-radio v-model="dialog.addForm.status" :label="0">禁用</el-radio>
+              <el-radio-group v-model="dialog.form.status">
+                <el-radio v-model="dialog.form.status" :label="1">启用</el-radio>
+                <el-radio v-model="dialog.form.status" :label="0">禁用</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-form>
@@ -177,7 +177,7 @@
               <el-tag size="small">{{ dialog.viewDetailData.description }}</el-tag>
             </el-descriptions-item>
             <el-descriptions-item label="状态">
-              <el-tag size="small">{{ viewDetailDataStatus }}</el-tag>
+              <el-tag size="small">{{ dialog.viewDetailData.statusStr }}</el-tag>
             </el-descriptions-item>
             <el-descriptions-item label="排序值">
               <el-tag size="small">{{ dialog.viewDetailData.sort }}</el-tag>
@@ -209,16 +209,17 @@
 
 <script>
 import Pagination from '@/components/Pagination/index.vue'
-import {dictConvert} from '@/utils/common'
 import {format} from '@/utils/time'
-import {DictEnum} from '@/enums/DictEnum'
 import {
   addFormRef,
   addFormSubmit,
   cancelAddForm,
-  cancelView, convertTypeToChinese,
+  cancelView,
+  convertTypeToChinese,
   delRow,
-  dialog, filterTableStatus, filterTableType,
+  dialog,
+  filterTableStatus,
+  filterTableType,
   filterTree,
   getList,
   handleNodeClick,
@@ -227,10 +228,12 @@ import {
   init,
   loadNode,
   openAddDialog,
-  resetSearchForm, searchFormRef,
+  resetSearchForm,
+  searchFormRef,
   searchFormSubmit,
   table,
-  tree, treeRef,
+  tree,
+  treeRef,
   updateDetail,
   updateStatus,
   viewDetail,
@@ -245,10 +248,6 @@ export default {
   setup() {
     // 初始化
     init()
-    // 详情状态转换
-    const viewDetailDataStatus = computed(() => {
-      return dictConvert(DictEnum.DICT_STATUS, dialog.viewDetailData.status)
-    })
     // 日期转换
     const viewDetailDataCreateTime = computed(() => {
       return format(dialog.viewDetailData.createTime)
@@ -262,7 +261,6 @@ export default {
       treeRef,
       addFormRef,
       searchFormRef,
-      viewDetailDataStatus,
       viewDetailDataCreateTime,
       viewDetail,
       openAddDialog,

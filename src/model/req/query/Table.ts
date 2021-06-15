@@ -9,11 +9,20 @@ export interface Table<T, Q> {
   // 查询条件
   listQuery: Q
   // 状态选择器
-  statusSelect: Array<number>
+  statusSelect: Array<SelectGroup>
   // 类型选择器
-  typeSelect?: Array<number>
+  typesSelect?: Array<SelectGroup>
 }
 
+/**
+ * 下拉框
+ */
+export interface SelectGroup {
+  //显示文本
+  text: string
+  //值
+  value: number
+}
 /**
  * 初始化table
  * @param query
@@ -27,6 +36,6 @@ export function useTable<T, Q>(query: Q): Table<T, Q> {
     // 状态选择器
     statusSelect: [],
     // 类型选择器
-    typeSelect: []
+    typesSelect: []
   }
 }

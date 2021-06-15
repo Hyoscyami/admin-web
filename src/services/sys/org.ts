@@ -1,11 +1,9 @@
 import request from '@/utils/request'
 import { AddOrgReq } from '../../model/req/add/AddOrgReq'
-import { ApiResponse } from '../../model/resp/base/ApiResponse'
-import { Page } from '../../model/resp/base/Page'
-import { OrgVO } from '../../model/vo/OrgVO'
 import { UpdateOrgReq } from '../../model/req/update/UpdateOrgReq'
+import { QueryOrgReq } from '../../model/req/query/QueryOrgReq'
 
-export function add(data: AddOrgReq) {
+export function add(data: AddOrgReq | UpdateOrgReq) {
   return request({
     url: '/org/add',
     method: 'post',
@@ -32,14 +30,14 @@ export function getMaxSort(id: number) {
   })
 }
 
-export function list(data: ApiResponse<Page<OrgVO>>) {
+export function list(data: QueryOrgReq) {
   return request({
     url: '/org/list',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     },
-    data
+    data: JSON.stringify(data)
   })
 }
 
@@ -59,7 +57,7 @@ export function listChildrenByCode(code: string) {
   })
 }
 
-export function update(data: UpdateOrgReq) {
+export function update(data: AddOrgReq | UpdateOrgReq) {
   return request({
     url: '/org/update',
     method: 'post',

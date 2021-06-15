@@ -1,6 +1,8 @@
 export interface UpdateOrgReq {
   /** id */
   id: number
+  /**父ID*/
+  parentId: number
   /** 组织类型 */
   type: number
   /** 组织名称 */
