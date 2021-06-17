@@ -14,7 +14,7 @@ export interface QueryOrgReq extends BaseQuery {
 /**
  * 初始化
  */
-export function useQueryOrgReq(): QueryOrgReq {
+export function useQueryOrgReq(size: number): QueryOrgReq {
   return {
     maxDistance: 0,
     minDistance: 1,
@@ -22,7 +22,7 @@ export function useQueryOrgReq(): QueryOrgReq {
     orgNo: '',
     page: 1,
     parentId: 1,
-    size: 20,
+    size,
     status: [],
     types: []
   }

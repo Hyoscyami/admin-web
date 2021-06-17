@@ -10,5 +10,5 @@ export interface ApiResponse<T> {
   /**
    * 返回数据
    */
-  data: T
+  data: T | Array<T>
 }

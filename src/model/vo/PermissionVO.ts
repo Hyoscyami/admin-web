@@ -19,12 +19,35 @@ export interface PermissionVO extends BaseVO {
   icon: string
   /** 是否隐藏，1：是，0：否 */
   hidden: boolean
-  /** 排序，默认为1 */
-  sort: number
-  /** 是否启用，1：启用，0：禁用 */
-  status: number
   /** 是否被删除，1：被删除，0：未删除 */
   deleted: number
   /** 子节点 */
-  children: Array<PermissionVO>
+  children?: Array<PermissionVO>
+}
+
+/**
+ * 初始化
+ */
+export function usePermissionVO(): PermissionVO {
+  return {
+    children: undefined,
+    component: '',
+    createTime: '',
+    creatorName: '',
+    deleted: 0,
+    hasNext: false,
+    hidden: false,
+    icon: '',
+    id: 1,
+    isLeaf: false,
+    isRoot: false,
+    modifierName: '',
+    modifyTime: '',
+    name: '菜单',
+    parentId: 0,
+    path: '',
+    sort: 1,
+    status: 1,
+    type: 1
+  }
 }

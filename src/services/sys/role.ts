@@ -1,8 +1,9 @@
 import request from '@/utils/request'
 import { AddRoleReq } from '../../model/req/add/AddRoleReq'
 import { QueryRoleReq } from '../../model/req/query/QueryRoleReq'
+import { UpdateRoleReq } from '../../model/req/update/UpdateRoleReq'
 
-export function add(data: AddRoleReq) {
+export function add(data: AddRoleReq | UpdateRoleReq) {
   return request({
     url: '/role/add',
     method: 'post',
@@ -56,7 +57,7 @@ export function listChildrenByCode(code: string) {
   })
 }
 
-export function update(data: QueryRoleReq) {
+export function update(data: AddRoleReq | UpdateRoleReq) {
   return request({
     url: '/role/update',
     method: 'post',

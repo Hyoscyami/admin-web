@@ -10,3 +10,18 @@ export interface QueryPermissionReq extends BaseQuery {
   /** 距离parentId对应节点的最大距离，不传则返回本下级，传了值则筛选distance<=maxDistance */
   maxDistance: number
 }
+
+/**
+ * 初始化
+ */
+export function useQueryPermissionReq(): QueryPermissionReq {
+  return {
+    maxDistance: 0,
+    minDistance: 1,
+    name: '',
+    page: 1,
+    parentId: 0,
+    path: '',
+    size: 100
+  }
+}

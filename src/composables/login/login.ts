@@ -3,7 +3,7 @@ import { getCaptcha } from '@/services/user'
 import { nextTick, unref } from 'vue'
 
 // 校验用户名
-export const validateUsername = (rule, value, callback) => {
+export const validateUsername = (_rule: any, value: string, callback: any) => {
   if (!validUsername(value)) {
     callback(new Error('请输入账号'))
   } else {
@@ -11,7 +11,7 @@ export const validateUsername = (rule, value, callback) => {
   }
 }
 // 校验密码
-export const validatePassword = (rule, value, callback) => {
+export const validatePassword = (_rule: any, value: string, callback: any) => {
   if (value.length < 6) {
     callback(new Error('请输入密码'))
   } else {
@@ -19,7 +19,7 @@ export const validatePassword = (rule, value, callback) => {
   }
 }
 // 校验验证码
-export const validateVerifyCode = (rule, value, callback) => {
+export const validateVerifyCode = (_rule: any, value: string, callback: any) => {
   if (value.length < 4) {
     callback(new Error('请输入验证码'))
   } else {
@@ -27,7 +27,7 @@ export const validateVerifyCode = (rule, value, callback) => {
   }
 }
 // 修改验证码
-export function useChangeVerifyCode(verifyCodeUrl, loginForm) {
+export function useChangeVerifyCode(verifyCodeUrl: any, loginForm: any) {
   const changeVerifyCode = () =>
     getCaptcha().then((response) => {
       verifyCodeUrl.value = response.data.verifyCodeStr
@@ -36,7 +36,7 @@ export function useChangeVerifyCode(verifyCodeUrl, loginForm) {
   return { changeVerifyCode }
 }
 // 显示密码
-export function useShowPwd(passwordType, passwordRef) {
+export function useShowPwd(passwordType: any, passwordRef: any) {
   const showPwd = () => {
     // 取消变量的响应直接用值对比
     if (unref(passwordType) === 'password') {

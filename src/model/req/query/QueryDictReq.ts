@@ -18,10 +18,10 @@ export interface QueryDictReq extends BaseQuery {
 /**
  * 初始化数据字典表格查询
  */
-export function useQueryDictReq(): QueryDictReq {
+export function useQueryDictReq(size: number): QueryDictReq {
   return {
     page: 1,
-    size: 20,
+    size,
     code: '',
     value: '',
     description: '',

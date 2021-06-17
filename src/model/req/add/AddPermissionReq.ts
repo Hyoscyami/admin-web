@@ -18,3 +18,41 @@ export interface AddPermissionReq {
   /** 是否启用，1：启用，0：禁用 */
   status: number
 }
+
+/**
+ * 新增和编辑权限规则
+ */
+export interface PermissionRule {
+  name: Array<Object>
+  type: Array<Object>
+  path: Array<Object>
+  status: Array<Object>
+}
+
+/**
+ * 初始化
+ */
+export function usePermissionRule(): PermissionRule {
+  return {
+    name: [{ required: true, message: '请输入权限名称', trigger: 'change' }],
+    type: [{ required: true, message: '请选择权限类型', trigger: 'change' }],
+    path: [{ required: true, message: '请输入路径', trigger: 'change' }],
+    status: [{ required: true, message: '请选择状态', trigger: 'change' }]
+  }
+}
+/**
+ * 初始化
+ */
+export function useAddPermissionReq(): AddPermissionReq {
+  return {
+    component: '',
+    hidden: false,
+    icon: '',
+    name: '',
+    parentId: 0,
+    path: '',
+    sort: 0,
+    status: 0,
+    type: 0
+  }
+}

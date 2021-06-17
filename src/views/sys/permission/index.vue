@@ -33,7 +33,7 @@
           <el-form-item label="权限类型" prop="type">
             <el-select v-model="form.type" placeholder="请选择权限类型" clearable>
               <el-option
-                v-for="item in tree.typeSelect"
+                v-for="item in form.typeSelect"
                 :key="item.id"
                 :label="item.name"
                 :value="Number(item.value)"
@@ -49,7 +49,7 @@
           <el-form-item label="图标" prop="icon">
             <el-select v-model="form.icon" placeholder="请选择图标类型" clearable>
               <el-option
-                v-for="item in tree.iconSelect"
+                v-for="item in form.iconSelect"
                 :key="item.id"
                 :label="item.name"
                 :value="item.value"
@@ -58,7 +58,7 @@
           </el-form-item>
           <el-form-item label="状态" prop="status">
             <el-radio-group v-model="form.status">
-              <el-radio v-for="item in tree.statusSelect" :key="item.id" :label="Number(item.value)">{{ item.name }}</el-radio>
+              <el-radio v-for="item in form.statusSelect" :key="item.id" :label="Number(item.value)">{{ item.name }}</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item>

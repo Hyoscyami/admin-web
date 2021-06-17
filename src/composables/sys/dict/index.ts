@@ -11,14 +11,12 @@ import { getTree } from '@/model/req/query/Tree'
 import { useDialog } from '../../../model/vo/Dialog'
 import { AddDictReq, DictRule, useAddDictReq, useDictRule } from '../../../model/req/add/AddDictReq'
 import { UpdateDictReq, useUpdateDictReq } from '../../../model/req/update/UpdateDictReq'
-//数据字典查询对象
-const queryDictReq = useQueryDictReq()
 
 // 初始化树的对象
-const initTree = getTree<QueryDictReq, DictVO>(queryDictReq, useDictVO())
+const initTree = getTree<QueryDictReq, DictVO>(useQueryDictReq(100), useDictVO())
 
 // 初始化表格的对象
-const initTable = useTable<DictVO, QueryDictReq>(queryDictReq)
+const initTable = useTable<DictVO, QueryDictReq>(useQueryDictReq(20))
 
 // 树相关
 export const tree = reactive(initTree)

@@ -6,6 +6,8 @@ export interface Tree<T extends BaseQuery, V extends BaseVO> {
   filterTreeText: string
   // 树的属性重命名
   treeProps: TreeProps
+  // 树的数据
+  data: Array<V>
   // 根节点
   rootNode: V
   // 单击被选中节点，给右侧表格列表查询使用，默认是根节点，因为mounted里会初始化表格，而tree初始化这个字段在初始化表格之后
@@ -36,6 +38,8 @@ export function getTree<T extends BaseQuery, V extends BaseVO>(query: T, vo: V):
   return {
     // 过滤树的字段
     filterTreeText: '',
+    // 树的数据
+    data: [],
     // 树的属性重命名
     treeProps: {
       label: 'name',

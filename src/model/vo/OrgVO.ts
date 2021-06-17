@@ -11,8 +11,6 @@ export interface OrgVO extends BaseVO {
   isLeaf: boolean
   /** 组织类型 */
   type: number
-  /** 是否启用，1：启用，0：禁用 */
-  status: number
 }
 
 /**

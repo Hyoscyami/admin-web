@@ -13,11 +13,10 @@ import { useDialog } from '../../../model/vo/Dialog'
 import { AddOrgReq, OrgRule, useAddOrgReq, useOrgRule } from '../../../model/req/add/AddOrgReq'
 import { UpdateOrgReq } from '../../../model/req/update/UpdateOrgReq'
 
-const queryOrgReq = useQueryOrgReq()
 // 初始化树的对象
-const initTree = getTree<QueryOrgReq, OrgVO>(queryOrgReq, useOrgVO())
+const initTree = getTree<QueryOrgReq, OrgVO>(useQueryOrgReq(100), useOrgVO())
 // 初始化表格的对象
-const initTable = useTable<OrgVO, QueryOrgReq>(queryOrgReq)
+const initTable = useTable<OrgVO, QueryOrgReq>(useQueryOrgReq(20))
 // 对话框初始化
 const initDialog = useDialog<OrgVO, OrgRule, AddOrgReq, UpdateOrgReq>(
   useOrgVO(),
@@ -337,7 +336,7 @@ export function resetSearchForm() {
 export function filterTableType(value: number) {
   console.log('filterType:', value)
   // 重置查询条件
-  table.listQuery = useQueryOrgReq()
+  table.listQuery = useQueryOrgReq(20)
   if (table.listQuery.types) {
     table.listQuery.types.push(value)
   }
@@ -347,7 +346,7 @@ export function filterTableType(value: number) {
 // 根据状态刷新表格
 export function filterTableStatus(value: number) {
   // 重置查询条件
-  table.listQuery = useQueryOrgReq()
+  table.listQuery = useQueryOrgReq(100)
   if (table.listQuery.status) {
     table.listQuery.status.push(value)
   }
