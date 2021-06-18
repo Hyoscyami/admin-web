@@ -57,6 +57,7 @@ export function listStatus() {
     table.statusSelect.length = 0
     response.data.forEach((item: DictVO) => {
       const status: SelectGroup = {
+        id: item.id,
         text: item.name,
         value: Number(item.value)
       }
@@ -73,6 +74,7 @@ export function listTypes() {
     }
     response.data.forEach((item: DictVO) => {
       const type: SelectGroup = {
+        id: item.id,
         text: item.name,
         value: Number(item.value)
       }
@@ -114,6 +116,7 @@ export function openAddDialog() {
   dialog.dialogStatus = CommonEnum.CREATE
   getMaxSortValue(tree.checkedNodeClick.id)
   dialog.form.parentId = toRaw(tree).checkedNodeClick.id
+  console.log('table.typeSelect:', table.typesSelect)
 }
 
 // 查看详情

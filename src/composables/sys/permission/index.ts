@@ -52,6 +52,7 @@ export function initTree() {
     if (isNotEmptyCollection(tree.data)) {
       tree.defaultExpandedKeys.push(tree.data[0].id)
     }
+    Object.assign(form, toRaw(tree).rootNode)
   })
 }
 

@@ -9,7 +9,7 @@
         <el-tree
           ref="treeRef"
           :data="tree.data"
-          :props="tree.props"
+          :props="tree.treeProps"
           :default-expanded-keys="tree.defaultExpandedKeys"
           node-key="id"
           :filter-node-method="filterNode"

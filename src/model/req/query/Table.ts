@@ -18,6 +18,8 @@ export interface Table<T, Q> {
  * 下拉框
  */
 export interface SelectGroup {
+  // ID
+  id: number
   //显示文本
   text: string
   //值

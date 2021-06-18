@@ -124,30 +124,30 @@
         />
         <!--新增或编辑弹框-->
         <el-dialog
-          :model-value="dialog.addDialogFormVisible"
+          :model-value="dialog.visible"
           :title="dialog.textMap[dialog.dialogStatus]"
           :before-close="cancelAddForm"
         >
-          <el-form ref="addFormRef" :model="dialog.addForm" :rules="dialog.addFormRules" label-width="80px">
+          <el-form ref="addFormRef" :model="dialog.form" :rules="dialog.rules" label-width="80px">
             <el-form-item label="字典名称" prop="name">
-              <el-input v-model="dialog.addForm.name" autocomplete="off" tabindex="1" />
+              <el-input v-model="dialog.form.name" autocomplete="off" tabindex="1" />
             </el-form-item>
             <el-form-item label="码值" prop="code">
-              <el-input v-model="dialog.addForm.code" autocomplete="off" tabindex="2" />
+              <el-input v-model="dialog.form.code" autocomplete="off" tabindex="2" />
             </el-form-item>
             <el-form-item label="值" prop="value">
-              <el-input v-model="dialog.addForm.value" autocomplete="off" tabindex="3" />
+              <el-input v-model="dialog.form.value" autocomplete="off" tabindex="3" />
             </el-form-item>
             <el-form-item label="描述" prop="description">
-              <el-input v-model="dialog.addForm.description" autocomplete="off" tabindex="4" />
+              <el-input v-model="dialog.form.description" autocomplete="off" tabindex="4" />
             </el-form-item>
             <el-form-item label="排序值" prop="sort">
-              <el-input v-model="dialog.addForm.sort" autocomplete="off" tabindex="5" />
+              <el-input v-model="dialog.form.sort" autocomplete="off" tabindex="5" />
             </el-form-item>
             <el-form-item label="状态" prop="status" tabindex="6">
-              <el-radio-group v-model="dialog.addForm.status">
-                <el-radio v-model="dialog.addForm.status" :label="1">启用</el-radio>
-                <el-radio v-model="dialog.addForm.status" :label="0">禁用</el-radio>
+              <el-radio-group v-model="dialog.form.status">
+                <el-radio v-model="dialog.form.status" :label="1">启用</el-radio>
+                <el-radio v-model="dialog.form.status" :label="0">禁用</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-form>

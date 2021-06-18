@@ -92,6 +92,7 @@ export function openAddDialog() {
   getMaxSortValue(tree.checkedNodeClick.id)
   dialog.form.parentId = toRaw(tree).checkedNodeClick.id
   dialog.form.code = toRaw(tree).checkedNodeClick.code
+  dialog.form.status = CommonEnum.STATUS_ENABLE
 }
 
 // 查看详情
@@ -121,6 +122,7 @@ export function addFormSubmit() {
           console.log('刷新树:', response.data, tree.checkedNodeClick)
           // @ts-ignore
           treeRef.value.append(response.data, tree.checkedNodeClick)
+          tree.checkedNodeClick.isLeaf = false
         })
       } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
         update(dialog.form).then(() => {
