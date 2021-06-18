@@ -94,6 +94,7 @@ export function searchFormSubmit() {
 export function filterTree(searchText: string) {
   // 重置树的搜索条件
   resetTreeQuery()
+  console.log('searchText:', searchText)
   if (isBlank(searchText)) {
     tree.listQuery.maxDistance = 1
   }
@@ -328,7 +329,7 @@ export function resetTreeQuery() {
   tree.listQuery.orgNo = ''
   tree.total = 0
   tree.listQuery.minDistance = 1
-  tree.listQuery.maxDistance = 1
+  tree.listQuery.maxDistance = undefined
 }
 // 表格的搜索表单重置
 export function resetSearchForm() {
@@ -337,7 +338,6 @@ export function resetSearchForm() {
 }
 // 根据类型刷新表格
 export function filterTableType(value: number) {
-  console.log('filterType:', value)
   // 重置查询条件
   table.listQuery = useQueryOrgReq(20)
   if (table.listQuery.types) {

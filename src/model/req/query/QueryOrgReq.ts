@@ -8,7 +8,7 @@ export interface QueryOrgReq extends BaseQuery {
   /** 距离parentId对应节点的最小距离，不传则返回本下级，传了值则筛选distance>=minDistance */
   minDistance: number
   /** 距离parentId对应节点的最大距离，不传则返回本下级，传了值则筛选distance<=maxDistance */
-  maxDistance: number
+  maxDistance?: number
 }
 
 /**
@@ -16,8 +16,8 @@ export interface QueryOrgReq extends BaseQuery {
  */
 export function useQueryOrgReq(size: number): QueryOrgReq {
   return {
-    maxDistance: 0,
-    minDistance: 1,
+    maxDistance: undefined,
+    minDistance: 0,
     name: '',
     orgNo: '',
     page: 1,

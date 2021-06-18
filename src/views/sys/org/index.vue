@@ -3,24 +3,24 @@
     <el-row :gutter="20">
       <el-col :span="6">
         <el-input
-          v-model="tree.filterTreeText"
-          placeholder="输入关键字进行过滤"
+            v-model="tree.filterTreeText"
+            placeholder="输入关键字进行过滤"
         />
         <div
-          class="tree-box"
+            class="tree-box"
         >
           <el-tree
-            ref="treeRef"
-            :props="tree.treeProps"
-            node-key="id"
-            :load="loadNode"
-            :default-expanded-keys="tree.defaultExpandedKeys"
-            :expand-on-click-node="false"
-            :highlight-current="true"
-            lazy
-            @node-click="handleNodeClick"
-            @node-expand="handleNodeExpand"
-            @node-collapse="handleNodeCollapse"
+              ref="treeRef"
+              :props="tree.treeProps"
+              node-key="id"
+              :load="loadNode"
+              :default-expanded-keys="tree.defaultExpandedKeys"
+              :expand-on-click-node="false"
+              :highlight-current="true"
+              lazy
+              @node-click="handleNodeClick"
+              @node-expand="handleNodeExpand"
+              @node-collapse="handleNodeCollapse"
           >
             <template #default="{ node, data }">
               <span class="custom-tree-node">
@@ -37,10 +37,12 @@
         <div class="filter-container">
           <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">
             <el-form-item label="名称" prop="description">
-              <el-input v-model="table.listQuery.name" placeholder="模糊查询名称" />
+              <el-input v-model="table.listQuery.name" placeholder="模糊查询名称" tabindex="1"
+                        @keyup.enter.native="searchFormSubmit"/>
             </el-form-item>
             <el-form-item label="机构编号" prop="orgNo">
-              <el-input v-model="table.listQuery.orgNo" placeholder="精确查询机构编号" />
+              <el-input v-model="table.listQuery.orgNo" placeholder="精确查询机构编号" tabindex="2"
+                        @keyup.enter.native="searchFormSubmit"/>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="searchFormSubmit">查询</el-button>
@@ -52,59 +54,59 @@
           </el-button>
         </div>
         <el-table
-          v-loading="table.listLoading"
-          :data="table.tableData"
-          style="width: 100%"
-          @filter-change="filterTableType"
+            v-loading="table.listLoading"
+            :data="table.tableData"
+            style="width: 100%"
+            @filter-change="filterTableType"
         >
           <el-table-column
-            type="selection"
-            width="55"
+              type="selection"
+              width="55"
           />
           <el-table-column
-            prop="orgNo"
-            label="机构编号"
+              prop="orgNo"
+              label="机构编号"
           />
           <el-table-column
-            prop="name"
-            label="名称"
+              prop="name"
+              label="名称"
           />
           <el-table-column
-            prop="completePath"
-            label="所属组织"
+              prop="completePath"
+              label="所属组织"
           />
           <el-table-column
-            prop="type"
-            label="类型"
-            column-key="type"
-            :filters="table.typeSelect"
-            :formatter="convertTypeToChinese"
+              prop="type"
+              label="类型"
+              column-key="type"
+              :filters="table.typeSelect"
+              :formatter="convertTypeToChinese"
           />
           <el-table-column
-            prop="status"
-            label="状态"
-            :filters="table.statusSelect"
-            :filter-method="filterTableStatus"
+              prop="status"
+              label="状态"
+              :filters="table.statusSelect"
+              :filter-method="filterTableStatus"
           >
             <template #default="scope">
               <el-switch
-                :model-value="scope.row.status"
-                :active-value="1"
-                :inactive-value="0"
-                @change="updateStatus(scope.row)"
+                  :model-value="scope.row.status"
+                  :active-value="1"
+                  :inactive-value="0"
+                  @change="updateStatus(scope.row)"
               />
             </template>
           </el-table-column>
           <el-table-column
-            fixed="right"
-            label="操作"
-            width="150"
+              fixed="right"
+              label="操作"
+              width="150"
           >
             <template #default="scope">
               <el-button type="text" size="small" @click="updateDetail(scope.row)">编辑</el-button>
               <el-popconfirm
-                title="确定删除吗？"
-                @confirm="delRow(scope.row)"
+                  title="确定删除吗？"
+                  @confirm="delRow(scope.row)"
               >
                 <template #reference>
                   <el-button type="text" size="small">删除</el-button>
@@ -116,29 +118,29 @@
         </el-table>
 
         <pagination
-          v-show="table.total>0"
-          :total="table.total"
-          :page.sync="table.listQuery.page"
-          :limit.sync="table.listQuery.size"
-          @pagination="getList"
+            v-show="table.total>0"
+            :total="table.total"
+            :page.sync="table.listQuery.page"
+            :limit.sync="table.listQuery.size"
+            @pagination="getList"
         />
         <!--新增或编辑弹框-->
         <el-dialog
-          :model-value="dialog.visible"
-          :title="dialog.textMap[dialog.dialogStatus]"
-          :before-close="cancelAddForm"
+            :model-value="dialog.visible"
+            :title="dialog.textMap[dialog.dialogStatus]"
+            :before-close="cancelAddForm"
         >
           <el-form ref="addFormRef" :model="dialog.form" :rules="dialog.rules" label-width="80px">
             <el-form-item label="组织名称" prop="name">
-              <el-input v-model="dialog.form.name" autocomplete="off" tabindex="1" />
+              <el-input v-model="dialog.form.name" autocomplete="off" tabindex="1"/>
             </el-form-item>
             <el-form-item label="机构类型" prop="type" tabindex="2">
               <el-select v-model="dialog.form.type" placeholder="请选择机构类型" clearable>
-                <el-option v-for="item in table.typesSelect" :key="item.id" :label="item.text" :value="item.value" />
+                <el-option v-for="item in table.typesSelect" :key="item.id" :label="item.text" :value="item.value"/>
               </el-select>
             </el-form-item>
             <el-form-item label="排序值" prop="sort" tabindex="3">
-              <el-input v-model="dialog.form.sort" autocomplete="off" />
+              <el-input v-model="dialog.form.sort" autocomplete="off"/>
             </el-form-item>
             <el-form-item label="状态" prop="status" tabindex="4">
               <el-radio-group v-model="dialog.form.status">
@@ -156,9 +158,9 @@
         </el-dialog>
         <!--查看详情弹框-->
         <el-dialog
-          :model-value="dialog.viewDialogVisible"
-          title="详情"
-          :before-close="cancelView"
+            :model-value="dialog.viewDialogVisible"
+            title="详情"
+            :before-close="cancelView"
         >
           <el-descriptions title="字典">
             <el-descriptions-item label="码值">
