@@ -1,5 +1,11 @@
 import { nextTick, reactive, ref } from 'vue'
-import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
+import {
+  dictConvert,
+  isBlank,
+  isNotEmptyCollection,
+  successMsg,
+  warningMsg
+} from '@/utils/common'
 import { DictEnum } from '../../../enums/DictEnum'
 import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/services/sys/org'
 import { CommonEnum } from '@/enums/CommonEnum'
@@ -337,11 +343,13 @@ export function resetSearchForm() {
   searchFormRef.value.resetFields()
 }
 // 根据类型刷新表格
-export function filterTableType(value: number) {
+export function filterTableType(table: any) {
+  console.log('选择了类型呀:', table.status)
   // 重置查询条件
   table.listQuery = useQueryOrgReq(20)
-  if (table.listQuery.types) {
-    table.listQuery.types.push(value)
+  if (isNotEmptyCollection(table.status)) {
+    table.listQuery.status.concat(table.status)
+    table.status.forEach((item: { value: number }) => table.listQuery.status.push(item.value))
   }
   // 刷新表格数据
   getList()

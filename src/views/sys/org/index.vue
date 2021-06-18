@@ -84,9 +84,9 @@
           />
           <el-table-column
               prop="status"
+              column-key="status"
               label="状态"
               :filters="table.statusSelect"
-              :filter-method="filterTableStatus"
           >
             <template #default="scope">
               <el-switch
@@ -217,7 +217,6 @@ import {
   convertTypeToChinese,
   delRow,
   dialog,
-  filterTableStatus,
   filterTableType,
   filterTree,
   getList,
@@ -280,7 +279,6 @@ export default {
       addFormSubmit,
       cancelView,
       filterTableType,
-      filterTableStatus,
       convertTypeToChinese
     }
   }
