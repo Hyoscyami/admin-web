@@ -1,11 +1,5 @@
 import { nextTick, reactive, ref } from 'vue'
-import {
-  dictConvert,
-  isBlank,
-  isNotEmptyCollection,
-  successMsg,
-  warningMsg
-} from '@/utils/common'
+import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
 import { DictEnum } from '../../../enums/DictEnum'
 import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/services/sys/org'
 import { CommonEnum } from '@/enums/CommonEnum'
@@ -153,6 +147,7 @@ export function addFormSubmit() {
           // 刷新树
           // @ts-ignore
           treeRef.value.append(response.data, tree.checkedNodeClick)
+          tree.checkedNodeClick.isLeaf = false
         })
       } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
         update(dialog.form).then(() => {

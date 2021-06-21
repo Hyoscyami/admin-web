@@ -206,7 +206,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Pagination from '@/components/Pagination/index.vue'
 import {format} from '@/utils/time'
 import {

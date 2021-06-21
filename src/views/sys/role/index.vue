@@ -208,7 +208,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Pagination from '@/components/Pagination/index.vue'
 import {dictConvert} from '@/utils/common'
 import {format} from '@/utils/time'
