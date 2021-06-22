@@ -1,38 +1,11 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <el-col :span="6">
-        <el-input
-            v-model="tree.filterTreeText"
-            placeholder="输入关键字进行过滤"
-        />
-        <div
-            class="tree-box"
-        >
-          <el-tree
-              ref="treeRef"
-              :props="tree.treeProps"
-              node-key="id"
-              :load="loadNode"
-              :default-expanded-keys="tree.defaultExpandedKeys"
-              :expand-on-click-node="false"
-              :highlight-current="true"
-              lazy
-              @node-click="handleNodeClick"
-              @node-expand="handleNodeExpand"
-              @node-collapse="handleNodeCollapse"
-          >
-            <template #default="{ node, data }">
-              <span class="custom-tree-node">
-                <span>{{ node.label }}</span>
-                <el-space spacer="|">
-                  <el-link v-if="data.hasNext" href="javascript:void(0);" @click.stop="viewNextPage(node)">下一页</el-link>
-                </el-space>
-              </span>
-            </template>
-          </el-tree>
-        </div>
-      </el-col>
+      <LazyTree :tree="tree" @load="loadNode" @node-click="handleNodeClick"
+                @node-expand="handleNodeExpand"
+                @node-collapse="handleNodeCollapse"
+                @view-next-page="viewNextPage"
+      />
       <el-col :span="18">
         <div class="filter-container">
           <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">
@@ -208,6 +181,7 @@
 
 <script lang="ts">
 import Pagination from '@/components/Pagination/index.vue'
+import LazyTree from "@/components/LazyTree/index.vue";
 import {format} from '@/utils/time'
 import {
   addFormSubmit,
@@ -240,7 +214,7 @@ import {computed, watch} from 'vue'
 
 export default {
   name: 'Operator',
-  components: {Pagination},
+  components: {LazyTree,Pagination},
   setup() {
     // 初始化
     init()
