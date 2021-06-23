@@ -8,7 +8,7 @@
         class="tree-box"
     >
       <el-tree
-          ref="treeRef"
+          ref="lazyTreeRef"
           :props="tree.treeProps"
           node-key="id"
           :load="loadNode"
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
+import {defineComponent, PropType,ref} from 'vue';
 import {Tree} from "../../model/req/query/Tree";
 
 export default defineComponent({
@@ -61,7 +61,8 @@ export default defineComponent({
     function viewNextPage(clickedNode: any) {
       emit("view-next-page",clickedNode)
     }
-    return {loadNode,handleNodeClick,handleNodeExpand,handleNodeCollapse,viewNextPage}
+    const lazyTreeRef = ref(null)
+    return {loadNode,handleNodeClick,handleNodeExpand,handleNodeCollapse,viewNextPage,lazyTreeRef}
   }
 })
 </script>

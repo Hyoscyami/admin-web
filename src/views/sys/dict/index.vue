@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <LazyTree :tree="tree" @load="loadNode" @node-click="handleNodeClick"
+      <LazyTree ref="treeRef" :tree="tree" @load="loadNode" @node-click="handleNodeClick"
                 @node-expand="handleNodeExpand"
                 @node-collapse="handleNodeCollapse"
       @view-next-page="viewNextPage"
@@ -210,7 +210,7 @@ import {
   viewDetail,
   viewNextPage
 } from '@/composables/sys/dict'
-import {computed, watch} from 'vue'
+import {computed, watch,ref} from 'vue'
 import LazyTree from "../../../components/LazyTree/index.vue";
 
 export default {

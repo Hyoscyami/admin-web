@@ -76,7 +76,7 @@ export function filterTree(searchText: string) {
     tree.total = response.data.total
     if (treeRef.value) {
       // @ts-ignore
-      treeRef.value.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
+      treeRef.value.lazyTreeRef.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
     }
   })
 }
@@ -119,9 +119,8 @@ export function addFormSubmit() {
           // 刷新表格
           getList()
           // 刷新树
-          console.log('刷新树:', response.data, tree.checkedNodeClick)
           // @ts-ignore
-          treeRef.value.append(response.data, tree.checkedNodeClick)
+          treeRef.value.lazyTreeRef.append(response.data, tree.checkedNodeClick)
           tree.checkedNodeClick.isLeaf = false
         })
       } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
@@ -185,20 +184,16 @@ export async function loadNode(node: any, resolve: any) {
     // 最开始的时候，默认根节点被选中
     // 默认展开第二级
     nextTick(() => {
-      console.log('初始化了node:', node)
       const rootNode = node.childNodes[0]
       rootNode.expanded = true
       // 默认选中根节点
       // @ts-ignore
-      treeRef.value.setCurrentKey(rootNode.id, true)
-      console.log('rootNode:', rootNode)
+      treeRef.value.lazyTreeRef.setCurrentKey(rootNode.id, true)
       Object.assign(tree.checkedNodeClick, rootNode)
-      console.log('初始化了:tree.checkedNodeClick', tree.checkedNodeClick)
     }).then(() => node.childNodes[0].loadData())
     return resolve([useDictVO()])
   }
   if (node.level > 0) {
-    console.log('开始获取数据:', node)
     await getChildrenNode(node.data.id)
     return resolve(tree.loadChildrenTreeData)
   }
@@ -208,7 +203,7 @@ export function clearHasNext(node: any) {
   const childNodes = node.parent.childNodes
   // 取消之前下一页的链接
   // @ts-ignore
-  const lastNode = treeRef.value.getNode(childNodes[childNodes.length - 1].data.id)
+  const lastNode = treeRef.value.lazyTreeRef.getNode(childNodes[childNodes.length - 1].data.id)
   lastNode.data.hasNext = false
 }
 // 加载下一页的数据

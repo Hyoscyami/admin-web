@@ -72,7 +72,7 @@ export function filterTree(searchText: string) {
   list(tree.listQuery).then((response) => {
     tree.total = response.data.total
     // @ts-ignore
-    treeRef.value.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
+    treeRef.value.lazyTreeRef.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
   })
 }
 
@@ -113,7 +113,7 @@ export function addFormSubmit() {
           getList()
           // 刷新树
           // @ts-ignore
-          treeRef.value.append(response.data, tree.checkedNodeClick)
+          treeRef.value.lazyTreeRef.append(response.data, tree.checkedNodeClick)
         })
       } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
         update(dialog.form).then(() => {
@@ -180,7 +180,7 @@ export async function loadNode(node: any, resolve: any) {
       rootNode.expanded = true
       // 默认选中根节点
       // @ts-ignore
-      treeRef.value.setCurrentKey(rootNode.id, true)
+      treeRef.value.lazyTreeRef.setCurrentKey(rootNode.id, true)
       Object.assign(tree.checkedNodeClick, rootNode)
     }).then(() => node.childNodes[0].loadData())
     return resolve([tree.rootNode])
@@ -195,7 +195,7 @@ export function clearHasNext(node: any) {
   const childNodes = node.parent.childNodes
   // 取消之前下一页的链接
   // @ts-ignore
-  const lastNode = treeRef.value.getNode(childNodes[childNodes.length - 1].data.id)
+  const lastNode = treeRef.value.lazyTreeRef.getNode(childNodes[childNodes.length - 1].data.id)
   lastNode.data.hasNext = false
 }
 // 加载下一页的数据

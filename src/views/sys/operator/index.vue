@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <LazyTree :tree="tree" @load="loadNode" @node-click="handleNodeClick"
+      <LazyTree ref="lazyTreeRef" :tree="tree" @load="loadNode" @node-click="handleNodeClick"
                 @node-expand="handleNodeExpand"
                 @node-collapse="handleNodeCollapse"
                 @view-next-page="viewNextPage"
