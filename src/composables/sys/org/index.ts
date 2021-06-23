@@ -1,17 +1,17 @@
-import { nextTick, reactive, ref } from 'vue'
-import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
-import { DictEnum } from '../../../enums/DictEnum'
-import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/api/sys/org'
-import { CommonEnum } from '@/enums/CommonEnum'
-import { toRaw } from '@vue/reactivity'
-import { QueryOrgReq, useQueryOrgReq } from '../../../model/req/query/QueryOrgReq'
-import { getTree } from '../../../model/req/query/Tree'
-import { DictVO } from '../../../model/vo/DictVO'
-import { OrgVO, useOrgVO } from '../../../model/vo/OrgVO'
-import { SelectGroup, useTable } from '../../../model/req/query/Table'
-import { useDialog } from '../../../model/vo/Dialog'
-import { AddOrgReq, OrgRule, useAddOrgReq, useOrgRule } from '../../../model/req/add/AddOrgReq'
-import { UpdateOrgReq } from '../../../model/req/update/UpdateOrgReq'
+import {nextTick, reactive, ref} from 'vue'
+import {dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg} from '@/utils/common'
+import {DictEnum} from '../../../enums/DictEnum'
+import {add, del, getMaxSort, list, listChildrenByCode, update} from '@/api/sys/org'
+import {CommonEnum} from '@/enums/CommonEnum'
+import {toRaw} from '@vue/reactivity'
+import {QueryOrgReq, useQueryOrgReq} from '../../../model/req/query/QueryOrgReq'
+import {getTree} from '../../../model/req/query/Tree'
+import {DictVO} from '../../../model/vo/DictVO'
+import {OrgVO, useOrgVO} from '../../../model/vo/OrgVO'
+import {SelectGroup, useTable} from '../../../model/req/query/Table'
+import {useDialog} from '../../../model/vo/Dialog'
+import {AddOrgReq, OrgRule, useAddOrgReq, useOrgRule} from '../../../model/req/add/AddOrgReq'
+import {UpdateOrgReq} from '../../../model/req/update/UpdateOrgReq'
 
 // 初始化树的对象
 const initTree = getTree<QueryOrgReq, OrgVO>(useQueryOrgReq(100), useOrgVO())
@@ -32,6 +32,8 @@ export const table = reactive(initTable)
 export const dialog = reactive(initDialog)
 // 树ref
 export const treeRef = ref(null)
+// 表格ref
+export const tableRef = ref(null)
 // 对话框新增机构表单ref
 export const addFormRef = ref(null)
 // 搜索表格的搜索表单
@@ -337,17 +339,28 @@ export function resetSearchForm() {
   searchFormRef.value.resetFields()
 }
 // 根据类型刷新表格
-export function filterTableType(table: any) {
-  console.log('选择了类型呀:', table.status)
+export function filterTableType(data: any) {
   // 重置查询条件
-  table.listQuery = useQueryOrgReq(20)
-  if (isNotEmptyCollection(table.status)) {
-    table.listQuery.status.concat(table.status)
-    table.status.forEach((item: { value: number }) => table.listQuery.status.push(item.value))
+  table.listQuery.page = 1
+  console.log('listQuery:', table.listQuery)
+  if (data.status != undefined && data.status.length === 0) {
+    // @ts-ignore
+    table.listQuery.status.length = 0
   }
+  if (data.type != undefined && data.type.length === 0) {
+    // @ts-ignore
+    table.listQuery.types.length = 0
+  }
+  console.log('data:', data)
+  // @ts-ignore
+  table.listQuery.status = table.listQuery.status.concat(data.status).filter((item) => item != null)
+  // @ts-ignore
+  table.listQuery.types = table.listQuery.types.concat(data.type).filter((item) => item != null)
+
   // 刷新表格数据
   getList()
 }
+
 // 根据状态刷新表格
 export function filterTableStatus(value: number) {
   // 重置查询条件

@@ -29,6 +29,7 @@
         <el-table
             v-loading="table.listLoading"
             :data="table.tableData"
+            ref="tableRef"
             style="width: 100%"
             @filter-change="filterTableType"
         >
@@ -52,7 +53,7 @@
               prop="type"
               label="类型"
               column-key="type"
-              :filters="table.typeSelect"
+              :filters="table.typesSelect"
               :formatter="convertTypeToChinese"
           />
           <el-table-column
@@ -185,6 +186,7 @@ import LazyTree from "@/components/LazyTree/index.vue";
 import {format} from '@/utils/time'
 import {
   addFormRef,
+  tableRef,
   addFormSubmit,
   cancelAddForm,
   cancelView,
@@ -233,6 +235,7 @@ export default {
       treeRef,
       addFormRef,
       searchFormRef,
+      tableRef,
       viewDetailDataCreateTime,
       viewDetail,
       openAddDialog,
