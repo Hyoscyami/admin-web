@@ -1,7 +1,7 @@
 import { nextTick, reactive, ref } from 'vue'
 import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
 import { DictEnum } from '../../../enums/DictEnum'
-import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/services/sys/org'
+import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/api/sys/org'
 import { CommonEnum } from '@/enums/CommonEnum'
 import { toRaw } from '@vue/reactivity'
 import { QueryOrgReq, useQueryOrgReq } from '../../../model/req/query/QueryOrgReq'
@@ -274,7 +274,6 @@ export async function getChildrenNode(id: number) {
 export function setHasNext() {
   if (isNotEmptyCollection(tree.loadChildrenTreeData)) {
     const lastNode = tree.loadChildrenTreeData[tree.loadChildrenTreeData.length - 1]
-    // @ts-ignore
     lastNode.hasNext = tree.listQuery.page * tree.listQuery.size < tree.total
   }
 }

@@ -1,4 +1,4 @@
-import { listChildrenByCode } from '../services/sys/dict'
+import { listChildrenByCode } from '../api/sys/dict'
 import { ElMessage } from 'element-plus'
 
 /**

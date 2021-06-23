@@ -1,5 +1,5 @@
 import { validUsername } from '@/utils/validate'
-import { getCaptcha } from '@/services/user'
+import { getCaptcha } from '@/api/user'
 import { nextTick, unref } from 'vue'
 
 // 校验用户名

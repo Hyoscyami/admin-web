@@ -1,7 +1,7 @@
 import { nextTick, reactive, ref } from 'vue'
 import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
 import { DictEnum } from '@/enums/DictEnum'
-import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/services/sys/role'
+import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/api/sys/role'
 import { CommonEnum } from '@/enums/CommonEnum'
 import { toRaw } from '@vue/reactivity'
 import { getTree } from '../../../model/req/query/Tree'
@@ -11,9 +11,12 @@ import { useTable } from '../../../model/req/query/Table'
 import { useDialog } from '../../../model/vo/Dialog'
 import { AddRoleReq, RoleRule, useAddRoleReq, useRoleRule } from '../../../model/req/add/AddRoleReq'
 import { UpdateRoleReq, useUpdateRoleReq } from '../../../model/req/update/UpdateRoleReq'
+import { list as listOrg } from '@/api/sys/org'
+import { QueryOrgReq, useQueryOrgReq } from '../../../model/req/query/QueryOrgReq'
+import { OrgVO, useOrgVO } from '../../../model/vo/OrgVO'
 
 // 初始化树的对象
-const initTree = getTree<QueryRoleReq, RoleVO>(useQueryRoleReq(100), useRoleVO())
+const initTree = getTree<QueryOrgReq, OrgVO>(useQueryOrgReq(100), useOrgVO())
 // 初始化表格的对象
 const initTable = useTable<RoleVO, QueryRoleReq>(useQueryRoleReq(20))
 // 对话框初始化
@@ -69,7 +72,7 @@ export function filterTree(searchText: string) {
   }
   tree.listQuery.parentId = toRaw(tree).rootNode.id
   tree.listQuery.name = searchText
-  list(tree.listQuery).then((response) => {
+  listOrg(tree.listQuery).then((response) => {
     tree.total = response.data.total
     // @ts-ignore
     treeRef.value.lazyTreeRef.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
@@ -204,7 +207,7 @@ export function loadNextPageData() {
   Object.assign(tree.listQuery.parentId, tree.checkedNodeDropdown.data.id)
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = 1
-  list(tree.listQuery).then((response) => {
+  listOrg(tree.listQuery).then((response) => {
     tree.total = response.data.total
     // 数据不为空
     if (isNotEmptyCollection(response.data.records)) {
@@ -229,7 +232,7 @@ export async function getChildrenNode(id: number) {
   tree.listQuery.parentId = id
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = 1
-  await list(tree.listQuery).then((response) => {
+  await listOrg(tree.listQuery).then((response) => {
     tree.loadChildrenTreeData = response.data.records
     tree.total = response.data.total
     // 设置最后一个节点是否有下一页链接
@@ -287,7 +290,15 @@ export function viewNextPage(clickedNode: any) {
 }
 // 重置树的搜索条件
 export function resetTreeQuery() {
-  tree.listQuery = useQueryRoleReq(100)
+  tree.listQuery.page = 1
+  tree.listQuery.size = 100
+  tree.listQuery.parentId = 0
+  tree.listQuery.status = undefined
+  tree.listQuery.name = ''
+  tree.listQuery.orgNo = ''
+  tree.total = 0
+  tree.listQuery.minDistance = 1
+  tree.listQuery.maxDistance = undefined
 }
 // 表格的搜索表单重置
 export function resetSearchForm() {

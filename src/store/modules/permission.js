@@ -1,5 +1,5 @@
 import { asyncRoutes } from '@/router'
-import { getPermissions } from '@/services/sys/permission'
+import { getPermissions } from '@/api/sys/permission'
 import Layout from '@/layout/index.vue'
 import { isNotEmptyCollection } from '@/utils/common'
 import { CommonEnum } from '@/enums/CommonEnum'

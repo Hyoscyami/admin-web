@@ -11,6 +11,10 @@ export interface OrgVO extends BaseVO {
   isLeaf: boolean
   /** 组织类型 */
   type: number
+  /**
+   * 是否有子节点
+   */
+  hasNext: boolean
 }
 
 /**
@@ -28,6 +32,7 @@ export function useOrgVO(): OrgVO {
     name: '总行',
     orgNo: '',
     status: 0,
-    type: 0
+    type: 0,
+    hasNext: false
   }
 }
