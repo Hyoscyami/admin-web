@@ -184,7 +184,7 @@ export async function loadNode(node: any, resolve: any) {
       // 默认选中根节点
       // @ts-ignore
       treeRef.value.lazyTreeRef.setCurrentKey(rootNode.id, true)
-      Object.assign(tree.checkedNodeClick, rootNode)
+      tree.checkedNodeClick.id = rootNode.data.id
     }).then(() => node.childNodes[0].loadData())
     return resolve([tree.rootNode])
   }
