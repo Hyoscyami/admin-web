@@ -26,7 +26,7 @@ export function getMaxSort(id: number) {
   return request({
     url: '/role/getMaxSort',
     method: 'get',
-    params: { parentId: id }
+    params: { orgId: id }
   })
 }
 

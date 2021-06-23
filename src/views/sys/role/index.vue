@@ -97,17 +97,13 @@
           :before-close="cancelAddForm"
         >
           <el-form ref="addFormRef" :model="dialog.form" :rules="dialog.rules" label-width="80px">
-            <el-form-item label="字典名称" prop="name">
+            <el-form-item label="角色名称" prop="name">
               <el-input v-model="dialog.form.name" autocomplete="off" tabindex="1" />
             </el-form-item>
-            <el-form-item label="码值" prop="code">
-              <el-input v-model="dialog.form.code" autocomplete="off" tabindex="2" />
-            </el-form-item>
-            <el-form-item label="值" prop="value">
-              <el-input v-model="dialog.form.value" autocomplete="off" tabindex="3" />
-            </el-form-item>
-            <el-form-item label="描述" prop="description">
-              <el-input v-model="dialog.form.description" autocomplete="off" tabindex="4" />
+            <el-form-item label="角色类型" prop="type" tabindex="2">
+              <el-select v-model="dialog.form.type" placeholder="请选择角色类型" clearable>
+                <el-option v-for="item in table.typesSelect" :key="item.id" :label="item.text" :value="item.value"/>
+              </el-select>
             </el-form-item>
             <el-form-item label="排序值" prop="sort">
               <el-input v-model="dialog.form.sort" autocomplete="off" tabindex="5" />
