@@ -68,10 +68,10 @@ export function update(data: AddRoleReq | UpdateRoleReq) {
   })
 }
 
-export function getDetailByCode(code: string) {
+export function getDetail(id: string) {
   return request({
-    url: '/role/getDetailByCode',
+    url: '/role/getDetail',
     method: 'get',
-    params: { code }
+    params: { id }
   })
 }

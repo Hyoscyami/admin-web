@@ -5,6 +5,10 @@ export interface UpdateRoleReq {
    * 父ID
    */
   parentId?: number
+  /**
+   * 组织ID
+   */
+  orgId?: string
   /** 角色名称 */
   name: string
   /** 排序值 */
@@ -26,6 +30,7 @@ export function useUpdateRoleReq(): UpdateRoleReq {
     name: '',
     permissionIds: [],
     sort: 1,
-    status: 1
+    status: 1,
+    orgId: ''
   }
 }

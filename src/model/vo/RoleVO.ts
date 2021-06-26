@@ -1,4 +1,5 @@
 import { BaseVO } from '../resp/base/BaseVO'
+import { PermissionVO } from './PermissionVO'
 
 export interface RoleVO extends BaseVO {
   /**
@@ -12,6 +13,8 @@ export interface RoleVO extends BaseVO {
    *
    */
   type: number
+  /** 角色对应的权限详情 */
+  permissionVOS: Array<PermissionVO>
 }
 
 /**
@@ -27,6 +30,7 @@ export function useRoleVO(): RoleVO {
     name: '角色',
     type: 1,
     parentId: 0,
-    hasNext: false
+    hasNext: false,
+    permissionVOS: []
   }
 }

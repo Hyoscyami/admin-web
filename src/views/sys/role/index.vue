@@ -35,20 +35,12 @@
             width="55"
           />
           <el-table-column
-            prop="code"
-            label="码值"
-          />
-          <el-table-column
             prop="name"
             label="名称"
           />
           <el-table-column
-            prop="value"
-            label="值"
-          />
-          <el-table-column
-            prop="description"
-            label="描述"
+            prop="type"
+            label="类型"
           />
           <el-table-column
             prop="status"
@@ -63,6 +55,14 @@
               />
             </template>
           </el-table-column>
+          <el-table-column
+              prop="creatorName"
+              label="创建人"
+          />
+          <el-table-column
+              prop="createTime"
+              label="创建时间"
+          />
           <el-table-column
             fixed="right"
             label="操作"
@@ -100,10 +100,18 @@
             <el-form-item label="角色名称" prop="name">
               <el-input v-model="dialog.form.name" autocomplete="off" tabindex="1" />
             </el-form-item>
-            <el-form-item label="角色类型" prop="type" tabindex="2">
-              <el-select v-model="dialog.form.type" placeholder="请选择角色类型" clearable>
-                <el-option v-for="item in table.typesSelect" :key="item.id" :label="item.text" :value="item.value"/>
-              </el-select>
+            <el-form-item label="权限" prop="permissionIds">
+              <el-tree
+                  ref="permissionTreeRef"
+                  :data="dialog.viewDetailData.permissionVOS"
+                  :props="tree.treeProps"
+                  :default-expanded-keys="tree.defaultExpandedKeys"
+                  node-key="id"
+                  show-checkbox
+                  :expand-on-click-node="false"
+                  :highlight-current="true"
+                  empty-text="暂无数据"
+              />
             </el-form-item>
             <el-form-item label="排序值" prop="sort">
               <el-input v-model="dialog.form.sort" autocomplete="off" tabindex="5" />
@@ -196,7 +204,7 @@ import {
   resetSearchForm, searchFormRef,
   searchFormSubmit,
   table,
-  tree, treeRef,
+  tree, treeRef,permissionTreeRef,
   updateDetail,
   updateStatus,
   viewDetail,
@@ -227,6 +235,7 @@ export default {
       treeRef,
       addFormRef,
       searchFormRef,
+      permissionTreeRef,
       viewDetailDataStatus,
       viewDetailDataCreateTime,
       viewDetail,

@@ -1,7 +1,7 @@
 import { nextTick, reactive, ref } from 'vue'
 import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
 import { DictEnum } from '@/enums/DictEnum'
-import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/api/sys/role'
+import { add, del, getDetail, getMaxSort, list, listChildrenByCode, update } from '@/api/sys/role'
 import { CommonEnum } from '@/enums/CommonEnum'
 import { toRaw } from '@vue/reactivity'
 import { getTree } from '../../../model/req/query/Tree'
@@ -14,6 +14,7 @@ import { UpdateRoleReq, useUpdateRoleReq } from '../../../model/req/update/Updat
 import { list as listOrg } from '@/api/sys/org'
 import { QueryOrgReq, useQueryOrgReq } from '../../../model/req/query/QueryOrgReq'
 import { OrgVO, useOrgVO } from '../../../model/vo/OrgVO'
+import { getPermissions } from '../../../api/sys/permission'
 
 // 初始化树的对象
 const initTree = getTree<QueryOrgReq, OrgVO>(useQueryOrgReq(100), useOrgVO())
@@ -33,6 +34,8 @@ export const table = reactive(initTable)
 export const dialog = reactive(initDialog)
 // 树ref
 export const treeRef = ref(null)
+// 权限树
+export const permissionTreeRef = ref(null)
 // 对话框新增角色表单ref
 export const addFormRef = ref(null)
 // 搜索表格的搜索表单
@@ -87,6 +90,9 @@ export function openAddDialog() {
   }
   dialog.visible = true
   dialog.dialogStatus = CommonEnum.CREATE
+  getPermissions().then((response) => {
+    dialog.viewDetailData.permissionVOS = response.data
+  })
   getMaxSortValue(tree.checkedNodeClick.id)
   Object.assign(dialog.form.parentId, tree.checkedNodeClick.id)
 }
@@ -94,7 +100,9 @@ export function openAddDialog() {
 // 查看详情
 export function viewDetail(row: any) {
   dialog.viewDialogVisible = true
-  Object.assign(dialog.viewDetailData, row)
+  getDetail(row.id).then((response) => {
+    dialog.viewDetailData = response.data
+  })
 }
 
 // 获取当前最大排序值
@@ -108,15 +116,15 @@ export function addFormSubmit() {
   // @ts-ignore
   addFormRef.value.validate((valid) => {
     if (valid) {
+      dialog.form.orgId = tree.checkedNodeClick.id
+      // @ts-ignore
+      dialog.form.permissionIds = permissionTreeRef.value.getCheckedKeys()
       if (dialog.dialogStatus === CommonEnum.CREATE) {
-        add(dialog.form).then((response) => {
+        add(dialog.form).then(() => {
           // 关闭弹框
           cancelAddForm()
           // 刷新表格
           getList()
-          // 刷新树
-          // @ts-ignore
-          treeRef.value.lazyTreeRef.append(response.data, tree.checkedNodeClick)
         })
       } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
         update(dialog.form).then(() => {

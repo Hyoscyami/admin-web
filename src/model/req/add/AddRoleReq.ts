@@ -13,6 +13,8 @@ export interface AddRoleReq {
   orgId: string
   /** 排序值 */
   sort: number
+  /**角色范围*/
+  scope: number
   /**
    * 状态
    */
@@ -59,7 +61,8 @@ export function useAddRoleReq(): AddRoleReq {
     permissionIds: [],
     sort: 1,
     status: 1,
-    type: 1,
-    parentId: 1
+    type: 3,
+    parentId: 1,
+    scope: 2
   }
 }
