@@ -69,6 +69,7 @@ const actions = {
         convertRoute(asyncRoutes, loadMenuData)
         // 平铺后的路由
         const routeList = []
+        //树平铺成list，用来判断用户是否有权限
         convertRouteList(asyncRoutes, routeList)
         const accessedRoutes = asyncRoutes
         // 保存vue需要的树状路由

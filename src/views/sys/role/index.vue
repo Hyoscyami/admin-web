@@ -110,7 +110,7 @@
                   ref="permissionTreeRef"
                   :data="dialog.viewDetailData.permissionVOS"
                   :props="tree.treeProps"
-                  :default-expanded-keys="tree.defaultExpandedKeys"
+                  :default-checked-keys="dialog.viewDetailData.permissionIds"
                   node-key="id"
                   show-checkbox
                   :expand-on-click-node="false"
@@ -132,50 +132,6 @@
             <span class="dialog-footer">
               <el-button @click="cancelAddForm">取 消</el-button>
               <el-button type="primary" @click="addFormSubmit">确 定</el-button>
-            </span>
-          </template>
-        </el-dialog>
-        <!--查看详情弹框-->
-        <el-dialog
-            :model-value="dialog.viewDialogVisible"
-            title="详情"
-            :before-close="cancelView"
-        >
-          <el-descriptions title="字典">
-            <el-descriptions-item label="码值">
-              <el-tag size="small">{{ dialog.viewDetailData.code }}</el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="名称">
-              <el-tag size="small">{{ dialog.viewDetailData.name }}</el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="值">
-              <el-tag size="small">{{ dialog.viewDetailData.value }}</el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="描述">
-              <el-tag size="small">{{ dialog.viewDetailData.description }}</el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="状态">
-              <el-tag size="small">{{ viewDetailDataStatus }}</el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="排序值">
-              <el-tag size="small">{{ dialog.viewDetailData.sort }}</el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="创建时间">
-              <el-tag size="small">{{ viewDetailDataCreateTime }}</el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="创建人">
-              <el-tag size="small">{{ dialog.viewDetailData.creatorName }}</el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="修改时间">
-              <el-tag size="small">{{ dialog.viewDetailData.modifyTime }}</el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="修改人">
-              <el-tag size="small">{{ dialog.viewDetailData.modifierName }}</el-tag>
-            </el-descriptions-item>
-          </el-descriptions>
-          <template #footer>
-            <span class="dialog-footer">
-              <el-button @click="cancelView">关闭</el-button>
             </span>
           </template>
         </el-dialog>

@@ -15,6 +15,10 @@ export interface RoleVO extends BaseVO {
   type: number
   /** 角色对应的权限详情 */
   permissionVOS: Array<PermissionVO>
+  /**
+   * 权限ID列表
+   */
+  permissionIds: Array<number>
 }
 
 /**
@@ -31,6 +35,7 @@ export function useRoleVO(): RoleVO {
     type: 1,
     parentId: 0,
     hasNext: false,
-    permissionVOS: []
+    permissionVOS: [],
+    permissionIds: []
   }
 }

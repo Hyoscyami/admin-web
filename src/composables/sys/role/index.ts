@@ -16,6 +16,7 @@ import { QueryOrgReq, useQueryOrgReq } from '../../../model/req/query/QueryOrgRe
 import { OrgVO, useOrgVO } from '../../../model/vo/OrgVO'
 import { getPermissions } from '../../../api/sys/permission'
 import { format } from '../../../utils/time'
+import { PermissionVO } from '../../../model/vo/PermissionVO'
 
 // 初始化树的对象
 const initTree = getTree<QueryOrgReq, OrgVO>(useQueryOrgReq(100), useOrgVO())
@@ -89,20 +90,58 @@ export function openAddDialog() {
     warningMsg('请先在左侧选择节点')
     return
   }
+
   dialog.visible = true
   dialog.dialogStatus = CommonEnum.CREATE
-  getPermissions().then((response) => {
-    dialog.viewDetailData.permissionVOS = response.data
-  })
+  dialog.viewDetailData.permissionIds.length = 0
+  //初始化新增的时候权限树
+  initAddDetailTree()
   getMaxSortValue(tree.checkedNodeClick.id)
   Object.assign(dialog.form.parentId, tree.checkedNodeClick.id)
 }
+//初始化新增的时候权限树
+function initAddDetailTree() {
+  getPermissions().then((response) => {
+    dialog.viewDetailData.permissionVOS = response.data
+  })
+}
+//初始化详情和编辑时的树
+function initViewDetailTree() {
+  getPermissions().then((response) => {
+    dialog.viewDetailData.permissionVOS = response.data
+    if (dialog.viewDetailData.permissionVOS) {
+      //权限树转权限ID列表
+      convertPermissionList(
+        dialog.viewDetailData.permissionVOS,
+        dialog.viewDetailData.permissionIds
+      )
+    }
+  })
+}
 
+/**
+ * 权限树转权限ID列表
+ * @param permissionVOS
+ * @param permissionIds
+ */
+function convertPermissionList(permissionVOS: Array<PermissionVO>, permissionIds: Array<number>) {
+  permissionVOS.forEach((item) => {
+    if (item.children) {
+      convertPermissionList(item.children, permissionIds)
+    }
+    permissionIds.push(item.id)
+  })
+}
 // 查看详情
 export function viewDetail(row: any) {
   dialog.viewDialogVisible = true
   getDetail(row.id).then((response) => {
     dialog.viewDetailData = response.data
+    if (dialog.viewDetailData.permissionVOS) {
+      dialog.viewDetailData.permissionIds = dialog.viewDetailData.permissionVOS.map((item) => {
+        return item.id
+      })
+    }
   })
 }
 
@@ -167,6 +206,8 @@ export function updateDetail(row: any) {
   dialog.dialogStatus = CommonEnum.UPDATE
   dialog.visible = true
   Object.assign(dialog.form, row)
+  //回显权限
+  initViewDetailTree()
 }
 // 删除角色
 export function delRow(row: any) {
