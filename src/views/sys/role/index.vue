@@ -10,10 +10,10 @@
         <div class="filter-container">
           <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">
             <el-form-item label="名称" prop="description">
-              <el-input v-model="table.listQuery.name" placeholder="模糊查询名称" />
+              <el-input v-model="table.listQuery.name" placeholder="模糊查询名称"/>
             </el-form-item>
             <el-form-item label="码值" prop="code">
-              <el-input v-model="table.listQuery.code" placeholder="精确查询码值" />
+              <el-input v-model="table.listQuery.code" placeholder="精确查询码值"/>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="searchFormSubmit">查询</el-button>
@@ -25,33 +25,38 @@
           </el-button>
         </div>
         <el-table
-          v-loading="table.listLoading"
-          :data="table.tableData"
-          style="width: 100%"
-          border
+            v-loading="table.listLoading"
+            :data="table.tableData"
+            style="width: 100%"
+            border
         >
           <el-table-column
-            type="selection"
-            width="55"
+              type="selection"
+              width="55"
           />
           <el-table-column
-            prop="name"
-            label="名称"
+              prop="name"
+              label="名称"
           />
           <el-table-column
-            prop="type"
-            label="类型"
+              prop="type"
+              label="类型"
+              :formatter="convertTypeToChinese"
           />
           <el-table-column
-            prop="status"
-            label="状态"
+              prop="orgPath"
+              label="组织路径"
+          />
+          <el-table-column
+              prop="status"
+              label="状态"
           >
             <template #default="scope">
               <el-switch
-                :model-value="scope.row.status"
-                :active-value="1"
-                :inactive-value="0"
-                @change="updateStatus(scope.row)"
+                  :model-value="scope.row.status"
+                  :active-value="1"
+                  :inactive-value="0"
+                  @change="updateStatus(scope.row)"
               />
             </template>
           </el-table-column>
@@ -62,43 +67,43 @@
           <el-table-column
               prop="createTime"
               label="创建时间"
+              :formatter="formatDate"
           />
           <el-table-column
-            fixed="right"
-            label="操作"
-            width="150"
+              fixed="right"
+              label="操作"
+              width="150"
           >
             <template #default="scope">
               <el-button type="text" size="small" @click="updateDetail(scope.row)">编辑</el-button>
               <el-popconfirm
-                title="确定删除吗？"
-                @confirm="delRow(scope.row)"
+                  title="确定删除吗？"
+                  @confirm="delRow(scope.row)"
               >
                 <template #reference>
                   <el-button type="text" size="small">删除</el-button>
                 </template>
               </el-popconfirm>
-              <el-button type="text" size="small" @click="viewDetail(scope.row)">查看</el-button>
             </template>
           </el-table-column>
         </el-table>
 
         <pagination
-          v-show="table.total>0"
-          :total="table.total"
-          :page.sync="table.listQuery.page"
-          :limit.sync="table.listQuery.size"
-          @pagination="getList"
+            v-show="table.total>0"
+            :total="table.total"
+            :page.sync="table.listQuery.page"
+            :limit.sync="table.listQuery.size"
+            @pagination="getList"
         />
         <!--新增或编辑弹框-->
         <el-dialog
-          :model-value="dialog.visible"
-          :title="dialog.textMap[dialog.dialogStatus]"
-          :before-close="cancelAddForm"
+            :model-value="dialog.visible"
+            :title="dialog.textMap[dialog.dialogStatus]"
+            :before-close="cancelAddForm"
         >
           <el-form ref="addFormRef" :model="dialog.form" :rules="dialog.rules" label-width="80px">
             <el-form-item label="角色名称" prop="name">
-              <el-input v-model="dialog.form.name" autocomplete="off" tabindex="1" />
+              <el-input v-model="dialog.form.name" autocomplete="off" tabindex="1"/>
             </el-form-item>
             <el-form-item label="权限" prop="permissionIds">
               <el-tree
@@ -114,7 +119,7 @@
               />
             </el-form-item>
             <el-form-item label="排序值" prop="sort">
-              <el-input v-model="dialog.form.sort" autocomplete="off" tabindex="5" />
+              <el-input v-model="dialog.form.sort" autocomplete="off" tabindex="5"/>
             </el-form-item>
             <el-form-item label="状态" prop="status" tabindex="6">
               <el-radio-group v-model="dialog.form.status">
@@ -132,9 +137,9 @@
         </el-dialog>
         <!--查看详情弹框-->
         <el-dialog
-          :model-value="dialog.viewDialogVisible"
-          title="详情"
-          :before-close="cancelView"
+            :model-value="dialog.viewDialogVisible"
+            title="详情"
+            :before-close="cancelView"
         >
           <el-descriptions title="字典">
             <el-descriptions-item label="码值">
@@ -204,17 +209,17 @@ import {
   resetSearchForm, searchFormRef,
   searchFormSubmit,
   table,
-  tree, treeRef,permissionTreeRef,
+  tree, treeRef, permissionTreeRef,
   updateDetail,
   updateStatus,
   viewDetail,
-  viewNextPage
+  viewNextPage, convertTypeToChinese,formatDate
 } from '@/composables/sys/role'
 import {computed, watch} from 'vue'
 
 export default {
   name: 'Role',
-  components: {LazyTree,Pagination},
+  components: {LazyTree, Pagination},
   setup() {
     // 初始化
     init()
@@ -224,7 +229,7 @@ export default {
     })
     // 日期转换
     const viewDetailDataCreateTime = computed(() => {
-      return format(this.dialog.viewDetailData.createTime)
+      return format(dialog.viewDetailData.createTime)
     })
     // 搜索树
     watch(() => tree.filterTreeText, (searchText) => filterTree(searchText))
@@ -253,7 +258,9 @@ export default {
       getList,
       cancelAddForm,
       addFormSubmit,
-      cancelView
+      cancelView,
+      convertTypeToChinese,
+      formatDate
     }
   }
 }

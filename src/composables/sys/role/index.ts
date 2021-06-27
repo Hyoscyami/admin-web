@@ -15,6 +15,7 @@ import { list as listOrg } from '@/api/sys/org'
 import { QueryOrgReq, useQueryOrgReq } from '../../../model/req/query/QueryOrgReq'
 import { OrgVO, useOrgVO } from '../../../model/vo/OrgVO'
 import { getPermissions } from '../../../api/sys/permission'
+import { format } from '../../../utils/time'
 
 // 初始化树的对象
 const initTree = getTree<QueryOrgReq, OrgVO>(useQueryOrgReq(100), useOrgVO())
@@ -312,4 +313,12 @@ export function resetTreeQuery() {
 export function resetSearchForm() {
   // @ts-ignore
   searchFormRef.value.resetFields()
+}
+// 角色类型转中文
+export function convertTypeToChinese(): string {
+  return '组织角色'
+}
+// 日期转换
+export function formatDate(row: any): string {
+  return format(row.createTime)
 }
