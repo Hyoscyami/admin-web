@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <LazyTree ref="lazyTreeRef" :tree="tree" @load="loadNode" @node-click="handleNodeClick"
+      <LazyTree ref="treeRef" :tree="tree" @load="loadNode" @node-click="handleNodeClick"
                 @node-expand="handleNodeExpand"
                 @node-collapse="handleNodeCollapse"
                 @view-next-page="viewNextPage"
@@ -190,31 +190,29 @@ import {
   delRow,
   dialog,
   dialogFormRef,
-  filterTree,
   getList,
-  handleNodeClick,
-  handleNodeCollapse,
-  handleNodeExpand,
   init,
-  loadNode,
   openAddDialog,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
   table,
-  tree,
-  treeRef,
   updateDetail,
   updateStatus,
   viewDetail,
-  viewNextPage
 } from '@/composables/sys/operator'
-import {cellClass,headerClass} from '@/composables/sys/dict'
+import {
+  handleNodeClick,
+  handleNodeCollapse,
+  handleNodeExpand,
+  loadNode, viewNextPage, tree,treeRef, filterTree
+} from '@/composables/sys/org'
+import {cellClass, headerClass} from '@/composables/sys/dict'
 import {computed, watch} from 'vue'
 
 export default {
   name: 'Operator',
-  components: {LazyTree,Pagination},
+  components: {LazyTree, Pagination},
   setup() {
     // 初始化
     init()

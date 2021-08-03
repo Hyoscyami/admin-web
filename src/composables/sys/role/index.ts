@@ -167,6 +167,8 @@ export function addFormSubmit() {
           getList()
         })
       } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
+        // @ts-ignore
+        dialog.form.permissionIds = permissionTreeRef.value.getCheckedKeys()
         update(dialog.form).then(() => {
           // 关闭弹框
           cancelAddForm()
