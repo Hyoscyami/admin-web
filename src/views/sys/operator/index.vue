@@ -12,8 +12,8 @@
             <el-form-item label="名称" prop="description">
               <el-input v-model="table.listQuery.name" placeholder="模糊查询名称"/>
             </el-form-item>
-            <el-form-item label="码值" prop="code">
-              <el-input v-model="table.listQuery.code" placeholder="精确查询码值"/>
+            <el-form-item label="手机号" prop="phone">
+              <el-input v-model="table.listQuery.code" placeholder="根据手机号精确查询"/>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="searchFormSubmit">查询</el-button>
@@ -38,19 +38,15 @@
               width="55"
           />
           <el-table-column
-              prop="code"
-              label="码值"
+              prop="phone"
+              label="手机号"
           />
           <el-table-column
-              prop="name"
-              label="名称"
+              prop="username"
+              label="账号"
           />
           <el-table-column
-              prop="value"
-              label="值"
-          />
-          <el-table-column
-              prop="completePath"
+              prop="orgPath"
               label="完整路径"
           />
           <el-table-column
@@ -81,7 +77,6 @@
                   <el-button type="text" size="small">删除</el-button>
                 </template>
               </el-popconfirm>
-              <el-button type="text" size="small" @click="viewDetail(scope.row)">查看</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -100,20 +95,34 @@
             :before-close="cancelDialog"
         >
           <el-form ref="dialogFormRef" :model="dialog.form" :rules="dialog.rules" label-width="80px">
-            <el-form-item label="字典名称" prop="name">
+            <el-form-item label="姓名" prop="name">
               <el-input v-model="dialog.form.name" autocomplete="off" tabindex="1"/>
             </el-form-item>
-            <el-form-item label="码值" prop="code">
-              <el-input v-model="dialog.form.code" autocomplete="off" tabindex="2"/>
+            <el-form-item label="账号" prop="username">
+              <el-input v-model="dialog.form.username" autocomplete="off" tabindex="2"/>
             </el-form-item>
-            <el-form-item label="值" prop="value">
-              <el-input v-model="dialog.form.value" autocomplete="off" tabindex="3"/>
+            <el-form-item label="密码" prop="password">
+              <el-input v-model="dialog.form.password" autocomplete="off" tabindex="3"/>
             </el-form-item>
-            <el-form-item label="描述" prop="description">
-              <el-input v-model="dialog.form.description" autocomplete="off" tabindex="4"/>
-            </el-form-item>
-            <el-form-item label="排序值" prop="sort">
-              <el-input v-model="dialog.form.sort" autocomplete="off" tabindex="5"/>
+            <el-form-item label="组织角色" prop="orgRoles">
+              <div v-for="item in dialog.form.orgRoles">
+                <el-select v-model="item.orgId" filterable placeholder="请选择组织">
+                  <el-option
+                      v-for="item in dialogOrgRole.orgList"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+                <el-select v-model="item.roleId" filterable placeholder="请选择角色">
+                  <el-option
+                      v-for="item in dialogOrgRole.orgList"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
+                  </el-option>
+                </el-select>
+              </div>
             </el-form-item>
             <el-form-item label="状态" prop="status" tabindex="6">
               <el-radio-group v-model="dialog.form.status">
@@ -200,13 +209,12 @@ import {
   updateDetail,
   updateStatus,
   viewDetail,
-} from '@/composables/sys/operator'
-import {
   handleNodeClick,
   handleNodeCollapse,
   handleNodeExpand,
-  loadNode, viewNextPage, tree,treeRef, filterTree
-} from '@/composables/sys/org'
+  loadNode, viewNextPage, tree, treeRef, filterTree,
+  dialogOrgRole
+} from '@/composables/sys/operator'
 import {cellClass, headerClass} from '@/composables/sys/dict'
 import {computed, watch} from 'vue'
 
@@ -247,7 +255,8 @@ export default {
       getList,
       cancelDialog,
       addFormSubmit,
-      cancelView
+      cancelView,
+      dialogOrgRole
     }
   }
 }

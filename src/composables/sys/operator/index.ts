@@ -1,42 +1,57 @@
 import { nextTick, reactive, ref } from 'vue'
 import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
 import { DictEnum } from '../../../enums/DictEnum'
-import { add, del, getMaxSort, list, listChildrenByCode, update } from '@/api/sys/dict'
+import { add, del, list, update } from '@/api/sys/operator'
 import { CommonEnum } from '@/enums/CommonEnum'
 import { toRaw } from '@vue/reactivity'
 import { useTable } from '@/model/req/query/Table'
-import { DictVO, useDictVO } from '@/model/vo/DictVO'
-import { QueryDictReq, useQueryDictReq } from '@/model/req/query/QueryDictReq'
+import { OperatorVO, useOperatorVO } from '@/model/vo/OperatorVO'
 import { getTree } from '@/model/req/query/Tree'
 import { useDialog } from '../../../model/vo/Dialog'
-import { AddDictReq, DictRule, useAddDictReq, useDictRule } from '../../../model/req/add/AddDictReq'
-import { UpdateDictReq, useUpdateDictReq } from '../../../model/req/update/UpdateDictReq'
+import { QueryOperatorReq, useQueryOperatorReq } from '../../../model/req/query/QueryOperatorReq'
+import {
+  AddOperatorReq,
+  OperatorRule,
+  useAddOperatorReq,
+  useOperatorRule,
+  userOrgRoleForm
+} from '../../../model/req/add/AddOperatorReq'
+import {
+  UpdateOperatorReq,
+  useUpdateOperatorReq
+} from '../../../model/req/update/UpdateOperatorReq'
+import { listChildrenByCode } from '../../../api/sys/dict'
+import { QueryOrgReq, useQueryOrgReq } from '../../../model/req/query/QueryOrgReq'
+import { OrgVO, useOrgVO } from '../../../model/vo/OrgVO'
+import { list as getOrgList } from '@/api/sys/org'
 
 // 初始化树的对象
-const initTree = getTree<QueryDictReq, DictVO>(useQueryDictReq(100), useDictVO())
+const initTree = getTree<QueryOrgReq, OrgVO>(useQueryOrgReq(100), useOrgVO())
 
 // 初始化表格的对象
-const initTable = useTable<DictVO, QueryDictReq>(useQueryDictReq(20))
+const initTable = useTable<OperatorVO, QueryOperatorReq>(useQueryOperatorReq(20))
 
 // 树相关
 export const tree = reactive(initTree)
-// 父数据字典表格数据
+// 员工表格数据
 export const table = reactive(initTable)
 
 // 对话框初始化
-const initDialog = useDialog<DictVO, DictRule, AddDictReq, UpdateDictReq>(
-  useDictVO(),
-  useDictRule(),
-  useAddDictReq()
+const initDialog = useDialog<OperatorVO, OperatorRule, AddOperatorReq, UpdateOperatorReq>(
+  useOperatorVO(),
+  useOperatorRule(),
+  useAddOperatorReq()
 )
 //对话框
 export const dialog = reactive(initDialog)
 // 树ref
 export const treeRef = ref(null)
-// 对话框新增数据字典表单ref
+// 对话框新增表单ref
 export const dialogFormRef = ref(null)
 // 搜索表格的搜索表单
 export const searchFormRef = ref(null)
+//组织角色对话框
+export const dialogOrgRole = reactive(userOrgRoleForm())
 // 初始化
 export function init() {
   // 初始化状态
@@ -72,7 +87,7 @@ export function filterTree(searchText: string) {
   }
   tree.listQuery.parentId = toRaw(tree).rootNode.id
   tree.listQuery.name = searchText
-  list(tree.listQuery).then((response) => {
+  getOrgList(tree.listQuery).then((response: { data: { total: number; records: any } }) => {
     tree.total = response.data.total
     if (treeRef.value) {
       // @ts-ignore
@@ -89,22 +104,25 @@ export function openAddDialog() {
   }
   dialog.visible = true
   dialog.dialogStatus = CommonEnum.CREATE
-  getMaxSortValue(tree.checkedNodeClick.id)
-  dialog.form.parentId = toRaw(tree).checkedNodeClick.id
-  dialog.form.code = toRaw(tree).checkedNodeClick.code
+  getSelectOrg('')
 }
 
+/**
+ * 获取新增和编辑时弹框的组织下拉框
+ * @param orgName
+ */
+export function getSelectOrg(orgName: string) {
+  let queryOrgReq = useQueryOrgReq(10)
+  queryOrgReq.name = orgName
+  getOrgList(queryOrgReq).then((response) => {
+    dialogOrgRole.orgList = response.data.records
+  })
+}
 // 查看详情
 export async function viewDetail(row: any) {
   dialog.viewDialogVisible = true
   Object.assign(dialog.viewDetailData, row)
   dialog.viewDetailData.statusStr = await dictConvert(DictEnum.DICT_STATUS, String(row.status))
-}
-// 获取当前最大排序值
-export function getMaxSortValue(id: number) {
-  getMaxSort(id).then((response) => {
-    dialog.form.sort = response.data + 1
-  })
 }
 // 新增数据字典表单提交
 export function addFormSubmit() {
@@ -147,10 +165,11 @@ export function cancelDialog() {
 export function cancelView() {
   dialog.viewDialogVisible = false
 }
-// 获取父数据字典列表数据
+// 获取列表数据
 export function getList() {
   table.listLoading = true
-  table.listQuery.parentId = toRaw(tree).checkedNodeClick.id
+  table.listQuery.orgId = toRaw(tree).checkedNodeClick.id
+  table.listQuery.minDistance = 0
   list(table.listQuery).then((response) => {
     table.tableData = response.data.records
     table.total = response.data.total
@@ -188,12 +207,12 @@ export async function loadNode(node: any, resolve: any) {
       rootNode.expanded = true
       // 默认选中根节点
       // @ts-ignore
-      treeRef.value.setCurrentKey(rootNode.id, true)
+      treeRef.value.lazyTreeRef.setCurrentKey(rootNode.id, true)
       console.log('rootNode:', rootNode)
       Object.assign(tree.checkedNodeClick, rootNode)
       console.log('初始化了:tree.checkedNodeClick', tree.checkedNodeClick)
     }).then(() => node.childNodes[0].loadData())
-    return resolve([useDictVO()])
+    return resolve([useOrgVO()])
   }
   if (node.level > 0) {
     console.log('开始获取数据:', node)
@@ -215,7 +234,7 @@ export function loadNextPageData() {
   Object.assign(tree.listQuery.parentId, tree.checkedNodeDropdown.data.id)
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = 1
-  list(tree.listQuery).then((response) => {
+  getOrgList(tree.listQuery).then((response) => {
     tree.total = response.data.total
     // 数据不为空
     if (isNotEmptyCollection(response.data.records)) {
@@ -240,7 +259,7 @@ export async function getChildrenNode(id: number) {
   tree.listQuery.parentId = id
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = 1
-  await list(tree.listQuery).then((response) => {
+  await getOrgList(tree.listQuery).then((response) => {
     tree.loadChildrenTreeData = response.data.records
     tree.total = response.data.total
     // 设置最后一个节点是否有下一页链接
@@ -258,7 +277,7 @@ export function setHasNext() {
 export function handleNodeClick(data: any) {
   // 保存被选择节点
   tree.checkedNodeClick = data
-  table.listQuery.parentId = data.id
+  table.listQuery.orgId = data.id
   // 刷新表格
   getList()
 }
@@ -277,7 +296,7 @@ export function updateStatus(data: any) {
   if (!data.id) {
     return
   }
-  const param = useUpdateDictReq()
+  const param = useUpdateOperatorReq()
   Object.assign(param, data)
   if (param.status === 1) {
     param.status = 0
@@ -300,11 +319,11 @@ export function viewNextPage(clickedNode: any) {
 // 重置树的搜索条件
 export function resetQuery() {
   tree.listQuery.page = 1
-  tree.listQuery.parentId = undefined
-  tree.listQuery.code = ''
-  tree.listQuery.description = ''
+  tree.listQuery.size = 100
+  tree.listQuery.parentId = 0
   tree.listQuery.status = undefined
   tree.listQuery.name = ''
+  tree.listQuery.orgNo = ''
   tree.total = 0
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = undefined
