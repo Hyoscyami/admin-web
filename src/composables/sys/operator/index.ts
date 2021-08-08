@@ -24,6 +24,8 @@ import { listChildrenByCode } from '../../../api/sys/dict'
 import { QueryOrgReq, useQueryOrgReq } from '../../../model/req/query/QueryOrgReq'
 import { OrgVO, useOrgVO } from '../../../model/vo/OrgVO'
 import { list as getOrgList } from '@/api/sys/org'
+import { list as getRoleList } from '@/api/sys/role'
+import { useQueryRoleReq } from '../../../model/req/query/QueryRoleReq'
 
 // 初始化树的对象
 const initTree = getTree<QueryOrgReq, OrgVO>(useQueryOrgReq(100), useOrgVO())
@@ -108,11 +110,34 @@ export function openAddDialog() {
 }
 
 /**
+ *  选择组织后change事件
+ * @param orgId
+ */
+export function selectOrgChange(orgId: number) {
+  dialog.form.orgRoles[0].roleId = undefined
+  getSelectRole(orgId, '')
+}
+/**
+ * 根据选择的组织ID，查询组织下的角色列表
+ * @param orgId
+ * @param roleName
+ */
+export function getSelectRole(orgId: number, roleName: string) {
+  let queryRoleReq = useQueryRoleReq(10000)
+  queryRoleReq.name = roleName
+  queryRoleReq.orgId = orgId
+  queryRoleReq.maxDistance = 0
+  console.log('queryRoleReq,orgId', queryRoleReq, orgId)
+  getRoleList(queryRoleReq).then((response) => {
+    dialogOrgRole.roleList = response.data.records
+  })
+}
+/**
  * 获取新增和编辑时弹框的组织下拉框
  * @param orgName
  */
 export function getSelectOrg(orgName: string) {
-  let queryOrgReq = useQueryOrgReq(10)
+  let queryOrgReq = useQueryOrgReq(10000)
   queryOrgReq.name = orgName
   getOrgList(queryOrgReq).then((response) => {
     dialogOrgRole.orgList = response.data.records
@@ -160,6 +185,8 @@ export function cancelDialog() {
   dialog.visible = false
   // @ts-ignore
   dialogFormRef.value.resetFields()
+  dialog.form.orgRoles[0].orgId = undefined
+  dialog.form.orgRoles[0].roleId = undefined
 }
 // 查看详情字典弹框取消
 export function cancelView() {

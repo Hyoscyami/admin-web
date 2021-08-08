@@ -38,16 +38,12 @@
               width="55"
           />
           <el-table-column
-              prop="phone"
-              label="手机号"
-          />
-          <el-table-column
               prop="username"
               label="账号"
           />
           <el-table-column
               prop="orgPath"
-              label="完整路径"
+              label="所属组织"
           />
           <el-table-column
               prop="status"
@@ -106,17 +102,18 @@
             </el-form-item>
             <el-form-item label="组织角色" prop="orgRoles">
               <div v-for="item in dialog.form.orgRoles">
-                <el-select v-model="item.orgId" filterable placeholder="请选择组织">
+                <el-select v-model="item.orgId" filterable placeholder="请选择组织" @change="selectOrgChange">
                   <el-option
                       v-for="item in dialogOrgRole.orgList"
                       :key="item.id"
                       :label="item.name"
                       :value="item.id">
+                    <span style="float: left" :title="item.completePath">{{ item.name }}</span>
                   </el-option>
                 </el-select>
                 <el-select v-model="item.roleId" filterable placeholder="请选择角色">
                   <el-option
-                      v-for="item in dialogOrgRole.orgList"
+                      v-for="item in dialogOrgRole.roleList"
                       :key="item.id"
                       :label="item.name"
                       :value="item.id">
@@ -213,7 +210,7 @@ import {
   handleNodeCollapse,
   handleNodeExpand,
   loadNode, viewNextPage, tree, treeRef, filterTree,
-  dialogOrgRole
+  dialogOrgRole,selectOrgChange
 } from '@/composables/sys/operator'
 import {cellClass, headerClass} from '@/composables/sys/dict'
 import {computed, watch} from 'vue'
@@ -256,7 +253,7 @@ export default {
       cancelDialog,
       addFormSubmit,
       cancelView,
-      dialogOrgRole
+      dialogOrgRole,selectOrgChange
     }
   }
 }

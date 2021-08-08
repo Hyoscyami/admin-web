@@ -149,6 +149,7 @@ export function addFormSubmit() {
           // 刷新树
           // @ts-ignore
           treeRef.value.lazyTreeRef.append(response.data, tree.checkedNodeClick)
+          console.log('返回数据:,tree.checkedNodeClick', response, tree.checkedNodeClick)
           tree.checkedNodeClick.isLeaf = false
         })
       } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
