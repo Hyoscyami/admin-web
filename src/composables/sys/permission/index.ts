@@ -1,5 +1,5 @@
 import { reactive, ref } from 'vue'
-import { add, getMaxSort, getTree as getApiTree, update } from '@/api/sys/permission'
+import { add, getMaxSort, getTree as getApiTree, update, del } from '@/api/sys/permission'
 import { isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
 import { listChildrenByCode } from '@/api/sys/dict'
 import { DictEnum } from '@/enums/DictEnum'
@@ -47,6 +47,7 @@ export function initTree() {
   resetTreeQuery()
   tree.listQuery.minDistance = 0
   tree.listQuery.parentId = toRaw(tree).rootNode.id
+  console.log('tree', tree)
   getApiTree(tree.listQuery).then((response) => {
     tree.data = response.data
     if (isNotEmptyCollection(tree.data)) {
@@ -161,6 +162,15 @@ export function handleEditClick() {
     return
   }
   Object.assign(form, tree.checkedNodeClick)
+}
+
+// 删除机构
+export function delRow() {
+  del(tree.checkedNodeClick.id).then(() => {
+    successMsg('操作成功')
+    // 刷新数据数据
+    initTree()
+  })
 }
 // 搜索tree
 export function filterTree(searchText: string) {

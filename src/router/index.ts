@@ -52,11 +52,10 @@ export const constantRoutes = [
       }
     ]
   },
-
   {
     path: '/sys',
     component: Layout,
-    redirect: '/sys/org',
+    redirect: 'noRedirect',
     name: 'sys',
     meta: { title: '系统管理', icon: 'el-icon-s-help' },
     children: [
@@ -95,6 +94,27 @@ export const constantRoutes = [
         name: 'Config',
         component: () => import('@/views/sys/config/index.vue'),
         meta: { title: '系统设置', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/bad-debt',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'bad-debt',
+    meta: { title: '初始申报', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'import',
+        name: 'BadDebtImport',
+        component: () => import('@/views/bad-debt/import/index.vue'),
+        meta: { title: '数据导入', icon: 'table' }
+      },
+      {
+        path: 'confirm',
+        name: 'BadDebtConfirm',
+        component: () => import('@/views/bad-debt/confirm/index.vue'),
+        meta: { title: '核销确认', icon: 'table' }
       }
     ]
   },

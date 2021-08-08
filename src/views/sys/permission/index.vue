@@ -23,7 +23,7 @@
         <el-form>
           <el-form-item>
             <el-button v-if="hasPermission('/sys/permission/add')" type="primary" @click="handleAddClick">新增</el-button>
-            <el-button v-if="hasPermission('/sys/permission/delete')" type="danger">删除</el-button>
+            <el-button v-if="hasPermission('/sys/permission/delete')" type="danger" @click="delRow">删除</el-button>
           </el-form-item>
         </el-form>
         <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
@@ -82,7 +82,7 @@ import {
   treeRef,
   rules,
   handleAddClick,
-  formRef, filterTree, filterNode
+  formRef, filterTree, filterNode,delRow
 } from '@/composables/sys/permission'
 import hasPermission from '@/utils/permission'
 import {watch} from 'vue'
@@ -104,7 +104,7 @@ export default {
       handleAddClick,
       formRef,
       hasPermission,
-      filterNode
+      filterNode,delRow
     }
   }
 }

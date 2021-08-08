@@ -86,7 +86,6 @@
                   <el-button type="text" size="small">删除</el-button>
                 </template>
               </el-popconfirm>
-              <el-button type="text" size="small" @click="viewDetail(scope.row)">查看</el-button>
             </template>
           </el-table-column>
         </el-table>
