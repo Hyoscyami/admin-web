@@ -127,7 +127,6 @@ export function getSelectRole(orgId: number, roleName: string) {
   queryRoleReq.name = roleName
   queryRoleReq.orgId = orgId
   queryRoleReq.maxDistance = 0
-  console.log('queryRoleReq,orgId', queryRoleReq, orgId)
   getRoleList(queryRoleReq).then((response) => {
     dialogOrgRole.roleList = response.data.records
   })
@@ -208,6 +207,13 @@ export function updateDetail(row: any) {
   dialog.dialogStatus = CommonEnum.UPDATE
   dialog.visible = true
   Object.assign(dialog.form, row)
+  //初始化组织列表
+  getSelectOrg('')
+  console.log('dialog', dialog)
+  if (dialog.form.orgRoles && dialog.form.orgRoles[0].orgId) {
+    //初始化角色列表
+    getSelectRole(dialog.form.orgRoles[0].orgId, '')
+  }
 }
 // 删除数据字典
 export function delRow(row: any) {

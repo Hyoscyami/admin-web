@@ -1,4 +1,5 @@
 import { BaseVO } from '../resp/base/BaseVO'
+import { OrgRole } from '../req/add/AddOperatorReq'
 
 export interface OperatorVO extends BaseVO {
   /**
@@ -17,6 +18,10 @@ export interface OperatorVO extends BaseVO {
    * 所属组织路径
    */
   orgPath: string
+  /**
+   * 组织角色
+   */
+  orgRoles: Array<OrgRole>
 }
 
 /**
@@ -29,6 +34,7 @@ export function useOperatorVO(): OperatorVO {
     phone: '',
     username: '',
     id: 1,
+    orgRoles: [],
     name: '张三',
     status: 1,
     statusStr: '',
