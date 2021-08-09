@@ -22,9 +22,9 @@
             :icon-class="onlyOneChild.meta.icon"
         />
         <span
-            v-if="onlyOneChild.meta.title"
+            v-if="item.meta.title"
             slot="title"
-        >{{ onlyOneChild.meta.title }}</span>
+        >{{ item.meta.title }}</span>
       </template>
       <sidebar-item
         v-for="child in item.children"
