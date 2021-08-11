@@ -3,6 +3,10 @@ import { BaseVO } from '../resp/base/BaseVO'
 export interface PermissionVO extends BaseVO {
   /** 权限类型，1:页面，2:按钮 */
   type: number
+  /**
+   * 页面名称
+   */
+  pageName?: string
   /** 节点父ID */
   parentId: number
   /** 是否为叶子节点 */

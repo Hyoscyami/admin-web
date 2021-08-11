@@ -11,6 +11,10 @@ export interface AddPermissionReq {
   component: string
   /** 图标路径 */
   icon: string
+  /**
+   * 页面名称
+   */
+  pageName?: string
   /** 是否隐藏，1：是，0：否 */
   hidden: boolean
   /** 排序，默认为1 */
@@ -53,6 +57,7 @@ export function useAddPermissionReq(): AddPermissionReq {
     path: '',
     sort: 0,
     status: 0,
-    type: 0
+    type: 0,
+    pageName: undefined
   }
 }

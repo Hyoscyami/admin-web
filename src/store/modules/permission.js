@@ -31,7 +31,7 @@ function convertRoute(routes, data) {
       component: isNotEmptyCollection(item.children)
         ? Layout
         : (resolve) => require([`@/views${item.path}`], resolve),
-      name: item.name,
+      name: item.pageName,
       hidden: item.type === CommonEnum.PERMISSION_MENU ? item.hidden : true, // 是页面的话根据按钮是否隐藏赋值，不是页面的话直接隐藏
       meta: { title: item.name, icon: item.icon, type: item.type },
       children: []
@@ -72,6 +72,7 @@ const actions = {
         //树平铺成list，用来判断用户是否有权限
         convertRouteList(asyncRoutes, routeList)
         const accessedRoutes = asyncRoutes
+        console.log('树状路由,', accessedRoutes)
         // 保存vue需要的树状路由
         commit('SET_ROUTES', accessedRoutes)
         // 保存树状路由平铺成的list

@@ -174,7 +174,7 @@ import {
 import {computed, watch} from 'vue'
 
 export default {
-  name: 'Role',
+  name: 'SysRole',
   components: {LazyTree, Pagination},
   setup() {
     // 初始化

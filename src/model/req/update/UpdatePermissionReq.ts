@@ -13,6 +13,10 @@ export interface UpdatePermissionReq {
   parentId: number
   /** 页面路径 */
   path: string
+  /**
+   * 页面名称
+   */
+  pageName?: string
   /** 组件 */
   component: string
   /** 图标路径 */
@@ -58,7 +62,8 @@ export function usePermissionForm(): PermissionForm {
     status: 0,
     statusSelect: [],
     type: 0,
-    typeSelect: []
+    typeSelect: [],
+    pageName: undefined
   }
 }
 /**
@@ -75,6 +80,7 @@ export function useUpdatePermissionReq(): UpdatePermissionReq {
     path: '',
     sort: 1,
     status: 1,
-    type: 1
+    type: 1,
+    pageName: undefined
   }
 }

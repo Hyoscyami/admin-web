@@ -56,7 +56,7 @@ export const constantRoutes = [
     path: '/sys',
     component: Layout,
     redirect: 'noRedirect',
-    name: 'sys',
+    name: 'Sys',
     meta: { title: '系统管理', icon: 'el-icon-s-help' },
     children: [
       {

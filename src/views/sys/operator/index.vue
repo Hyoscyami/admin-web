@@ -216,7 +216,7 @@ import {cellClass, headerClass} from '@/composables/sys/dict'
 import {computed, watch} from 'vue'
 
 export default {
-  name: 'Operator',
+  name: 'SysOperator',
   components: {LazyTree, Pagination},
   setup() {
     // 初始化

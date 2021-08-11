@@ -43,6 +43,9 @@
           <el-form-item label="路径" prop="path">
             <el-input v-model="form.path" />
           </el-form-item>
+          <el-form-item label="页面名称" prop="pageName">
+            <el-input v-model="form.pageName" />
+          </el-form-item>
           <el-form-item label="排序值" prop="sort">
             <el-input v-model="form.sort" />
           </el-form-item>
@@ -88,7 +91,7 @@ import hasPermission from '@/utils/permission'
 import {watch} from 'vue'
 
 export default {
-  name: 'Permission',
+  name: 'SysPermission',
   setup() {
     // 初始化
     init()

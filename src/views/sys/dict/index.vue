@@ -214,7 +214,7 @@ import {computed, watch,ref} from 'vue'
 import LazyTree from "../../../components/LazyTree/index.vue";
 
 export default {
-  name: 'Dict',
+  name: 'SysDict',
   components: {LazyTree, Pagination},
   setup() {
     // 初始化
