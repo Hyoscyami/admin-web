@@ -184,8 +184,8 @@ export function cancelDialog() {
   dialog.visible = false
   // @ts-ignore
   dialogFormRef.value.resetFields()
-  dialog.form.orgRoles[0].orgId = undefined
-  dialog.form.orgRoles[0].roleId = undefined
+  // dialog.form.orgRoles[0].orgId = undefined
+  // dialog.form.orgRoles[0].roleId = undefined
 }
 // 查看详情字典弹框取消
 export function cancelView() {

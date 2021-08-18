@@ -70,7 +70,7 @@ export function update(data: AddRoleReq | UpdateRoleReq) {
 
 export function getDetail(id: string) {
   return request({
-    url: '/role/getDetail',
+    url: '/role/detail',
     method: 'get',
     params: { id }
   })
