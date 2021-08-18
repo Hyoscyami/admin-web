@@ -209,7 +209,7 @@ export function updateDetail(row: any) {
   dialog.visible = true
   Object.assign(dialog.form, row)
   //回显权限
-  initViewDetailTree()
+  initViewDetailTree(row)
 }
 // 删除角色
 export function delRow(row: any) {

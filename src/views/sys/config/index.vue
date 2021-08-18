@@ -173,17 +173,17 @@
   </div>
 </template>
 
-<script>
-import {add, del, getMaxSort, list, update} from '@/services/sys/config'
+<script lang="ts">
+import {add, del, getMaxSort, list, update} from '@/api/sys/config'
 import Pagination from '@/components/Pagination/index.vue'
 import {dictConvert} from '@/utils/common'
 import {format} from '@/utils/time'
 import {DictEnum} from '@/enums/DictEnum'
-import {listChildrenByCode} from '@/services/sys/dict'
+import {listChildrenByCode} from '@/api/sys/dict'
 import {CommonEnum} from '@/enums/CommonEnum'
 
 export default {
-  name: 'Config',
+  name: 'SysConfig',
   components: {Pagination},
   data() {
     return {
@@ -311,7 +311,7 @@ export default {
     addFormSubmit() {
       this.$refs['addForm'].validate((valid) => {
         if (valid) {
-          if (this.dialog.dialogStatus === CommonEnum.create) {
+          if (this.dialog.dialogStatus === CommonEnum.CREATE) {
             add(JSON.stringify(this.dialog.addForm)).then(response => {
               // 关闭弹框
               this.cancelAddForm()
@@ -320,7 +320,7 @@ export default {
               // 刷新树
               this.filterTree()
             })
-          } else if (this.dialog.dialogStatus === CommonEnum.update) {
+          } else if (this.dialog.dialogStatus === CommonEnum.UPDATE) {
             update(JSON.stringify(this.dialog.addForm)).then(response => {
               // 关闭弹框
               this.cancelAddForm()
