@@ -4,7 +4,7 @@ import { nextTick, unref } from 'vue'
 
 // 校验用户名
 export const validateUsername = (_rule: any, value: string, callback: any) => {
-  if (!validUsername(value)) {
+  if (value.length < 4) {
     callback(new Error('请输入账号'))
   } else {
     callback()
