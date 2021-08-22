@@ -110,7 +110,6 @@
                   ref="permissionTreeRef"
                   :data="dialog.viewDetailData.permissionVOS"
                   :props="tree.treeProps"
-                  :default-checked-keys="dialog.viewDetailData.permissionIds"
                   node-key="id"
                   show-checkbox
                   :expand-on-click-node="false"

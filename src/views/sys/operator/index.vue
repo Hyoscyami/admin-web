@@ -42,6 +42,10 @@
               label="账号"
           />
           <el-table-column
+              prop="name"
+              label="姓名"
+          />
+          <el-table-column
               prop="orgPath"
               label="所属组织"
           />

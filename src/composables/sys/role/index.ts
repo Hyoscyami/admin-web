@@ -106,16 +106,13 @@ function initAddDetailTree() {
   })
 }
 //初始化详情和编辑时的树
-function initViewDetailTree() {
-  getPermissions().then((response) => {
-    dialog.viewDetailData.permissionVOS = response.data
-    if (dialog.viewDetailData.permissionVOS) {
-      //权限树转权限ID列表
-      convertPermissionList(
-        dialog.viewDetailData.permissionVOS,
-        dialog.viewDetailData.permissionIds
-      )
-    }
+function initViewDetailTree(row: RoleVO) {
+  getDetail(row.id).then((response) => {
+    dialog.viewDetailData.permissionVOS = response.data.permissionVOS
+    dialog.viewDetailData.permissionIds = response.data.permissionIds
+    nextTick(() => {
+      permissionTreeRef.value.setCheckedKeys(dialog.viewDetailData.permissionIds)
+    })
   })
 }
 
@@ -129,7 +126,9 @@ function convertPermissionList(permissionVOS: Array<PermissionVO>, permissionIds
     if (item.children) {
       convertPermissionList(item.children, permissionIds)
     }
-    permissionIds.push(item.id)
+    if (item.checked) {
+      permissionIds.push(item.id)
+    }
   })
 }
 // 查看详情

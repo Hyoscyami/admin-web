@@ -93,7 +93,7 @@ export function filterTree(searchText: string) {
     tree.total = response.data.total
     if (treeRef.value) {
       // @ts-ignore
-      treeRef.value.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
+      treeRef.value.lazyTreeRef.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
     }
   })
 }
