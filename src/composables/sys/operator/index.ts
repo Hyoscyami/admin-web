@@ -366,3 +366,17 @@ export function resetSearchForm() {
   // @ts-ignore
   searchFormRef.value.resetFields()
 }
+
+/**
+ * 检验新增和编辑员工时的密码
+ * @param _rule
+ * @param value
+ * @param callback
+ */
+export function validatePassword(_rule: any, value: string, callback: any) {
+  if (dialog.dialogStatus === CommonEnum.CREATE && value === '') {
+    callback(new Error('请输入密码'))
+  } else {
+    callback()
+  }
+}

@@ -68,13 +68,13 @@
               width="150"
           >
             <template #default="scope">
-              <el-button type="text" size="small" @click="updateDetail(scope.row)">编辑</el-button>
-              <el-popconfirm
+              <el-button v-if="scope.row.canEdit" type="text" size="small" @click="updateDetail(scope.row)">编辑</el-button>
+              <el-popconfirm v-if="scope.row.canDel"
                   title="确定删除吗？"
                   @confirm="delRow(scope.row)"
               >
                 <template #reference>
-                  <el-button type="text" size="small">删除</el-button>
+                  <el-button v-if="scope.row.canDel" type="text" size="small">删除</el-button>
                 </template>
               </el-popconfirm>
             </template>

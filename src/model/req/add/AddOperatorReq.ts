@@ -1,5 +1,6 @@
 import { OrgVO } from '../../vo/OrgVO'
 import { RoleVO } from '../../vo/RoleVO'
+import { validatePassword } from '../../../composables/sys/operator'
 
 export interface AddOperatorReq {
   /** 姓名 */
@@ -80,7 +81,7 @@ export function useOperatorRule(): OperatorRule {
   return {
     name: [{ required: true, message: '请输入用户名称', trigger: 'change' }],
     username: [{ required: true, message: '请输入账号', trigger: 'change' }],
-    password: [{ required: true, message: '请输入密码', trigger: 'change' }],
+    password: [{ trigger: 'blur', validator: validatePassword }],
     status: [{ required: true, message: '请选择状态', trigger: 'change' }],
     orgRoles: [{ required: true, message: '请选择组织和角色', trigger: 'change' }]
   }

@@ -22,6 +22,14 @@ export interface OperatorVO extends BaseVO {
    * 组织角色
    */
   orgRoles: Array<OrgRole>
+  /**
+   * 是否能编辑
+   */
+  canEdit?: boolean
+  /**
+   * 是否能删除
+   */
+  canDel?: boolean
 }
 
 /**
@@ -42,6 +50,8 @@ export function useOperatorVO(): OperatorVO {
     createTime: '',
     creatorName: '',
     modifyTime: '',
-    modifierName: ''
+    modifierName: '',
+    canEdit: undefined,
+    canDel: undefined
   }
 }
