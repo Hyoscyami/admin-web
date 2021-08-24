@@ -48,6 +48,9 @@
             prop="status"
             label="状态"
         >
+          <template #default="scope">
+            {{convertStatusToChinese(scope.row)}}
+          </template>
         </el-table-column>
         <el-table-column
             fixed="right"
@@ -55,7 +58,7 @@
             width="150"
         >
           <template #default="scope">
-            <el-button type="text" size="small">下载错误报告</el-button>
+            <el-button v-if="scope.row.failCount > 0" type="text" size="small">下载错误报告</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -81,6 +84,7 @@ import {
   searchFormRef,
   searchFormSubmit,
   table,
+    convertStatusToChinese
 } from '@/composables/bad-debt/import'
 
 export default {
@@ -96,7 +100,8 @@ export default {
       resetSearchForm,
       getList,
       cellClass,
-      headerClass
+      headerClass,
+      convertStatusToChinese
     }
   }
 }

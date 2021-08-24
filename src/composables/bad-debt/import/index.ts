@@ -117,19 +117,19 @@ export function filterTableType(data: any) {
 // 根据状态刷新表格
 export function filterTableStatus(value: number) {
   // 重置查询条件
-  table.listQuery = useQueryOrgReq(100)
+  table.listQuery = useQueryImportResultReq(100)
   if (table.listQuery.status) {
     table.listQuery.status.push(value)
   }
   // 刷新表格数据
   getList()
 }
-// 组织类型转换
-export function convertTypeToChinese(row: any): string {
-  if (row.type === 1) {
-    return '实体组织'
-  } else if (row.type === 2) {
-    return '部门'
+// 状态转换
+export function convertStatusToChinese(row: any): string {
+  if (row.status === 1) {
+    return '导入中'
+  } else if (row.status === 2) {
+    return '导入完成'
   }
   return '-'
 }
