@@ -1,16 +1,7 @@
-import { nextTick, reactive, ref } from 'vue'
-import { dictConvert, isBlank, isNotEmptyCollection, successMsg, warningMsg } from '@/utils/common'
+import { reactive, ref } from 'vue'
+import { errorMsg } from '@/utils/common'
 import { DictEnum } from '../../../enums/DictEnum'
-import {
-  add,
-  del,
-  getMaxSort,
-  list,
-  listChildrenByCode,
-  update
-} from '@/api/bad-debt/import-result'
-import { CommonEnum } from '@/enums/CommonEnum'
-import { toRaw } from '@vue/reactivity'
+import { list, listChildrenByCode } from '@/api/bad-debt/import-result'
 import {
   QueryImportResultReq,
   useQueryImportResultReq
@@ -18,17 +9,17 @@ import {
 import { DictVO } from '../../../model/vo/DictVO'
 import { ImportResultVO } from '../../../model/vo/ImportResultVO'
 import { SelectGroup, useTable } from '../../../model/req/query/Table'
-import { useAddOrgReq } from '../../../model/req/add/AddOrgReq'
+import { CommonEnum } from '../../../enums/CommonEnum'
 
 // 初始化表格的对象
 const initTable = useTable<ImportResultVO, QueryImportResultReq>(useQueryImportResultReq(20))
 // 父机构表格数据
 export const table = reactive(initTable)
-
 // 表格ref
 export const tableRef = ref(null)
 // 搜索表格的搜索表单
 export const searchFormRef = ref(null)
+
 // 初始化
 export function init() {
   // 初始化状态
@@ -72,6 +63,7 @@ export function listTypes() {
     })
   })
 }
+
 // 搜索机构表单查询
 export function searchFormSubmit() {
   table.listQuery.page = 1
@@ -87,11 +79,13 @@ export function getList() {
     table.listLoading = false
   })
 }
+
 // 表格的搜索表单重置
 export function resetSearchForm() {
   // @ts-ignore
   searchFormRef.value.resetFields()
 }
+
 // 根据类型刷新表格
 export function filterTableType(data: any) {
   // 重置查询条件
@@ -124,6 +118,7 @@ export function filterTableStatus(value: number) {
   // 刷新表格数据
   getList()
 }
+
 // 状态转换
 export function convertStatusToChinese(row: any): string {
   if (row.status === 1) {
@@ -132,4 +127,25 @@ export function convertStatusToChinese(row: any): string {
     return '导入完成'
   }
   return '-'
+}
+
+/**
+ * 文件上传超过数量限制处理
+ * @param files
+ * @param fileList
+ */
+export function handleExceed(files, fileList) {
+  errorMsg('上传文件超过限制')
+}
+
+/**
+ * 文件上传成功后处理
+ * @param response
+ * @param file
+ * @param fileList
+ */
+export function handleUploadSuccess(response, file, fileList) {
+  if (response.code !== CommonEnum.SUCCESS_CODE) {
+    errorMsg(response.msg)
+  }
 }

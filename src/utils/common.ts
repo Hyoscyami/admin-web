@@ -47,6 +47,7 @@ export async function dictConvert(code: string, value: string): Promise<string> 
   console.log('返回了:', name)
   return name
 }
+
 // 封装msg文案提示成功
 export function successMsg(msg: string) {
   ElMessage.success({
@@ -54,10 +55,19 @@ export function successMsg(msg: string) {
     type: 'success'
   })
 }
+
 // 封装msg文案提示警告
 export function warningMsg(msg: string) {
   ElMessage.warning({
     message: msg,
     type: 'warning'
   })
+}
+
+/**
+ * 封装msg文案提示错误
+ * @param msg
+ */
+export function errorMsg(msg: string) {
+  ElMessage.error(msg)
 }

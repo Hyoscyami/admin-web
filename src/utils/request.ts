@@ -2,6 +2,7 @@ import axios from 'axios'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import { CommonEnum } from '../enums/CommonEnum'
 
 // create an axios instance
 const service = axios.create({
@@ -46,7 +47,7 @@ service.interceptors.response.use(
     const res = response.data
 
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== '00000') {
+    if (res.code !== CommonEnum.SUCCESS_CODE) {
       ElMessage({
         message: res.msg || 'Error',
         type: 'error',

@@ -11,9 +11,27 @@
             <el-button @click="resetSearchForm">重置</el-button>
           </el-form-item>
         </el-form>
-        <el-button class="filter-item" type="primary">
-          下载导入模板
-        </el-button>
+        <el-row>
+          <el-button size="small" class="filter-item" type="primary">
+            下载导入模板
+          </el-button>
+          <el-upload
+              class="upload-demo"
+              action="/api/bad-debt-write-off/importData"
+              accept=".xls,.xlsx"
+              multiple
+              :headers="headers"
+              :limit="1"
+              :show-file-list="false"
+              :on-exceed="handleExceed"
+              :on-success="handleUploadSuccess"
+          >
+            <el-button size="small" type="primary">点击上传</el-button>
+            <template #tip>
+              <span class="el-upload__tip">只能上传 xlsx 文件</span>
+            </template>
+          </el-upload>
+        </el-row>
       </div>
       <el-table
           v-loading="table.listLoading"
@@ -49,7 +67,7 @@
             label="状态"
         >
           <template #default="scope">
-            {{convertStatusToChinese(scope.row)}}
+            {{ convertStatusToChinese(scope.row) }}
           </template>
         </el-table-column>
         <el-table-column
@@ -77,6 +95,8 @@
 <script lang="ts">
 import Pagination from '@/components/Pagination/index.vue'
 import {cellClass, headerClass} from '@/composables/sys/dict'
+import {reactive} from 'vue'
+import {useStore} from 'vuex'
 import {
   getList,
   init,
@@ -84,7 +104,7 @@ import {
   searchFormRef,
   searchFormSubmit,
   table,
-    convertStatusToChinese
+  convertStatusToChinese, handleExceed, handleUploadSuccess
 } from '@/composables/bad-debt/import'
 
 export default {
@@ -93,6 +113,9 @@ export default {
   setup() {
     // 初始化
     init()
+    const store = useStore()
+    //上传文件的请求头
+    const headers = reactive({'X-Auth-Token': store.state.user.token})
     return {
       table,
       searchFormRef,
@@ -101,7 +124,8 @@ export default {
       getList,
       cellClass,
       headerClass,
-      convertStatusToChinese
+      convertStatusToChinese,
+      handleExceed, headers, handleUploadSuccess
     }
   }
 }
@@ -111,5 +135,9 @@ export default {
 $bg: #283443;
 .el-table {
   border: #0e2231 solid 1px;
+}
+
+.upload-demo {
+  margin-left: 20px;
 }
 </style>

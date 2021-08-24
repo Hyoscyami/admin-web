@@ -35,7 +35,7 @@ export const parseTime = (
     s: date.getSeconds(),
     a: date.getDay()
   }
-  const timeStr = format.replace(/{([ymdhisa])+}/g, (result, key) => {
+  const timeStr = format.replace(/{([ymdhisa])+}/g, (_result, key) => {
     const value = formatObj[key]
     // Note: getDay() returns 0 on Sunday
     if (key === 'a') {
@@ -48,13 +48,15 @@ export const parseTime = (
 
 // Format and filter json data using filterKeys array
 export const formatJson = (filterKeys: any, jsonData: any) =>
-  jsonData.map((data: any) => filterKeys.map((key: string) => {
-    if (key === 'timestamp') {
-      return parseTime(data[key])
-    } else {
-      return data[key]
-    }
-  }))
+  jsonData.map((data: any) =>
+    filterKeys.map((key: string) => {
+      if (key === 'timestamp') {
+        return parseTime(data[key])
+      } else {
+        return data[key]
+      }
+    })
+  )
 
 // Check if an element has a class
 export const hasClass = (ele: HTMLElement, className: string) => {
@@ -85,8 +87,7 @@ export const toggleClass = (ele: HTMLElement, className: string) => {
     classString += '' + className
   } else {
     classString =
-      classString.substr(0, nameIndex) +
-      classString.substr(nameIndex + className.length)
+      classString.substr(0, nameIndex) + classString.substr(nameIndex + className.length)
   }
   ele.className = classString
 }
