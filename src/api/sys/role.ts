@@ -68,7 +68,7 @@ export function update(data: AddRoleReq | UpdateRoleReq) {
   })
 }
 
-export function getDetail(id: string) {
+export function getDetail(id: number) {
   return request({
     url: '/role/detail',
     method: 'get',

@@ -1,5 +1,5 @@
 import request from '../utils/request'
-import { LoginReq } from '../model/req/LoginReq'
+import { LoginReq } from '../model/req/other/LoginReq'
 
 export function login(data: LoginReq) {
   return request({

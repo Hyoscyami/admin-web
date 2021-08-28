@@ -4,7 +4,7 @@
       <div class="filter-container">
         <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">
           <el-form-item label="导入文件名称" prop="name">
-            <el-input v-model="table.listQuery.name" placeholder="模糊查询名称"/>
+            <el-input v-model="table.listQuery.name" placeholder="模糊查询名称" @keyup.enter.native="searchFormSubmit"/>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="searchFormSubmit">查询</el-button>

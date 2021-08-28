@@ -1,24 +1,33 @@
 import { reactive, ref } from 'vue'
-import { errorMsg } from '@/utils/common'
 import { DictEnum } from '../../../enums/DictEnum'
-import { list, listChildrenByCode } from '@/api/bad-debt/import-result'
-import {
-  QueryImportResultReq,
-  useQueryImportResultReq
-} from '../../../model/req/query/QueryImportResultReq'
+import { list } from '@/api/bad-debt/confirm'
+import { listChildrenByCode } from '@/api/sys/dict'
+import { QueryBadDebtReq, useQueryBadDebtReq } from '../../../model/req/query/QueryBadDebtReq'
 import { DictVO } from '../../../model/vo/DictVO'
-import { ImportResultVO } from '../../../model/vo/ImportResultVO'
+import { BadDebtWriteOffVO } from '../../../model/vo/BadDebtWriteOffVO'
 import { SelectGroup, useTable } from '../../../model/req/query/Table'
-import { CommonEnum } from '../../../enums/CommonEnum'
+import { formatYYYYMMDD } from '../../../utils/time'
 
 // 初始化表格的对象
-const initTable = useTable<ImportResultVO, QueryImportResultReq>(useQueryImportResultReq(20))
+const initTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
 // 父机构表格数据
 export const table = reactive(initTable)
+//当前tab页
+export const currentTab = ref('first')
 // 表格ref
 export const tableRef = ref(null)
 // 搜索表格的搜索表单
 export const searchFormRef = ref(null)
+
+// 待导入会计凭证
+const initSecondTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
+// 父机构表格数据
+export const secondTable = reactive(initSecondTable)
+//当前tab页
+// 表格ref
+export const secondTableRef = ref(null)
+// 搜索表格的搜索表单
+export const secondSearchFormRef = ref(null)
 
 // 初始化
 export function init() {
@@ -83,7 +92,29 @@ export function getList() {
 // 表格的搜索表单重置
 export function resetSearchForm() {
   // @ts-ignore
-  searchFormRef.value.resetFields()
+  searchFormRef.value.searchFormRef.resetFields()
+}
+
+// 搜索机构表单查询
+export function searchSecondFormSubmit() {
+  secondTable.listQuery.page = 1
+  getSecondList()
+}
+
+// 获取父机构列表数据
+export function getSecondList() {
+  secondTable.listLoading = true
+  list(secondTable.listQuery).then((response) => {
+    secondTable.tableData = response.data.records
+    secondTable.total = response.data.total
+    secondTable.listLoading = false
+  })
+}
+
+// 表格的搜索表单重置
+export function resetSecondSearchForm() {
+  // @ts-ignore
+  secondSearchFormRef.value.searchFormRef.resetFields()
 }
 
 // 根据类型刷新表格
@@ -111,7 +142,7 @@ export function filterTableType(data: any) {
 // 根据状态刷新表格
 export function filterTableStatus(value: number) {
   // 重置查询条件
-  table.listQuery = useQueryImportResultReq(100)
+  table.listQuery = useQueryBadDebtReq(100)
   if (table.listQuery.status) {
     table.listQuery.status.push(value)
   }
@@ -129,19 +160,7 @@ export function convertStatusToChinese(row: any): string {
   return '-'
 }
 
-/**
- * 文件上传超过数量限制处理
- */
-export function handleExceed() {
-  errorMsg('上传文件超过限制')
-}
-
-/**
- * 文件上传成功后处理
- * @param response
- */
-export function handleUploadSuccess(response: any) {
-  if (response.code !== CommonEnum.SUCCESS_CODE) {
-    errorMsg(response.msg)
-  }
+// 日期转换
+export function formatDate(row: any): string {
+  return formatYYYYMMDD(row.createTime)
 }

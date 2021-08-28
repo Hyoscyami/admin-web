@@ -13,3 +13,7 @@ dayjs.locale('zh-cn') // 全局使用
 export function format(value: string): string {
   return dayjs(value).format('YYYY-MM-DD HH:mm:ss')
 }
+
+export function formatYYYYMMDD(value: string): string {
+  return dayjs(value).format('YYYYMMDD')
+}

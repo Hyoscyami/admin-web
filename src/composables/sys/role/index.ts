@@ -16,7 +16,6 @@ import { QueryOrgReq, useQueryOrgReq } from '../../../model/req/query/QueryOrgRe
 import { OrgVO, useOrgVO } from '../../../model/vo/OrgVO'
 import { getPermissions } from '../../../api/sys/permission'
 import { format } from '../../../utils/time'
-import { PermissionVO } from '../../../model/vo/PermissionVO'
 
 // 初始化树的对象
 const initTree = getTree<QueryOrgReq, OrgVO>(useQueryOrgReq(100), useOrgVO())
@@ -42,6 +41,7 @@ export const permissionTreeRef = ref(null)
 export const addFormRef = ref(null)
 // 搜索表格的搜索表单
 export const searchFormRef = ref(null)
+
 // 初始化
 export function init() {
   // 初始化状态
@@ -99,38 +99,26 @@ export function openAddDialog() {
   getMaxSortValue(tree.checkedNodeClick.id)
   Object.assign(dialog.form.parentId, tree.checkedNodeClick.id)
 }
+
 //初始化新增的时候权限树
 function initAddDetailTree() {
   getPermissions().then((response) => {
     dialog.viewDetailData.permissionVOS = response.data
   })
 }
+
 //初始化详情和编辑时的树
 function initViewDetailTree(row: RoleVO) {
   getDetail(row.id).then((response) => {
     dialog.viewDetailData.permissionVOS = response.data.permissionVOS
     dialog.viewDetailData.permissionIds = response.data.permissionIds
     nextTick(() => {
+      // @ts-ignore
       permissionTreeRef.value.setCheckedKeys(dialog.viewDetailData.permissionIds)
     })
   })
 }
 
-/**
- * 权限树转权限ID列表
- * @param permissionVOS
- * @param permissionIds
- */
-function convertPermissionList(permissionVOS: Array<PermissionVO>, permissionIds: Array<number>) {
-  permissionVOS.forEach((item) => {
-    if (item.children) {
-      convertPermissionList(item.children, permissionIds)
-    }
-    if (item.checked) {
-      permissionIds.push(item.id)
-    }
-  })
-}
 // 查看详情
 export function viewDetail(row: any) {
   dialog.viewDialogVisible = true
@@ -150,6 +138,7 @@ export function getMaxSortValue(id: number) {
     dialog.form.sort = response.data + 1
   })
 }
+
 // 新增角色表单提交
 export function addFormSubmit() {
   // @ts-ignore
@@ -182,16 +171,19 @@ export function addFormSubmit() {
     }
   })
 }
+
 // 新增角色表单取消
 export function cancelAddForm() {
   dialog.visible = false
   // @ts-ignore
   addFormRef.value.resetFields()
 }
+
 // 查看详情字典弹框取消
 export function cancelView() {
   dialog.viewDialogVisible = false
 }
+
 // 获取父角色列表数据
 export function getList() {
   table.listLoading = true
@@ -202,6 +194,7 @@ export function getList() {
     table.listLoading = false
   })
 }
+
 // 修改角色详情
 export function updateDetail(row: any) {
   dialog.dialogStatus = CommonEnum.UPDATE
@@ -210,6 +203,7 @@ export function updateDetail(row: any) {
   //回显权限
   initViewDetailTree(row)
 }
+
 // 删除角色
 export function delRow(row: any) {
   del(row.id).then(() => {
@@ -218,6 +212,7 @@ export function delRow(row: any) {
     searchFormSubmit()
   })
 }
+
 /**
  * 加载子树数据的方法，仅当 lazy 属性为true 时生效
  * @param node 节点
@@ -244,6 +239,7 @@ export async function loadNode(node: any, resolve: any) {
     return resolve(tree.loadChildrenTreeData)
   }
 }
+
 // 清除node的子节点查看下一页的标识
 export function clearHasNext(node: any) {
   const childNodes = node.parent.childNodes
@@ -252,6 +248,7 @@ export function clearHasNext(node: any) {
   const lastNode = treeRef.value.lazyTreeRef.getNode(childNodes[childNodes.length - 1].data.id)
   lastNode.data.hasNext = false
 }
+
 // 加载下一页的数据
 export function loadNextPageData() {
   tree.listQuery.page = tree.listQuery.page + 1
@@ -273,6 +270,7 @@ export function loadNextPageData() {
     }
   })
 }
+
 /**
  * 根据id获取直接子节点
  * @param id 当前节点id
@@ -290,6 +288,7 @@ export async function getChildrenNode(id: number) {
     setHasNext()
   })
 }
+
 // 设置最后一个节点是否有下一页链接
 export function setHasNext() {
   if (isNotEmptyCollection(tree.loadChildrenTreeData)) {
@@ -297,6 +296,7 @@ export function setHasNext() {
     lastNode.hasNext = tree.listQuery.page * tree.listQuery.size < tree.total
   }
 }
+
 // 节点被点击
 export function handleNodeClick(data: any) {
   // 保存被选择节点
@@ -305,16 +305,19 @@ export function handleNodeClick(data: any) {
   // 刷新表格
   getList()
 }
+
 // 节点被展开
 export function handleNodeExpand(data: any) {
   // 保存被选择节点
   Object.assign(tree.checkedNodeDropdown, data)
 }
+
 // 节点被关闭
 export function handleNodeCollapse(data: any) {
   // 保存被选择节点，此时传当前被关闭的节点的父节点，因为当前节点被关闭，有下拉分页的需求最多是当前节点的父节点
   Object.assign(tree.checkedNodeDropdown, data.parent)
 }
+
 // 更新状态
 export function updateStatus(data: any) {
   if (!data.id) {
@@ -332,6 +335,7 @@ export function updateStatus(data: any) {
     data.status = param.status
   })
 }
+
 // 点击下一页
 export function viewNextPage(clickedNode: any) {
   // 加载下一页的数据
@@ -339,6 +343,7 @@ export function viewNextPage(clickedNode: any) {
   // 清除之前的下一页超链接
   clearHasNext(clickedNode)
 }
+
 // 重置树的搜索条件
 export function resetTreeQuery() {
   tree.listQuery.page = 1
@@ -351,15 +356,18 @@ export function resetTreeQuery() {
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = undefined
 }
+
 // 表格的搜索表单重置
 export function resetSearchForm() {
   // @ts-ignore
   searchFormRef.value.resetFields()
 }
+
 // 角色类型转中文
 export function convertTypeToChinese(): string {
   return '组织角色'
 }
+
 // 日期转换
 export function formatDate(row: any): string {
   return format(row.createTime)
