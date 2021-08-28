@@ -8,7 +8,7 @@
                   @search-form-submit="searchSecondFormSubmit"
                   @reset-search-form="resetSecondSearchForm"></SearchForm>
     </div>
-    <el-tabs v-model="currentTab" type="card">
+    <el-tabs v-model="currentTab" type="card" @tab-click="handleTabClick">
       <el-tab-pane label="待核销确认" name="first">
         <el-table
             v-loading="table.listLoading"
@@ -103,7 +103,53 @@
         />
       </el-tab-pane>
       <el-tab-pane label="待导入会计凭证" name="second">
+        <el-table
+            v-loading="secondTable.listLoading"
+            class="el-table"
+            :cell-style="cellClass"
+            :header-cell-style="headerClass"
+            :data="secondTable.tableData"
+            style="width: 100%"
+            border
+        >
+          <el-table-column
+              type="selection"
+              width="55"
+          />
+          <el-table-column
+              prop="accountingDocumentNo"
+              label="会计凭证号码"
+          />
+          <el-table-column
+              prop="capital"
+              label="导入数据金额"
+          />
+          <el-table-column
+              fixed="right"
+              label="操作"
+              width="150"
+          >
+            <template #default="scope">
+              <el-button type="text" size="small" @click="updateDetail(scope.row)">编辑</el-button>
+              <el-popconfirm
+                  title="确定删除吗？"
+                  @confirm="delRow(scope.row)"
+              >
+                <template #reference>
+                  <el-button type="text" size="small">删除</el-button>
+                </template>
+              </el-popconfirm>
+            </template>
+          </el-table-column>
+        </el-table>
 
+        <pagination
+            v-show="secondTable.total>0"
+            :total="secondTable.total"
+            :page.sync="secondTable.listQuery.page"
+            :limit.sync="secondTable.listQuery.size"
+            @pagination="getSecondList"
+        />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -119,7 +165,7 @@ import {
   searchFormRef,
   searchFormSubmit,
   table, currentTab, formatDate, secondTable, secondTableRef, secondSearchFormRef,
-  searchSecondFormSubmit, getSecondList, resetSecondSearchForm
+  searchSecondFormSubmit, getSecondList, resetSecondSearchForm, handleTabClick
 } from "../../../composables/bad-debt/confirm";
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -139,7 +185,7 @@ export default {
       cellClass,
       headerClass,
       convertStatusToChinese, currentTab, formatDate, secondTable, secondTableRef, secondSearchFormRef,
-      searchSecondFormSubmit, getSecondList, resetSecondSearchForm
+      searchSecondFormSubmit, getSecondList, resetSecondSearchForm, handleTabClick
     }
   }
 }

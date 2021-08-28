@@ -1,6 +1,6 @@
 import { reactive, ref } from 'vue'
 import { DictEnum } from '../../../enums/DictEnum'
-import { list } from '@/api/bad-debt/confirm'
+import { groupByAccountingDocumentNo, list } from '@/api/bad-debt/confirm'
 import { listChildrenByCode } from '@/api/sys/dict'
 import { QueryBadDebtReq, useQueryBadDebtReq } from '../../../model/req/query/QueryBadDebtReq'
 import { DictVO } from '../../../model/vo/DictVO'
@@ -104,7 +104,7 @@ export function searchSecondFormSubmit() {
 // 获取父机构列表数据
 export function getSecondList() {
   secondTable.listLoading = true
-  list(secondTable.listQuery).then((response) => {
+  groupByAccountingDocumentNo(secondTable.listQuery).then((response) => {
     secondTable.tableData = response.data.records
     secondTable.total = response.data.total
     secondTable.listLoading = false
@@ -163,4 +163,19 @@ export function convertStatusToChinese(row: any): string {
 // 日期转换
 export function formatDate(row: any): string {
   return formatYYYYMMDD(row.createTime)
+}
+
+/**
+ * 点击tab页切换
+ * @param tab
+ * @param _event
+ */
+export function handleTabClick(tab: any, _event: any) {
+  if (tab.index === '0') {
+    //待核销确认
+    searchFormSubmit()
+  } else if (tab.index === '1') {
+    //待导入会计凭证
+    searchSecondFormSubmit()
+  }
 }
