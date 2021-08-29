@@ -56,3 +56,32 @@ export interface BadDebtWriteOffVO extends BaseVO {
   /** 导入金额 */
   importAmount: number
 }
+
+export function useBadDebtVO(): BadDebtWriteOffVO {
+  return {
+    accountingDocumentNo: '',
+    borrowTime: '',
+    borrowerIdNo: '',
+    borrowerName: '',
+    capital: 0,
+    charges: 0,
+    createTime: '',
+    creatorName: '',
+    debtNo: '',
+    expireTime: '',
+    id: 0,
+    importAmount: 0,
+    loanAccountNo: '',
+    loanAmount: 0,
+    modifierName: '',
+    modifyTime: '',
+    name: '',
+    offBalanceSheetInterest: 0,
+    onBalanceSheetInterest: 0,
+    orgId: 0,
+    orgNo: '',
+    repayAmount: 0,
+    type: 0,
+    writeOffDate: ''
+  }
+}

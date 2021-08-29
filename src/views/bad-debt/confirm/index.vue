@@ -8,6 +8,9 @@
                   @search-form-submit="searchSecondFormSubmit"
                   @reset-search-form="resetSecondSearchForm"></SearchForm>
     </div>
+    <div class="filter-container" v-show="currentTab === 'first'">
+      <el-button type="primary" @click="openAddDialog">新增</el-button>
+    </div>
     <el-tabs v-model="currentTab" type="card" @tab-click="handleTabClick">
       <el-tab-pane label="待核销确认" name="first">
         <el-table
@@ -152,27 +155,44 @@
         />
       </el-tab-pane>
     </el-tabs>
+    <!--    新增-->
+    <Dialog ref="addFormRef" :dialog="dialog" @cancel-add-form="cancelAddForm" @add-form-submit="addFormSubmit"/>
   </div>
 </template>
 
 <script lang="ts">
 import Pagination from "../../../components/Pagination/index.vue";
 import {
+  addFormSubmit,
+  cancelAddForm,
   convertStatusToChinese,
+  currentTab,
+  delRow,
+  dialog,
+  formatDate,
   getList,
+  getSecondList,
+  handleTabClick,
   init,
+  openAddDialog,
   resetSearchForm,
+  resetSecondSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, currentTab, formatDate, secondTable, secondTableRef, secondSearchFormRef,
-  searchSecondFormSubmit, getSecondList, resetSecondSearchForm, handleTabClick
+  searchSecondFormSubmit,
+  secondSearchFormRef,
+  secondTable,
+  secondTableRef,
+  table,
+  updateDetail, addFormRef
 } from "../../../composables/bad-debt/confirm";
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
+import Dialog from "./components/Dialog.vue";
 
 export default {
   name: "BadDebtConfirm",
-  components: {SearchForm, Pagination},
+  components: {Dialog, SearchForm, Pagination},
   setup() {
     // 初始化
     init()
@@ -185,7 +205,8 @@ export default {
       cellClass,
       headerClass,
       convertStatusToChinese, currentTab, formatDate, secondTable, secondTableRef, secondSearchFormRef,
-      searchSecondFormSubmit, getSecondList, resetSecondSearchForm, handleTabClick
+      searchSecondFormSubmit, getSecondList, resetSecondSearchForm, handleTabClick, updateDetail,
+      delRow, cancelAddForm, dialog, addFormSubmit, openAddDialog, addFormRef
     }
   }
 }

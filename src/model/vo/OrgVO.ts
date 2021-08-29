@@ -15,6 +15,10 @@ export interface OrgVO extends BaseVO {
    * 是否有子节点
    */
   hasNext: boolean
+  /**
+   * 子组织
+   */
+  children?: Array<OrgVO>
 }
 
 /**
@@ -22,6 +26,7 @@ export interface OrgVO extends BaseVO {
  */
 export function useOrgVO(): OrgVO {
   return {
+    children: undefined,
     completePath: '',
     createTime: '',
     creatorName: '',

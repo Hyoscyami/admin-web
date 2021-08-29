@@ -75,3 +75,14 @@ export function getDetailByCode(code: string) {
     params: { code }
   })
 }
+
+export function tree(data: QueryOrgReq) {
+  return request({
+    url: '/org/tree',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: JSON.stringify(data)
+  })
+}

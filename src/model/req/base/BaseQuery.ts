@@ -1,8 +1,8 @@
 export interface BaseQuery {
   /** 页码 */
-  page: number
+  page?: number
   /** 页大小 */
-  size: number
+  size?: number
   /** 类型 */
   types?: Array<number>
   /** 是否启用，1：启用，0：禁用 */

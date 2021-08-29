@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 import { UpdateBadDebtReq } from '../../model/req/update/UpdateBadDebtReq'
 import { QueryBadDebtReq } from '../../model/req/query/QueryBadDebtReq'
+import { AddBadDebtReq } from '../../model/req/add/AddBadDebtReq'
 
 export function del(id: number) {
   return request({
@@ -43,9 +44,20 @@ export function importAccountDocument(data: QueryBadDebtReq) {
   })
 }
 
-export function update(data: UpdateBadDebtReq) {
+export function update(data: AddBadDebtReq | UpdateBadDebtReq) {
   return request({
     url: '/bad-debt-write-off/update',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: JSON.stringify(data)
+  })
+}
+
+export function add(data: AddBadDebtReq | UpdateBadDebtReq) {
+  return request({
+    url: '/bad-debt-write-off/add',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'

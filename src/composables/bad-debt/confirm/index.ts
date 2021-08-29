@@ -1,12 +1,22 @@
 import { reactive, ref } from 'vue'
 import { DictEnum } from '../../../enums/DictEnum'
-import { groupByAccountingDocumentNo, list } from '@/api/bad-debt/confirm'
+import { add, del, groupByAccountingDocumentNo, list, update } from '@/api/bad-debt/confirm'
 import { listChildrenByCode } from '@/api/sys/dict'
 import { QueryBadDebtReq, useQueryBadDebtReq } from '../../../model/req/query/QueryBadDebtReq'
 import { DictVO } from '../../../model/vo/DictVO'
-import { BadDebtWriteOffVO } from '../../../model/vo/BadDebtWriteOffVO'
+import { BadDebtWriteOffVO, useBadDebtVO } from '../../../model/vo/BadDebtWriteOffVO'
 import { SelectGroup, useTable } from '../../../model/req/query/Table'
 import { formatYYYYMMDD } from '../../../utils/time'
+import { useDialog } from '../../../model/vo/Dialog'
+import { UpdateBadDebtReq } from '../../../model/req/update/UpdateBadDebtReq'
+import {
+  AddBadDebtReq,
+  BadDebtRule,
+  useAddBadDebtReq,
+  useBadDebtRule
+} from '../../../model/req/add/AddBadDebtReq'
+import { CommonEnum } from '../../../enums/CommonEnum'
+import { errorMsg, successMsg } from '../../../utils/common'
 
 // 初始化表格的对象
 const initTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
@@ -18,6 +28,17 @@ export const currentTab = ref('first')
 export const tableRef = ref(null)
 // 搜索表格的搜索表单
 export const searchFormRef = ref(null)
+// 对话框新增表单ref
+export const addFormRef = ref(null)
+
+// 对话框初始化
+const initDialog = useDialog<BadDebtWriteOffVO, BadDebtRule, AddBadDebtReq, UpdateBadDebtReq>(
+  useBadDebtVO(),
+  useBadDebtRule(),
+  useAddBadDebtReq()
+)
+// 对话框
+export const dialog = reactive(initDialog)
 
 // 待导入会计凭证
 const initSecondTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
@@ -178,4 +199,164 @@ export function handleTabClick(tab: any, _event: any) {
     //待导入会计凭证
     searchSecondFormSubmit()
   }
+}
+
+// 打开新增对话框
+export function openAddDialog() {
+  dialog.form = useAddBadDebtReq()
+  dialog.visible = true
+  dialog.dialogStatus = CommonEnum.CREATE
+}
+
+// 编辑对话框
+export function updateDetail(row: any) {
+  dialog.dialogStatus = CommonEnum.UPDATE
+  dialog.visible = true
+  Object.assign(dialog.form, row)
+}
+
+// 删除
+export function delRow(row: any) {
+  del(row.id).then(() => {
+    successMsg('操作成功')
+    // 刷新表格数据
+    searchFormSubmit()
+  })
+}
+
+// 新增表单取消
+export function cancelAddForm() {
+  dialog.visible = false
+  // @ts-ignore
+  addFormRef.value.addFormRef.resetFields()
+}
+
+// 新增机构表单提交
+export function addFormSubmit() {
+  // @ts-ignore
+  addFormRef.value.addFormRef.validate((valid) => {
+    if (valid) {
+      if (dialog.dialogStatus === CommonEnum.CREATE) {
+        add(dialog.form).then((response: any) => {
+          if (response.code !== CommonEnum.SUCCESS_CODE) {
+            errorMsg(response.msg)
+          } else {
+            // 关闭弹框
+            cancelAddForm()
+            // 刷新表格
+            getList()
+          }
+        })
+      } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
+        update(dialog.form).then((response: any) => {
+          if (response.code !== CommonEnum.SUCCESS_CODE) {
+            errorMsg(response.msg)
+          } else {
+            // 关闭弹框
+            cancelAddForm()
+            // 刷新表格
+            getList()
+          }
+        })
+      }
+    } else {
+      return false
+    }
+  })
+}
+
+/**
+ * 检验借款金额
+ * @param _rule
+ * @param value
+ * @param callback
+ */
+export function validateLoanAmount(_rule: any, value: number, callback: any) {
+  if (!value) {
+    callback(new Error('借款金额必填'))
+  }
+  if (value < 0) {
+    callback(new Error('借款金额不能为负数'))
+  }
+  callback()
+}
+
+/**
+ * 检验还款金额
+ * @param _rule
+ * @param value
+ * @param callback
+ */
+export function validateRepayAmount(_rule: any, value: number, callback: any) {
+  if (!value) {
+    callback(new Error('还款金额必填'))
+  }
+  if (value < 0) {
+    callback(new Error('还款金额不能为负数'))
+  }
+  callback()
+}
+
+/**
+ * 检验本金
+ * @param _rule
+ * @param value
+ * @param callback
+ */
+export function validateCapital(_rule: any, value: number, callback: any) {
+  if (!value) {
+    callback(new Error('本金必填'))
+  }
+  if (value < 0) {
+    callback(new Error('本金不能为负数'))
+  }
+  callback()
+}
+
+/**
+ * 检验表内利息
+ * @param _rule
+ * @param value
+ * @param callback
+ */
+export function validateOnBalanceSheetInterest(_rule: any, value: number, callback: any) {
+  if (!value) {
+    callback(new Error('表内利息必填'))
+  }
+  if (value < 0) {
+    callback(new Error('表内利息不能为负数'))
+  }
+  callback()
+}
+
+/**
+ * 检验表外利息
+ * @param _rule
+ * @param value
+ * @param callback
+ */
+export function validateOffBalanceSheetInterest(_rule: any, value: number, callback: any) {
+  if (!value) {
+    callback(new Error('表外利息必填'))
+  }
+  if (value < 0) {
+    callback(new Error('表外利息不能为负数'))
+  }
+  callback()
+}
+
+/**
+ * 检验应收费用
+ * @param _rule
+ * @param value
+ * @param callback
+ */
+export function validateCharges(_rule: any, value: number, callback: any) {
+  if (!value) {
+    callback(new Error('应收费用必填'))
+  }
+  if (value < 0) {
+    callback(new Error('应收费用不能为负数'))
+  }
+  callback()
 }
