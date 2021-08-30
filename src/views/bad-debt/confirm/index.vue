@@ -12,7 +12,7 @@
       <el-button type="primary" @click="openAddDialog">新增</el-button>
     </div>
     <el-tabs v-model="currentTab" type="card" @tab-click="handleTabClick">
-      <el-tab-pane label="待核销确认" name="first">
+      <el-tab-pane label="完善会计凭证" name="first">
         <el-table
             v-loading="table.listLoading"
             class="el-table"
@@ -134,14 +134,6 @@
           >
             <template #default="scope">
               <el-button type="text" size="small" @click="updateDetail(scope.row)">编辑</el-button>
-              <el-popconfirm
-                  title="确定删除吗？"
-                  @confirm="delRow(scope.row)"
-              >
-                <template #reference>
-                  <el-button type="text" size="small">删除</el-button>
-                </template>
-              </el-popconfirm>
             </template>
           </el-table-column>
         </el-table>
