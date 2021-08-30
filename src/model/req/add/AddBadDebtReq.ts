@@ -75,6 +75,10 @@ export interface AddBadDebtReq {
    * 应收费用
    */
   charges?: number
+  /**
+   * 组织ID路径列表
+   */
+  parentOrgIds?: Array<number>
 }
 
 /**

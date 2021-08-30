@@ -8,14 +8,14 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType, ref, reactive} from 'vue';
+import {defineComponent, PropType, ref, reactive, computed} from 'vue';
 import {tree} from "../../api/sys/org";
 import {useQueryOrgReq} from "../../model/req/query/QueryOrgReq";
 import {useOrgVO} from "../../model/vo/OrgVO";
 
 export default defineComponent({
   name: "Cascader",
-  emits: ['update:orgId'],
+  emits: ['update:orgId', 'update:selectedOrg'],
   props: {
     //回显数据
     selectedOrg: {
@@ -48,7 +48,15 @@ export default defineComponent({
       }
     }
 
-    const selectedOrg = props.selectedOrg
+    const selectedOrg = computed({
+      get() {
+        return props.selectedOrg;
+      },
+      set(value) {
+        emit('update:selectedOrg', value)
+      }
+    })
+    console.log('selectedOrg', selectedOrg)
     return {handleChange, orgTree, selectedOrg}
   }
 })

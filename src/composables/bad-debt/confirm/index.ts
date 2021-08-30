@@ -229,6 +229,9 @@ export function cancelAddForm() {
   dialog.visible = false
   // @ts-ignore
   addFormRef.value.addFormRef.resetFields()
+  if (dialog.viewDetailData.parentOrgIds) {
+    dialog.viewDetailData.parentOrgIds.length = 0
+  }
 }
 
 // 新增机构表单提交

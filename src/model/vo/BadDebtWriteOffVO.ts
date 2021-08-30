@@ -55,6 +55,10 @@ export interface BadDebtWriteOffVO extends BaseVO {
   orgNo: string
   /** 导入金额 */
   importAmount: number
+  /**
+   * 组织路径
+   */
+  parentOrgIds?: Array<number>
 }
 
 export function useBadDebtVO(): BadDebtWriteOffVO {

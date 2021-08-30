@@ -6,7 +6,7 @@
   >
     <el-form ref="addFormRef" :model="dialog.form" :rules="dialog.rules" label-width="80px">
       <el-form-item label="所属组织" prop="orgId">
-        <Cascader v-model:orgId="dialog.form.orgId"></Cascader>
+        <Cascader v-model:orgId="dialog.form.orgId" v-model:selectedOrg="dialog.form.parentOrgIds"></Cascader>
       </el-form-item>
       <el-form-item label="借款人名称" prop="borrowerName">
         <el-input v-model="dialog.form.borrowerName" autocomplete="off" tabindex="1"/>
@@ -50,17 +50,20 @@
       <el-form-item label="借款金额" prop="loanAmount">
         <el-input v-model="dialog.form.loanAmount" autocomplete="off" tabindex="5"/>
       </el-form-item>
+      <el-form-item label="还款金额" prop="repayAmount">
+        <el-input v-model="dialog.form.repayAmount" autocomplete="off" tabindex="6"/>
+      </el-form-item>
       <el-form-item label="本金" prop="capital">
-        <el-input v-model="dialog.form.capital" autocomplete="off" tabindex="6"/>
+        <el-input v-model="dialog.form.capital" autocomplete="off" tabindex="7"/>
       </el-form-item>
       <el-form-item label="表内利息" prop="onBalanceSheetInterest">
-        <el-input v-model="dialog.form.onBalanceSheetInterest" autocomplete="off" tabindex="7"/>
+        <el-input v-model="dialog.form.onBalanceSheetInterest" autocomplete="off" tabindex="8"/>
       </el-form-item>
       <el-form-item label="表外利息" prop="offBalanceSheetInterest">
-        <el-input v-model="dialog.form.offBalanceSheetInterest" autocomplete="off" tabindex="8"/>
+        <el-input v-model="dialog.form.offBalanceSheetInterest" autocomplete="off" tabindex="9"/>
       </el-form-item>
       <el-form-item label="应收费用" prop="charges">
-        <el-input v-model="dialog.form.charges" autocomplete="off" tabindex="9"/>
+        <el-input v-model="dialog.form.charges" autocomplete="off" tabindex="10"/>
       </el-form-item>
     </el-form>
     <template #footer>
