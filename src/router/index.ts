@@ -42,12 +42,12 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: 'noRedirect',
     children: [
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: () => import('@/views/dashboard/dashboard.vue'),
+        component: () => import('../views/dashboard/index.vue'),
         meta: { title: '首页', icon: 'dashboard' }
       }
     ]
@@ -115,6 +115,77 @@ export const constantRoutes = [
         name: 'BadDebtConfirm',
         component: () => import('@/views/bad-debt/confirm/index.vue'),
         meta: { title: '核销确认', icon: 'table' }
+      },
+      {
+        path: 'evidence',
+        name: 'BadDebtEvidence',
+        component: () => import('@/views/bad-debt/evidence/index.vue'),
+        meta: { title: '税收证据确认', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'declaration-management',
+        name: 'DeclarationManagement',
+        component: () => import('@/views/declaration-management/index.vue'),
+        meta: { title: '申报管理', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'deferred-declaration',
+        name: 'DeferredDeclaration',
+        component: () => import('@/views/deferred-declaration/index.vue'),
+        meta: { title: '延后申报', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'file-config',
+        name: 'FileConfig',
+        component: () => import('@/views/file-config/index.vue'),
+        meta: { title: '基础档案设置', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'file-management',
+        name: 'FileManagement',
+        component: () => import('@/views/file-management/index.vue'),
+        meta: { title: '基础档案设置', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'statistics',
+        name: 'Statistics',
+        component: () => import('@/views/statistics/index.vue'),
+        meta: { title: '统计查询', icon: 'dashboard' }
       }
     ]
   },
