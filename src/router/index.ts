@@ -47,7 +47,7 @@ export const constantRoutes = [
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: () => import('../views/dashboard/index.vue'),
+        component: () => import('@/views/dashboard/index.vue'),
         meta: { title: '首页', icon: 'dashboard' }
       }
     ]
@@ -147,6 +147,19 @@ export const constantRoutes = [
         name: 'DeferredDeclaration',
         component: () => import('@/views/deferred-declaration/index.vue'),
         meta: { title: '延后申报', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'laws-regulations',
+        name: 'LawsRegulations',
+        component: () => import('@/views/laws-regulations/index.vue'),
+        meta: { title: '法律法规', icon: 'dashboard' }
       }
     ]
   },
