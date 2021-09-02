@@ -31,6 +31,7 @@ export interface PermissionRule {
   type: Array<Object>
   path: Array<Object>
   status: Array<Object>
+  hidden: Array<Object>
 }
 
 /**
@@ -41,9 +42,11 @@ export function usePermissionRule(): PermissionRule {
     name: [{ required: true, message: '请输入权限名称', trigger: 'change' }],
     type: [{ required: true, message: '请选择权限类型', trigger: 'change' }],
     path: [{ required: true, message: '请输入路径', trigger: 'change' }],
-    status: [{ required: true, message: '请选择状态', trigger: 'change' }]
+    status: [{ required: true, message: '请选择状态', trigger: 'change' }],
+    hidden: [{ required: true, message: '请选择是否展示', trigger: 'change' }]
   }
 }
+
 /**
  * 初始化
  */
