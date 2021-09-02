@@ -9,7 +9,10 @@
                   @reset-search-form="resetSecondSearchForm"></SearchForm>
     </div>
     <div class="filter-container" v-show="currentTab === 'first'">
-      <el-button type="primary" @click="openAddDialog">新增</el-button>
+      <el-button type="primary" @click="testClose">
+        关闭
+        <!--        <router-link to="/bad-debt/confirm/add">新增</router-link>-->
+      </el-button>
     </div>
     <el-tabs v-model="currentTab" type="card" @tab-click="handleTabClick">
       <el-tab-pane label="完善会计凭证" name="first">
@@ -181,6 +184,8 @@ import {
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import Dialog from "./components/Dialog.vue";
+import {useRoute, useRouter} from 'vue-router'
+import {useStore} from 'vuex'
 
 export default {
   name: "BadDebtConfirm",
@@ -188,6 +193,15 @@ export default {
   setup() {
     // 初始化
     init()
+    const route = useRoute()
+    const router = useRouter()
+    const store = useStore()
+    const testClose = () => {
+      store.dispatch('tagsView/delCurrentViews', {
+        view: route,
+        $router: router
+      })
+    }
     return {
       table,
       searchFormRef,
@@ -198,7 +212,7 @@ export default {
       headerClass,
       convertStatusToChinese, currentTab, formatDate, secondTable, secondTableRef, secondSearchFormRef,
       searchSecondFormSubmit, getSecondList, resetSecondSearchForm, handleTabClick, updateDetail,
-      delRow, cancelAddForm, dialog, addFormSubmit, openAddDialog, addFormRef
+      delRow, cancelAddForm, dialog, addFormSubmit, openAddDialog, addFormRef, testClose
     }
   }
 }

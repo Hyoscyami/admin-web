@@ -113,7 +113,7 @@ export const constantRoutes = [
       {
         path: 'confirm',
         name: 'BadDebtConfirm',
-        component: () => import('@/views/bad-debt/confirm/index.vue'),
+        component: () => import('../views/bad-debt/confirm/index.vue'),
         meta: { title: '核销确认', icon: 'table' }
       },
       {
@@ -121,6 +121,20 @@ export const constantRoutes = [
         name: 'BadDebtEvidence',
         component: () => import('@/views/bad-debt/evidence/index.vue'),
         meta: { title: '税收证据确认', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/bad-debt/confirm',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'add',
+        name: 'BadDebtConfirmAdd',
+        component: () => import('@/views/bad-debt/confirm/add.vue'),
+        meta: { title: '新增呆账核销数据', icon: 'table' },
+        hidden: true
       }
     ]
   },

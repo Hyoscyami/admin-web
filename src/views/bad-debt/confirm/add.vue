@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "BadDebtImportAdd"
+  name: "BadDebtConfirmAdd"
 }
 </script>
 
