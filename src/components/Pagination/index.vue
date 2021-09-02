@@ -1,23 +1,25 @@
 <template>
   <div :class="{'hidden':hidden}" class="pagination-container">
     <el-pagination
-      :background="background"
-      :current-page.sync="currentPage"
-      :page-size.sync="pageSize"
-      :layout="layout"
-      :page-sizes="pageSizes"
-      :total="total"
-      v-bind="$attrs"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
+        :background="background"
+        :current-page.sync="currentPage"
+        :page-size.sync="pageSize"
+        :layout="layout"
+        :page-sizes="pageSizes"
+        :total="total"
+        v-bind="$attrs"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
     />
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {computed, defineComponent} from 'vue';
 
-export default {
+export default defineComponent({
   name: 'Pagination',
+  emits: ['update:page', 'update:limit', 'pagination'],
   props: {
     total: {
       required: true,
@@ -54,33 +56,36 @@ export default {
       default: false
     }
   },
-  computed: {
-    currentPage: {
+  setup(props, {attrs, slots, emit}) {
+    const currentPage = computed({
       get() {
-        return this.page
+        return props.page
       },
       set(val) {
-        this.$emit('update:page', val)
+        emit('update:page', val)
       }
-    },
-    pageSize: {
+    })
+    const pageSize = computed({
       get() {
-        return this.limit
+        return props.limit
       },
       set(val) {
-        this.$emit('update:limit', val)
+        emit('update:limit', val)
       }
+    })
+    const handleSizeChange = (val) => {
+      // 更新页大小
+      emit('update:limit', val)
+      emit('pagination', {page: currentPage, limit: val})
     }
-  },
-  methods: {
-    handleSizeChange(val) {
-      this.$emit('pagination', { page: this.currentPage, limit: val })
-    },
-    handleCurrentChange(val) {
-      this.$emit('pagination', { page: val, limit: this.pageSize })
+    const handleCurrentChange = (val) => {
+      //更新页码
+      emit('update:page', val)
+      emit('pagination', {page: val, limit: pageSize})
     }
+    return {currentPage, pageSize, handleCurrentChange, handleSizeChange}
   }
-}
+})
 </script>
 
 <style scoped>
@@ -88,6 +93,7 @@ export default {
   background: #fff;
   padding: 32px 16px;
 }
+
 .pagination-container.hidden {
   display: none;
 }

@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType, ref, reactive, computed} from 'vue';
+import {computed, defineComponent, PropType, reactive} from 'vue';
 import {tree} from "../../api/sys/org";
 import {useQueryOrgReq} from "../../model/req/query/QueryOrgReq";
 import {useOrgVO} from "../../model/vo/OrgVO";
