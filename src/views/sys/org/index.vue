@@ -93,8 +93,8 @@
         <pagination
             v-show="table.total>0"
             :total="table.total"
-            :page.sync="table.listQuery.page"
-            :limit.sync="table.listQuery.size"
+            v-model:page="table.listQuery.page"
+            v-model:limit="table.listQuery.size"
             @pagination="getList"
         />
         <!--新增或编辑弹框-->
@@ -217,7 +217,7 @@ import {computed, watch} from 'vue'
 
 export default {
   name: 'SysOrg',
-  components: {LazyTree,Pagination},
+  components: {LazyTree, Pagination},
   setup() {
     // 初始化
     init()

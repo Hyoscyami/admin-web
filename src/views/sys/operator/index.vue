@@ -68,10 +68,11 @@
               width="150"
           >
             <template #default="scope">
-              <el-button v-if="scope.row.canEdit" type="text" size="small" @click="updateDetail(scope.row)">编辑</el-button>
+              <el-button v-if="scope.row.canEdit" type="text" size="small" @click="updateDetail(scope.row)">编辑
+              </el-button>
               <el-popconfirm v-if="scope.row.canDel"
-                  title="确定删除吗？"
-                  @confirm="delRow(scope.row)"
+                             title="确定删除吗？"
+                             @confirm="delRow(scope.row)"
               >
                 <template #reference>
                   <el-button v-if="scope.row.canDel" type="text" size="small">删除</el-button>
@@ -84,8 +85,8 @@
         <pagination
             v-show="table.total>0"
             :total="table.total"
-            :page.sync="table.listQuery.page"
-            :limit.sync="table.listQuery.size"
+            v-model:page="table.listQuery.page"
+            v-model:limit="table.listQuery.size"
             @pagination="getList"
         />
         <!--新增或编辑弹框-->
@@ -214,7 +215,7 @@ import {
   handleNodeCollapse,
   handleNodeExpand,
   loadNode, viewNextPage, tree, treeRef, filterTree,
-  dialogOrgRole,selectOrgChange
+  dialogOrgRole, selectOrgChange
 } from '@/composables/sys/operator'
 import {cellClass, headerClass} from '@/composables/sys/dict'
 import {computed, watch} from 'vue'
@@ -257,7 +258,7 @@ export default {
       cancelDialog,
       addFormSubmit,
       cancelView,
-      dialogOrgRole,selectOrgChange
+      dialogOrgRole, selectOrgChange
     }
   }
 }

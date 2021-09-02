@@ -144,8 +144,8 @@
         <pagination
             v-show="secondTable.total>0"
             :total="secondTable.total"
-            :page.sync="secondTable.listQuery.page"
-            :limit.sync="secondTable.listQuery.size"
+            v-model:page="secondTable.listQuery.page"
+            v-model:limit="secondTable.listQuery.size"
             @pagination="getSecondList"
         />
       </el-tab-pane>
