@@ -58,7 +58,7 @@
               prop="repayAmount"
               label="还款金额"
           />
-          <el-table-column label="核销金额">
+          <el-table-column label="核销金额" align="center">
             <el-table-column
                 prop="capital"
                 label="本金"
@@ -86,7 +86,10 @@
               width="150"
           >
             <template #default="scope">
-              <el-button type="text" size="small" @click="updateDetail(scope.row)">编辑</el-button>
+              <el-button type="text" size="small">
+                <router-link :to="{ path: '/bad-debt/confirm/edit',query: { id:scope.row.id }}">编辑
+                </router-link>
+              </el-button>
               <el-popconfirm
                   title="确定删除吗？"
                   @confirm="delRow(scope.row)"
@@ -135,7 +138,12 @@
               width="150"
           >
             <template #default="scope">
-              <el-button type="text" size="small" @click="updateDetail(scope.row)">编辑</el-button>
+              <el-button type="text" size="small">
+                <router-link
+                    :to="{ path: '/bad-debt/confirm/import',query: { accountingDocumentNo:scope.row.accountingDocumentNo }}">
+                  编辑
+                </router-link>
+              </el-button>
             </template>
           </el-table-column>
         </el-table>

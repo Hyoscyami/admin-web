@@ -23,6 +23,7 @@ const mutations = {
     state.routeList = routeList
   }
 }
+
 // 后台返回的权限列表转router格式
 function convertRoute(routes, data) {
   data.forEach((item) => {
@@ -72,7 +73,6 @@ const actions = {
         //树平铺成list，用来判断用户是否有权限
         convertRouteList(asyncRoutes, routeList)
         const accessedRoutes = asyncRoutes
-        console.log('树状路由,', accessedRoutes)
         // 保存vue需要的树状路由
         commit('SET_ROUTES', accessedRoutes)
         // 保存树状路由平铺成的list

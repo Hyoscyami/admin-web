@@ -50,6 +50,11 @@ export const secondTableRef = ref(null)
 // 搜索表格的搜索表单
 export const secondSearchFormRef = ref(null)
 
+// 待导入会计凭证
+const initThirdTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
+// 父机构表格数据
+export const thirdTable = reactive(initThirdTable)
+
 // 初始化
 export function init() {
   // 初始化状态
@@ -129,6 +134,16 @@ export function getSecondList() {
     secondTable.tableData = response.data.records
     secondTable.total = response.data.total
     secondTable.listLoading = false
+  })
+}
+
+// 获取导入会计凭证的核销数据列表
+export function getThirdList() {
+  thirdTable.listLoading = true
+  list(thirdTable.listQuery).then((response) => {
+    thirdTable.tableData = response.data.records
+    thirdTable.total = response.data.total
+    thirdTable.listLoading = false
   })
 }
 

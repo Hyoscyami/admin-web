@@ -117,20 +117,32 @@ import {useStore} from 'vuex'
 import {cancelAddForm} from '@/composables/bad-debt/confirm'
 import Cascader from "../../../components/Cascader/index.vue";
 import {useAddBadDebtReq, useBadDebtRule} from "../../../model/req/add/AddBadDebtReq";
-import {add} from "../../../api/bad-debt/confirm";
+import {update, detail} from "../../../api/bad-debt/confirm";
 import {CommonEnum} from "../../../enums/CommonEnum";
 import {errorMsg} from "../../../utils/common";
 import {ApiResponse} from "../../../model/resp/base/ApiResponse";
+import {useUpdateBadDebtReq} from "../../../model/req/update/UpdateBadDebtReq";
 
 export default defineComponent({
-  name: "BadDebtConfirmAdd",
+  name: "BadDebtConfirmEdit",
   components: {Cascader},
   setup(props, {attrs, slots, emit}) {
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
-    //新增表单
-    const form = reactive(useAddBadDebtReq())
+    //待编辑数据的ID
+    const id = route.query.id
+    console.log('id', id)
+    //表单
+    let form = reactive(useUpdateBadDebtReq())
+    //获取详情
+    detail(id).then((response: ApiResponse<object>) => {
+      if (response.code !== CommonEnum.SUCCESS_CODE) {
+        errorMsg(response.msg)
+      } else {
+        Object.assign(form, response.data)
+      }
+    })
     const rules = useBadDebtRule()
     //关闭当前标签页
     const closeCurrentTag = () => {
@@ -147,7 +159,7 @@ export default defineComponent({
 
     //新增表单
     const formSubmit = () => {
-      add(form).then((response: ApiResponse<object>) => {
+      update(form).then((response: ApiResponse<object>) => {
         if (response.code !== CommonEnum.SUCCESS_CODE) {
           errorMsg(response.msg)
         } else {

@@ -20,7 +20,8 @@
               <el-button @click="resetSearchForm">重置</el-button>
             </el-form-item>
           </el-form>
-          <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="openAddDialog">
+          <el-button class="filter-item" v-if="hasPermission('/sys/org/add')" type="primary" icon="el-icon-edit"
+                     @click="openAddDialog">
             新增
           </el-button>
         </div>
@@ -72,16 +73,18 @@
               width="150"
           >
             <template #default="scope">
-              <el-button type="text" size="small" @click="updateDetail(scope.row)">编辑</el-button>
+              <el-button type="text" v-if="hasPermission('/sys/org/update')" size="small"
+                         @click="updateDetail(scope.row)">
+                编辑
+              </el-button>
               <el-popconfirm
                   title="确定删除吗？"
                   @confirm="delRow(scope.row)"
               >
                 <template #reference>
-                  <el-button type="text" size="small">删除</el-button>
+                  <el-button type="text" v-if="hasPermission('/sys/org/delete')" size="small">删除</el-button>
                 </template>
               </el-popconfirm>
-              <el-button type="text" size="small" @click="viewDetail(scope.row)">查看</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -182,6 +185,7 @@
 <script lang="ts">
 import Pagination from '@/components/Pagination/index.vue'
 import {format} from '@/utils/time'
+import hasPermission from '@/utils/permission'
 import {
   addFormSubmit,
   cancelDialog,
@@ -250,7 +254,7 @@ export default {
       getList,
       cancelDialog,
       addFormSubmit,
-      cancelView
+      cancelView, hasPermission
     }
   }
 }

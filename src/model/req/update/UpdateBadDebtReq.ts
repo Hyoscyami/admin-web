@@ -67,12 +67,16 @@ export interface UpdateBadDebtReq {
    * 应收费用
    */
   charges: number
+  /**
+   * 组织ID路径列表
+   */
+  parentOrgIds?: Array<number>
 }
 
 /**
  * 初始化呆帐核销数据
  */
-export function useBadDebtReq(): UpdateBadDebtReq {
+export function useUpdateBadDebtReq(): UpdateBadDebtReq {
   return {
     accountingDocumentNo: '',
     borrowTime: '',

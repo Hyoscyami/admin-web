@@ -11,6 +11,22 @@ export function del(id: number) {
   })
 }
 
+export function detail(id: number) {
+  return request({
+    url: '/bad-debt-write-off/detail',
+    method: 'get',
+    params: { id }
+  })
+}
+
+export function sumCapitalByAccountingDocumentNo(accountDocumentNo: string) {
+  return request({
+    url: '/bad-debt-write-off/sumCapitalByAccountingDocumentNo',
+    method: 'get',
+    params: { accountDocumentNo }
+  })
+}
+
 export function list(data: QueryBadDebtReq) {
   return request({
     url: '/bad-debt-write-off/list',

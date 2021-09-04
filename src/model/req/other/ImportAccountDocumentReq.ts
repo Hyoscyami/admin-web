@@ -1,14 +1,18 @@
 export interface ImportAccountDocumentReq {
-  /** 核销数据表ID */
-  ids: Array<number>
+  /** 会计凭证号 */
+  accountingDocumentNo: string
   /** 会计核销金额 */
-  writeOffAmount: number
+  writeOffAmount?: number
   /** 文件路径 */
   filePath: string
   /** 文件名称 */
   fileName: string
 }
 
+export interface ImportAccountDocumentRule {
+  writeOffAmount: Array<Object>
+}
+
 export function useImportAccountReq(): ImportAccountDocumentReq {
-  return { fileName: '', filePath: '', ids: [], writeOffAmount: 0 }
+  return { fileName: '', filePath: '', accountingDocumentNo: '', writeOffAmount: undefined }
 }

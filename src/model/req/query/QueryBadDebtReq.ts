@@ -40,5 +40,5 @@ export interface QueryBadDebtReq extends BaseQuery {
  * @param size
  */
 export function useQueryBadDebtReq(size: number): QueryBadDebtReq {
-  return { name: '', page: 0, size }
+  return { name: '', page: 1, size }
 }

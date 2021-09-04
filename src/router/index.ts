@@ -139,6 +139,34 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/bad-debt/confirm',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'edit',
+        name: 'BadDebtConfirmEdit',
+        component: () => import('@/views/bad-debt/confirm/edit.vue'),
+        meta: { title: '编辑呆账核销数据', icon: 'table' },
+        hidden: true
+      }
+    ]
+  },
+  {
+    path: '/bad-debt/confirm',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'import',
+        name: 'BadDebtConfirmImport',
+        component: () => import('../views/bad-debt/confirm/import.vue'),
+        meta: { title: '导入会计凭证', icon: 'table' },
+        hidden: true
+      }
+    ]
+  },
+  {
     path: '/',
     component: Layout,
     redirect: 'noRedirect',
@@ -199,7 +227,7 @@ export const constantRoutes = [
         path: 'file-management',
         name: 'FileManagement',
         component: () => import('@/views/file-management/index.vue'),
-        meta: { title: '基础档案设置', icon: 'dashboard' }
+        meta: { title: '文档管理', icon: 'dashboard' }
       }
     ]
   },
