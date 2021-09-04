@@ -10,7 +10,7 @@
     </div>
     <div class="filter-container" v-show="currentTab === 'first'">
       <el-button type="primary">
-        <router-link :to="{ name: 'BadDebtConfirmAdd', params: { dialog }}">新增</router-link>
+        <router-link :to="{ name: 'BadDebtConfirmAdd'}">新增</router-link>
       </el-button>
     </div>
     <el-tabs v-model="currentTab" type="card" @tab-click="handleTabClick">
