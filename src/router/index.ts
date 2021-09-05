@@ -219,6 +219,32 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/file-config',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'add',
+        name: 'FileConfigAdd',
+        component: () => import('@/views/file-config/add.vue'),
+        meta: { title: '新增基础档案设置', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
+    path: '/file-config',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'edit',
+        name: 'FileConfigEdit',
+        component: () => import('@/views/file-config/edit.vue'),
+        meta: { title: '编辑基础档案设置', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
     path: '/',
     component: Layout,
     redirect: 'noRedirect',

@@ -1,7 +1,6 @@
 import request from '@/utils/request'
 import { AddOrgReq } from '../../model/req/add/AddOrgReq'
 import { UpdateOrgReq } from '../../model/req/update/UpdateOrgReq'
-import { QueryOrgReq } from '../../model/req/query/QueryOrgReq'
 import { QueryImportResultReq } from '../../model/req/query/QueryImportResultReq'
 
 export function add(data: AddOrgReq | UpdateOrgReq) {
