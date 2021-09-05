@@ -16,6 +16,11 @@ const initTable = useTable<BasicFileConfigEvidenceVO, QueryBasicFileConfigReq>(
 )
 // 父机构表格数据
 export const table = reactive(initTable)
+//认定条件
+export const confirmConditions = reactive([])
+//资产类型
+export const assertTypes = reactive([])
+
 // 表格ref
 export const tableRef = ref(null)
 // 搜索表格的搜索表单
@@ -23,39 +28,41 @@ export const searchFormRef = ref(null)
 
 // 初始化
 export function init() {
+  // 初始化认定条件
+  listConfirmConditions()
+  // 初始化资产类型
+  listAssertTypes()
   // 初始化表格
   searchFormSubmit()
 }
 
-// 获取状态下拉框
-export function listStatus() {
-  listChildrenByCode(DictEnum.DICT_STATUS).then((response) => {
-    table.statusSelect.length = 0
+// 获取认定条件
+export function listConfirmConditions() {
+  listChildrenByCode(DictEnum.CONFIRM_CONDITION).then((response) => {
+    confirmConditions.length = 0
     response.data.forEach((item: DictVO) => {
       const status: SelectGroup = {
         id: item.id,
         text: item.name,
-        value: Number(item.value)
+        value: Number(item.id)
       }
-      table.statusSelect.push(status)
+      confirmConditions.push(status)
     })
   })
 }
 
-// 获取状态下拉框
-export function listTypes() {
-  listChildrenByCode(DictEnum.ORG_TYPES).then((response) => {
-    if (table.typesSelect) {
-      table.typesSelect.length = 0
-    }
+// 获取资产类型
+export function listAssertTypes() {
+  listChildrenByCode(DictEnum.ASSERT_TYPE).then((response) => {
+    assertTypes.length = 0
     response.data.forEach((item: DictVO) => {
       const type: SelectGroup = {
         id: item.id,
         text: item.name,
-        value: Number(item.value)
+        value: Number(item.id)
       }
       if (table.typesSelect) {
-        table.typesSelect.push(type)
+        assertTypes.push(type)
       }
     })
   })

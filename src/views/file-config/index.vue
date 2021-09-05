@@ -2,11 +2,15 @@
   <div class="app-container">
     <div class="filter-container">
       <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">
-        <el-form-item label="认定条件" prop="name">
-          <el-input v-model="table.listQuery.name" placeholder="模糊查询名称" @keyup.enter.native="searchFormSubmit"/>
+        <el-form-item label="认定条件" prop="type" tabindex="2">
+          <el-select v-model="table.listQuery.confirmationConditions" placeholder="请选择认定条件" clearable>
+            <el-option v-for="item in confirmConditions" :key="item.id" :label="item.text" :value="item.value"/>
+          </el-select>
         </el-form-item>
-        <el-form-item label="资产类型" prop="name">
-          <el-input v-model="table.listQuery.name" placeholder="模糊查询名称" @keyup.enter.native="searchFormSubmit"/>
+        <el-form-item label="资产类型" prop="type" tabindex="2">
+          <el-select v-model="table.listQuery.assetTypes" placeholder="请选择资产类型" clearable>
+            <el-option v-for="item in assertTypes" :key="item.id" :label="item.text" :value="item.value"/>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="searchFormSubmit">查询</el-button>
@@ -90,7 +94,7 @@ import {
   tableRef,
   searchFormRef,
   searchFormSubmit,
-  resetSearchForm, init
+  resetSearchForm, init, confirmConditions, assertTypes
 } from '@/composables/basic-file-config'
 
 export default {
@@ -106,7 +110,8 @@ export default {
       searchFormRef,
       searchFormSubmit,
       resetSearchForm,
-      cellClass, headerClass
+      cellClass, headerClass,
+      confirmConditions, assertTypes
     }
   }
 }
