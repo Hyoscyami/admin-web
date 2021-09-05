@@ -104,18 +104,28 @@
             <span>当前会计导入金额: </span><span style="color: red;">{{ sumCapital }}</span><span> 元</span>
           </el-col>
         </el-form-item>
+        <el-form-item>
+          <el-col :span="10">
+            <el-upload
+                action="/api/file/upload"
+                multiple
+                :headers="headers"
+                :limit="1"
+                :on-exceed="handleExceed"
+                :on-success="handleUploadSuccess"
+            >
+
+              <el-button size="small" v-show="form.writeOffAmount == sumCapital" type="primary">点击上传会计凭证</el-button>
+            </el-upload>
+          </el-col>
+        </el-form-item>
+        <el-form-item>
+          <el-col :span="6">
+            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <el-button @click="closeCurrentTag">关闭</el-button>
+          </el-col>
+        </el-form-item>
       </el-form>
-      <el-upload
-          action="/api/file/upload"
-          multiple
-          :headers="headers"
-          :limit="1"
-          :show-file-list="false"
-          :on-exceed="handleExceed"
-          :on-success="handleUploadSuccess"
-      >
-        <el-button size="small" v-show="form.writeOffAmount == sumCapital" type="primary">点击上传会计凭证</el-button>
-      </el-upload>
     </el-main>
   </el-container>
 </template>
@@ -124,12 +134,14 @@
 import {defineComponent, reactive, ref, unref} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
-import {sumCapitalByAccountingDocumentNo} from "../../../api/bad-debt/confirm";
+import {importAccountDocument, sumCapitalByAccountingDocumentNo} from "../../../api/bad-debt/confirm";
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import Pagination from "../../../components/Pagination/index.vue";
 import {useImportAccountReq} from "../../../model/req/other/ImportAccountDocumentReq";
-import {getThirdList as getList, thirdTable as table, formatDate} from '@/composables/bad-debt/confirm'
-import {handleExceed, handleUploadSuccess} from '@/composables/bad-debt/import'
+import {formatDate, getThirdList as getList, handleExceed, thirdTable as table} from '@/composables/bad-debt/confirm'
+import {ApiResponse} from "../../../model/resp/base/ApiResponse";
+import {CommonEnum} from "../../../enums/CommonEnum";
+import {errorMsg} from "../../../utils/common";
 
 export default defineComponent({
   name: "BadDebtConfirmImport",
@@ -145,6 +157,7 @@ export default defineComponent({
     table.listQuery.accountingDocumentNo = accountingDocumentNo
     //表单
     let form = reactive(useImportAccountReq())
+    form.accountingDocumentNo = accountingDocumentNo
     //核销本金总额
     let sumCapital = ref(0)
     const formRef = ref(null)
@@ -201,10 +214,27 @@ export default defineComponent({
         $router: router
       })
     }
-
+    //表单提交
+    const onSubmit = () => {
+      importAccountDocument(form).then((response: ApiResponse<any>) => {
+        if (response.code !== CommonEnum.SUCCESS_CODE) {
+          errorMsg(response.msg)
+        } else {
+          closeCurrentTag()
+        }
+      })
+    }
+    //上传文件成功
+    const handleUploadSuccess = function handleUploadSuccess(response: ApiResponse<string>, file: any, fileList: any) {
+      if (response.code !== CommonEnum.SUCCESS_CODE) {
+        errorMsg(response.msg)
+      }
+      form.fileName = file.name
+      form.filePath = response.data
+    }
     return {
       closeCurrentTag, form, getList, cellClass, headerClass, table, sumCapital, formRef, rules, formatDate,
-      handleExceed, handleUploadSuccess, headers
+      handleExceed, handleUploadSuccess, headers, onSubmit
     }
   }
 })

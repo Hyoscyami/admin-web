@@ -13,7 +13,7 @@
         </el-form>
         <el-row>
           <el-button size="small" class="filter-item" type="primary">
-            下载导入模板
+            <a download="呆账核销导入模板.xlsx" href="http://localhost:8888/data/template/import-template.xlsx">下载导入模板</a>
           </el-button>
           <el-upload
               class="upload-demo"
@@ -21,7 +21,6 @@
               accept=".xls,.xlsx"
               multiple
               :headers="headers"
-              :limit="1"
               :show-file-list="false"
               :on-exceed="handleExceed"
               :on-success="handleUploadSuccess"

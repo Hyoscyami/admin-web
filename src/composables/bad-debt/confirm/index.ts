@@ -17,9 +17,12 @@ import {
 } from '../../../model/req/add/AddBadDebtReq'
 import { CommonEnum } from '../../../enums/CommonEnum'
 import { errorMsg, successMsg } from '../../../utils/common'
+import { ApiResponse } from '../../../model/resp/base/ApiResponse'
+import { StatusEnum } from '../../../enums/StatusEnum'
 
 // 初始化表格的对象
 const initTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
+initTable.listQuery.status = [StatusEnum.IMPORTED]
 // 父机构表格数据
 export const table = reactive(initTable)
 //当前tab页
@@ -42,6 +45,7 @@ export const dialog = reactive(initDialog)
 
 // 待导入会计凭证
 const initSecondTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
+initSecondTable.listQuery.status = [StatusEnum.IMPORTED]
 // 父机构表格数据
 export const secondTable = reactive(initSecondTable)
 //当前tab页
@@ -52,6 +56,7 @@ export const secondSearchFormRef = ref(null)
 
 // 待导入会计凭证
 const initThirdTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
+initThirdTable.listQuery.status = [StatusEnum.IMPORTED]
 // 父机构表格数据
 export const thirdTable = reactive(initThirdTable)
 
@@ -377,4 +382,23 @@ export function validateCharges(_rule: any, value: number, callback: any) {
     callback(new Error('应收费用不能为负数'))
   }
   callback()
+}
+
+/**
+ * 文件上传超过数量限制处理
+ */
+export function handleExceed(files: any, fileList: any) {
+  console.log('files,fileList', files, fileList)
+  errorMsg('上传文件超过限制')
+}
+
+/**
+ * 文件上传成功后处理
+ * @param response
+ */
+export function handleUploadSuccess(response: ApiResponse<string>, file: any, fileList: any) {
+  if (response.code !== CommonEnum.SUCCESS_CODE) {
+    errorMsg(response.msg)
+  }
+  console.log('file,fileList', file, fileList)
 }

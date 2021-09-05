@@ -2,6 +2,7 @@ import request from '@/utils/request'
 import { UpdateBadDebtReq } from '../../model/req/update/UpdateBadDebtReq'
 import { QueryBadDebtReq } from '../../model/req/query/QueryBadDebtReq'
 import { AddBadDebtReq } from '../../model/req/add/AddBadDebtReq'
+import { ImportAccountDocumentReq } from '../../model/req/other/ImportAccountDocumentReq'
 
 export function del(id: number) {
   return request({
@@ -49,7 +50,7 @@ export function groupByAccountingDocumentNo(data: QueryBadDebtReq) {
   })
 }
 
-export function importAccountDocument(data: QueryBadDebtReq) {
+export function importAccountDocument(data: ImportAccountDocumentReq) {
   return request({
     url: '/bad-debt-write-off/importAccountDocument',
     method: 'post',
