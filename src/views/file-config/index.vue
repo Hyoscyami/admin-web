@@ -3,12 +3,13 @@
     <div class="filter-container">
       <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">
         <el-form-item label="认定条件" prop="type" tabindex="2">
-          <el-select v-model="table.listQuery.confirmationConditions" placeholder="请选择认定条件" clearable>
+          <el-select v-model="table.listQuery.confirmationConditions" filterable placeholder="请选择认定条件"
+                     clearable>
             <el-option v-for="item in confirmConditions" :key="item.id" :label="item.text" :value="item.value"/>
           </el-select>
         </el-form-item>
         <el-form-item label="资产类型" prop="type" tabindex="2">
-          <el-select v-model="table.listQuery.assetTypes" placeholder="请选择资产类型" clearable>
+          <el-select v-model="table.listQuery.assetTypes" filterable placeholder="请选择资产类型" clearable>
             <el-option v-for="item in assertTypes" :key="item.id" :label="item.text" :value="item.value"/>
           </el-select>
         </el-form-item>
