@@ -149,7 +149,7 @@
             store
               .dispatch('user/login', loginForm)
               .then(() => {
-                router.push({ path: redirect.value || '/' })
+                router.push({ path: redirect.value || '/dashboard' })
                 loading.value = false
               })
               .catch(() => {
