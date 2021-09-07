@@ -26,3 +26,19 @@ export interface ConfigVO extends BaseVO {
    */
   status: number
 }
+
+export function useConfigVO(): ConfigVO {
+  return {
+    code: '',
+    createTime: '',
+    creatorName: '',
+    description: '',
+    id: 0,
+    modifierName: '',
+    modifyTime: '',
+    name: '',
+    sort: 0,
+    status: 0,
+    value: ''
+  }
+}

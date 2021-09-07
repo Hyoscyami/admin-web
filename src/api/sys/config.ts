@@ -1,8 +1,9 @@
 import request from '@/utils/request'
 import { AddConfigReq } from '@/model/req/add/AddConfigReq'
 import { UpdateConfigReq } from '../../model/req/update/UpdateConfigReq'
+import { QueryConfigReq } from '../../model/req/query/QueryConfigReq'
 
-export function add(data: AddConfigReq) {
+export function add(data: AddConfigReq | UpdateConfigReq) {
   return request({
     url: '/config/add',
     method: 'post',
@@ -28,7 +29,7 @@ export function getMaxSort() {
   })
 }
 
-export function list(data: UpdateConfigReq) {
+export function list(data: QueryConfigReq) {
   return request({
     url: '/config/list',
     method: 'post',
@@ -39,7 +40,7 @@ export function list(data: UpdateConfigReq) {
   })
 }
 
-export function update(data: UpdateConfigReq) {
+export function update(data: AddConfigReq | UpdateConfigReq) {
   return request({
     url: '/config/update',
     method: 'post',

@@ -8,3 +8,7 @@ export interface QueryConfigReq extends BaseQuery {
   /** 描述 */
   description: string
 }
+
+export function useQueryConfigReq(size: number): QueryConfigReq {
+  return { code: '', description: '', name: '', page: 1, size, value: '' }
+}
