@@ -106,7 +106,9 @@ const actions = {
     if (latestView) {
       params.$router.push(latestView)
     } else {
-      params.$router.push('/dashboard')
+      //没找到，返回上一页
+      params.$router.back()
+      // params.$router.push('/dashboard')
     }
   },
   delOthersViews({ dispatch, state }, view) {
