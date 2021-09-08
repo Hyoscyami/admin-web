@@ -30,7 +30,7 @@ export function sumCapitalByAccountingDocumentNo(accountDocumentNo: string) {
 
 export function list(data: QueryBadDebtReq) {
   return request({
-    url: '/bad-debt-write-off/list',
+    url: '/bad-debt-write-off/confirmList',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
