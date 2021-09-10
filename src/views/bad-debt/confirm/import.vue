@@ -44,7 +44,7 @@ import {importAccountDocument, sumCapitalByAccountingDocumentNo} from "../../../
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import Pagination from "../../../components/Pagination/index.vue";
 import {useImportAccountReq} from "../../../model/req/other/ImportAccountDocumentReq";
-import {formatDate, getThirdList as getList, handleExceed, thirdTable as table} from '@/composables/bad-debt/confirm'
+import {formatDate, handleExceed, thirdTable as table} from '@/composables/bad-debt/confirm'
 import {ApiResponse} from "../../../model/resp/base/ApiResponse";
 import {CommonEnum} from "../../../enums/CommonEnum";
 import {errorMsg} from "../../../utils/common";
@@ -108,8 +108,6 @@ export default defineComponent({
     }
 
     //初始化数据
-    //刷新列表
-    getList()
     //获取核销本金总额
     getSumCapital(accountingDocumentNo)
 
@@ -139,7 +137,7 @@ export default defineComponent({
       form.filePath = response.data
     }
     return {
-      closeCurrentTag, form, getList, cellClass, headerClass, table, sumCapital, formRef, rules, formatDate,
+      closeCurrentTag, form, cellClass, headerClass, table, sumCapital, formRef, rules, formatDate,
       handleExceed, handleUploadSuccess, headers, onSubmit
     }
   }

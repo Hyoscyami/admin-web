@@ -4,5 +4,7 @@ export enum DictEnum {
   PERMISSION_TYPES = 'permission:type',
   PERMISSION_ICON = 'permission:icon',
   CONFIRM_CONDITION = 'basicConfig:confirmationConditions',
-  ASSERT_TYPE = 'basicConfig:assetType'
+  ASSERT_TYPE = 'basicConfig:assetType',
+  RELATION_TYPE = 'basicConfig:relationType',
+  EVIDENCE = 'basicConfig:evidence'
 }

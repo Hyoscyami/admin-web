@@ -54,6 +54,10 @@
           label="逾期天数"
       />
       <el-table-column
+          prop="relationTypeName"
+          label="关联事项类型"
+      />
+      <el-table-column
           fixed="right"
           label="操作"
           width="150"

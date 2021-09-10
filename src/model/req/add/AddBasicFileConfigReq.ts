@@ -18,12 +18,13 @@ export interface AddBasicFileConfigReq {
 
   /** 最大核销金额 */
   maxAmountWrittenOff?: number
-
+  /** 核销金额类型，1：任何金额，2：小于，3：小于等于，4：等于，5：大于，6：大于等于 */
+  amountWrittenOffType: number
   /** 逾期天数，单位为天 */
   daysOverdue?: number
 
   /** 逾期天数类型，1：任何金额，2：小于，3：小于等于，4：等于，5：大于，6：大于等于 */
-
+  daysOverdueType: number
   /** 关联事项类型，对应dict表的code */
   relationType: string
 
@@ -37,10 +38,10 @@ export interface AddBasicFileConfigReq {
   startTimeName: string
 
   /** 已达时间，单位为天 */
-  elapsedTime: number
+  elapsedTime?: number
 
   /** 已达时间类型，1：任何金额，2：小于，3：小于等于，4：等于，5：大于，6：大于等于 */
-  elapsedTimeType: number
+  elapsedTimeType?: number
 
   /** 税收确认证据确认描述 */
   evidenceDescription: string
@@ -55,13 +56,32 @@ export function userAddBasicFileConfigReq(): AddBasicFileConfigReq {
     assetTypeName: '',
     confirmationConditions: '',
     confirmationConditionsName: '',
-    elapsedTime: 0,
-    elapsedTimeType: 0,
+    elapsedTime: undefined,
+    amountWrittenOffType: 1,
+    elapsedTimeType: undefined,
     evidenceDescription: '',
     evidenceList: [],
+    daysOverdueType: 1,
     relationType: '',
     relationTypeName: '',
     startTime: '',
     startTimeName: ''
   }
+}
+
+export interface FileConfigRule {
+  /** 认定条件，对应dict表的code */
+  confirmationConditions: Array<Object>
+
+  /** 资产类型，对应dict表的code */
+  assetType: Array<Object>
+
+  /** 逾期天数类型，1：任何金额，2：小于，3：小于等于，4：等于，5：大于，6：大于等于 */
+  daysOverdueType: Array<Object>
+
+  /** 税收确认证据确认描述 */
+  evidenceDescription: Array<Object>
+
+  /** 税收确认证据列表，对应dict表的id列表 */
+  evidenceList: Array<Object>
 }

@@ -20,6 +20,10 @@ export const table = reactive(initTable)
 export const confirmConditions = reactive([])
 //资产类型
 export const assertTypes = reactive([])
+//关联事项类型
+export const relationTypes = reactive([])
+//税收确认证据
+export const evidenceList = reactive([])
 
 // 表格ref
 export const tableRef = ref(null)
@@ -34,6 +38,18 @@ export function init() {
   listAssertTypes()
   // 初始化表格
   searchFormSubmit()
+}
+
+//新增初始化
+export function initAdd() {
+  // 初始化认定条件
+  listConfirmConditions()
+  // 初始化资产类型
+  listAssertTypes()
+  //关联事项类型
+  listRelationTypes()
+  // 税收确认证据
+  listEvidences()
 }
 
 // 获取认定条件
@@ -63,6 +79,40 @@ export function listAssertTypes() {
       }
       if (table.typesSelect) {
         assertTypes.push(type)
+      }
+    })
+  })
+}
+
+// 获取关联事项类型
+export function listRelationTypes() {
+  listChildrenByCode(DictEnum.RELATION_TYPE).then((response) => {
+    relationTypes.length = 0
+    response.data.forEach((item: DictVO) => {
+      const type: SelectGroup = {
+        id: item.id,
+        text: item.name,
+        value: Number(item.id)
+      }
+      if (table.typesSelect) {
+        relationTypes.push(type)
+      }
+    })
+  })
+}
+
+// 获取税收确认证据
+export function listEvidences() {
+  listChildrenByCode(DictEnum.EVIDENCE).then((response) => {
+    evidenceList.length = 0
+    response.data.forEach((item: DictVO) => {
+      const type: SelectGroup = {
+        id: item.id,
+        text: item.name,
+        value: Number(item.id)
+      }
+      if (table.typesSelect) {
+        evidenceList.push(type)
       }
     })
   })
