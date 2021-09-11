@@ -1,3 +1,5 @@
+import { DictVO } from '../../vo/DictVO'
+
 export interface UpdateBasicFileConfigReq {
   /** 档案ID */
   id: number
@@ -41,10 +43,13 @@ export interface UpdateBasicFileConfigReq {
 
   /** 税收确认证据确认描述 */
   evidenceDescription: string
+  /** 税收确认证据列表，对应dict表的id列表 */
+  evidenceList: Array<DictVO>
 }
 
 export function useUpdateBasicFileConfigReq(): UpdateBasicFileConfigReq {
   return {
+    evidenceList: [],
     assetType: 0,
     assetTypeName: '',
     confirmationConditions: 0,

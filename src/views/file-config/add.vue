@@ -73,7 +73,6 @@
           <el-col :span="8">
             <el-form-item label="已达时间类型" prop="elapsedTimeType">
               <el-select v-model="form.elapsedTimeType" placeholder="请选择已达时间类型" clearable>
-                <el-option label="任何时间" :value="1"/>
                 <el-option label="小于" :value="2"/>
                 <el-option label="小于等于" :value="3"/>
                 <el-option label="等于" :value="4"/>
@@ -84,7 +83,7 @@
           </el-col>
         </el-row>
         <el-form-item label="税收确认证据" prop="evidenceList">
-          <el-select v-model="form.evidenceList" placeholder="请选择关联事项" clearable multiple filterable>
+          <el-select v-model="form.evidenceList" placeholder="请选择税收确认证据" clearable multiple filterable>
             <el-option v-for="item in evidenceList" :key="item.id" :label="item.text" :value="item.value"/>
           </el-select>
         </el-form-item>
@@ -163,7 +162,6 @@ export default defineComponent({
       confirmationConditions: [{required: true, message: '请选择认定条件', trigger: 'change'}],
       daysOverdueType: [{required: true, message: '请选择逾期天数类型', trigger: 'change'}],
       evidenceDescription: [{required: true, message: '请填写税收证据确认描述', trigger: 'change'}],
-      evidenceList: [{required: true, message: '请选择税收证据确认列表', trigger: 'change'}]
     }
 
     /**

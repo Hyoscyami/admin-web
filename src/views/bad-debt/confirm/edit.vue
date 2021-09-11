@@ -132,7 +132,6 @@ export default defineComponent({
     const store = useStore()
     //待编辑数据的ID
     const id = route.query.id
-    console.log('id', id)
     //表单
     let form = reactive(useUpdateBadDebtReq())
     //获取详情

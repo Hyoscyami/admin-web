@@ -9,6 +9,8 @@ import {
   userQueryBasicFileConfigReq
 } from '../../model/req/query/QueryBasicFileConfigReq'
 import { listChildrenByCode } from '../../api/sys/dict'
+import { del } from '@/api/basic-file-config/file-config'
+import { successMsg } from '../../utils/common'
 
 // 初始化表格的对象
 const initTable = useTable<BasicFileConfigEvidenceVO, QueryBasicFileConfigReq>(
@@ -138,4 +140,13 @@ export function getList() {
 export function resetSearchForm() {
   // @ts-ignore
   searchFormRef.value.resetFields()
+}
+
+// 删除
+export function delRow(row: any) {
+  del(row.id).then(() => {
+    successMsg('操作成功')
+    // 刷新表格数据
+    searchFormSubmit()
+  })
 }
