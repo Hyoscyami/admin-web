@@ -110,8 +110,6 @@
         :limit.sync="table.listQuery.size"
         @pagination="getList"
     />
-    <!--    新增-->
-    <Dialog ref="addFormRef" :dialog="dialog" @cancel-add-form="cancelAddForm" @add-form-submit="addFormSubmit"/>
   </div>
 </template>
 
@@ -124,31 +122,22 @@ import {
   convertStatusToChinese,
   currentTab,
   delRow,
-  dialog,
   formatDate,
   getList,
-  getSecondList,
-  handleTabClick,
   init,
-  openAddDialog,
   resetSearchForm,
-  resetSecondSearchForm,
   searchFormRef,
   searchFormSubmit,
-  searchSecondFormSubmit,
   secondSearchFormRef,
-  secondTable,
-  secondTableRef,
   table,
   updateDetail
 } from "../../../composables/bad-debt/confirm";
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
-import Dialog from "./components/Dialog.vue";
 
 export default {
   name: "BadDebtConfirm",
-  components: {Dialog, SearchForm, Pagination},
+  components: {SearchForm, Pagination},
   setup() {
     // 初始化
     init()
@@ -160,9 +149,9 @@ export default {
       getList,
       cellClass,
       headerClass,
-      convertStatusToChinese, currentTab, formatDate, secondTable, secondTableRef, secondSearchFormRef,
-      searchSecondFormSubmit, getSecondList, resetSecondSearchForm, handleTabClick, updateDetail,
-      delRow, cancelAddForm, dialog, addFormSubmit, openAddDialog, addFormRef
+      convertStatusToChinese, currentTab, formatDate, secondSearchFormRef,
+      updateDetail,
+      delRow, cancelAddForm, addFormSubmit, addFormRef
     }
   }
 }
