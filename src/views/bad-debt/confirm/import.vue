@@ -17,11 +17,11 @@
                 multiple
                 :headers="headers"
                 :limit="1"
+                :disabled="uploadDisable"
                 :on-exceed="handleExceed"
                 :on-success="handleUploadSuccess"
             >
-
-              <el-button size="small" v-show="form.writeOffAmount == sumCapital" type="primary">点击上传会计凭证</el-button>
+              <el-button size="small" :disabled="uploadDisable" type="primary">点击上传会计凭证</el-button>
             </el-upload>
           </el-col>
         </el-form-item>
@@ -37,17 +37,18 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, ref, unref} from 'vue';
+import {computed, defineComponent, reactive, ref, unref} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
 import {importAccountDocument, sumCapitalByAccountingDocumentNo} from "../../../api/bad-debt/confirm";
-import {cellClass, headerClass} from "../../../composables/sys/dict";
+import {cellClass, dialog, headerClass} from "../../../composables/sys/dict";
 import Pagination from "../../../components/Pagination/index.vue";
 import {useImportAccountReq} from "../../../model/req/other/ImportAccountDocumentReq";
 import {formatDate, handleExceed, thirdTable as table} from '@/composables/bad-debt/confirm'
 import {ApiResponse} from "../../../model/resp/base/ApiResponse";
 import {CommonEnum} from "../../../enums/CommonEnum";
 import {errorMsg} from "../../../utils/common";
+import {format} from "../../../utils/time";
 
 export default defineComponent({
   name: "BadDebtConfirmImport",
@@ -67,6 +68,10 @@ export default defineComponent({
     //核销本金总额
     let sumCapital = ref(0)
     const formRef = ref(null)
+    //上传表单禁用，会计核销金额和导入金额不相等，则禁用
+    const uploadDisable = computed(() => {
+      return form.writeOffAmount != sumCapital.value
+    })
     //获取核销本金总额
     const getSumCapital = (accountDocumentNo: string) => {
       sumCapitalByAccountingDocumentNo(accountDocumentNo).then((response) => {
@@ -138,7 +143,7 @@ export default defineComponent({
     }
     return {
       closeCurrentTag, form, cellClass, headerClass, table, sumCapital, formRef, rules, formatDate,
-      handleExceed, handleUploadSuccess, headers, onSubmit
+      handleExceed, handleUploadSuccess, headers, onSubmit, uploadDisable
     }
   }
 })
