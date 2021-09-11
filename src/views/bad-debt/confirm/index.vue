@@ -120,7 +120,6 @@ import {
   addFormSubmit,
   cancelAddForm,
   convertStatusToChinese,
-  currentTab,
   delRow,
   formatDate,
   getList,
@@ -149,7 +148,7 @@ export default {
       getList,
       cellClass,
       headerClass,
-      convertStatusToChinese, currentTab, formatDate, secondSearchFormRef,
+      convertStatusToChinese, formatDate, secondSearchFormRef,
       updateDetail,
       delRow, cancelAddForm, addFormSubmit, addFormRef
     }

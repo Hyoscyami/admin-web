@@ -1,15 +1,5 @@
 <template>
   <div class="app-container">
-    <div class="filter-container">
-      <SearchForm ref="searchFormRef" :list-query="table.listQuery"
-                  @search-form-submit="searchFormSubmit"
-                  @reset-search-form="resetSearchForm"></SearchForm>
-    </div>
-    <div class="filter-container">
-      <el-button type="primary">
-        <router-link :to="{ name: 'BadDebtConfirmAdd'}">新增</router-link>
-      </el-button>
-    </div>
     <el-table
         v-loading="table.listLoading"
         class="el-table"
@@ -67,29 +57,23 @@
             label="应收费用"
         />
       </el-table-column>
-      <el-table-column
-          fixed="right"
-          label="操作"
-          width="150"
-      >
-        <template #default="scope">
-          <el-button type="text" size="small">
-            <router-link
-                :to="{ path: '/bad-debt/evidence/verify',query: { id:scope.row.id }}">
-              审核
-            </router-link>
-          </el-button>
-        </template>
-      </el-table-column>
     </el-table>
 
-    <pagination
-        v-show="table.total>0"
-        :total="table.total"
-        :page.sync="table.listQuery.page"
-        :limit.sync="table.listQuery.size"
-        @pagination="getList"
-    />
+    <el-form ref="addFormRef" :model="form" :rules="rules" label-width="120px">
+      <el-form-item label="贷款类型" prop="confirmationConditions">
+        <el-select v-model="form.confirmationConditions" placeholder="请选择贷款类型" clearable>
+          <el-option v-for="item in confirmConditions" :key="item.id" :label="item.text" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="逾期天数" prop="minAmountWrittenOff">
+        <el-input v-model="form.minAmountWrittenOff" :disabled="true"></el-input>
+      </el-form-item>
+      <el-form-item label="认定条件" prop="confirmationConditions">
+        <el-select v-model="form.confirmationConditions" placeholder="请选择认定条件" clearable>
+          <el-option v-for="item in confirmConditions" :key="item.id" :label="item.text" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -100,36 +84,27 @@ import {
   addFormSubmit,
   cancelAddForm,
   convertStatusToChinese,
-  delRow,
   formatDate,
   getList,
   init,
-  resetSearchForm,
-  searchFormRef,
-  searchFormSubmit,
-  table,
-  updateDetail
+  table
 } from "../../../composables/bad-debt/confirm";
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import SearchForm from "../confirm/components/SearchForm.vue";
 
 export default {
-  name: "BadDebtEvidence",
+  name: "BadDebtEvidenceVerify",
   components: {SearchForm, Pagination},
   setup() {
     // 初始化
     init()
     return {
       table,
-      searchFormRef,
-      searchFormSubmit,
-      resetSearchForm,
       getList,
       cellClass,
       headerClass,
       convertStatusToChinese, formatDate,
-      updateDetail,
-      delRow, cancelAddForm, addFormSubmit, addFormRef
+      cancelAddForm, addFormSubmit, addFormRef
     }
   }
 }
