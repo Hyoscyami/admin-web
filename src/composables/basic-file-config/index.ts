@@ -64,6 +64,7 @@ export function listConfirmConditions() {
         text: item.name,
         value: Number(item.id)
       }
+      // @ts-ignore
       confirmConditions.push(status)
     })
   })
@@ -79,9 +80,8 @@ export function listAssertTypes() {
         text: item.name,
         value: Number(item.id)
       }
-      if (table.typesSelect) {
-        assertTypes.push(type)
-      }
+      // @ts-ignore
+      assertTypes.push(type)
     })
   })
 }
@@ -96,9 +96,8 @@ export function listRelationTypes() {
         text: item.name,
         value: Number(item.id)
       }
-      if (table.typesSelect) {
-        relationTypes.push(type)
-      }
+      // @ts-ignore
+      relationTypes.push(type)
     })
   })
 }
@@ -113,9 +112,8 @@ export function listEvidences() {
         text: item.name,
         value: Number(item.id)
       }
-      if (table.typesSelect) {
-        evidenceList.push(type)
-      }
+      // @ts-ignore
+      evidenceList.push(type)
     })
   })
 }

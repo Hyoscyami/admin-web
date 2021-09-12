@@ -3,6 +3,7 @@ import { UpdateBadDebtReq } from '../../model/req/update/UpdateBadDebtReq'
 import { QueryBadDebtReq } from '../../model/req/query/QueryBadDebtReq'
 import { AddBadDebtReq } from '../../model/req/add/AddBadDebtReq'
 import { ImportAccountDocumentReq } from '../../model/req/other/ImportAccountDocumentReq'
+import { MatchBasicFileConfigReq } from '../../model/vo/MatchBasicFileConfigReq'
 
 export function del(id: number) {
   return request({
@@ -75,6 +76,17 @@ export function update(data: AddBadDebtReq | UpdateBadDebtReq) {
 export function add(data: AddBadDebtReq | UpdateBadDebtReq) {
   return request({
     url: '/bad-debt-write-off/add',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: JSON.stringify(data)
+  })
+}
+
+export function match(data: MatchBasicFileConfigReq) {
+  return request({
+    url: '/bad-debt-write-off/match',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'

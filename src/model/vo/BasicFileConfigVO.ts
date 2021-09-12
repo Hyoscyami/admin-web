@@ -59,3 +59,35 @@ export interface BasicFileConfigVO extends BaseVO {
   /** 证据列表 */
   evidenceList: Array<BasicFileConfigEvidenceVO>
 }
+
+export function useBasicFileConfigVO(): BasicFileConfigVO {
+  return {
+    amountWrittenOffType: 0,
+    assetType: 0,
+    assetTypeName: '',
+    confirmationConditions: 0,
+    confirmationConditionsName: '',
+    createTime: '',
+    creatorName: '',
+    daysOverdue: 0,
+    daysOverdueType: 0,
+    daysOverdueTypeStr: '',
+    elapsedTime: 0,
+    elapsedTimeType: 0,
+    evidenceDescription: '',
+    evidenceList: [],
+    id: 0,
+    maxAmountWrittenOff: 0,
+    minAmountWrittenOff: 0,
+    modifierName: '',
+    modifyTime: '',
+    name: '',
+    orgId: 0,
+    relationType: 0,
+    relationTypeName: '',
+    startTime: 0,
+    startTimeName: '',
+    type: 0,
+    writtenOffAmountStr: ''
+  }
+}

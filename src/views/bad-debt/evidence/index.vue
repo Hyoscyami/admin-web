@@ -5,11 +5,6 @@
                   @search-form-submit="searchFormSubmit"
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
-    <div class="filter-container">
-      <el-button type="primary">
-        <router-link :to="{ name: 'BadDebtConfirmAdd'}">新增</router-link>
-      </el-button>
-    </div>
     <el-table
         v-loading="table.listLoading"
         class="el-table"
@@ -37,7 +32,7 @@
           :formatter="formatDate"
       />
       <el-table-column
-          prop="writeOffDate"
+          prop="expireTime"
           label="到期日期"
           :formatter="formatDate"
       />
@@ -66,6 +61,14 @@
             prop="charges"
             label="应收费用"
         />
+        <el-table-column
+            prop="status"
+            label="呆账核销状态"
+        >
+          <template #default="scope">
+            {{ convertStatusToChinese(scope.row) }}
+          </template>
+        </el-table-column>
       </el-table-column>
       <el-table-column
           fixed="right"
@@ -97,19 +100,14 @@
 import Pagination from "../../../components/Pagination/index.vue";
 import {
   addFormRef,
-  addFormSubmit,
-  cancelAddForm,
   convertStatusToChinese,
-  delRow,
   formatDate,
-  getList,
-  init,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
   table,
-  updateDetail
-} from "../../../composables/bad-debt/confirm";
+  init, getList
+} from "../../../composables/bad-debt/evidence";
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import SearchForm from "../confirm/components/SearchForm.vue";
 
@@ -124,12 +122,10 @@ export default {
       searchFormRef,
       searchFormSubmit,
       resetSearchForm,
-      getList,
       cellClass,
       headerClass,
       convertStatusToChinese, formatDate,
-      updateDetail,
-      delRow, cancelAddForm, addFormSubmit, addFormRef
+      addFormRef, getList
     }
   }
 }

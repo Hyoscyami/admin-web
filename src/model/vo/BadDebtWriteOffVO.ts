@@ -59,6 +59,10 @@ export interface BadDebtWriteOffVO extends BaseVO {
    * 组织路径
    */
   parentOrgIds?: Array<number>
+  /**
+   * 逾期天数，当前日期-到期日期
+   */
+  overdueDays?: number
 }
 
 export function useBadDebtVO(): BadDebtWriteOffVO {
@@ -86,6 +90,7 @@ export function useBadDebtVO(): BadDebtWriteOffVO {
     orgNo: '',
     repayAmount: 0,
     type: 0,
-    writeOffDate: ''
+    writeOffDate: '',
+    overdueDays: undefined
   }
 }

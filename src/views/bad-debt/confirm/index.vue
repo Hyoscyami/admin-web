@@ -37,7 +37,7 @@
           :formatter="formatDate"
       />
       <el-table-column
-          prop="writeOffDate"
+          prop="expireTime"
           label="到期日期"
           :formatter="formatDate"
       />
@@ -117,19 +117,13 @@
 import Pagination from "../../../components/Pagination/index.vue";
 import {
   addFormRef,
-  addFormSubmit,
-  cancelAddForm,
-  convertStatusToChinese,
   delRow,
   formatDate,
-  getList,
-  init,
+  getList, init,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  secondSearchFormRef,
-  table,
-  updateDetail
+  table
 } from "../../../composables/bad-debt/confirm";
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -148,9 +142,8 @@ export default {
       getList,
       cellClass,
       headerClass,
-      convertStatusToChinese, formatDate, secondSearchFormRef,
-      updateDetail,
-      delRow, cancelAddForm, addFormSubmit, addFormRef
+      formatDate,
+      delRow, addFormRef
     }
   }
 }
