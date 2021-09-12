@@ -58,27 +58,47 @@
         />
       </el-table-column>
     </el-table>
-    <el-form ref="addFormRef" :model="form" :rules="rules" label-width="120px">
-      <el-col :span="8">
-        <el-form-item label="贷款类型" prop="confirmationConditions">
-          <el-select v-model="matchFileConfigReq.assetType" placeholder="请选择贷款类型" @change="matchConfig" clearable>
-            <el-option v-for="item in assertTypes" :key="item.id" :label="item.text" :value="item.value"/>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :span="8">
-        <el-form-item label="逾期天数" prop="minAmountWrittenOff">
-          <el-input v-model="tableVO.overdueDays" :disabled="true"></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="8">
-        <el-form-item label="认定条件" prop="confirmationConditions">
-          <el-select v-model="matchFileConfigReq.confirmationConditions" @change="matchConfig" placeholder="请选择认定条件"
-                     clearable>
-            <el-option v-for="item in confirmConditions" :key="item.id" :label="item.text" :value="item.value"/>
-          </el-select>
-        </el-form-item>
-      </el-col>
+    <el-form ref="addFormRef" :model="form" label-width="120px">
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-form-item label="贷款类型" prop="confirmationConditions">
+            <el-select v-model="matchFileConfigReq.assetType" placeholder="请选择贷款类型" @change="matchConfig" clearable>
+              <el-option v-for="item in assertTypes" :key="item.id" :label="item.text" :value="item.value"/>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="逾期天数">
+            <span style="color: red;">{{ tableVO.overdueDays }}</span> 天
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="认定条件" prop="confirmationConditions">
+            <el-select v-model="matchFileConfigReq.confirmationConditions" @change="matchConfig" placeholder="请选择认定条件"
+                       clearable>
+              <el-option v-for="item in confirmConditions" :key="item.id" :label="item.text" :value="item.value"/>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-form-item label="关联事项类型">
+            <span></span>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="起始时间">
+            <el-date-picker
+                v-model="tableVO.expireTime"
+                :disabled-date="disabledDate"
+                type="date"
+                format="YYYYMMDD"
+                placeholder="请选择起始时间">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
     </el-form>
   </div>
 </template>
@@ -91,9 +111,8 @@ import {useStore} from 'vuex'
 import {
   addFormRef,
   convertStatusToChinese,
-  formatDate,
-} from "../../../composables/bad-debt/confirm";
-import {confirmConditions, assertTypes} from '@/composables/basic-file-config'
+  formatDate, confirmConditions, assertTypes
+} from "../../../composables/bad-debt/evidence";
 import {init} from '@/composables/bad-debt/evidence';
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import SearchForm from "../confirm/components/SearchForm.vue";
@@ -104,6 +123,8 @@ import {BadDebtWriteOffVO, useBadDebtVO} from "../../../model/vo/BadDebtWriteOff
 import {useMatchBasicFileConfigReq} from "../../../model/vo/MatchBasicFileConfigReq";
 import {useTable} from "../../../model/req/query/Table";
 import {QueryBadDebtReq, useQueryBadDebtReq} from "../../../model/req/query/QueryBadDebtReq";
+import {successMsg} from "../../../utils/common";
+import {useBasicFileConfigVO} from "../../../model/vo/BasicFileConfigVO";
 
 export default defineComponent({
   name: "BadDebtEvidenceVerify",
@@ -127,24 +148,36 @@ export default defineComponent({
     detail(id).then((response: ApiResponse<object>) => {
       Object.assign(tableVO, response.data)
     })
+    //档案设置
+    const basicFileConfigVO = reactive(useBasicFileConfigVO())
     //匹配档案
     const matchConfig = () => {
+      //选择了资产类型和认定条件后
       if (matchFileConfigReq.assetType && matchFileConfigReq.confirmationConditions) {
+        successMsg("开始匹配基础档案")
         match(matchFileConfigReq).then((response) => {
-
+          if (response.data) {
+            Object.assign(response.data, basicFileConfigVO)
+          }
         })
       }
     }
     const table = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
     table.listLoading = false
     table.tableData = [tableVO]
+
+    //时间选择，禁用时间
+    function disabledDate(time) {
+      return time.getTime() > Date.now()
+    }
+
     return {
       table,
       cellClass,
       headerClass,
       convertStatusToChinese, formatDate,
       addFormRef, tableVO, form, matchFileConfigReq, confirmConditions, assertTypes,
-      matchConfig
+      matchConfig, disabledDate, basicFileConfigVO
     }
   }
 })

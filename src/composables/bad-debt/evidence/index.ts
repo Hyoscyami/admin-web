@@ -16,7 +16,10 @@ import { StatusEnum } from '../../../enums/StatusEnum'
 const initTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
 // 父机构表格数据
 export const table = reactive(initTable)
-
+//认定条件
+export const confirmConditions = reactive([])
+//资产类型
+export const assertTypes = reactive([])
 // 表格ref
 export const tableRef = ref(null)
 // 搜索表格的搜索表单
@@ -26,10 +29,10 @@ export const addFormRef = ref(null)
 
 // 初始化
 export function init() {
-  // 初始化状态
-  listStatus()
-  // 初始化类型
-  listTypes()
+  // 获取认定条件
+  listConfirmConditions()
+  // 获取资产类型
+  listAssertTypes()
   // 初始化表格
   searchFormSubmit()
 }
@@ -49,7 +52,39 @@ export function listStatus() {
   })
 }
 
-// 获取状态下拉框
+// 获取认定条件
+export function listConfirmConditions() {
+  listChildrenByCode(DictEnum.CONFIRM_CONDITION).then((response) => {
+    confirmConditions.length = 0
+    response.data.forEach((item: DictVO) => {
+      const status: SelectGroup = {
+        id: item.id,
+        text: item.name,
+        value: Number(item.id)
+      }
+      // @ts-ignore
+      confirmConditions.push(status)
+    })
+  })
+}
+
+// 获取资产类型
+export function listAssertTypes() {
+  listChildrenByCode(DictEnum.ASSERT_TYPE).then((response) => {
+    assertTypes.length = 0
+    response.data.forEach((item: DictVO) => {
+      const type: SelectGroup = {
+        id: item.id,
+        text: item.name,
+        value: Number(item.id)
+      }
+      // @ts-ignore
+      assertTypes.push(type)
+    })
+  })
+}
+
+// 获取类型下拉框
 export function listTypes() {
   listChildrenByCode(DictEnum.ORG_TYPES).then((response) => {
     if (table.typesSelect) {
