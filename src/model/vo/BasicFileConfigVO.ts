@@ -56,6 +56,10 @@ export interface BasicFileConfigVO extends BaseVO {
 
   /** 基础档案类型 */
   type: number
+  /**
+   * 预警剩余时间
+   */
+  warningLeftDays: number
   /** 证据列表 */
   evidenceList: Array<BasicFileConfigEvidenceVO>
 }
@@ -83,6 +87,7 @@ export function useBasicFileConfigVO(): BasicFileConfigVO {
     modifyTime: '',
     name: '',
     orgId: 0,
+    warningLeftDays: 0,
     relationType: 0,
     relationTypeName: '',
     startTime: 0,

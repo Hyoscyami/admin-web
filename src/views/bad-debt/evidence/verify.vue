@@ -58,7 +58,7 @@
         />
       </el-table-column>
     </el-table>
-    <el-form ref="addFormRef" :model="form" label-width="120px">
+    <el-form ref="addFormRef" :model="form" label-width="130px">
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="贷款类型" prop="confirmationConditions">
@@ -84,7 +84,7 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="关联事项类型">
-            <span></span>
+            <span>{{ basicFileConfigVO.relationTypeName }}</span>
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -97,6 +97,83 @@
                 placeholder="请选择起始时间">
             </el-date-picker>
           </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="预警剩余时间">
+            <span style="color: red;">{{ basicFileConfigVO.warningLeftDays }}</span> 天
+          </el-form-item>
+        </el-col>
+        <el-form-item label="税收确认证据描述">
+          <span>{{ basicFileConfigVO.evidenceDescription }}</span>
+        </el-form-item>
+      </el-row>
+      <el-row class="row-margin">
+        <el-col :span="8">
+          <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
+              :show-file-list="false"
+              :on-exceed="handleExceed"
+              :on-success="handleUploadSuccess"
+          >
+            <el-button size="small" type="primary">上传呆账核销申报审批表</el-button>
+          </el-upload>
+        </el-col>
+        <el-col :span="8">
+          <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
+              :show-file-list="false"
+              :on-exceed="handleExceed"
+              :on-success="handleUploadSuccess"
+          >
+            <el-button size="small" type="primary">上传呆账核销申请报告</el-button>
+          </el-upload>
+        </el-col>
+        <el-col :span="8">
+          <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
+              :show-file-list="false"
+              :on-exceed="handleExceed"
+              :on-success="handleUploadSuccess"
+          >
+            <el-button size="small" type="primary">上传借款合同或协议</el-button>
+          </el-upload>
+        </el-col>
+      </el-row>
+      <el-row class="row-margin">
+        <el-col :span="8">
+          <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
+              :show-file-list="false"
+              :on-exceed="handleExceed"
+              :on-success="handleUploadSuccess"
+          >
+            <el-button size="small" type="primary">上传借据或垫款凭证</el-button>
+          </el-upload>
+        </el-col>
+        <el-col :span="8">
+          <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
+              :show-file-list="false"
+              :on-exceed="handleExceed"
+              :on-success="handleUploadSuccess"
+          >
+            <el-button size="small" type="primary">上传放款会计凭证</el-button>
+          </el-upload>
         </el-col>
       </el-row>
     </el-form>
@@ -111,7 +188,7 @@ import {useStore} from 'vuex'
 import {
   addFormRef,
   convertStatusToChinese,
-  formatDate, confirmConditions, assertTypes
+  formatDate, confirmConditions, assertTypes, handleExceed, handleUploadSuccess
 } from "../../../composables/bad-debt/evidence";
 import {init} from '@/composables/bad-debt/evidence';
 import {cellClass, headerClass} from "../../../composables/sys/dict";
@@ -123,7 +200,7 @@ import {BadDebtWriteOffVO, useBadDebtVO} from "../../../model/vo/BadDebtWriteOff
 import {useMatchBasicFileConfigReq} from "../../../model/vo/MatchBasicFileConfigReq";
 import {useTable} from "../../../model/req/query/Table";
 import {QueryBadDebtReq, useQueryBadDebtReq} from "../../../model/req/query/QueryBadDebtReq";
-import {successMsg} from "../../../utils/common";
+import {errorMsg, successMsg} from "../../../utils/common";
 import {useBasicFileConfigVO} from "../../../model/vo/BasicFileConfigVO";
 
 export default defineComponent({
@@ -144,6 +221,8 @@ export default defineComponent({
     matchFileConfigReq.id = id
     //表格展示
     const tableVO = reactive(useBadDebtVO())
+    //上传文件的请求头
+    const headers = reactive({'X-Auth-Token': store.state.user.token})
     //获取详情
     detail(id).then((response: ApiResponse<object>) => {
       Object.assign(tableVO, response.data)
@@ -154,10 +233,13 @@ export default defineComponent({
     const matchConfig = () => {
       //选择了资产类型和认定条件后
       if (matchFileConfigReq.assetType && matchFileConfigReq.confirmationConditions) {
-        successMsg("开始匹配基础档案")
+        successMsg('开始匹配基础档案')
         match(matchFileConfigReq).then((response) => {
           if (response.data) {
-            Object.assign(response.data, basicFileConfigVO)
+            Object.assign(basicFileConfigVO, response.data)
+          } else {
+            errorMsg('未匹配到基础档案')
+            Object.assign(basicFileConfigVO, useBasicFileConfigVO())
           }
         })
       }
@@ -177,12 +259,14 @@ export default defineComponent({
       headerClass,
       convertStatusToChinese, formatDate,
       addFormRef, tableVO, form, matchFileConfigReq, confirmConditions, assertTypes,
-      matchConfig, disabledDate, basicFileConfigVO
+      matchConfig, disabledDate, basicFileConfigVO, headers, handleExceed, handleUploadSuccess
     }
   }
 })
 </script>
 
 <style scoped>
-
+.row-margin {
+  margin-bottom: 20px;
+}
 </style>

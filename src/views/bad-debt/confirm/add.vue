@@ -114,7 +114,6 @@
 import {defineComponent, reactive} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
-import {cancelAddForm} from '@/composables/bad-debt/confirm'
 import Cascader from "../../../components/Cascader/index.vue";
 import {useAddBadDebtReq, useBadDebtRule} from "../../../model/req/add/AddBadDebtReq";
 import {add} from "../../../api/bad-debt/confirm";
@@ -156,7 +155,7 @@ export default defineComponent({
         }
       })
     }
-    return {closeCurrentTag, form, cancelAddForm, disabledDate, formSubmit, rules}
+    return {closeCurrentTag, form, disabledDate, formSubmit, rules}
   }
 })
 </script>

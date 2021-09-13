@@ -44,7 +44,7 @@ import {importAccountDocument, sumCapitalByAccountingDocumentNo} from "../../../
 import {cellClass, dialog, headerClass} from "../../../composables/sys/dict";
 import Pagination from "../../../components/Pagination/index.vue";
 import {useImportAccountReq} from "../../../model/req/other/ImportAccountDocumentReq";
-import {formatDate, handleExceed, thirdTable as table} from '@/composables/bad-debt/confirm'
+import {formatDate, handleExceed} from '@/composables/bad-debt/confirm'
 import {ApiResponse} from "../../../model/resp/base/ApiResponse";
 import {CommonEnum} from "../../../enums/CommonEnum";
 import {errorMsg} from "../../../utils/common";
@@ -61,7 +61,6 @@ export default defineComponent({
     const headers = reactive({'X-Auth-Token': store.state.user.token})
     //会计凭证号码
     const accountingDocumentNo = route.query.accountingDocumentNo
-    table.listQuery.accountingDocumentNo = accountingDocumentNo
     //表单
     let form = reactive(useImportAccountReq())
     form.accountingDocumentNo = accountingDocumentNo
@@ -142,7 +141,7 @@ export default defineComponent({
       form.filePath = response.data
     }
     return {
-      closeCurrentTag, form, cellClass, headerClass, table, sumCapital, formRef, rules, formatDate,
+      closeCurrentTag, form, cellClass, headerClass, sumCapital, formRef, rules, formatDate,
       handleExceed, handleUploadSuccess, headers, onSubmit, uploadDisable
     }
   }
