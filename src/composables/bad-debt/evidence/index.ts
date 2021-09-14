@@ -19,7 +19,7 @@ export const table = reactive(initTable)
 //认定条件
 export const confirmConditions = reactive([])
 //资产类型
-export const assertTypes = reactive([])
+export const assetTypes = reactive([])
 // 表格ref
 export const tableRef = ref(null)
 // 搜索表格的搜索表单
@@ -71,7 +71,7 @@ export function listConfirmConditions() {
 // 获取资产类型
 export function listAssertTypes() {
   listChildrenByCode(DictEnum.ASSERT_TYPE).then((response) => {
-    assertTypes.length = 0
+    assetTypes.length = 0
     response.data.forEach((item: DictVO) => {
       const type: SelectGroup = {
         id: item.id,
@@ -79,7 +79,7 @@ export function listAssertTypes() {
         value: Number(item.id)
       }
       // @ts-ignore
-      assertTypes.push(type)
+      assetTypes.push(type)
     })
   })
 }
@@ -191,4 +191,11 @@ export function handleUploadSuccess(response: ApiResponse<string>, file: any, fi
     errorMsg(response.msg)
   }
   console.log('file,fileList', file, fileList)
+}
+
+/**
+ * 文件预览
+ */
+export function handlePreview(file: any) {
+  console.log('file', file)
 }

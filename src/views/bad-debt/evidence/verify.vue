@@ -6,7 +6,7 @@
         :cell-style="cellClass"
         :header-cell-style="headerClass"
         :data="table.tableData"
-        style="width: 100%"
+        style="width: 100%;margin-bottom: 20px;"
         border
     >
       <el-table-column
@@ -61,9 +61,9 @@
     <el-form ref="addFormRef" :model="form" label-width="130px">
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-form-item label="贷款类型" prop="confirmationConditions">
-            <el-select v-model="matchFileConfigReq.assetType" placeholder="请选择贷款类型" @change="matchConfig" clearable>
-              <el-option v-for="item in assertTypes" :key="item.id" :label="item.text" :value="item.value"/>
+          <el-form-item label="资产类型" prop="confirmationConditions">
+            <el-select v-model="matchFileConfigReq.assetType" placeholder="请选择资产类型" @change="matchConfig" clearable>
+              <el-option v-for="item in assetTypes" :key="item.id" :label="item.text" :value="item.value"/>
             </el-select>
           </el-form-item>
         </el-col>
@@ -108,14 +108,32 @@
         </el-form-item>
       </el-row>
       <el-row class="row-margin">
+        <el-form-item label="税收确认证据">
+          <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
+              :on-exceed="handleExceed"
+              :on-remove="handleRemove"
+              :on-preview="handlePreview"
+              :on-success="handleUploadSuccess"
+              v-for="item in basicFileConfigVO.evidenceList" :key="item.id"
+          >
+            <el-button size="small" type="primary" @click="handUploadClick(item.id)">{{ item.name }}</el-button>
+          </el-upload>
+        </el-form-item>
+      </el-row>
+      <el-row class="row-margin">
         <el-col :span="8">
           <el-upload
               class="upload-demo"
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :show-file-list="false"
               :on-exceed="handleExceed"
+              :on-remove="handleRemove"
+              :on-preview="handlePreview"
               :on-success="handleUploadSuccess"
           >
             <el-button size="small" type="primary">上传呆账核销申报审批表</el-button>
@@ -127,9 +145,10 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :show-file-list="false"
               :on-exceed="handleExceed"
-              :on-success="handleUploadSuccess"
+              :on-remove="handleRemove2"
+              :on-preview="handlePreview"
+              :on-success="handleUploadSuccess2"
           >
             <el-button size="small" type="primary">上传呆账核销申请报告</el-button>
           </el-upload>
@@ -140,9 +159,9 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :show-file-list="false"
               :on-exceed="handleExceed"
-              :on-success="handleUploadSuccess"
+              :on-remove="handleRemove3"
+              :on-success="handleUploadSuccess3"
           >
             <el-button size="small" type="primary">上传借款合同或协议</el-button>
           </el-upload>
@@ -155,9 +174,9 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :show-file-list="false"
               :on-exceed="handleExceed"
-              :on-success="handleUploadSuccess"
+              :on-remove="handleRemove4"
+              :on-success="handleUploadSuccess4"
           >
             <el-button size="small" type="primary">上传借据或垫款凭证</el-button>
           </el-upload>
@@ -168,33 +187,61 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :show-file-list="false"
               :on-exceed="handleExceed"
-              :on-success="handleUploadSuccess"
+              :on-remove="handleRemove5"
+              :on-success="handleUploadSuccess5"
           >
             <el-button size="small" type="primary">上传放款会计凭证</el-button>
           </el-upload>
         </el-col>
       </el-row>
+      <el-row class="row-margin">
+        <el-col :span="8">
+          <el-form-item label="审核结果" prop="daysOverdueType">
+            <el-select v-model="form.status" placeholder="请选择审核结果" clearable>
+              <el-option label="拟申报扣除" :value="3"/>
+              <el-option label="等待逾期时间满1年" :value="4"/>
+              <el-option label="等待宣告破产满3年" :value="5"/>
+              <el-option label="等待关闭、解散或撤销满3年" :value="6"/>
+              <el-option label="等待注销、吊销满3年" :value="7"/>
+              <el-option label="等待停止经营活动或下落不明满3年" :value="8"/>
+              <el-option label="等待自然人死亡满3年" :value="9"/>
+              <el-option label="等待丧失能力满3年" :value="10"/>
+              <el-option label="等待自然人失踪满3年" :value="11"/>
+              <el-option label="等待侦查时间满2年" :value="12"/>
+              <el-option label="等待补充证据" :value="13"/>
+              <el-option label="等待诉诸法律" :value="14"/>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item>
+        <el-button type="primary" @click="formSubmit">提交</el-button>
+        <el-button @click="closeCurrentTag">返回</el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script lang="ts">
 import Pagination from "../../../components/Pagination/index.vue";
-import {defineComponent, reactive} from 'vue';
+import {defineComponent, reactive, ref, toRaw} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
 import {
   addFormRef,
+  assetTypes,
+  confirmConditions,
   convertStatusToChinese,
-  formatDate, confirmConditions, assertTypes, handleExceed, handleUploadSuccess
+  formatDate,
+  handleExceed,
+  handlePreview
 } from "../../../composables/bad-debt/evidence";
 import {init} from '@/composables/bad-debt/evidence';
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import SearchForm from "../confirm/components/SearchForm.vue";
 import {useBadDebtConfirmReq} from "../../../model/req/other/BadDebtConfirmReq";
-import {detail, match} from "../../../api/bad-debt/confirm";
+import {confirm, detail, match} from "../../../api/bad-debt/confirm";
 import {ApiResponse} from "../../../model/resp/base/ApiResponse";
 import {BadDebtWriteOffVO, useBadDebtVO} from "../../../model/vo/BadDebtWriteOffVO";
 import {useMatchBasicFileConfigReq} from "../../../model/vo/MatchBasicFileConfigReq";
@@ -202,6 +249,7 @@ import {useTable} from "../../../model/req/query/Table";
 import {QueryBadDebtReq, useQueryBadDebtReq} from "../../../model/req/query/QueryBadDebtReq";
 import {errorMsg, successMsg} from "../../../utils/common";
 import {useBasicFileConfigVO} from "../../../model/vo/BasicFileConfigVO";
+import {CommonEnum} from "../../../enums/CommonEnum";
 
 export default defineComponent({
   name: "BadDebtEvidenceVerify",
@@ -216,11 +264,14 @@ export default defineComponent({
     const id = route.query.id
     //表单
     const form = reactive(useBadDebtConfirmReq())
+    form.id = id
     //匹配档案
     const matchFileConfigReq = reactive(useMatchBasicFileConfigReq())
     matchFileConfigReq.id = id
     //表格展示
     const tableVO = reactive(useBadDebtVO())
+    //当前上传的附加税收证据ID
+    const evidenceId = ref(null)
     //上传文件的请求头
     const headers = reactive({'X-Auth-Token': store.state.user.token})
     //获取详情
@@ -253,13 +304,136 @@ export default defineComponent({
       return time.getTime() > Date.now()
     }
 
+    // 上传呆账核销申报审批表成功
+    function handleUploadSuccess(response, file, fileList) {
+      form.approveList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 删除呆账核销申报审批表成功
+    function handleRemove(file, fileList) {
+      form.approveList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 上传呆账核销申请报告
+    function handleUploadSuccess2(response, file, fileList) {
+      form.applyList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 删除呆账核销申请报告成功
+    function handleRemove2(file, fileList) {
+      form.applyList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 上传借款合同或协议
+    function handleUploadSuccess3(response, file, fileList) {
+      form.loanContractList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 删除借款合同或协议成功
+    function handleRemove3(file, fileList) {
+      form.loanContractList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 上传借据或垫款凭证
+    function handleUploadSuccess4(response, file, fileList) {
+      form.loanCertificateList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 删除借据或垫款凭证成功
+    function handleRemove4(file, fileList) {
+      form.loanCertificateList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 上传放款会计凭证
+    function handleUploadSuccess5(response, file, fileList) {
+      form.loanAccountDocumentList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 删除放款会计凭证成功
+    function handleRemove5(file, fileList) {
+      form.loanCertificateList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    //税收确认证据上传按钮点击,id为附加证据ID
+    function handUploadClick(id) {
+      evidenceId.value = id
+    }
+
+    //关闭当前标签页
+    const closeCurrentTag = () => {
+      store.dispatch('tagsView/delCurrentViews', {
+        view: route,
+        $router: router
+      })
+    }
+    //新增表单
+    const formSubmit = () => {
+      form.assetType = toRaw(matchFileConfigReq).assetType
+      form.confirmationConditions = toRaw(matchFileConfigReq).confirmationConditions
+      form.startTime = toRaw(tableVO).expireTime
+      confirm(form).then((response: ApiResponse<object>) => {
+        if (response.code !== CommonEnum.SUCCESS_CODE) {
+          errorMsg(response.msg)
+        } else {
+          //提交成功，关闭当前页面
+          closeCurrentTag()
+        }
+      })
+    }
     return {
       table,
       cellClass,
       headerClass,
-      convertStatusToChinese, formatDate,
-      addFormRef, tableVO, form, matchFileConfigReq, confirmConditions, assertTypes,
-      matchConfig, disabledDate, basicFileConfigVO, headers, handleExceed, handleUploadSuccess
+      convertStatusToChinese,
+      formatDate,
+      addFormRef,
+      tableVO,
+      form,
+      matchFileConfigReq,
+      confirmConditions,
+      assetTypes,
+      matchConfig,
+      disabledDate,
+      basicFileConfigVO,
+      headers,
+      handleExceed,
+      handleUploadSuccess,
+      handleUploadSuccess2,
+      handleUploadSuccess3,
+      handleUploadSuccess4,
+      handleUploadSuccess5, handlePreview,
+      handleRemove, handleRemove2, handleRemove3, handleRemove4, handleRemove5,
+      handUploadClick, closeCurrentTag, formSubmit
     }
   }
 })

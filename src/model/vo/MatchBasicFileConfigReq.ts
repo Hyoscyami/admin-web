@@ -2,7 +2,7 @@ export interface MatchBasicFileConfigReq {
   /** 呆账核销数据id */
   id: number
   /** 资产类型，对应dict表的id */
-  assetType?: number
+  assertType?: number
   /** 认定条件，对应dict表的id */
   confirmationConditions?: number
   /** 关联事项类型，对应dict表的id */
@@ -13,7 +13,7 @@ export interface MatchBasicFileConfigReq {
 
 export function useMatchBasicFileConfigReq(): MatchBasicFileConfigReq {
   return {
-    assetType: undefined,
+    assertType: undefined,
     confirmationConditions: undefined,
     id: 0,
     relationType: 0,

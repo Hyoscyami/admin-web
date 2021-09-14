@@ -4,6 +4,7 @@ import { QueryBadDebtReq } from '../../model/req/query/QueryBadDebtReq'
 import { AddBadDebtReq } from '../../model/req/add/AddBadDebtReq'
 import { ImportAccountDocumentReq } from '../../model/req/other/ImportAccountDocumentReq'
 import { MatchBasicFileConfigReq } from '../../model/vo/MatchBasicFileConfigReq'
+import { BadDebtConfirmReq } from '../../model/req/other/BadDebtConfirmReq'
 
 export function del(id: number) {
   return request({
@@ -87,6 +88,17 @@ export function add(data: AddBadDebtReq | UpdateBadDebtReq) {
 export function match(data: MatchBasicFileConfigReq) {
   return request({
     url: '/bad-debt-write-off/match',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: JSON.stringify(data)
+  })
+}
+
+export function confirm(data: BadDebtConfirmReq) {
+  return request({
+    url: '/bad-debt-write-off/confirm',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
