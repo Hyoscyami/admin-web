@@ -104,7 +104,6 @@
 import {defineComponent, reactive, ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
-import {cancelAddForm} from '@/composables/bad-debt/confirm'
 import {CommonEnum} from "@/enums/CommonEnum";
 import {errorMsg} from "@/utils/common";
 import {ApiResponse} from "@/model/resp/base/ApiResponse";
@@ -204,7 +203,7 @@ export default defineComponent({
     }
 
     return {
-      closeCurrentTag, form, addFormRef, cancelAddForm, formSubmit, rules, confirmConditions, assertTypes, relationTypes
+      closeCurrentTag, form, addFormRef, formSubmit, rules, confirmConditions, assertTypes, relationTypes
       , evidenceList
     }
   }
