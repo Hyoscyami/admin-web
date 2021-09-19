@@ -75,7 +75,9 @@
             width="150"
         >
           <template #default="scope">
-            <el-button v-if="scope.row.failCount > 0" type="text" size="small">下载错误报告</el-button>
+            <el-button v-if="scope.row.failCount > 0" type="text" size="small"><a
+                :href="`${scope.row.resultFilePath}`">下载错误报告</a>
+            </el-button>
           </template>
         </el-table-column>
       </el-table>

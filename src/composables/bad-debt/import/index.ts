@@ -1,5 +1,5 @@
 import { reactive, ref } from 'vue'
-import { errorMsg } from '@/utils/common'
+import { errorMsg, successMsg } from '@/utils/common'
 import { DictEnum } from '../../../enums/DictEnum'
 import { list, listChildrenByCode } from '@/api/bad-debt/import-result'
 import {
@@ -144,4 +144,6 @@ export function handleUploadSuccess(response: any) {
   if (response.code !== CommonEnum.SUCCESS_CODE) {
     errorMsg(response.msg)
   }
+  successMsg('上传成功，请稍后查看结果')
+  getList()
 }
