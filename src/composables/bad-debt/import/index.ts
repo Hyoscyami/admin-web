@@ -125,9 +125,9 @@ export function convertStatusToChinese(row: any): string {
   if (row.status === 1) {
     return '导入中'
   } else if (row.status === 2) {
-    return '导入完成'
+    return '导入成功'
   }
-  return '-'
+  return '导入失败'
 }
 
 /**

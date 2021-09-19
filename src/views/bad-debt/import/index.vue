@@ -81,7 +81,7 @@
         >
           <template #default="scope">
             <el-button v-if="scope.row.failCount > 0" type="text" size="small"><a
-                :href="`${scope.row.resultFilePath}`">下载错误报告</a>
+                :href="`${scope.row.resultFilePath}`" download="`核销数据导入错误报告.xlsx">下载错误报告</a>
             </el-button>
           </template>
         </el-table-column>
