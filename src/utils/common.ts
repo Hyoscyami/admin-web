@@ -41,10 +41,8 @@ export async function dictConvert(code: string, value: string): Promise<string> 
     })
     if (dict) {
       name = dict.name
-      console.log('赋值了:', name)
     }
   })
-  console.log('返回了:', name)
   return name
 }
 

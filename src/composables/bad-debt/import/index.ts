@@ -10,6 +10,7 @@ import { DictVO } from '../../../model/vo/DictVO'
 import { ImportResultVO } from '../../../model/vo/ImportResultVO'
 import { SelectGroup, useTable } from '../../../model/req/query/Table'
 import { CommonEnum } from '../../../enums/CommonEnum'
+import { format } from '../../../utils/time'
 
 // 初始化表格的对象
 const initTable = useTable<ImportResultVO, QueryImportResultReq>(useQueryImportResultReq(20))
@@ -146,4 +147,9 @@ export function handleUploadSuccess(response: any) {
   }
   successMsg('上传成功，请稍后查看结果')
   getList()
+}
+
+// 日期转换
+export function formatDate(_row: any, _column: any, cellValue: any): string {
+  return format(cellValue)
 }

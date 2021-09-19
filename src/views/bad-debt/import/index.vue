@@ -70,6 +70,11 @@
           </template>
         </el-table-column>
         <el-table-column
+            prop="createTime"
+            label="导入时间"
+            :formatter="formatDate"
+        />
+        <el-table-column
             fixed="right"
             label="操作"
             width="150"
@@ -105,7 +110,7 @@ import {
   searchFormRef,
   searchFormSubmit,
   table,
-  convertStatusToChinese, handleExceed, handleUploadSuccess
+  convertStatusToChinese, handleExceed, handleUploadSuccess, formatDate
 } from '@/composables/bad-debt/import'
 
 export default {
@@ -126,7 +131,7 @@ export default {
       cellClass,
       headerClass,
       convertStatusToChinese,
-      handleExceed, headers, handleUploadSuccess
+      handleExceed, headers, handleUploadSuccess, formatDate
     }
   }
 }
