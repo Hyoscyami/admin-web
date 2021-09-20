@@ -15,16 +15,17 @@ export interface AddBasicFileConfigReq {
 
   /** 最小核销金额 */
   minAmountWrittenOff?: number
-
+  /** 最小核销金额类型，5：不含，6：含 */
+  minAmountType?: number
   /** 最大核销金额 */
   maxAmountWrittenOff?: number
-  /** 核销金额类型，1：任何金额，2：小于，3：小于等于，4：等于，5：大于，6：大于等于 */
-  amountWrittenOffType: number
+  /** 最大核销金额类型，2：不含，3：含 */
+  maxAmountType?: number
   /** 逾期天数，单位为天 */
   daysOverdue?: number
 
   /** 逾期天数类型，1：任何金额，2：小于，3：小于等于，4：等于，5：大于，6：大于等于 */
-  daysOverdueType: number
+  daysOverdueType?: number
   /** 关联事项类型，对应dict表的code */
   relationType: string
 
@@ -57,11 +58,10 @@ export function userAddBasicFileConfigReq(): AddBasicFileConfigReq {
     confirmationConditions: '',
     confirmationConditionsName: '',
     elapsedTime: undefined,
-    amountWrittenOffType: 1,
     elapsedTimeType: undefined,
     evidenceDescription: '',
     evidenceList: [],
-    daysOverdueType: 1,
+    daysOverdueType: undefined,
     relationType: '',
     relationTypeName: '',
     startTime: '',

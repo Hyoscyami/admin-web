@@ -20,10 +20,12 @@ export interface UpdateBasicFileConfigReq {
 
   /** 最小核销金额 */
   minAmountWrittenOff?: number
-
+  /** 最小核销金额类型，5：不含，6：含 */
+  minAmountType?: number
   /** 最大核销金额 */
   maxAmountWrittenOff?: number
-
+  /** 最大核销金额类型，2：不含，3：含 */
+  maxAmountType?: number
   /** 逾期天数，单位为天 */
   daysOverdue?: number
 

@@ -26,22 +26,34 @@
           </el-col>
         </el-row>
         <el-row :gutter="20">
-          <el-col :span="8">
+          <el-col :span="7">
             <el-form-item label="最小核销金额" prop="minAmountWrittenOff">
-              <el-input v-model="form.minAmountWrittenOff"></el-input>
+              <el-input v-model="form.minAmountWrittenOff" type="number">
+                <template #append>元</template>
+              </el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="5">
+            <el-form-item label="是否包含" prop="minAmountType">
+              <el-select v-model="form.minAmountType" placeholder="是否包含" clearable>
+                <el-option label="不含" :value="5"/>
+                <el-option label="含" :value="6"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="7">
             <el-form-item label="最大核销金额" prop="maxAmountWrittenOff">
-              <el-input v-model="form.maxAmountWrittenOff"></el-input>
+              <el-input v-model="form.maxAmountWrittenOff" type="number">
+                <template #append>元</template>
+              </el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="核销金额类型" prop="amountWrittenOffType">
-              <el-radio-group v-model="form.amountWrittenOffType">
-                <el-radio :label="1">任意核销金额</el-radio>
-                <el-radio :label="2">核销金额区间</el-radio>
-              </el-radio-group>
+          <el-col :span="5">
+            <el-form-item label="是否包含" prop="maxAmountType">
+              <el-select v-model="form.maxAmountType" placeholder="是否包含" clearable>
+                <el-option label="不含" :value="2"/>
+                <el-option label="含" :value="3"/>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -167,7 +179,8 @@ export default defineComponent({
       })
     }
     const rules = {
-      amountWrittenOffType: [{trigger: 'blur', validator: validateAmountWrittenOffType}],
+      minAmountWrittenOff: [{trigger: 'blur', validator: validateMinAmountWrittenOff}],
+      maxAmountWrittenOff: [{trigger: 'blur', validator: validateMaxAmountWrittenOff}],
       assetType: [{required: true, message: '请选择资产类型', trigger: 'change'}],
       confirmationConditions: [{required: true, message: '请选择认定条件', trigger: 'change'}],
       daysOverdueType: [{required: true, message: '请选择逾期天数类型', trigger: 'change'}],
@@ -175,27 +188,35 @@ export default defineComponent({
     }
 
     /**
-     * 检验核销金额类型
+     * 检验最小核销金额
      * @param _rule
      * @param value
      * @param callback
      */
-    function validateAmountWrittenOffType(_rule: any, value: number, callback: any) {
-      if (!value) {
-        callback(new Error('检验核销金额类型必填'))
-      }
-      // 核销金额区间时，最小核销金额和最大核销金额必填
-      if (value == 2) {
-        if (!form.minAmountWrittenOff) {
-          callback(new Error('当选择核销金额区间时，最小核销金额必填'))
-        }
-        if (!form.maxAmountWrittenOff) {
-          callback(new Error('当选择核销金额区间时，最大核销金额必填'))
-        }
+    function validateMinAmountWrittenOff(_rule: any, value: number, callback: any) {
+      if (value) {
         if (form.minAmountWrittenOff < 0) {
           callback(new Error('最小核销金额不能为负数'))
         }
-        if (form.maxAmountWrittenOff < form.minAmountWrittenOff) {
+        if (form.maxAmountWrittenOff && form.minAmountWrittenOff > form.maxAmountWrittenOff) {
+          callback(new Error('最小核销金额不能大于最大核销金额'))
+        }
+      }
+      callback()
+    }
+
+    /**
+     * 检验最大核销金额
+     * @param _rule
+     * @param value
+     * @param callback
+     */
+    function validateMaxAmountWrittenOff(_rule: any, value: number, callback: any) {
+      if (value) {
+        if (form.maxAmountWrittenOff < 0) {
+          callback(new Error('最大核销金额不能为负数'))
+        }
+        if (form.minAmountWrittenOff && form.minAmountWrittenOff > form.maxAmountWrittenOff) {
           callback(new Error('最大核销金额不能小于最小核销金额'))
         }
       }
