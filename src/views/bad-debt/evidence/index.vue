@@ -61,14 +61,14 @@
             prop="charges"
             label="应收费用"
         />
-        <el-table-column
-            prop="status"
-            label="呆账核销状态"
-        >
-          <template #default="scope">
-            {{ convertStatusToChinese(scope.row) }}
-          </template>
-        </el-table-column>
+      </el-table-column>
+      <el-table-column
+          prop="status"
+          label="呆账核销状态"
+      >
+        <template #default="scope">
+          {{ convertStatusToChinese(scope.row) }}
+        </template>
       </el-table-column>
       <el-table-column
           fixed="right"

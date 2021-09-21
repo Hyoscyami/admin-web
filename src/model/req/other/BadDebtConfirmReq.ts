@@ -13,6 +13,18 @@ export interface BadDebtConfirmReq {
   loanCertificateList: Array<FileReq>
   /** 放款会计凭证 */
   loanAccountDocumentList: Array<FileReq>
+  /**
+   * 风险五级
+   */
+  riskFiveLevelList: Array<FileReq>
+  /**
+   * 贷款余额查询
+   */
+  loanBalanceQueryList: Array<FileReq>
+  /**
+   * 其他申报材料
+   */
+  otherApplyMaterials: Array<FileReq>
   /** 附加证据列表，ID是basic_file_config_evidence的id */
   evidenceList: Array<FileReq>
   // 资产类型
@@ -32,6 +44,9 @@ export function useBadDebtConfirmReq(): BadDebtConfirmReq {
     evidenceList: [],
     loanAccountDocumentList: [],
     loanCertificateList: [],
-    loanContractList: []
+    loanContractList: [],
+    loanBalanceQueryList: [],
+    otherApplyMaterials: [],
+    riskFiveLevelList: []
   }
 }

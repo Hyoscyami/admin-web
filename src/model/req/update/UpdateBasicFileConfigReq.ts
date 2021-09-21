@@ -45,8 +45,12 @@ export interface UpdateBasicFileConfigReq {
 
   /** 税收确认证据确认描述 */
   evidenceDescription: string
-  /** 税收确认证据列表，对应dict表的id列表 */
+  /** 证据列表，申报回显上传按钮使用 */
   evidenceList: Array<DictVO>
+  /**
+   *附加证据列表对应的数据字典ID列表，编辑档案的时候回显用
+   */
+  evidenceDictIds: Array<number>
 }
 
 export function useUpdateBasicFileConfigReq(): UpdateBasicFileConfigReq {
@@ -61,6 +65,7 @@ export function useUpdateBasicFileConfigReq(): UpdateBasicFileConfigReq {
     evidenceDescription: '',
     id: 0,
     orgId: 0,
-    relationType: 0
+    relationType: 0,
+    evidenceDictIds: []
   }
 }

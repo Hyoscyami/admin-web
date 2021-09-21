@@ -95,7 +95,7 @@
           </el-col>
         </el-row>
         <el-form-item label="税收确认证据" prop="evidenceList">
-          <el-select v-model="form.evidenceList" placeholder="请选择税收确认证据" clearable multiple filterable>
+          <el-select v-model="form.evidenceDictIds" placeholder="请选择税收确认证据" clearable multiple filterable>
             <el-option v-for="item in evidenceList" :key="item.id" :label="item.text" :value="item.value"/>
           </el-select>
         </el-form-item>

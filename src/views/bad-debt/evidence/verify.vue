@@ -194,6 +194,47 @@
             <el-button size="small" type="primary">上传放款会计凭证</el-button>
           </el-upload>
         </el-col>
+        <el-col :span="8">
+          <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
+              :on-exceed="handleExceed"
+              :on-remove="handleRemove6"
+              :on-success="handleUploadSuccess6"
+          >
+            <el-button size="small" type="primary">上传风险五级</el-button>
+          </el-upload>
+        </el-col>
+      </el-row>
+      <el-row class="row-margin">
+        <el-col :span="8">
+          <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
+              :on-exceed="handleExceed"
+              :on-remove="handleRemove7"
+              :on-success="handleUploadSuccess7"
+          >
+            <el-button size="small" type="primary">上传贷款余额查询</el-button>
+          </el-upload>
+        </el-col>
+        <el-col :span="8">
+          <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
+              :on-exceed="handleExceed"
+              :on-remove="handleRemove8"
+              :on-success="handleUploadSuccess8"
+          >
+            <el-button size="small" type="primary">上传其他申报材料</el-button>
+          </el-upload>
+        </el-col>
       </el-row>
       <el-row class="row-margin">
         <el-col :span="8">
@@ -370,6 +411,30 @@ export default defineComponent({
 
     // 上传放款会计凭证
     function handleUploadSuccess5(response, file, fileList) {
+      form.otherApplyMaterials = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 上传风险五级凭证
+    function handleUploadSuccess6(response, file, fileList) {
+      form.riskFiveLevelList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 上传贷款余额查询凭证
+    function handleUploadSuccess7(response, file, fileList) {
+      form.loanBalanceQueryList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 上传其他申报材料凭证
+    function handleUploadSuccess8(response, file, fileList) {
       form.loanAccountDocumentList = fileList.map(file => ({
         name: file.name,
         url: file.response.data
@@ -379,6 +444,30 @@ export default defineComponent({
     // 删除放款会计凭证成功
     function handleRemove5(file, fileList) {
       form.loanCertificateList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 删除风险五级成功
+    function handleRemove6(file, fileList) {
+      form.riskFiveLevelList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 删除贷款余额查询成功
+    function handleRemove7(file, fileList) {
+      form.loanBalanceQueryList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 删除其他申报材料成功
+    function handleRemove8(file, fileList) {
+      form.otherApplyMaterials = fileList.map(file => ({
         name: file.name,
         url: file.response.data
       }))
@@ -431,9 +520,22 @@ export default defineComponent({
       handleUploadSuccess2,
       handleUploadSuccess3,
       handleUploadSuccess4,
-      handleUploadSuccess5, handlePreview,
-      handleRemove, handleRemove2, handleRemove3, handleRemove4, handleRemove5,
-      handUploadClick, closeCurrentTag, formSubmit
+      handleUploadSuccess5,
+      handleUploadSuccess6,
+      handleUploadSuccess7,
+      handleUploadSuccess8,
+      handlePreview,
+      handleRemove,
+      handleRemove2,
+      handleRemove3,
+      handleRemove4,
+      handleRemove5,
+      handleRemove6,
+      handleRemove7,
+      handleRemove8,
+      handUploadClick,
+      closeCurrentTag,
+      formSubmit
     }
   }
 })
