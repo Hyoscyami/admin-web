@@ -12,7 +12,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产类型" prop="assetType">
-              <el-select v-model="form.assetType" placeholder="请选择资产类型" clearable>
+              <el-select v-model="form.assetType" placeholder="请选择资产类型" multiple clearable>
                 <el-option v-for="item in assertTypes" :key="item.id" :label="item.text" :value="item.value"/>
               </el-select>
             </el-form-item>
@@ -206,7 +206,6 @@ export default defineComponent({
           callback(new Error('最大核销金额不能为负数'))
         }
         if (form.minAmountWrittenOff && Number(form.maxAmountWrittenOff) < Number(form.minAmountWrittenOff)) {
-          console.log('form', form)
           callback(new Error('最大核销金额不能小于最小核销金额'))
         }
       }

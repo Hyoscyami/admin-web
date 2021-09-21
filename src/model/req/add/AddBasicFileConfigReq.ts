@@ -1,5 +1,3 @@
-import { DictVO } from '../../vo/DictVO'
-
 export interface AddBasicFileConfigReq {
   /** 认定条件，对应dict表的code */
   confirmationConditions: string
@@ -8,7 +6,7 @@ export interface AddBasicFileConfigReq {
   confirmationConditionsName: string
 
   /** 资产类型，对应dict表的code */
-  assetType: string
+  assetType: Array<string>
 
   /** 资产类型中文名称 */
   assetTypeName: string
@@ -48,12 +46,12 @@ export interface AddBasicFileConfigReq {
   evidenceDescription: string
 
   /** 税收确认证据列表，对应dict表的id列表 */
-  evidenceList: Array<DictVO>
+  evidenceList: Array<number>
 }
 
 export function userAddBasicFileConfigReq(): AddBasicFileConfigReq {
   return {
-    assetType: '',
+    assetType: [],
     assetTypeName: '',
     confirmationConditions: '',
     confirmationConditionsName: '',
