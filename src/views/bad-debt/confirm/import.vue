@@ -11,19 +11,18 @@
           </el-col>
         </el-form-item>
         <el-form-item>
-          <el-col :span="10">
-            <el-upload
-                action="/api/file/upload"
-                multiple
-                :headers="headers"
-                :limit="1"
-                :disabled="uploadDisable"
-                :on-exceed="handleExceed"
-                :on-success="handleUploadSuccess"
-            >
-              <el-button size="small" :disabled="uploadDisable" type="primary">点击上传会计凭证</el-button>
-            </el-upload>
-          </el-col>
+          <el-upload
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
+              :limit="1"
+              :disabled="uploadDisable"
+              :on-exceed="handleExceed"
+              :on-preview="handlePreview"
+              :on-success="handleUploadSuccess"
+          >
+            <el-button size="small" :disabled="uploadDisable" type="primary">点击上传会计凭证</el-button>
+          </el-upload>
         </el-form-item>
         <el-form-item>
           <el-col :span="6">
@@ -48,7 +47,6 @@ import {formatDate, handleExceed} from '@/composables/bad-debt/confirm'
 import {ApiResponse} from "../../../model/resp/base/ApiResponse";
 import {CommonEnum} from "../../../enums/CommonEnum";
 import {errorMsg} from "../../../utils/common";
-import {format} from "../../../utils/time";
 
 export default defineComponent({
   name: "BadDebtConfirmImport",
@@ -140,9 +138,13 @@ export default defineComponent({
       form.fileName = file.name
       form.filePath = response.data
     }
+    //预览文件
+    const handlePreview = function (file) {
+      window.open(file.response.data)
+    }
     return {
       closeCurrentTag, form, cellClass, headerClass, sumCapital, formRef, rules, formatDate,
-      handleExceed, handleUploadSuccess, headers, onSubmit, uploadDisable
+      handleExceed, handleUploadSuccess, headers, onSubmit, uploadDisable, handlePreview
     }
   }
 })
