@@ -197,5 +197,5 @@ export function handleUploadSuccess(response: ApiResponse<string>, file: any, fi
  * 文件预览
  */
 export function handlePreview(file: any) {
-  console.log('file', file)
+  window.open(file.response.data)
 }

@@ -68,7 +68,7 @@
         <template #default="scope">
           <el-button type="text" size="small">
             <router-link
-                :to="{ path: '/bad-debt/evidence/verify',query: { id:scope.row.id }}">
+                :to="{ path: '/deferred-declaration/verify',query: { id:scope.row.id }}">
               审核
             </router-link>
           </el-button>

@@ -22,6 +22,14 @@ export function detail(id: number) {
   })
 }
 
+export function waitingDetail(id: number) {
+  return request({
+    url: '/bad-debt-write-off/waitingDetail',
+    method: 'get',
+    params: { id }
+  })
+}
+
 export function sumCapitalByAccountingDocumentNo(accountDocumentNo: string) {
   return request({
     url: '/bad-debt-write-off/sumCapitalByAccountingDocumentNo',
@@ -99,6 +107,17 @@ export function match(data: MatchBasicFileConfigReq) {
 export function confirm(data: BadDebtConfirmReq) {
   return request({
     url: '/bad-debt-write-off/confirm',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: JSON.stringify(data)
+  })
+}
+
+export function waitConfirm(data: BadDebtConfirmReq) {
+  return request({
+    url: '/bad-debt-write-off/waitConfirm',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'

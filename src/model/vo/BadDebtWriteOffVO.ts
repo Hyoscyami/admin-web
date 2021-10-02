@@ -1,4 +1,6 @@
 import { BaseVO } from '../resp/base/BaseVO'
+import { BadDebtFileVO, useBadDebtFileVO } from './BadDebtFileVO'
+import { BasicFileConfigVO } from './BasicFileConfigVO'
 
 /**
  * 呆账核销数据
@@ -63,6 +65,14 @@ export interface BadDebtWriteOffVO extends BaseVO {
    * 逾期天数，当前日期-到期日期
    */
   overdueDays?: number
+  /**
+   *匹配到的基础档案设置
+   */
+  basicFileConfigVO?: BasicFileConfigVO
+  /**
+   * 所有基础材料和附加证据
+   */
+  badDebtFileVO?: BadDebtFileVO
 }
 
 export function useBadDebtVO(): BadDebtWriteOffVO {
@@ -91,6 +101,7 @@ export function useBadDebtVO(): BadDebtWriteOffVO {
     repayAmount: 0,
     type: 0,
     writeOffDate: '',
-    overdueDays: undefined
+    overdueDays: undefined,
+    badDebtFileVO: useBadDebtFileVO()
   }
 }

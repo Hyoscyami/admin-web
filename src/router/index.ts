@@ -207,6 +207,20 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/deferred-declaration',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'verify',
+        name: 'DeferredDeclarationVerify',
+        component: () => import('@/views/deferred-declaration/verify.vue'),
+        meta: { title: '延后申报审核', icon: 'table' },
+        hidden: true
+      }
+    ]
+  },
+  {
     path: '/',
     component: Layout,
     redirect: 'noRedirect',

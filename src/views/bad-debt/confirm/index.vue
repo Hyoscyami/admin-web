@@ -86,8 +86,8 @@
             </router-link>
           </el-button>
           <el-button type="text" size="small">
-            <router-link
-                :to="{ path: '/bad-debt/confirm/import',query: { accountingDocumentNo:scope.row.accountingDocumentNo }}">
+            <router-link v-if="scope.row.accountingDocumentNo"
+                         :to="{ path: '/bad-debt/confirm/import',query: { accountingDocumentNo:scope.row.accountingDocumentNo }}">
               导入会计凭证
             </router-link>
           </el-button>

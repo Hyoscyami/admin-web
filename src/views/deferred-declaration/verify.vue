@@ -120,7 +120,7 @@
               :on-success="handleUploadSuccess"
               v-for="item in basicFileConfigVO.evidenceList" :key="item.id"
           >
-            <el-button size="small" type="primary" @click="handUploadClick(item.id)">上传{{ item.name }}</el-button>
+            <el-button size="small" type="primary" @click="handUploadClick(item.id)">{{ item.name }}</el-button>
           </el-upload>
         </el-form-item>
       </el-row>
@@ -131,6 +131,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
+              :file-list="tableVO.badDebtFileVO.approveList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove"
               :on-preview="handlePreview"
@@ -265,8 +266,8 @@
 </template>
 
 <script lang="ts">
-import Pagination from "../../../components/Pagination/index.vue";
-import {defineComponent, reactive, ref, toRaw} from 'vue';
+import Pagination from "@/components/Pagination/index.vue";
+import {defineComponent, reactive, ref, toRaw, onMounted} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
 import {
@@ -277,24 +278,23 @@ import {
   formatDate,
   handleExceed,
   handlePreview
-} from "../../../composables/bad-debt/evidence";
+} from "@/composables/bad-debt/evidence";
 import {init} from '@/composables/bad-debt/evidence';
-import {cellClass, headerClass} from "../../../composables/sys/dict";
-import SearchForm from "../confirm/components/SearchForm.vue";
-import {useBadDebtConfirmReq} from "../../../model/req/other/BadDebtConfirmReq";
-import {confirm, detail, match} from "../../../api/bad-debt/confirm";
-import {ApiResponse} from "../../../model/resp/base/ApiResponse";
-import {BadDebtWriteOffVO, useBadDebtVO} from "../../../model/vo/BadDebtWriteOffVO";
-import {useMatchBasicFileConfigReq} from "../../../model/vo/MatchBasicFileConfigReq";
-import {useTable} from "../../../model/req/query/Table";
-import {QueryBadDebtReq, useQueryBadDebtReq} from "../../../model/req/query/QueryBadDebtReq";
-import {errorMsg, successMsg} from "../../../utils/common";
-import {useBasicFileConfigVO} from "../../../model/vo/BasicFileConfigVO";
-import {CommonEnum} from "../../../enums/CommonEnum";
+import {cellClass, headerClass} from "@/composables/sys/dict";
+import {useBadDebtConfirmReq} from "@/model/req/other/BadDebtConfirmReq";
+import {waitConfirm, match, waitingDetail} from "@/api/bad-debt/confirm";
+import {ApiResponse} from "@/model/resp/base/ApiResponse";
+import {BadDebtWriteOffVO, useBadDebtVO} from "@/model/vo/BadDebtWriteOffVO";
+import {useMatchBasicFileConfigReq} from "@/model/vo/MatchBasicFileConfigReq";
+import {useTable} from "@/model/req/query/Table";
+import {QueryBadDebtReq, useQueryBadDebtReq} from "@/model/req/query/QueryBadDebtReq";
+import {errorMsg, successMsg} from "@/utils/common";
+import {useBasicFileConfigVO} from "@/model/vo/BasicFileConfigVO";
+import {CommonEnum} from "@/enums/CommonEnum";
 
 export default defineComponent({
-  name: "BadDebtEvidenceVerify",
-  components: {SearchForm, Pagination},
+  name: "DeferredDeclarationVerify",
+  components: {Pagination},
   setup() {
     // 初始化
     init()
@@ -315,12 +315,18 @@ export default defineComponent({
     const evidenceId = ref(null)
     //上传文件的请求头
     const headers = reactive({'X-Auth-Token': store.state.user.token})
-    //获取详情
-    detail(id).then((response: ApiResponse<object>) => {
-      Object.assign(tableVO, response.data)
-    })
     //档案设置
     const basicFileConfigVO = reactive(useBasicFileConfigVO())
+    onMounted(async () => {
+      //获取详情
+      await waitingDetail(id).then((response: ApiResponse<object>) => {
+        Object.assign(tableVO, response.data)
+      })
+      // 之前初始申报匹配的档案
+      Object.assign(basicFileConfigVO, tableVO.basicFileConfigVO)
+      matchFileConfigReq.confirmationConditions = toRaw(basicFileConfigVO).confirmationConditions
+      matchFileConfigReq.assetType = toRaw(basicFileConfigVO).assetType
+    })
     //匹配档案
     const matchConfig = () => {
       //选择了资产类型和认定条件后
@@ -488,11 +494,9 @@ export default defineComponent({
     //新增表单
     const formSubmit = () => {
       form.assetType = toRaw(matchFileConfigReq).assetType
-      form.assetTypeName = toRaw(basicFileConfigVO).assetTypeName
       form.confirmationConditions = toRaw(matchFileConfigReq).confirmationConditions
-      form.confirmationConditionsName = toRaw(basicFileConfigVO).confirmationConditionsName
       form.startTime = toRaw(tableVO).expireTime
-      confirm(form).then((response: ApiResponse<object>) => {
+      waitConfirm(form).then((response: ApiResponse<object>) => {
         if (response.code !== CommonEnum.SUCCESS_CODE) {
           errorMsg(response.msg)
         } else {

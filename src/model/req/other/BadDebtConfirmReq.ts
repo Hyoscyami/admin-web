@@ -31,6 +31,10 @@ export interface BadDebtConfirmReq {
   assetType?: number
   //认定条件，对应dict表的id
   confirmationConditions?: number
+  // 认定条件中文名称
+  confirmationConditionsName?: string
+  //资产类型中文名称
+  assetTypeName?: string
   /** 状态，是拟申报税前扣除的话将已核销呆账更新为拟申报税前扣除，是延后申报税前扣除的话，选择等待逾期时间满1年等细分状态 */
   status?: number
 }
