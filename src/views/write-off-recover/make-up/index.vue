@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "MakeUp"
+  name: "WriteOffRecoverMakeUp"
 }
 </script>
 

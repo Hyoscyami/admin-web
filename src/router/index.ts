@@ -107,7 +107,7 @@ export const constantRoutes = [
     path: '/bad-debt',
     component: Layout,
     redirect: 'noRedirect',
-    name: 'bad-debt',
+    name: 'BadDebt',
     meta: { title: '初始申报', icon: 'el-icon-s-help' },
     children: [
       {
@@ -223,6 +223,46 @@ export const constantRoutes = [
         component: () => import('@/views/deferred-declaration/verify.vue'),
         meta: { title: '延后申报审核', icon: 'table' },
         hidden: true
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'deferred-declaration',
+        name: 'DeferredDeclaration',
+        component: () => import('@/views/deferred-declaration/index.vue'),
+        meta: { title: '延后申报', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
+    path: '/write-off-recover',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'WriteOffRecover',
+    meta: { title: '核销收回', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'import',
+        name: 'WriteOffRecoverImport',
+        component: () => import('@/views/write-off-recover/import/index.vue'),
+        meta: { title: '数据导入', icon: 'table' }
+      },
+      {
+        path: 'make-up',
+        name: 'WriteOffRecoverMakeUp',
+        component: () => import('@/views/write-off-recover/make-up/index.vue'),
+        meta: { title: '核销收回补录', icon: 'table' }
+      },
+      {
+        path: 'verify',
+        name: 'WriteOffRecoverVerify',
+        component: () => import('@/views/write-off-recover/verify/index.vue'),
+        meta: { title: '核销收回审核', icon: 'table' }
       }
     ]
   },
