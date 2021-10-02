@@ -1,16 +1,16 @@
 import { reactive, ref } from 'vue'
-import { DictEnum } from '@/enums/DictEnum'
-import { list } from '@/api/basic-file-config/file-config'
-import { DictVO } from '@/model/vo/DictVO'
-import { SelectGroup, useTable } from '@/model/req/query/Table'
-import { BasicFileConfigEvidenceVO } from '../../model/vo/BasicFileConfigEvidenceVO'
+import { DictEnum } from '../../../enums/DictEnum'
+import { list } from '../../../api/sys/file-config'
+import { DictVO } from '../../../model/vo/DictVO'
+import { SelectGroup, useTable } from '../../../model/req/query/Table'
+import { BasicFileConfigEvidenceVO } from '../../../model/vo/BasicFileConfigEvidenceVO'
 import {
   QueryBasicFileConfigReq,
   userQueryBasicFileConfigReq
-} from '../../model/req/query/QueryBasicFileConfigReq'
-import { listChildrenByCode } from '../../api/sys/dict'
-import { del } from '@/api/basic-file-config/file-config'
-import { successMsg } from '../../utils/common'
+} from '../../../model/req/query/QueryBasicFileConfigReq'
+import { listChildrenByCode } from '../../../api/sys/dict'
+import { del } from '../../../api/sys/file-config'
+import { successMsg } from '../../../utils/common'
 
 // 初始化表格的对象
 const initTable = useTable<BasicFileConfigEvidenceVO, QueryBasicFileConfigReq>(

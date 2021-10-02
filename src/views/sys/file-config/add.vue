@@ -125,9 +125,9 @@ import {
   evidenceList,
   initAdd,
   relationTypes
-} from "../../../composables/basic-file-config";
+} from "../../../composables/sys/basic-file-config";
 import {userAddBasicFileConfigReq} from "../../../model/req/add/AddBasicFileConfigReq";
-import {add} from "../../../api/basic-file-config/file-config";
+import {add} from "../../../api/sys/file-config";
 
 export default defineComponent({
   name: "FileConfigAdd",

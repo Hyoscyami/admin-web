@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../../utils/request'
 import { QueryBasicFileConfigReq } from '../../model/req/query/QueryBasicFileConfigReq'
 import { AddBasicFileConfigReq } from '../../model/req/add/AddBasicFileConfigReq'
 import { UpdateBasicFileConfigReq } from '../../model/req/update/UpdateBasicFileConfigReq'

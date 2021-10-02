@@ -104,7 +104,7 @@ import {
   searchFormRef,
   searchFormSubmit,
   resetSearchForm, init, confirmConditions, assertTypes, delRow
-} from '../../../composables/basic-file-config'
+} from '../../../composables/sys/basic-file-config'
 
 export default {
   name: "FileConfig",
