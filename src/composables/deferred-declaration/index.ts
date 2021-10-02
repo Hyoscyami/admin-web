@@ -33,8 +33,6 @@ export function init() {
   listConfirmConditions()
   // 获取资产类型
   listAssertTypes()
-  // 初始化表格
-  searchFormSubmit()
 }
 
 // 获取状态下拉框
@@ -235,5 +233,5 @@ export function handleUploadSuccess(response: ApiResponse<string>, file: any, fi
  * 文件预览
  */
 export function handlePreview(file: any) {
-  console.log('file', file)
+  window.open(file.url)
 }

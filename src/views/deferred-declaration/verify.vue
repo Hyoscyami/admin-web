@@ -277,9 +277,9 @@ import {
   convertStatusToChinese,
   formatDate,
   handleExceed,
-  handlePreview
-} from "@/composables/bad-debt/evidence";
-import {init} from '@/composables/bad-debt/evidence';
+  handlePreview,
+  init
+} from "@/composables/deferred-declaration";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import {useBadDebtConfirmReq} from "@/model/req/other/BadDebtConfirmReq";
 import {waitConfirm, match, waitingDetail} from "@/api/bad-debt/confirm";
