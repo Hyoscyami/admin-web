@@ -278,7 +278,7 @@ import {
   formatDate,
   handleExceed,
   handlePreview,
-  init
+  detailInit
 } from "@/composables/deferred-declaration";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import {useBadDebtConfirmReq} from "@/model/req/other/BadDebtConfirmReq";
@@ -297,7 +297,7 @@ export default defineComponent({
   components: {Pagination},
   setup() {
     // 初始化
-    init()
+    detailInit()
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
@@ -326,6 +326,7 @@ export default defineComponent({
       Object.assign(basicFileConfigVO, tableVO.basicFileConfigVO)
       matchFileConfigReq.confirmationConditions = toRaw(basicFileConfigVO).confirmationConditions
       matchFileConfigReq.assetType = toRaw(basicFileConfigVO).assetType
+      Object.assign(form, tableVO.badDebtFileVO)
     })
     //匹配档案
     const matchConfig = () => {
@@ -494,7 +495,9 @@ export default defineComponent({
     //新增表单
     const formSubmit = () => {
       form.assetType = toRaw(matchFileConfigReq).assetType
+      form.assetTypeName = toRaw(basicFileConfigVO).assetTypeName
       form.confirmationConditions = toRaw(matchFileConfigReq).confirmationConditions
+      form.confirmationConditionsName = toRaw(basicFileConfigVO).confirmationConditionsName
       form.startTime = toRaw(tableVO).expireTime
       waitConfirm(form).then((response: ApiResponse<object>) => {
         if (response.code !== CommonEnum.SUCCESS_CODE) {

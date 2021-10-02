@@ -29,6 +29,14 @@ export const addFormRef = ref(null)
 
 // 初始化
 export function init() {
+  // 详情页面初始化
+  detailInit()
+  // 初始化表格
+  searchFormSubmit()
+}
+
+// 详情页面初始化
+export function detailInit() {
   // 获取认定条件
   listConfirmConditions()
   // 获取资产类型

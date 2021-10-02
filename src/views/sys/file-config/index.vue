@@ -68,7 +68,7 @@
       >
         <template #default="scope">
           <el-button type="text" size="small">
-            <router-link :to="{ path: '/file-config/edit',query: { id:scope.row.id }}">编辑
+            <router-link :to="{ path: '/sys/file-config/edit',query: { id:scope.row.id }}">编辑
             </router-link>
           </el-button>
           <el-popconfirm
@@ -95,8 +95,8 @@
 </template>
 
 <script lang="ts">
-import Pagination from "../../components/Pagination/index.vue";
-import {cellClass, headerClass} from "@/composables/sys/dict";
+import Pagination from "../../../components/Pagination/index.vue";
+import {cellClass, headerClass} from "../../../composables/sys/dict";
 import {
   getList,
   table,
@@ -104,7 +104,7 @@ import {
   searchFormRef,
   searchFormSubmit,
   resetSearchForm, init, confirmConditions, assertTypes, delRow
-} from '@/composables/basic-file-config'
+} from '../../../composables/basic-file-config'
 
 export default {
   name: "FileConfig",

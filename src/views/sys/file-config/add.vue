@@ -116,18 +116,18 @@
 import {defineComponent, reactive, ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
-import {CommonEnum} from "@/enums/CommonEnum";
-import {errorMsg} from "@/utils/common";
-import {ApiResponse} from "@/model/resp/base/ApiResponse";
+import {CommonEnum} from "../../../enums/CommonEnum";
+import {errorMsg} from "../../../utils/common";
+import {ApiResponse} from "../../../model/resp/base/ApiResponse";
 import {
   assertTypes,
   confirmConditions,
   evidenceList,
   initAdd,
   relationTypes
-} from "../../composables/basic-file-config";
-import {userAddBasicFileConfigReq} from "../../model/req/add/AddBasicFileConfigReq";
-import {add} from "../../api/basic-file-config/file-config";
+} from "../../../composables/basic-file-config";
+import {userAddBasicFileConfigReq} from "../../../model/req/add/AddBasicFileConfigReq";
+import {add} from "../../../api/basic-file-config/file-config";
 
 export default defineComponent({
   name: "FileConfigAdd",

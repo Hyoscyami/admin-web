@@ -94,6 +94,12 @@ export const constantRoutes = [
         name: 'Config',
         component: () => import('@/views/sys/config/index.vue'),
         meta: { title: '系统设置', icon: 'table' }
+      },
+      {
+        path: 'file-config',
+        name: 'SysFileConfig',
+        component: () => import('@/views/sys/file-config/index.vue'),
+        meta: { title: '基础档案设置', icon: 'table' }
       }
     ]
   },
@@ -234,40 +240,20 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/',
-    component: Layout,
-    redirect: 'noRedirect',
-    children: [
-      {
-        path: 'file-config',
-        name: 'FileConfig',
-        component: () => import('@/views/file-config/index.vue'),
-        meta: { title: '基础档案设置', icon: 'dashboard' }
-      }
-    ]
-  },
-  {
-    path: '/file-config',
+    path: '/sys/file-config',
     component: Layout,
     redirect: 'noRedirect',
     children: [
       {
         path: 'add',
         name: 'FileConfigAdd',
-        component: () => import('@/views/file-config/add.vue'),
+        component: () => import('@/views/sys/file-config/add.vue'),
         meta: { title: '新增基础档案设置', icon: 'dashboard' }
-      }
-    ]
-  },
-  {
-    path: '/file-config',
-    component: Layout,
-    redirect: 'noRedirect',
-    children: [
+      },
       {
         path: 'edit',
         name: 'FileConfigEdit',
-        component: () => import('@/views/file-config/edit.vue'),
+        component: () => import('@/views/sys/file-config/edit.vue'),
         meta: { title: '编辑基础档案设置', icon: 'dashboard' }
       }
     ]
