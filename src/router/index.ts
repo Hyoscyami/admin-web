@@ -267,6 +267,48 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/write-off-recover/make-up',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'add',
+        name: 'WriteOffRecoverMakeUpAdd',
+        component: () => import('@/views/write-off-recover/make-up/add.vue'),
+        meta: { title: '新增核销收回数据', icon: 'table' },
+        hidden: true
+      }
+    ]
+  },
+  {
+    path: '/write-off-recover/make-up',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'edit',
+        name: 'WriteOffRecoverMakeUpEdit',
+        component: () => import('@/views/write-off-recover/make-up/edit.vue'),
+        meta: { title: '编辑核销收回数据', icon: 'table' },
+        hidden: true
+      }
+    ]
+  },
+  {
+    path: '/write-off-recover/make-up',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'revoke',
+        name: 'WriteOffRecoverMakeUpRevoke',
+        component: () => import('@/views/write-off-recover/make-up/revoke.vue'),
+        meta: { title: '编辑核销收回数据', icon: 'table' },
+        hidden: true
+      }
+    ]
+  },
+  {
     path: '/',
     component: Layout,
     redirect: 'noRedirect',
