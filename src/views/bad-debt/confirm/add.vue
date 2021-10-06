@@ -162,7 +162,6 @@ export default defineComponent({
           return false
         }
       })
-
     }
     return {closeCurrentTag, form, disabledDate, formSubmit, rules, addFormRef}
   }

@@ -79,6 +79,10 @@ export interface AddBadDebtReq {
    * 组织ID路径列表
    */
   parentOrgIds?: Array<number>
+  /**
+   * 呆账核销状态
+   */
+  status?: number
 }
 
 /**

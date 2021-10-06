@@ -93,6 +93,17 @@ export function add(data: AddBadDebtReq | UpdateBadDebtReq) {
   })
 }
 
+export function revoke(data: AddBadDebtReq | UpdateBadDebtReq) {
+  return request({
+    url: '/bad-debt-write-off/revoke',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: JSON.stringify(data)
+  })
+}
+
 export function match(data: MatchBasicFileConfigReq) {
   return request({
     url: '/bad-debt-write-off/match',
