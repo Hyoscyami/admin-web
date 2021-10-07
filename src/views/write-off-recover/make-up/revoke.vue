@@ -123,7 +123,7 @@ import {defineComponent, reactive, ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
 import Cascader from "../../../components/Cascader/index.vue";
-import {useAddBadDebtReq, useBadDebtRule} from "../../../model/req/add/AddBadDebtReq";
+import {useAddBadDebtReq, useBadDebtRevokeRule} from "../../../model/req/add/AddBadDebtReq";
 import {revoke} from "../../../api/bad-debt/confirm";
 import {CommonEnum} from "../../../enums/CommonEnum";
 import {errorMsg} from "../../../utils/common";
@@ -143,7 +143,7 @@ export default defineComponent({
     const id = route.query.id
     //新增表单
     const form = reactive(useAddBadDebtReq())
-    const rules = useBadDebtRule()
+    const rules = useBadDebtRevokeRule()
     //获取详情
     detail(id).then((response: ApiResponse<object>) => {
       if (response.code !== CommonEnum.SUCCESS_CODE) {

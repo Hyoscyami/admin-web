@@ -20,6 +20,10 @@ export interface QueryBadDebtRevokeReq extends BaseQuery {
    * 贷款账号
    */
   loanAccountNo?: string
+  /**
+   * 核销收回年度
+   */
+  revokeDate?: string
 }
 
 /**

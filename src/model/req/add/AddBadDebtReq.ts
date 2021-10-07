@@ -156,6 +156,10 @@ export interface BadDebtRule {
    * 应收费用
    */
   charges: Array<Object>
+  /**
+   * 呆账核销状态
+   */
+  status?: Array<Object>
 }
 
 /**
@@ -165,6 +169,52 @@ export interface BadDebtRule {
 export function useBadDebtRule(): BadDebtRule {
   return {
     orgId: [{ required: true, message: '请选择组织', trigger: 'change' }],
+    borrowTime: [{ required: true, message: '请选择借款日期', trigger: 'change' }],
+    borrowerIdNo: [{ required: true, message: '请输入借款人证件号码', trigger: 'change' }],
+    borrowerName: [{ required: true, message: '借款人名称', trigger: 'change' }],
+    capital: [{ required: true, trigger: 'change', validator: validateCapital }],
+    charges: [{ required: true, trigger: 'change', validator: validateCharges }],
+    expireTime: [{ required: true, message: '请选择到期日期', trigger: 'change' }],
+    loanAccountNo: [{ required: true, message: '请输入贷款账号', trigger: 'change' }],
+    loanAmount: [
+      {
+        required: true,
+        trigger: 'change',
+        validator: validateLoanAmount
+      }
+    ],
+    offBalanceSheetInterest: [
+      {
+        required: true,
+        trigger: 'change',
+        validator: validateOffBalanceSheetInterest
+      }
+    ],
+    onBalanceSheetInterest: [
+      {
+        required: true,
+        trigger: 'change',
+        validator: validateOnBalanceSheetInterest
+      }
+    ],
+    repayAmount: [
+      {
+        required: true,
+        trigger: 'change',
+        validator: validateRepayAmount
+      }
+    ],
+    writeOffDate: [{ required: true, message: '请选择核销日期', trigger: 'change' }]
+  }
+}
+
+/**
+ * 核销收回补录
+ */
+export function useBadDebtRevokeRule(): BadDebtRule {
+  return {
+    orgId: [{ required: true, message: '请选择组织', trigger: 'change' }],
+    status: [{ required: true, message: '请选择呆账核销状态', trigger: 'change' }],
     borrowTime: [{ required: true, message: '请选择借款日期', trigger: 'change' }],
     borrowerIdNo: [{ required: true, message: '请输入借款人证件号码', trigger: 'change' }],
     borrowerName: [{ required: true, message: '借款人名称', trigger: 'change' }],

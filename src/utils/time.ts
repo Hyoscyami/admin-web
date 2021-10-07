@@ -17,3 +17,7 @@ export function format(value: string): string {
 export function formatYYYYMMDD(value: string): string {
   return dayjs(value).format('YYYYMMDD')
 }
+
+export function formatYYYY(value: string): string {
+  return dayjs(value).format('YYYY')
+}

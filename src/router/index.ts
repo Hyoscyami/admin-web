@@ -227,19 +227,6 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/',
-    component: Layout,
-    redirect: 'noRedirect',
-    children: [
-      {
-        path: 'deferred-declaration',
-        name: 'DeferredDeclaration',
-        component: () => import('@/views/deferred-declaration/index.vue'),
-        meta: { title: '延后申报', icon: 'dashboard' }
-      }
-    ]
-  },
-  {
     path: '/write-off-recover',
     component: Layout,
     redirect: 'noRedirect',
