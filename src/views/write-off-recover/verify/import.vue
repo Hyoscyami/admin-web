@@ -140,6 +140,7 @@ export default defineComponent({
       //获取详情
       await detail(id).then((response: ApiResponse<BadDebtRevokeVO>) => {
         Object.assign(tableVO, response.data)
+        // @ts-ignore
         form.accountingDocumentNo = response.data.accountingDocumentNo
       })
     })
