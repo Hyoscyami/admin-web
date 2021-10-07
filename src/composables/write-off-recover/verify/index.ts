@@ -264,3 +264,11 @@ export function validateOffBalanceSheetInterest(_rule: any, value: number, callb
   }
   callback()
 }
+
+/**
+ * 文件上传超过数量限制处理
+ */
+export function handleExceed(files: any, fileList: any) {
+  console.log('files,fileList', files, fileList)
+  errorMsg('上传文件超过限制')
+}

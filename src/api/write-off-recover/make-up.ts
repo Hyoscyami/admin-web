@@ -2,6 +2,7 @@ import request from '@/utils/request'
 import { QueryBadDebtRevokeReq } from '../../model/req/query/QueryBadDebtRevokeReq'
 import { AddBadDebtRevokeReq } from '../../model/req/add/AddBadDebtRevokeReq'
 import { UpdateBadDebtRevokeReq } from '../../model/req/update/UpdateBadDebtRevokeReq'
+import { ImportAccountDocumentReq } from '../../model/req/other/ImportAccountDocumentReq'
 
 export function detail(id: number) {
   return request({
@@ -44,6 +45,17 @@ export function del(id: number) {
 export function update(data: AddBadDebtRevokeReq | UpdateBadDebtRevokeReq) {
   return request({
     url: '/bad-debt-revoke/update',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: JSON.stringify(data)
+  })
+}
+
+export function importAccountDocument(data: ImportAccountDocumentReq) {
+  return request({
+    url: '/bad-debt-revoke/importAccountDocument',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'

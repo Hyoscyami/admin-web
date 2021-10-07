@@ -1,4 +1,8 @@
 export interface ImportAccountDocumentReq {
+  /**
+   * ID，可空
+   */
+  id?: number
   /** 会计凭证号 */
   accountingDocumentNo: string
   /** 会计核销金额 */

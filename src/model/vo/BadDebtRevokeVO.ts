@@ -12,11 +12,14 @@ export interface BadDebtRevokeVO extends BaseVO {
 
   /** 呆账核销贷款账号 */
   loanAccountNo: string
-
+  /**
+   * 会计凭证号
+   */
+  accountingDocumentNo?: string
   /** 呆账核销本金 */
-  capital: number
+  writeOffCapital: number
   /** 核销收回本金 */
-  revokeCapital: string
+  capital: number
 
   /** 呆账核销日期 */
   writeOffDate: string
@@ -36,6 +39,7 @@ export interface BadDebtRevokeVO extends BaseVO {
 
 export function useBadDebtRevokeVO(): BadDebtRevokeVO {
   return {
+    writeOffCapital: 0,
     capital: 0,
     createTime: '',
     creatorName: '',
@@ -47,7 +51,6 @@ export function useBadDebtRevokeVO(): BadDebtRevokeVO {
     orgId: 0,
     orgNo: '',
     parentOrgIds: [],
-    revokeCapital: '',
     revokeDate: '',
     type: 0,
     writeOffDate: '',

@@ -296,6 +296,20 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/write-off-recover/verify',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'import',
+        name: 'WriteOffRecoverVerifyImport',
+        component: () => import('@/views/write-off-recover/verify/import.vue'),
+        meta: { title: '核销收回审核', icon: 'table' },
+        hidden: true
+      }
+    ]
+  },
+  {
     path: '/',
     component: Layout,
     redirect: 'noRedirect',
