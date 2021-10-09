@@ -6,7 +6,7 @@
   </el-steps>
   <el-button style="margin-top: 12px" @click="before" v-if="active > 0">上一步</el-button>
   <el-button style="margin-top: 12px" @click="next" v-if="active < 2">下一步</el-button>
-  <el-button style="margin-top: 12px" @click="next" v-if="active === 2">提交</el-button>
+  <el-button style="margin-top: 12px" @click="submit" v-if="active === 2">提交</el-button>
 </template>
 
 <script lang="ts">
@@ -31,11 +31,12 @@ export default {
     //点击下一步
     function next() {
       active.value++
-      //两张表都确认完毕
-      if (active.value === 3) {
-        //关闭当前页面
-        closeCurrentTag()
-      }
+    }
+
+    // 表单提交
+    function submit() {
+      //关闭当前标签页
+      closeCurrentTag()
     }
 
     //关闭当前标签页
@@ -45,7 +46,7 @@ export default {
         $router: router
       })
     }
-    return {active, next, before}
+    return {active, next, before, submit}
   }
 }
 </script>
