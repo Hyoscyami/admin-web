@@ -11,3 +11,19 @@ export function list(data: QueryBadDebtReq) {
     data
   })
 }
+
+export function declare(year: string) {
+  return request({
+    url: '/bad-debt-write-off/declare',
+    method: 'get',
+    params: { year }
+  })
+}
+
+export function declareDetail(year: string) {
+  return request({
+    url: '/bad-debt-write-off/declare/detail',
+    method: 'get',
+    params: { year }
+  })
+}
