@@ -12,7 +12,7 @@ export function list(data: QueryBadDebtReq) {
   })
 }
 
-export function declare(year: string) {
+export function debtDeclare(year: string) {
   return request({
     url: '/bad-debt-write-off/declare',
     method: 'get',

@@ -208,7 +208,7 @@ import {useStore} from "vuex";
 import {ApiResponse} from "../../model/resp/base/ApiResponse";
 import {CommonEnum} from "../../enums/CommonEnum";
 import {errorMsg, isBlank} from "../../utils/common";
-import {declare, declareDetail} from "../../api/deferred-declaration/deferred-declaration";
+import {debtDeclare, debtDeclare, declareDetail} from "../../api/deferred-declaration/deferred-declaration";
 import {formatYYYY} from "../../utils/time";
 import {useDeclareDetailVO} from "../../model/vo/DeclareDetailVO";
 
@@ -240,7 +240,7 @@ export default {
     // 表单提交
     function submit() {
       if (!isBlank(firstForm.year)) {
-        declare(formatYYYY(firstForm.year)).then((response: ApiResponse<object>) => {
+        debtDeclare(formatYYYY(firstForm.year)).then((response: ApiResponse<object>) => {
           if (response.code !== CommonEnum.SUCCESS_CODE) {
             errorMsg(response.msg)
           } else {
