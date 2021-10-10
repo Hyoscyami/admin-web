@@ -44,7 +44,7 @@
           <td></td>
           <td>{{ tableVO.debtLossTaxAmount }}</td>
           <td>{{ tableVO.assetReserveLossTaxAmount }}</td>
-          <td>{{ tableVO.financeLossTaxAmount }}</td>
+          <td>{{ tableVO.financeAdjustTaxAmount }}</td>
         </tr>
         <tr>
           <td>金融企业债权性投资损失</td>
