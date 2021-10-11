@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <SearchForm ref="searchFormRef" :list-query="table.listQuery"
+      <SearchForm ref="searchFormRef" :list-query="table.listQuery" :types-select="table.typesSelect"
                   @search-form-submit="searchFormSubmit"
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
@@ -80,7 +80,7 @@
 </template>
 
 <script lang="ts">
-import Pagination from "../../../components/Pagination/index.vue";
+import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
   formatDate,

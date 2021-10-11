@@ -11,9 +11,9 @@
       <el-input v-model="listQuery.loanAccountNo" placeholder="精确贷款账号"
                 @keyup.enter.native="searchFormSubmit"/>
     </el-form-item>
-    <el-form-item label="文件类型" prop="type" tabindex="2" multiple clearable filterable>
-      <el-select v-model="listQuery.types" placeholder="请选择文件类型" clearable>
-        <el-option v-for="item in table.typesSelect" :key="item.id" :label="item.text" :value="item.value"/>
+    <el-form-item label="文件类型" prop="type" tabindex="2">
+      <el-select v-model="listQuery.types" placeholder="请选择文件类型" multiple clearable filterable>
+        <el-option v-for="item in typesSelect" :key="item.id" :label="item.text" :value="item.value"/>
       </el-select>
     </el-form-item>
     <el-form-item>
@@ -27,6 +27,7 @@
 import {defineComponent, PropType, ref} from 'vue';
 import {QueryBadDebtReq} from "@/model/req/query/QueryBadDebtReq";
 import Cascader from '@/components/Cascader/index.vue'
+import {SelectGroup} from "../../../model/req/query/Table";
 
 export default defineComponent({
   name: "SearchForm",
@@ -35,6 +36,10 @@ export default defineComponent({
   props: {
     listQuery: {
       type: Object as PropType<QueryBadDebtReq>,
+      required: true
+    },
+    typesSelect: {
+      type: Array as PropType<SelectGroup[]>,
       required: true
     }
   },
