@@ -7,7 +7,7 @@
             <el-input v-model="form.writeOffAmount" placeholder="请输入会计核销金额"></el-input>
           </el-col>
           <el-col :span="5" :offset="1">
-            <span>当前会计导入金额: </span><span style="color: red;">{{ sumCapital }}</span><span> 元</span>
+            <span>当前导入核销金额: </span><span style="color: red;">{{ sumCapital }}</span><span> 元</span>
           </el-col>
         </el-form-item>
         <el-form-item>
@@ -104,7 +104,7 @@ export default defineComponent({
         callback(new Error('会计核销金额为负数'))
       }
       if (value != unref(sumCapital)) {
-        callback(new Error('会计核销金额和会计导入金额不相等，请检查后再导入'))
+        callback(new Error('会计核销金额和导入核销金额不相等，请检查后再导入'))
       }
       callback()
     }
