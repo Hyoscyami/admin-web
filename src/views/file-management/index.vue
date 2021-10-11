@@ -5,11 +5,6 @@
                   @search-form-submit="searchFormSubmit"
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
-    <div class="filter-container">
-      <el-button type="primary">
-        <router-link :to="{ name: 'BadDebtConfirmAdd'}">新增</router-link>
-      </el-button>
-    </div>
     <el-table
         v-loading="table.listLoading"
         class="el-table"
