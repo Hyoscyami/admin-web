@@ -42,6 +42,14 @@
       />
       <el-table-column
           prop="status"
+          label="文件类型"
+      >
+        <template #default="scope">
+          {{ convertTypeToChinese(scope.row) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+          prop="status"
           label="呆账核销状态"
       >
         <template #default="scope">
@@ -84,7 +92,7 @@ import {
 } from "@/composables/file";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
-import {convertStatusToChinese} from "../../composables/deferred-declaration";
+import {convertStatusToChinese, convertTypeToChinese} from "@/composables/deferred-declaration";
 
 export default {
   name: "FileManagement",
@@ -102,7 +110,8 @@ export default {
       headerClass,
       formatDate,
       addFormRef,
-      convertStatusToChinese
+      convertStatusToChinese,
+      convertTypeToChinese
     }
   }
 }
