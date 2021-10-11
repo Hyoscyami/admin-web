@@ -2,12 +2,15 @@ import {reactive, ref} from 'vue'
 import {docList as list} from '@/api/file/file'
 import {QueryBadDebtReq, useQueryBadDebtReq} from '@/model/req/query/QueryBadDebtReq'
 import {DocManageVO} from '@/model/vo/DocManageVO'
-import {useTable} from '@/model/req/query/Table'
+import {SelectGroup, useTable} from '@/model/req/query/Table'
 import {formatYYYY} from '@/utils/time'
 import {CommonEnum} from '@/enums/CommonEnum'
 import {errorMsg} from '@/utils/common'
 import {ApiResponse} from '@/model/resp/base/ApiResponse'
 import {StatusEnum} from '@/enums/StatusEnum'
+import {listChildrenByCode} from "../../api/sys/dict";
+import {DictEnum} from "../../enums/DictEnum";
+import {DictVO} from "../../model/vo/DictVO";
 
 // 初始化表格的对象
 const initTable = useTable<DocManageVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
@@ -23,6 +26,8 @@ export const addFormRef = ref(null)
 
 // 初始化
 export function init() {
+    // 初始化类型
+    listTypes()
     // 初始化表格
     searchFormSubmit()
 }
@@ -31,6 +36,25 @@ export function init() {
 export function searchFormSubmit() {
     table.listQuery.page = 1
     getList()
+}
+
+// 获取状态下拉框
+export function listTypes() {
+    listChildrenByCode(DictEnum.FILE_TYPES).then((response) => {
+        if (table.typesSelect) {
+            table.typesSelect.length = 0
+        }
+        response.data.forEach((item: DictVO) => {
+            const type: SelectGroup = {
+                id: item.id,
+                text: item.name,
+                value: Number(item.value)
+            }
+            if (table.typesSelect) {
+                table.typesSelect.push(type)
+            }
+        })
+    })
 }
 
 // 获取父机构列表数据

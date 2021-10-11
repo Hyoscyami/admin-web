@@ -11,6 +11,11 @@
       <el-input v-model="listQuery.loanAccountNo" placeholder="精确贷款账号"
                 @keyup.enter.native="searchFormSubmit"/>
     </el-form-item>
+    <el-form-item label="文件类型" prop="type" tabindex="2" multiple clearable filterable>
+      <el-select v-model="listQuery.types" placeholder="请选择文件类型" clearable>
+        <el-option v-for="item in table.typesSelect" :key="item.id" :label="item.text" :value="item.value"/>
+      </el-select>
+    </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="searchFormSubmit">查询</el-button>
       <el-button @click="resetSearchForm">重置</el-button>
