@@ -2,15 +2,15 @@
   <div class="app-container">
     <el-row :gutter="20">
       <div class="filter-container">
-        <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">
-          <el-form-item label="导入文件名称" prop="name">
-            <el-input v-model="table.listQuery.name" placeholder="模糊查询名称" @keyup.enter.native="searchFormSubmit"/>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="searchFormSubmit">查询</el-button>
-            <el-button @click="resetSearchForm">重置</el-button>
-          </el-form-item>
-        </el-form>
+        <!--        <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">-->
+        <!--          <el-form-item label="导入文件名称" prop="name">-->
+        <!--            <el-input v-model="table.listQuery.name" placeholder="模糊查询名称" @keyup.enter.native="searchFormSubmit"/>-->
+        <!--          </el-form-item>-->
+        <!--          <el-form-item>-->
+        <!--            <el-button type="primary" @click="searchFormSubmit">查询</el-button>-->
+        <!--            <el-button @click="resetSearchForm">重置</el-button>-->
+        <!--          </el-form-item>-->
+        <!--        </el-form>-->
         <el-row>
           <el-button size="small" class="filter-item" type="primary">
             <a download="呆账核销导入模板.xlsx" href="/data/template/import-template.xlsx">下载导入模板</a>
