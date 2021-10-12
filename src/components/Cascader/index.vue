@@ -4,6 +4,7 @@
       v-model="selectedOrg"
       :props="{ checkStrictly: true,label:'name',value:'id' }"
       @change="handleChange"
+      placeholder="请选择所属组织"
       clearable></el-cascader>
 </template>
 

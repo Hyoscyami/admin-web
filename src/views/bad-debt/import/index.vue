@@ -42,10 +42,6 @@
           border
       >
         <el-table-column
-            type="selection"
-            width="55"
-        />
-        <el-table-column
             prop="name"
             label="文件名称"
         />
