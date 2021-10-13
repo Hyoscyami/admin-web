@@ -3,8 +3,8 @@ import { createApp } from 'vue'
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementPlus from 'element-plus'
-import 'element-plus/lib/theme-chalk/index.css'
-import locale from 'element-plus/lib/locale/lang/zh-cn' // lang i18n
+import 'element-plus/dist/index.css'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import SvgIcon from '@/components/SvgIcon/index.vue' // svg component
 
 import '@/styles/index.scss' // global css
@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'development') {
   // mockXHR()
 }
 const app = createApp(App)
-app.use(ElementPlus, { locale })
+app.use(ElementPlus, { locale: zhCn })
 app.use(router)
 app.use(store)
 app.component('SvgIcon', SvgIcon)
