@@ -49,9 +49,14 @@ export interface TaxDeductionColumns {
     /**
      * 呆账核销状态
      */
-    status: boolean
+    status: boolean,
+    /**
+     * 关联事项中文名称
+     */
+    relationTypeName: boolean
 }
 
+//呆账核销已申报税前扣除查询
 export function useTaxDeductionColumns(): TaxDeductionColumns {
     return {
         accountingDocumentNo: false,
@@ -77,6 +82,38 @@ export function useTaxDeductionColumns(): TaxDeductionColumns {
         revokeOnBalanceSheetInterest: false,
         warningLeftDays: false,
         writeOffDate: true,
-        status: true
+        status: true,
+        relationTypeName: false
+    }
+}
+
+//呆账核销未申报税前扣除查询
+export function useUnDeclareColumns(): TaxDeductionColumns {
+    return {
+        accountingDocumentNo: false,
+        assetTypeName: false,
+        borrowTime: false,
+        borrowerIdNo: true,
+        borrowerName: true,
+        capital: true,
+        charges: false,
+        confirmationConditionsName: false,
+        expireTime: false,
+        loanAccountNo: true,
+        loanAmount: true,
+        offBalanceSheetInterest: false,
+        onBalanceSheetInterest: false,
+        orgName: true,
+        preTaxDate: false,
+        repayAmount: false,
+        revokeCapital: false,
+        revokeCharges: false,
+        revokeDate: false,
+        revokeOffBalanceSheetInterest: false,
+        revokeOnBalanceSheetInterest: false,
+        warningLeftDays: true,
+        writeOffDate: true,
+        status: true,
+        relationTypeName: true
     }
 }

@@ -182,7 +182,7 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, columns, dialogVisible, cancelAddForm
+  table, taxDeductionColumns, dialogVisible, cancelAddForm
 } from "@/composables/statistics/tax-deduction";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -204,7 +204,7 @@ export default {
       headerClass,
       formatYear,
       formatYYYYMMDD,
-      addFormRef, convertStatusToChinese, columns, dialogVisible, cancelAddForm
+      addFormRef, convertStatusToChinese, columns: taxDeductionColumns, dialogVisible, cancelAddForm
     }
   }
 }

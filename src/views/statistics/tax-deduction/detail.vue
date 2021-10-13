@@ -49,14 +49,18 @@
           {{ item }}
         </el-tag>
       </el-descriptions-item>
+      <el-descriptions-item label="附加证据列表">
+        <el-tag size="small" v-for="item in fileVO.evidenceList" :key="item.id" style="margin-right:10px;">
+          <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
+          {{ item }}
+        </el-tag>
+      </el-descriptions-item>
     </el-descriptions>
   </div>
 </template>
 
 <script lang="ts">
-import {detailInit} from "../../../composables/deferred-declaration";
-import {useRoute, useRouter} from "vue-router";
-import {useStore} from "vuex";
+import {useRoute} from "vue-router";
 import {ApiResponse} from "../../../model/resp/base/ApiResponse";
 import {listBadDebtAllFiles} from "../../../api/file/file";
 import {BadDebtFileVO, useBadDebtFileVO} from "../../../model/vo/BadDebtFileVO";
@@ -65,11 +69,7 @@ import {reactive} from "vue";
 export default {
   name: "StatisticsTaxDeductionDetail",
   setup() {
-    // 初始化
-    detailInit()
     const route = useRoute()
-    const router = useRouter()
-    const store = useStore()
     //数据的ID
     const id = route.query.id
     // 呆账核销数据所有文件

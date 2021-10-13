@@ -50,7 +50,11 @@ export interface TaxDeductionVO extends BaseVO {
     /** 税前扣除时间 */
     preTaxDate: string
     /** 预警剩余时间，单位为天 */
-    warningLeftDays: number
+    warningLeftDays: number,
+    /**
+     * 关联事项中文名称
+     */
+    relationTypeName: string
 }
 
 export function useTaxDeductionVO(): TaxDeductionVO {
@@ -85,6 +89,7 @@ export function useTaxDeductionVO(): TaxDeductionVO {
         revokeOffBalanceSheetInterest: 0,
         revokeOnBalanceSheetInterest: 0,
         warningLeftDays: 0,
-        writeOffDate: ""
+        writeOffDate: "",
+        relationTypeName: ""
     }
 }

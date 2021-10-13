@@ -4,7 +4,7 @@ import {useTable} from '../../../model/req/query/Table'
 import {formatYYYY} from '../../../utils/time'
 import {QueryBadDebtReq, useQueryBadDebtReq} from "../../../model/req/query/QueryBadDebtReq";
 import {TaxDeductionVO} from "../../../model/vo/TaxDeductionVO";
-import {useTaxDeductionColumns} from "../../../model/vo/TaxDeductionColumns";
+import {useTaxDeductionColumns, useUnDeclareColumns} from "../../../model/vo/TaxDeductionColumns";
 
 // 初始化表格的对象
 const initTable = useTable<TaxDeductionVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
@@ -17,8 +17,10 @@ export const tableRef = ref(null)
 export const searchFormRef = ref(null)
 // 对话框新增表单ref
 export const addFormRef = ref(null)
-// 表格展示列
-export const columns = reactive(useTaxDeductionColumns())
+// 呆账核销已申报税前扣除查询 表格展示列
+export const taxDeductionColumns = reactive(useTaxDeductionColumns())
+// 呆账核销未申报税前扣除查询 表格展示列
+export const unDeclareColumns = reactive(useUnDeclareColumns())
 // 对话框展示
 export const dialogVisible = ref(false)
 

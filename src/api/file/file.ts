@@ -20,3 +20,11 @@ export function listBadDebtAllFiles(id: number) {
         params: {id}
     })
 }
+
+export function listBasicMaterials(id: number) {
+    return request({
+        url: '/file/list/basicMaterials',
+        method: 'get',
+        params: {id}
+    })
+}
