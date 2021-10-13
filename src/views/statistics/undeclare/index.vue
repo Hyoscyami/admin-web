@@ -118,6 +118,11 @@
           v-if="columns.accountingDocumentNo"
       />
       <el-table-column
+          prop="relationTypeName"
+          label="关联事项类型"
+          v-if="columns.relationTypeName"
+      />
+      <el-table-column
           fixed="right"
           label="操作"
           width="150"
@@ -162,6 +167,7 @@
         <el-checkbox label="核销金额（表外利息）" v-model="columns.revokeOffBalanceSheetInterest"></el-checkbox>
         <el-checkbox label="应收费用" v-model="columns.charges"></el-checkbox>
         <el-checkbox label="会计凭证号码" v-model="columns.accountingDocumentNo"></el-checkbox>
+        <el-checkbox label="关联事项类型" v-model="columns.relationTypeName"></el-checkbox>
       </div>
       <template #footer>
             <span class="dialog-footer">
