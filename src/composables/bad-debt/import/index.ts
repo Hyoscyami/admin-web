@@ -11,6 +11,7 @@ import { ImportResultVO } from '../../../model/vo/ImportResultVO'
 import { SelectGroup, useTable } from '../../../model/req/query/Table'
 import { CommonEnum } from '../../../enums/CommonEnum'
 import { format } from '../../../utils/time'
+import { TypeEnum } from '../../../enums/TypeEnum'
 
 // 初始化表格的对象
 const initTable = useTable<ImportResultVO, QueryImportResultReq>(useQueryImportResultReq(20))
@@ -74,6 +75,7 @@ export function searchFormSubmit() {
 // 获取父机构列表数据
 export function getList() {
   table.listLoading = true
+  table.listQuery.types = [TypeEnum.WRITE_OFF_RESULT]
   list(table.listQuery).then((response) => {
     table.tableData = response.data.records
     table.total = response.data.total

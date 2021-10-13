@@ -1,7 +1,6 @@
 import { reactive, ref } from 'vue'
 import { errorMsg, successMsg } from '../../../utils/common'
 import { DictEnum } from '../../../enums/DictEnum'
-import { list } from '../../../api/write-off-recover/import-result'
 import { listChildrenByCode } from '../../../api/sys/dict'
 import {
   QueryImportResultReq,
@@ -12,6 +11,8 @@ import { ImportResultVO } from '../../../model/vo/ImportResultVO'
 import { SelectGroup, useTable } from '../../../model/req/query/Table'
 import { CommonEnum } from '../../../enums/CommonEnum'
 import { format } from '../../../utils/time'
+import { TypeEnum } from '../../../enums/TypeEnum'
+import { list } from '../../../api/bad-debt/import-result'
 
 // 初始化表格的对象
 const initTable = useTable<ImportResultVO, QueryImportResultReq>(useQueryImportResultReq(20))
@@ -75,6 +76,7 @@ export function searchFormSubmit() {
 // 获取父机构列表数据
 export function getList() {
   table.listLoading = true
+  table.listQuery.types = [TypeEnum.REVOKE_RESULT]
   list(table.listQuery).then((response) => {
     table.tableData = response.data.records
     table.total = response.data.total
