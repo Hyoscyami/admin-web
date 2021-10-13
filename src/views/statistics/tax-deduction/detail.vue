@@ -1,10 +1,10 @@
 <template>
-  <h1>统计查询</h1>
+  <h1>文件详情</h1>
 </template>
 
 <script>
 export default {
-  name: "Statistics"
+  name: "detail"
 }
 </script>
 

@@ -87,7 +87,8 @@ import {
 } from "@/composables/file";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
-import {convertStatusToChinese, convertTypeToChinese} from "@/composables/deferred-declaration";
+import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
+import {convertTypeToChinese} from "@/composables/deferred-declaration";
 
 export default {
   name: "FileManagement",

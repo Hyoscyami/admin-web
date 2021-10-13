@@ -355,19 +355,6 @@ export const constantRoutes = [
         ]
     },
     {
-        path: '/',
-        component: Layout,
-        redirect: 'noRedirect',
-        children: [
-            {
-                path: 'statistics',
-                name: 'Statistics',
-                component: () => import('@/views/statistics/index.vue'),
-                meta: {title: '统计查询', icon: 'dashboard'}
-            }
-        ]
-    },
-    {
         path: '/401',
         component: () => import('@/views/error/401.vue'),
         hidden: true,

@@ -274,12 +274,12 @@ import {
   addFormRef,
   assetTypes,
   confirmConditions,
-  convertStatusToChinese,
   formatDate,
   handleExceed,
   handlePreview,
   detailInit
 } from "@/composables/deferred-declaration";
+import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import {useBadDebtConfirmReq} from "@/model/req/other/BadDebtConfirmReq";
 import {waitConfirm, match, waitingDetail} from "@/api/bad-debt/confirm";

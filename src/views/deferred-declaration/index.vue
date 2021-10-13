@@ -90,7 +90,6 @@
 import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
-  convertStatusToChinese,
   formatDate,
   resetSearchForm,
   searchFormRef,
@@ -99,6 +98,7 @@ import {
   init, getList
 } from "@/composables/deferred-declaration";
 import {cellClass, headerClass} from "@/composables/sys/dict";
+import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
 import SearchForm from "@/views/bad-debt/confirm/components/SearchForm.vue";
 
 export default {

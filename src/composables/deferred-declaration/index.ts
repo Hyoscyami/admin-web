@@ -178,42 +178,6 @@ export function filterTableStatus(value: number) {
     getList()
 }
 
-// 状态转换
-export function convertStatusToChinese(row: any): string {
-    if (row.status === StatusEnum.IMPORTED) {
-        return '待呆账核销'
-    } else if (row.status === StatusEnum.WRITTEN_OFF) {
-        return '已呆账核销'
-    } else if (row.status === StatusEnum.PRE_TAX_DEDUCTION) {
-        return '拟申报税前扣除'
-    } else if (row.status === StatusEnum.WAITING_OVERDUE_ONE_YEAR) {
-        return '等待逾期时间满1年'
-    } else if (row.status === StatusEnum.WAITING_BANKRUPTCY_THREE_YEARS) {
-        return '等待宣告破产满3年'
-    } else if (row.status === StatusEnum.WAITING_CLOSE_THREE_YEARS) {
-        return '等待关闭、解散或撤销满3年'
-    } else if (row.status === StatusEnum.WAITING_REVOKE_THREE_YEARS) {
-        return '等待停止经营活动或下落不明满3年'
-    } else if (row.status === StatusEnum.WAITING_STOP_OPERATION_THREE_YEARS) {
-        return '等待停止经营活动或下落不明满3年'
-    } else if (row.status === StatusEnum.WAITING_DEATH_THREE_YEARS) {
-        return '等待自然人死亡满3年'
-    } else if (row.status === StatusEnum.WAITING_INCAPACITATED_THREE_YEARS) {
-        return '等待丧失能力满3年'
-    } else if (row.status === StatusEnum.WAITING_MISSING_THREE_YEARS) {
-        return '等待自然人失踪满3年'
-    } else if (row.status === StatusEnum.WAITING_INVESTIGATION_TWO_YEARS) {
-        return '等待侦查时间满2年'
-    } else if (row.status === StatusEnum.WAITING_EVIDENCE_YEARS) {
-        return '等待补充证据'
-    } else if (row.status === StatusEnum.WAITING_LAW_YEARS) {
-        return '等待诉诸法律'
-    } else if (row.status === StatusEnum.DECLARE_PRE_TAX_DEDUCTION) {
-        return '已申报税前扣除'
-    }
-    return '-'
-}
-
 // 类型转换
 export function convertTypeToChinese(row: any): string {
     if (row.type === TypeEnum.FILE_ACCOUNT_DOCUMENT) {
@@ -239,7 +203,7 @@ export function convertTypeToChinese(row: any): string {
     } else if (row.type === TypeEnum.FILE_OTHER_APPLICATION_MATERIALS) {
         return '其他申报材料'
     }
-    return '-'
+    return ''
 }
 
 // 日期转换
@@ -259,11 +223,10 @@ export function handleExceed(files: any, fileList: any) {
  * 文件上传成功后处理
  * @param response
  */
-export function handleUploadSuccess(response: ApiResponse<string>, file: any, fileList: any) {
+export function handleUploadSuccess(response: ApiResponse<string>, _file: any, _fileList: any) {
     if (response.code !== CommonEnum.SUCCESS_CODE) {
         errorMsg(response.msg)
     }
-    console.log('file,fileList', file, fileList)
 }
 
 /**
