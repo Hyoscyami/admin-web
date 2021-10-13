@@ -248,7 +248,7 @@
         <el-col :span="8">
           <el-form-item label="审核结果" prop="daysOverdueType">
             <el-select v-model="form.status" placeholder="请选择审核结果" clearable>
-              <el-option label="拟申报扣除" :value="3"/>
+              <el-option label="拟申报税前扣除" :value="3"/>
               <el-option label="等待逾期时间满1年" :value="4"/>
               <el-option label="等待宣告破产满3年" :value="5"/>
               <el-option label="等待关闭、解散或撤销满3年" :value="6"/>
