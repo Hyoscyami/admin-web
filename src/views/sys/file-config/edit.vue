@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="认定条件" prop="confirmationConditions">
-              <el-select v-model="form.confirmationConditions" placeholder="请选择认定条件" clearable>
+              <el-select v-model="form.confirmationConditions" placeholder="请选择认定条件" filterable clearable>
                 <el-option v-for="item in confirmConditions" :key="item.id" :label="item.text" :value="item.value"/>
               </el-select>
             </el-form-item>
