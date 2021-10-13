@@ -1,5 +1,5 @@
 import {reactive, ref} from 'vue'
-import {list} from '@/api/write-off-recover/make-up'
+import {taxDeductionList as list} from '@/api/statistics/statistics'
 import {useTable} from '../../../model/req/query/Table'
 import {formatYYYY} from '../../../utils/time'
 import {QueryBadDebtReq, useQueryBadDebtReq} from "../../../model/req/query/QueryBadDebtReq";
@@ -19,6 +19,8 @@ export const searchFormRef = ref(null)
 export const addFormRef = ref(null)
 // 表格展示列
 export const columns = reactive(useTaxDeductionColumns())
+// 对话框展示
+export const dialogVisible = ref(false)
 
 // 初始化
 export function init() {
@@ -65,4 +67,9 @@ export function formatYYYYMMDD(_row: any, _column: any, cellValue: any): string 
         return formatYYYY(cellValue)
     }
     return ''
+}
+
+// 新增机构表单取消
+export function cancelAddForm() {
+    dialogVisible.value = false
 }
