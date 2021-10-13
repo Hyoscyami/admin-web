@@ -1,10 +1,87 @@
 <template>
-  <h1>文件详情</h1>
+  <div class="app-container">
+    <el-descriptions title="文件列表">
+      <el-descriptions-item label="呆账核销申报审批表">
+        <el-tag size="small" v-for="item in fileVO.approveList" :key="item.id" style="margin-right:10px;">
+          <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
+          {{ item }}
+        </el-tag>
+      </el-descriptions-item>
+      <el-descriptions-item label="呆账核销申请报告">
+        <el-tag size="small" v-for="item in fileVO.applyList" :key="item.id" style="margin-right:10px;">
+          <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
+          {{ item }}
+        </el-tag>
+      </el-descriptions-item>
+      <el-descriptions-item label="借款合同或协议">
+        <el-tag size="small" v-for="item in fileVO.loanContractList" :key="item.id" style="margin-right:10px;">
+          <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
+          {{ item }}
+        </el-tag>
+      </el-descriptions-item>
+      <el-descriptions-item label="借款或垫款凭证">
+        <el-tag size="small" v-for="item in fileVO.loanCertificateList" :key="item.id" style="margin-right:10px;">
+          <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
+          {{ item }}
+        </el-tag>
+      </el-descriptions-item>
+      <el-descriptions-item label="放款会计凭证">
+        <el-tag size="small" v-for="item in fileVO.loanAccountDocumentList" :key="item.id" style="margin-right:10px;">
+          <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
+          {{ item }}
+        </el-tag>
+      </el-descriptions-item>
+      <el-descriptions-item label="风险五级">
+        <el-tag size="small" v-for="item in fileVO.riskFiveLevelList" :key="item.id" style="margin-right:10px;">
+          <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
+          {{ item }}
+        </el-tag>
+      </el-descriptions-item>
+      <el-descriptions-item label="贷款余额查询">
+        <el-tag size="small" v-for="item in fileVO.loanBalanceQueryList" :key="item.id" style="margin-right:10px;">
+          <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
+          {{ item }}
+        </el-tag>
+      </el-descriptions-item>
+      <el-descriptions-item label="其他申报材料">
+        <el-tag size="small" v-for="item in fileVO.otherApplyMaterials" :key="item.id" style="margin-right:10px;">
+          <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
+          {{ item }}
+        </el-tag>
+      </el-descriptions-item>
+    </el-descriptions>
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import {detailInit} from "../../../composables/deferred-declaration";
+import {useRoute, useRouter} from "vue-router";
+import {useStore} from "vuex";
+import {ApiResponse} from "../../../model/resp/base/ApiResponse";
+import {listBadDebtAllFiles} from "../../../api/file/file";
+import {BadDebtFileVO, useBadDebtFileVO} from "../../../model/vo/BadDebtFileVO";
+import {reactive} from "vue";
+
 export default {
-  name: "detail"
+  name: "StatisticsTaxDeductionDetail",
+  setup() {
+    // 初始化
+    detailInit()
+    const route = useRoute()
+    const router = useRouter()
+    const store = useStore()
+    //数据的ID
+    const id = route.query.id
+    // 呆账核销数据所有文件
+    const fileVO = reactive(useBadDebtFileVO())
+    //获取详情
+    listBadDebtAllFiles(Number(id)).then((response: ApiResponse<BadDebtFileVO>) => {
+      Object.assign(fileVO, response.data)
+    })
+    return {
+      fileVO
+    }
+  }
 }
 </script>
 

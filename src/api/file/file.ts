@@ -12,3 +12,11 @@ export function docList(data: QueryBadDebtReq) {
         data
     })
 }
+
+export function listBadDebtAllFiles(id: number) {
+    return request({
+        url: '/file/list/babDebtAllFiles',
+        method: 'get',
+        params: {id}
+    })
+}
