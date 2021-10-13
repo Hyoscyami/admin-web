@@ -146,6 +146,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
+              :file-list="tableVO.badDebtFileVO.applyList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove2"
               :on-preview="handlePreview"
@@ -160,6 +161,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
+              :file-list="tableVO.badDebtFileVO.loanContractList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove3"
               :on-success="handleUploadSuccess3"
@@ -175,6 +177,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
+              :file-list="tableVO.badDebtFileVO.loanCertificateList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove4"
               :on-success="handleUploadSuccess4"
@@ -188,6 +191,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
+              :file-list="tableVO.badDebtFileVO.loanAccountDocumentList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove5"
               :on-success="handleUploadSuccess5"
@@ -201,6 +205,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
+              :file-list="tableVO.badDebtFileVO.riskFiveLevelList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove6"
               :on-success="handleUploadSuccess6"
@@ -216,6 +221,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
+              :file-list="tableVO.badDebtFileVO.loanBalanceQueryList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove7"
               :on-success="handleUploadSuccess7"
@@ -229,6 +235,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
+              :file-list="tableVO.badDebtFileVO.otherApplyMaterials"
               :on-exceed="handleExceed"
               :on-remove="handleRemove8"
               :on-success="handleUploadSuccess8"
