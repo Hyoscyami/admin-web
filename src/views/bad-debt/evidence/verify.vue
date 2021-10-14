@@ -120,7 +120,7 @@
               :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
               v-for="item in basicFileConfigVO.evidenceList" :key="item.id"
           >
-            <el-button size="small" type="primary" @click="handUploadClick(item.id)">上传{{ item.name }}</el-button>
+            <el-button size="small" type="primary">上传{{ item.name }}</el-button>
           </el-upload>
         </el-form-item>
       </el-row>
@@ -312,8 +312,6 @@ export default defineComponent({
     matchFileConfigReq.id = id
     //表格展示
     const tableVO = reactive(useBadDebtVO())
-    //当前上传的附加税收证据ID
-    const evidenceId = ref(null)
     //上传文件的请求头
     const headers = reactive({'X-Auth-Token': store.state.user.token})
     //获取详情
@@ -475,11 +473,6 @@ export default defineComponent({
       }))
     }
 
-    //税收确认证据上传按钮点击,id为附加证据ID
-    function handUploadClick(id) {
-      evidenceId.value = id
-    }
-
     //关闭当前标签页
     const closeCurrentTag = () => {
       store.dispatch('tagsView/delCurrentViews', {
@@ -505,7 +498,7 @@ export default defineComponent({
       })
     }
 
-    // 上传借据或垫款凭证
+    // 上传附加证件
     function handleEvidenceUploadSuccess(response, file, fileList, item) {
       // 是否存在
       let isExist = form.evidenceList.some((evidence) => evidence.id === item.id)
@@ -530,6 +523,7 @@ export default defineComponent({
       }
     }
 
+    // 处理附加证据删除
     function handleEvidenceRemove(file, fileList, item) {
       // 是否存在
       let isExist = form.evidenceList.some((evidence) => evidence.id === item.id)
@@ -578,7 +572,6 @@ export default defineComponent({
       handleRemove6,
       handleRemove7,
       handleRemove8,
-      handUploadClick,
       closeCurrentTag,
       formSubmit,
       handleEvidenceUploadSuccess,

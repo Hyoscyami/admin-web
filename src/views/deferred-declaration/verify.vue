@@ -114,13 +114,15 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
+              :file-list="item.fileVOList"
               :on-exceed="handleExceed"
-              :on-remove="handleRemove"
+              :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
               :on-preview="handlePreview"
-              :on-success="handleUploadSuccess"
-              v-for="item in basicFileConfigVO.evidenceList" :key="item.id"
+              :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
+              v-for="item in tableVO.badDebtFileVO.evidenceList" :key="item.id"
           >
-            <el-button size="small" type="primary" @click="handUploadClick(item.id)">{{ item.name }}</el-button>
+            <el-button size="small" type="primary">{{ item.name }}
+            </el-button>
           </el-upload>
         </el-form-item>
       </el-row>
@@ -298,6 +300,7 @@ import {QueryBadDebtReq, useQueryBadDebtReq} from "@/model/req/query/QueryBadDeb
 import {errorMsg, successMsg} from "@/utils/common";
 import {useBasicFileConfigVO} from "@/model/vo/BasicFileConfigVO";
 import {CommonEnum} from "@/enums/CommonEnum";
+import {useEvidenceFileReq} from "../../model/req/other/EvidenceFileReq";
 
 export default defineComponent({
   name: "DeferredDeclarationVerify",
@@ -516,6 +519,47 @@ export default defineComponent({
         }
       })
     }
+
+    // 上传附加证件
+    function handleEvidenceUploadSuccess(response, file, fileList, item) {
+      // 是否存在
+      let isExist = form.evidenceList.some((evidence) => evidence.id === item.id)
+      if (isExist) {
+        form.evidenceList.forEach((evidence) => {
+          //存在，则替换掉文件列表
+          evidence.evidenceList = fileList.map(file => ({
+            name: file.name,
+            url: file.response.data
+          }))
+        })
+      } else {
+        // 不存在，push文件
+        let evidence = reactive(useEvidenceFileReq())
+        evidence.badDebtEvidenceId = item.id
+        evidence.evidenceName = item.name
+        evidence.evidenceList = fileList.map(file => ({
+          name: file.name,
+          url: file.response.data
+        }))
+        form.evidenceList.push(evidence)
+      }
+    }
+
+    // 处理附加证据删除
+    function handleEvidenceRemove(file, fileList, item) {
+      // 是否存在
+      let isExist = form.evidenceList.some((evidence) => evidence.id === item.id)
+      if (isExist) {
+        form.evidenceList.forEach((evidence) => {
+          //存在，则替换掉文件列表
+          evidence.evidenceList = fileList.map(file => ({
+            name: file.name,
+            url: file.response.data
+          }))
+        })
+      }
+    }
+
     return {
       table,
       cellClass,
@@ -552,7 +596,9 @@ export default defineComponent({
       handleRemove8,
       handUploadClick,
       closeCurrentTag,
-      formSubmit
+      formSubmit,
+      handleEvidenceUploadSuccess,
+      handleEvidenceRemove
     }
   }
 })
