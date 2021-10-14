@@ -506,7 +506,8 @@ export default defineComponent({
       form.confirmationConditions = toRaw(matchFileConfigReq).confirmationConditions
       form.confirmationConditionsName = toRaw(basicFileConfigVO).confirmationConditionsName
       form.startTime = toRaw(tableVO).expireTime
-      waitConfirm(form).then((response: ApiResponse<object>) => {
+      form.basicFileConfigId = toRaw(tableVO).confirmResultVO.id
+      form.waitConfirm(form).then((response: ApiResponse<object>) => {
         if (response.code !== CommonEnum.SUCCESS_CODE) {
           errorMsg(response.msg)
         } else {
