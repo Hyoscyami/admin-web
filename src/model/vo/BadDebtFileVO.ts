@@ -1,5 +1,6 @@
 import { BaseVO } from '../resp/base/BaseVO'
 import { FileVO } from './FileVO'
+import { EvidenceFileVO } from './EvidenceFileVO'
 
 export interface BadDebtFileVO extends BaseVO {
   /** 呆账核销申报审批表 */
@@ -19,7 +20,7 @@ export interface BadDebtFileVO extends BaseVO {
   /** 其他申报材料 */
   otherApplyMaterials: Array<FileVO>
   /** 附加证据列表，ID是basic_file_config_evidence的id */
-  evidenceList: Array<FileVO>
+  evidenceList: Array<EvidenceFileVO>
 }
 
 export function useBadDebtFileVO(): BadDebtFileVO {

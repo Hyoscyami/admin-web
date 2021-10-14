@@ -115,9 +115,9 @@
               multiple
               :headers="headers"
               :on-exceed="handleExceed"
-              :on-remove="handleRemove"
+              :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
               :on-preview="handlePreview"
-              :on-success="handleUploadSuccess"
+              :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
               v-for="item in basicFileConfigVO.evidenceList" :key="item.id"
           >
             <el-button size="small" type="primary" @click="handUploadClick(item.id)">上传{{ item.name }}</el-button>
@@ -291,6 +291,7 @@ import {QueryBadDebtReq, useQueryBadDebtReq} from "../../../model/req/query/Quer
 import {errorMsg, successMsg} from "../../../utils/common";
 import {useBasicFileConfigVO} from "../../../model/vo/BasicFileConfigVO";
 import {CommonEnum} from "../../../enums/CommonEnum";
+import {useEvidenceFileReq} from "../../../model/req/other/EvidenceFileReq";
 
 export default defineComponent({
   name: "BadDebtEvidenceVerify",
@@ -322,20 +323,21 @@ export default defineComponent({
     //档案设置
     const basicFileConfigVO = reactive(useBasicFileConfigVO())
     //匹配档案
-    const matchConfig = () => {
-      //选择了资产类型和认定条件后
-      if (matchFileConfigReq.assetType && matchFileConfigReq.confirmationConditions) {
-        successMsg('开始匹配基础档案')
-        match(matchFileConfigReq).then((response) => {
-          if (response.data) {
-            Object.assign(basicFileConfigVO, response.data)
-          } else {
-            errorMsg('未匹配到基础档案')
-            Object.assign(basicFileConfigVO, useBasicFileConfigVO())
+    const
+        matchConfig = () => {
+          //选择了资产类型和认定条件后
+          if (matchFileConfigReq.assetType && matchFileConfigReq.confirmationConditions) {
+            successMsg('开始匹配基础档案')
+            match(matchFileConfigReq).then((response) => {
+              if (response.data) {
+                Object.assign(basicFileConfigVO, response.data)
+              } else {
+                errorMsg('未匹配到基础档案')
+                Object.assign(basicFileConfigVO, useBasicFileConfigVO())
+              }
+            })
           }
-        })
-      }
-    }
+        }
     const table = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
     table.listLoading = false
     table.tableData = [tableVO]
@@ -492,6 +494,7 @@ export default defineComponent({
       form.confirmationConditions = toRaw(matchFileConfigReq).confirmationConditions
       form.confirmationConditionsName = toRaw(basicFileConfigVO).confirmationConditionsName
       form.startTime = toRaw(tableVO).expireTime
+      form.basicFileConfigId = toRaw(basicFileConfigVO).id
       confirm(form).then((response: ApiResponse<object>) => {
         if (response.code !== CommonEnum.SUCCESS_CODE) {
           errorMsg(response.msg)
@@ -501,6 +504,46 @@ export default defineComponent({
         }
       })
     }
+
+    // 上传借据或垫款凭证
+    function handleEvidenceUploadSuccess(response, file, fileList, item) {
+      // 是否存在
+      let isExist = form.evidenceList.some((evidence) => evidence.id === item.id)
+      if (isExist) {
+        form.evidenceList.forEach((evidence) => {
+          //存在，则替换掉文件列表
+          evidence.evidenceList = fileList.map(file => ({
+            name: file.name,
+            url: file.response.data
+          }))
+        })
+      } else {
+        // 不存在，push文件
+        let evidence = reactive(useEvidenceFileReq())
+        evidence.badDebtEvidenceId = item.id
+        evidence.evidenceName = item.name
+        evidence.evidenceList = fileList.map(file => ({
+          name: file.name,
+          url: file.response.data
+        }))
+        form.evidenceList.push(evidence)
+      }
+    }
+
+    function handleEvidenceRemove(file, fileList, item) {
+      // 是否存在
+      let isExist = form.evidenceList.some((evidence) => evidence.id === item.id)
+      if (isExist) {
+        form.evidenceList.forEach((evidence) => {
+          //存在，则替换掉文件列表
+          evidence.evidenceList = fileList.map(file => ({
+            name: file.name,
+            url: file.response.data
+          }))
+        })
+      }
+    }
+
     return {
       table,
       cellClass,
@@ -537,7 +580,9 @@ export default defineComponent({
       handleRemove8,
       handUploadClick,
       closeCurrentTag,
-      formSubmit
+      formSubmit,
+      handleEvidenceUploadSuccess,
+      handleEvidenceRemove
     }
   }
 })
