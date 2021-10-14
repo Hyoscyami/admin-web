@@ -1,6 +1,6 @@
 import {reactive, ref} from 'vue'
 import {DictEnum} from '../../../enums/DictEnum'
-import {del, list} from '@/api/write-off-recover/make-up'
+import {del, verifyListVO as list} from '@/api/write-off-recover/make-up'
 import {listChildrenByCode} from '@/api/sys/dict'
 import {
     QueryBadDebtRevokeReq,
