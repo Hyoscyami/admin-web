@@ -150,6 +150,7 @@ export default defineComponent({
         errorMsg(response.msg)
       } else {
         Object.assign(form, response.data)
+        form.status = undefined
       }
     })
 
