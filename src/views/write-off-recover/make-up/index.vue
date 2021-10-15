@@ -36,7 +36,7 @@
           label="贷款账号"
       />
       <el-table-column
-          prop="capital"
+          prop="writeOffCapital"
           label="核销金额（本金）"
       />
       <el-table-column
@@ -45,7 +45,7 @@
           :formatter="formatDate"
       />
       <el-table-column
-          prop="revokeCapital"
+          prop="capital"
           label="收回金额（本金）"
       />
       <el-table-column
