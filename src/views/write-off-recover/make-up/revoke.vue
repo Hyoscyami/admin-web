@@ -102,8 +102,8 @@
           <el-col :span="8">
             <el-form-item label="补录状态" prop="daysOverdueType">
               <el-select v-model="form.status" placeholder="请选择呆账核销补录状态" clearable>
-                <el-option label="已申报税前扣除" :value="2"/>
-                <el-option label="已核销的呆账" :value="15"/>
+                <el-option label="已核销呆账" :value="2"/>
+                <el-option label="已申报税前扣除" :value="15"/>
               </el-select>
             </el-form-item>
           </el-col>
