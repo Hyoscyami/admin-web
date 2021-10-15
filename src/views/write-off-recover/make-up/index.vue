@@ -36,15 +36,6 @@
           label="贷款账号"
       />
       <el-table-column
-          prop="writeOffCapital"
-          label="核销金额（本金）"
-      />
-      <el-table-column
-          prop="writeOffDate"
-          label="核销日期"
-          :formatter="formatDate"
-      />
-      <el-table-column
           prop="capital"
           label="收回金额（本金）"
       />
@@ -53,22 +44,6 @@
           label="收回日期"
           :formatter="formatDate"
       />
-      <el-table-column
-          prop="writeOffStatus"
-          label="呆账核销状态"
-      >
-        <template #default="scope">
-          {{ convertStatusToChinese(scope.row.writeOffStatus) }}
-        </template>
-      </el-table-column>
-      <el-table-column
-          prop="status"
-          label="核销收回状态"
-      >
-        <template #default="scope">
-          {{ convertStatusToChinese(scope.row.status) }}
-        </template>
-      </el-table-column>
       <el-table-column
           fixed="right"
           label="操作"
