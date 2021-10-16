@@ -90,10 +90,11 @@
         <el-col :span="8">
           <el-form-item label="起始时间">
             <el-date-picker
-                v-model="tableVO.expireTime"
+                v-model="matchFileConfigReq.startTime"
                 :disabled-date="disabledDate"
                 type="date"
                 format="YYYYMMDD"
+                @change="matchConfig"
                 placeholder="请选择起始时间">
             </el-date-picker>
           </el-form-item>
@@ -324,7 +325,7 @@ export default defineComponent({
     const
         matchConfig = () => {
           //选择了资产类型和认定条件后
-          if (matchFileConfigReq.assetType && matchFileConfigReq.confirmationConditions) {
+          if (matchFileConfigReq.assetType && matchFileConfigReq.confirmationConditions && matchFileConfigReq.startTime) {
             successMsg('开始匹配基础档案')
             match(matchFileConfigReq).then((response) => {
               if (response.data) {
