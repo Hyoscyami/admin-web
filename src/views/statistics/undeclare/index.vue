@@ -6,7 +6,7 @@
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
     <div class="filter-container">
-      <el-button type="primary">
+      <el-button type="primary" @click="openDialog">
         选择展示列
       </el-button>
     </div>
@@ -123,6 +123,11 @@
           v-if="columns.relationTypeName"
       />
       <el-table-column
+          prop="relationTypeName"
+          label="关联事项剩余时间"
+          v-if="columns.warningLeftDays"
+      />
+      <el-table-column
           fixed="right"
           label="操作"
           width="150"
@@ -139,8 +144,8 @@
     <pagination
         v-show="table.total>0"
         :total="table.total"
-        :page.sync="table.listQuery.page"
-        :limit.sync="table.listQuery.size"
+        v-model:page="table.listQuery.page"
+        v-model:limit="table.listQuery.size"
         @pagination="getList"
     />
     <el-dialog
@@ -168,6 +173,7 @@
         <el-checkbox label="应收费用" v-model="columns.charges"></el-checkbox>
         <el-checkbox label="会计凭证号码" v-model="columns.accountingDocumentNo"></el-checkbox>
         <el-checkbox label="关联事项类型" v-model="columns.relationTypeName"></el-checkbox>
+        <el-checkbox label="关联事项剩余时间" v-model="columns.warningLeftDays"></el-checkbox>
       </div>
       <template #footer>
             <span class="dialog-footer">
@@ -188,8 +194,8 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, unDeclareColumns, dialogVisible, cancelAddForm
-} from "@/composables/statistics/tax-deduction";
+  table, unDeclareColumns, dialogVisible, cancelAddForm, openDialog
+} from "@/composables/statistics/un-declare";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence'
@@ -210,7 +216,7 @@ export default {
       headerClass,
       formatYear,
       formatYYYYMMDD,
-      addFormRef, convertStatusToChinese, columns: unDeclareColumns, dialogVisible, cancelAddForm
+      addFormRef, convertStatusToChinese, columns: unDeclareColumns, dialogVisible, cancelAddForm, openDialog
     }
   }
 }
