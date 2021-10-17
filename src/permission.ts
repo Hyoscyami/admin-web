@@ -32,7 +32,7 @@ router.beforeEach(async (to, _from, next) => {
         // get user info
         await store.dispatch('user/getInfo')
         // generate routes
-        await store.dispatch('permission/generateRoutes')
+        // await store.dispatch('permission/generateRoutes')
         // 没有权限
         if (!hasPermission(to.path)) {
           // 标签页右击刷新
