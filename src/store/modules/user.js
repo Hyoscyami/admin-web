@@ -133,7 +133,6 @@ const actions = {
           commit('SET_ROUTES', accessedRoutes)
           // 保存树状路由平铺成的list
           commit('SET_ROUTE_LIST', routeList)
-          resolve(accessedRoutes)
           resolve(data)
         })
         .catch((error) => {
