@@ -325,7 +325,7 @@ export default defineComponent({
     const
         matchConfig = () => {
           //选择了资产类型和认定条件后
-          if (matchFileConfigReq.assetType && matchFileConfigReq.confirmationConditions && matchFileConfigReq.startTime) {
+          if (matchFileConfigReq.assetType && matchFileConfigReq.confirmationConditions) {
             successMsg('开始匹配基础档案')
             match(matchFileConfigReq).then((response) => {
               if (response.data) {
