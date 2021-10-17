@@ -6,7 +6,7 @@
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
     <div class="filter-container">
-      <el-button type="primary">
+      <el-button type="primary" @click="openDialog">
         选择展示列
       </el-button>
     </div>
@@ -182,7 +182,7 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, taxDeductionColumns, dialogVisible, cancelAddForm
+  table, taxDeductionColumns, dialogVisible, cancelAddForm, openDialog
 } from "@/composables/statistics/tax-deduction";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -204,7 +204,7 @@ export default {
       headerClass,
       formatYear,
       formatYYYYMMDD,
-      addFormRef, convertStatusToChinese, columns: taxDeductionColumns, dialogVisible, cancelAddForm
+      addFormRef, convertStatusToChinese, columns: taxDeductionColumns, dialogVisible, cancelAddForm, openDialog
     }
   }
 }

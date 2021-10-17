@@ -4,55 +4,46 @@
       <el-descriptions-item label="呆账核销申报审批表">
         <el-tag size="small" v-for="item in fileVO.approveList" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
-          {{ item }}
         </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="呆账核销申请报告">
         <el-tag size="small" v-for="item in fileVO.applyList" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
-          {{ item }}
         </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="借款合同或协议">
         <el-tag size="small" v-for="item in fileVO.loanContractList" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
-          {{ item }}
         </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="借款或垫款凭证">
         <el-tag size="small" v-for="item in fileVO.loanCertificateList" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
-          {{ item }}
         </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="放款会计凭证">
         <el-tag size="small" v-for="item in fileVO.loanAccountDocumentList" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
-          {{ item }}
         </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="风险五级">
         <el-tag size="small" v-for="item in fileVO.riskFiveLevelList" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
-          {{ item }}
         </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="贷款余额查询">
         <el-tag size="small" v-for="item in fileVO.loanBalanceQueryList" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
-          {{ item }}
         </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="其他申报材料">
         <el-tag size="small" v-for="item in fileVO.otherApplyMaterials" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
-          {{ item }}
         </el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="附加证据列表">
         <el-tag size="small" v-for="item in fileVO.evidenceList" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
-          {{ item }}
         </el-tag>
       </el-descriptions-item>
     </el-descriptions>

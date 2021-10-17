@@ -2,11 +2,11 @@
   <div class="app-container">
     <el-steps :active="active" finish-status="success">
       <el-step title="第一步" description="请先选择申报年度"></el-step>
-      <el-step title="第二步" description="确认A105000纳税调整项目明细表"></el-step>
-      <el-step title="第三步" description="确认A105000纳税调整项目明细表"></el-step>
+      <el-step title="第二步" description="确认A105090资产损失税前扣除及纳税调整明细表"></el-step>
+      <el-step title="第三步" description="确认A105090资产损失税前扣除及纳税调整明细表"></el-step>
     </el-steps>
     <!--    第一步-->
-    <el-row v-if="active === 0" style="margin-top: 20px;">
+    <el-row v-if="active === 1" style="margin-top: 20px;">
       <el-form ref="addFormRef" :model="firstForm" label-width="120px">
         <el-form-item label="申报年度">
           <el-date-picker
@@ -24,7 +24,7 @@
       </el-form>
     </el-row>
     <!--    第二步-->
-    <el-row v-if="active === 1" style="margin-top: 20px;">
+    <el-row v-if="active === 2" style="margin-top: 20px;">
       <table class="dataTable">
         <tr>
           <td>项目</td>
@@ -107,11 +107,13 @@
           <td>{{ tableVO.otherLossAdjustTaxAmount }}</td>
         </tr>
       </table>
-      <el-button style="margin-top: 12px" @click="before" v-if="active > 0">上一步</el-button>
-      <el-button style="margin-top: 12px" @click="next" v-if="active < 2">下一步</el-button>
+      <el-row style="margin-top: 12px">
+        <el-button style="margin-top: 12px" @click="before" v-if="active > 0">上一步</el-button>
+        <el-button type="primary" style="margin-top: 12px" @click="next" v-if="active < 3">下一步</el-button>
+      </el-row>
     </el-row>
     <!--    第三步-->
-    <div v-if="active === 2" style="margin-top: 20px;">
+    <div v-if="active === 3" style="margin-top: 20px;">
       <el-row style="margin-top: 12px">
         <table class="dataTable">
           <tr>
@@ -195,7 +197,7 @@
       </el-row>
       <el-row style="margin-top: 12px">
         <el-button @click="before" v-if="active > 0">上一步</el-button>
-        <el-button type="primary" @click="submit" v-if="active === 2">提交</el-button>
+        <el-button type="primary" @click="submit" v-if="active === 3">提交</el-button>
       </el-row>
     </div>
   </div>
@@ -219,7 +221,7 @@ export default {
     const router = useRouter()
     const store = useStore()
     // 当前步骤
-    const active = ref(0)
+    const active = ref(1)
     // 申报表单
     const firstForm = reactive({
       year: ''

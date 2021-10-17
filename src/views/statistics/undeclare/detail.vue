@@ -4,7 +4,6 @@
       <el-descriptions-item label="附加证据列表">
         <el-tag size="small" v-for="item in fileVO.evidenceList" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
-          {{ item }}
         </el-tag>
       </el-descriptions-item>
     </el-descriptions>

@@ -5,7 +5,7 @@
     </el-form-item>
     <el-form-item label="核销年度" prop="revokeDate">
       <el-date-picker
-          v-model="listQuery.revokeDate"
+          v-model="listQuery.writeOffYear"
           :disabled-date="disabledDate"
           type="year"
           format="YYYY"
