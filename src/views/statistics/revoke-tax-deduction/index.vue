@@ -74,6 +74,15 @@
       <el-table-column
           prop="status"
           label="呆账核销状态"
+          v-if="columns.writeOffStatus"
+      >
+        <template #default="scope">
+          {{ convertStatusToChinese(scope.row.status) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+          prop="status"
+          label="核销收回状态"
           v-if="columns.status"
       >
         <template #default="scope">
@@ -142,7 +151,8 @@
         <el-checkbox label="贷款类型" v-model="columns.assetTypeName"></el-checkbox>
         <el-checkbox label="认定条件" v-model="columns.confirmationConditionsName"></el-checkbox>
         <el-checkbox label="税前扣除年度" v-model="columns.preTaxDate"></el-checkbox>
-        <el-checkbox label="呆账核销状态" v-model="columns.status"></el-checkbox>
+        <el-checkbox label="呆账核销状态" v-model="columns.writeOffStatus"></el-checkbox>
+        <el-checkbox label="核销收回状态" v-model="columns.status"></el-checkbox>
         <el-checkbox label="借款日期" v-model="columns.borrowTime"></el-checkbox>
         <el-checkbox label="到期日期" v-model="columns.expireTime"></el-checkbox>
         <el-checkbox label="还款金额" v-model="columns.repayAmount"></el-checkbox>
@@ -164,14 +174,18 @@
 import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
+  cancelAddForm, columns,
+  dialogVisible,
   formatYear,
   formatYYYYMMDD,
-  getList, init,
+  getList,
+  init,
+  openDialog,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, taxDeductionColumns, dialogVisible, cancelAddForm, openDialog
-} from "@/composables/statistics/tax-deduction";
+  table
+} from "@/composables/statistics/revoke-tax-deduction";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence'
@@ -192,7 +206,7 @@ export default {
       headerClass,
       formatYear,
       formatYYYYMMDD,
-      addFormRef, convertStatusToChinese, columns: taxDeductionColumns, dialogVisible, cancelAddForm, openDialog
+      addFormRef, convertStatusToChinese, columns, dialogVisible, cancelAddForm, openDialog
     }
   }
 }
