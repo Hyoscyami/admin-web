@@ -54,6 +54,14 @@
           :formatter="formatDate"
       />
       <el-table-column
+          prop="revokeAmount"
+          label="审核状态"
+      >
+        <template #default="scope">
+          {{ convertOperateStatus(scope.row.revokeAmount) }}
+        </template>
+      </el-table-column>
+      <el-table-column
           prop="writeOffStatus"
           label="呆账核销状态"
       >
@@ -103,7 +111,7 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, convertStatusToChinese
+  table, convertStatusToChinese, convertOperateStatus
 } from "@/composables/write-off-recover/verify";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -123,7 +131,7 @@ export default {
       cellClass,
       headerClass,
       formatDate,
-      delRow, addFormRef, convertStatusToChinese
+      delRow, addFormRef, convertStatusToChinese, convertOperateStatus
     }
   }
 }

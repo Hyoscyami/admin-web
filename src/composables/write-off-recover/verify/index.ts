@@ -136,7 +136,6 @@ export function filterTableStatus(value: number) {
 }
 
 // 状态转换
-// 状态转换
 export function convertStatusToChinese(status: number): string {
     if (status === StatusEnum.IMPORTED) {
         return '待呆账核销'
@@ -170,6 +169,14 @@ export function convertStatusToChinese(status: number): string {
         return '已申报税前扣除'
     }
     return ''
+}
+
+// 核销收回审核状态
+export function convertOperateStatus(revokeAmount: number): string {
+    if (revokeAmount) {
+        return '已审核'
+    }
+    return '未审核'
 }
 
 // 日期转换
