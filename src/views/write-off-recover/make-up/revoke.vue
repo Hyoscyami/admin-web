@@ -143,6 +143,9 @@ export default defineComponent({
     const id = route.query.id
     //新增表单
     const form = reactive(useAddBadDebtReq())
+    form.onBalanceSheetInterest = 0
+    form.offBalanceSheetInterest = 0
+    form.charges = 0
     const rules = useBadDebtRevokeRule()
     //获取详情
     detail(id).then((response: ApiResponse<object>) => {
