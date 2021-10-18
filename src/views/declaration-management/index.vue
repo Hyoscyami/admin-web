@@ -3,7 +3,7 @@
     <el-steps :active="active" finish-status="success">
       <el-step title="第一步" description="请先选择申报年度"></el-step>
       <el-step title="第二步" description="确认A105090资产损失税前扣除及纳税调整明细表"></el-step>
-      <el-step title="第三步" description="确认A105090资产损失税前扣除及纳税调整明细表"></el-step>
+      <el-step title="第三步" description="确认A105000纳税调整项目明细表"></el-step>
     </el-steps>
     <!--    第一步-->
     <el-row v-if="active === 1" style="margin-top: 20px;">
