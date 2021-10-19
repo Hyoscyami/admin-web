@@ -61,8 +61,6 @@
           <a :download="`${scope.row.name}`" :href="`${scope.row.url}`">
             <el-button size="small" class="filter-item" type="primary">下载</el-button>
           </a>
-        </template>
-        <template #default="scope">
           <el-button size="small" class="filter-item" type="primary" @click="handlePreview(scope.row)">打开</el-button>
         </template>
       </el-table-column>
