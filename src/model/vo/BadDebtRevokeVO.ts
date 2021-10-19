@@ -1,4 +1,5 @@
 import { BaseVO } from '../resp/base/BaseVO'
+import { FileVO } from './FileVO'
 
 export interface BadDebtRevokeVO extends BaseVO {
   /** 核销撤回组织id,即org.id */
@@ -35,6 +36,10 @@ export interface BadDebtRevokeVO extends BaseVO {
   writeOffStatus: number
   /** 所属组织id列表 */
   parentOrgIds: Array<number>
+  /**
+   * 核销收回会计凭证文件列表
+   */
+  accountDocumentFiles: Array<FileVO>
 }
 
 export function useBadDebtRevokeVO(): BadDebtRevokeVO {
@@ -54,6 +59,7 @@ export function useBadDebtRevokeVO(): BadDebtRevokeVO {
     revokeDate: '',
     type: 0,
     writeOffDate: '',
-    writeOffStatus: 0
+    writeOffStatus: 0,
+    accountDocumentFiles: []
   }
 }

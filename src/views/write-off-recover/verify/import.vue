@@ -78,8 +78,10 @@
               multiple
               :headers="headers"
               :limit="1"
+              :file-list="tableVO.accountDocumentFiles"
               :on-exceed="handleExceed"
               :on-preview="handlePreview"
+              :on-remove="handleRemove"
               :on-success="handleUploadSuccess"
           >
             <el-button size="small" type="primary">点击上传会计凭证</el-button>
@@ -172,8 +174,21 @@ export default defineComponent({
       if (response.code !== CommonEnum.SUCCESS_CODE) {
         errorMsg(response.msg)
       }
+      tableVO.accountDocumentFiles = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
       form.fileName = file.name
       form.filePath = response.data
+    }
+    //删除文件
+    const handleRemove = function handleRemove(file, fileList) {
+      form.applyList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+      form.fileName = undefined
+      form.filePath = undefined
     }
     //预览文件
     const handlePreview = function (file) {
@@ -202,7 +217,7 @@ export default defineComponent({
       table,
       tableVO,
       convertStatusToChinese,
-      deductionAmount
+      deductionAmount, handleRemove
     }
   }
 })
