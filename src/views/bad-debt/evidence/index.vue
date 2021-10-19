@@ -67,7 +67,7 @@
           label="呆账核销状态"
       >
         <template #default="scope">
-          {{ convertStatusToChinese(scope.row) }}
+          {{ convertStatusToChinese(scope.row.status) }}
         </template>
       </el-table-column>
       <el-table-column
