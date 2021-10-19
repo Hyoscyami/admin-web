@@ -62,6 +62,9 @@
             <el-button size="small" class="filter-item" type="primary">下载</el-button>
           </a>
         </template>
+        <template #default="scope">
+          <el-button size="small" class="filter-item" type="primary" @click="handlePreview(scope.row)">打开</el-button>
+        </template>
       </el-table-column>
     </el-table>
 
@@ -89,7 +92,7 @@ import {
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
-import {convertTypeToChinese} from "@/composables/deferred-declaration";
+import {convertTypeToChinese, handlePreview} from "@/composables/deferred-declaration";
 
 export default {
   name: "FileManagement",
@@ -108,7 +111,7 @@ export default {
       formatDate,
       addFormRef,
       convertStatusToChinese,
-      convertTypeToChinese
+      convertTypeToChinese, handlePreview
     }
   }
 }
