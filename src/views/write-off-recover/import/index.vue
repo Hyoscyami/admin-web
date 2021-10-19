@@ -1,37 +1,37 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <div class="filter-container">
-        <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">
-          <el-form-item label="导入文件名称" prop="name">
-            <el-input v-model="table.listQuery.name" placeholder="模糊查询名称" @keyup.enter.native="searchFormSubmit"/>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="searchFormSubmit">查询</el-button>
-            <el-button @click="resetSearchForm">重置</el-button>
-          </el-form-item>
-        </el-form>
-        <el-row>
-          <el-button size="small" class="filter-item" type="primary">
-            <a download="核销收回导入模板.xlsx" href="/data/template/import-revoke-template.xlsx">下载导入模板</a>
-          </el-button>
-          <el-upload
-              class="upload-demo"
-              action="/api/bad-debt-revoke/importData"
-              accept=".xls,.xlsx"
-              multiple
-              :headers="headers"
-              :show-file-list="false"
-              :on-exceed="handleExceed"
-              :on-success="handleUploadSuccess"
-          >
-            <el-button size="small" type="primary">点击上传</el-button>
-            <template #tip>
-              <span class="el-upload__tip">只能上传 xlsx 文件</span>
-            </template>
-          </el-upload>
-        </el-row>
-      </div>
+      <!--      <div class="filter-container">-->
+      <!--        <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">-->
+      <!--          <el-form-item label="导入文件名称" prop="name">-->
+      <!--            <el-input v-model="table.listQuery.name" placeholder="模糊查询名称" @keyup.enter.native="searchFormSubmit"/>-->
+      <!--          </el-form-item>-->
+      <!--          <el-form-item>-->
+      <!--            <el-button type="primary" @click="searchFormSubmit">查询</el-button>-->
+      <!--            <el-button @click="resetSearchForm">重置</el-button>-->
+      <!--          </el-form-item>-->
+      <!--        </el-form>-->
+      <!--        <el-row>-->
+      <!--          <el-button size="small" class="filter-item" type="primary">-->
+      <!--            <a download="核销收回导入模板.xlsx" href="/data/template/import-revoke-template.xlsx">下载导入模板</a>-->
+      <!--          </el-button>-->
+      <!--          <el-upload-->
+      <!--              class="upload-demo"-->
+      <!--              action="/api/bad-debt-revoke/importData"-->
+      <!--              accept=".xls,.xlsx"-->
+      <!--              multiple-->
+      <!--              :headers="headers"-->
+      <!--              :show-file-list="false"-->
+      <!--              :on-exceed="handleExceed"-->
+      <!--              :on-success="handleUploadSuccess"-->
+      <!--          >-->
+      <!--            <el-button size="small" type="primary">点击上传</el-button>-->
+      <!--            <template #tip>-->
+      <!--              <span class="el-upload__tip">只能上传 xlsx 文件</span>-->
+      <!--            </template>-->
+      <!--          </el-upload>-->
+      <!--        </el-row>-->
+      <!--      </div>-->
       <el-table
           v-loading="table.listLoading"
           class="el-table"
@@ -41,10 +41,6 @@
           style="width: 100%"
           border
       >
-        <el-table-column
-            type="selection"
-            width="55"
-        />
         <el-table-column
             prop="name"
             label="文件名称"
