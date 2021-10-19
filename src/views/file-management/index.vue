@@ -57,7 +57,6 @@
           width="150"
       >
         <template #default="scope">
-
           <a :download="`${scope.row.name}`" :href="`${scope.row.url}`">
             <el-button size="small" class="filter-item" type="primary">下载</el-button>
           </a>

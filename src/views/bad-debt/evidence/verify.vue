@@ -304,6 +304,7 @@ import {errorMsg, successMsg} from "../../../utils/common";
 import {useBasicFileConfigVO} from "../../../model/vo/BasicFileConfigVO";
 import {CommonEnum} from "../../../enums/CommonEnum";
 import {useEvidenceFileReq} from "../../../model/req/other/EvidenceFileReq";
+import {formatYYYY} from "../../../utils/time";
 
 export default defineComponent({
   name: "BadDebtEvidenceVerify",
@@ -500,6 +501,9 @@ export default defineComponent({
       form.confirmationConditionsName = toRaw(basicFileConfigVO).confirmationConditionsName
       form.startTime = toRaw(tableVO).expireTime
       form.basicFileConfigId = toRaw(basicFileConfigVO).id
+      if (form.declareYear) {
+        form.declareYear = formatYYYY(form.declareYear)
+      }
       confirm(form).then((response: ApiResponse<object>) => {
         if (response.code !== CommonEnum.SUCCESS_CODE) {
           errorMsg(response.msg)
