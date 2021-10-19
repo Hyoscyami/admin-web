@@ -54,13 +54,9 @@
           :formatter="formatDate"
       />
       <el-table-column
-          prop="revokeAmount"
-          label="审核状态"
-      >
-        <template #default="scope">
-          {{ convertOperateStatus(scope.row.revokeAmount) }}
-        </template>
-      </el-table-column>
+          prop="accountingDocumentNo"
+          label="会计凭证号"
+      />
       <el-table-column
           prop="writeOffStatus"
           label="呆账核销状态"

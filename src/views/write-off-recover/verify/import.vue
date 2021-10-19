@@ -144,6 +144,13 @@ export default defineComponent({
         Object.assign(tableVO, response.data)
         // @ts-ignore
         form.accountingDocumentNo = response.data.accountingDocumentNo
+        // @ts-ignore
+        if (response.data.accountDocumentFiles) {
+          // @ts-ignore
+          form.filePath = response.data.accountDocumentFiles[0].url
+          // @ts-ignore
+          form.fileName = response.data.accountDocumentFiles[0].name
+        }
       })
     })
     // 表格
