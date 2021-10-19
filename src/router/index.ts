@@ -290,7 +290,7 @@ export const constantRoutes = [
                 path: 'revoke',
                 name: 'WriteOffRecoverMakeUpRevoke',
                 component: () => import('@/views/write-off-recover/make-up/revoke.vue'),
-                meta: {title: '核销收回补录', icon: 'table'},
+                meta: {title: '核销数据补录', icon: 'table'},
                 hidden: true
             }
         ]

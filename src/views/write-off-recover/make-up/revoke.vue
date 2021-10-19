@@ -78,30 +78,30 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="本金" prop="capital">
+            <el-form-item label="核销本金" prop="capital">
               <el-input v-model="form.capital" autocomplete="off" tabindex="7"/>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="表内利息" prop="onBalanceSheetInterest">
+            <el-form-item label="核销表内利息" prop="onBalanceSheetInterest">
               <el-input v-model="form.onBalanceSheetInterest" autocomplete="off" tabindex="8"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col :span="8">
-            <el-form-item label="表外利息" prop="offBalanceSheetInterest">
+            <el-form-item label="核销表外利息" prop="offBalanceSheetInterest">
               <el-input v-model="form.offBalanceSheetInterest" autocomplete="off" tabindex="9"/>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="应收费用" prop="charges">
+            <el-form-item label="核销应收费用" prop="charges">
               <el-input v-model="form.charges" autocomplete="off" tabindex="10"/>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="补录状态" prop="daysOverdueType">
-              <el-select v-model="form.status" placeholder="请选择呆账核销补录状态" clearable>
+            <el-form-item label="呆账核销状态" prop="daysOverdueType">
+              <el-select v-model="form.status" placeholder="请选择呆账核销状态" clearable>
                 <el-option label="已核销呆账" :value="2"/>
                 <el-option label="已申报税前扣除" :value="15"/>
               </el-select>
