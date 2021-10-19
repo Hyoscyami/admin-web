@@ -256,6 +256,17 @@
             </el-select>
           </el-form-item>
         </el-col>
+        <el-col :span="8">
+          <el-form-item label="申报年份" prop="declareYear">
+            <el-date-picker
+                v-model="form.declareYear"
+                :disabled-date="disabledDate"
+                type="date"
+                format="YYYYMMDD"
+                placeholder="请选择申报年份">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-form-item>
         <el-button type="primary" @click="formSubmit">提交</el-button>
