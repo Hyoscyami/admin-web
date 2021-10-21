@@ -187,15 +187,23 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/',
+    path: '/declaration-management',
     component: Layout,
     redirect: 'noRedirect',
+    name: 'DeclarationManagement',
+    meta: { title: '申报管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'declaration-management',
-        name: 'DeclarationManagement',
+        path: 'index',
+        name: 'DeclarationManagementIndex',
         component: () => import('@/views/declaration-management/index.vue'),
-        meta: { title: '申报管理', icon: 'dashboard' }
+        meta: { title: '数据申报', icon: 'dashboard' }
+      },
+      {
+        path: 'history',
+        name: 'DeclarationManagementHistory',
+        component: () => import('@/views/declaration-management/history.vue'),
+        meta: { title: '申报记录', icon: 'dashboard' }
       }
     ]
   },

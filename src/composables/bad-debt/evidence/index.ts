@@ -227,3 +227,15 @@ export function handleUploadSuccess(response: ApiResponse<string>, file: any, fi
 export function handlePreview(file: any) {
   window.open(file.response.data)
 }
+
+// 日期转换
+export function formatDetailDate(_row: any, _column: any, cellValue: any): string {
+  return formatYYYYMMDD(cellValue)
+}
+
+export function convertStatus(status): string {
+  if (status === 1) {
+    return '申报成功'
+  }
+  return '申报失败'
+}

@@ -215,7 +215,7 @@ import {formatYYYY} from "../../utils/time";
 import {useDeclareDetailVO} from "../../model/vo/DeclareDetailVO";
 
 export default {
-  name: "DeclarationManagement",
+  name: "DeclarationManagementIndex",
   setup() {
     const route = useRoute()
     const router = useRouter()
