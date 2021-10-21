@@ -58,5 +58,7 @@ export enum StatusEnum {
   /**
    * 已申报税前扣除
    */
-  DECLARE_PRE_TAX_DEDUCTION = 15
+  DECLARE_PRE_TAX_DEDUCTION = 15,
+  //延后申报税前扣除
+  WAITING_DECLARE = 16
 }

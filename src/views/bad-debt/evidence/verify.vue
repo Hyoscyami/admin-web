@@ -240,7 +240,7 @@
       <el-row class="row-margin">
         <el-col :span="8">
           <el-form-item label="审核结果" prop="daysOverdueType">
-            <el-select v-model="form.status" placeholder="请选择审核结果" clearable>
+            <el-select v-model="form.status" placeholder="请选择审核结果" multiple clearable>
               <el-option label="拟申报税前扣除" :value="3"/>
               <el-option label="等待逾期时间满1年" :value="4"/>
               <el-option label="等待宣告破产满3年" :value="5"/>
@@ -256,7 +256,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="8" v-if="form.status === 3">
+        <el-col :span="8" v-if="needDeclareYear">
           <el-form-item label="申报年份" prop="declareYear">
             <el-date-picker
                 v-model="form.declareYear"
@@ -278,7 +278,7 @@
 
 <script lang="ts">
 import Pagination from "../../../components/Pagination/index.vue";
-import {defineComponent, reactive, ref, toRaw} from 'vue';
+import {defineComponent, reactive, ref, toRaw, computed} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
 import {
@@ -554,6 +554,14 @@ export default defineComponent({
       }
     }
 
+    // 是否需要显示申报年度
+    const needDeclareYear = computed(() => {
+      if (!form.status) {
+        return false
+      }
+      return form.status.some(status => status === 3)
+    })
+
     return {
       table,
       cellClass,
@@ -591,7 +599,7 @@ export default defineComponent({
       closeCurrentTag,
       formSubmit,
       handleEvidenceUploadSuccess,
-      handleEvidenceRemove
+      handleEvidenceRemove, needDeclareYear
     }
   }
 })

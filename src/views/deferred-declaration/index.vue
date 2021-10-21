@@ -53,12 +53,9 @@
           label="预警剩余天数"
       />
       <el-table-column
-          prop="status"
+          prop="statusMsg"
           label="呆账核销状态"
       >
-        <template #default="scope">
-          {{ convertStatusToChinese(scope.row.status) }}
-        </template>
       </el-table-column>
       <el-table-column
           fixed="right"
