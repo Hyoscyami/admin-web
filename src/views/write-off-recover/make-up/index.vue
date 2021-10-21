@@ -40,6 +40,10 @@
           label="收回金额（本金）"
       />
       <el-table-column
+          prop="accountingDocumentNo"
+          label="会计凭证号"
+      />
+      <el-table-column
           prop="revokeDate"
           label="收回日期"
           :formatter="formatDate"

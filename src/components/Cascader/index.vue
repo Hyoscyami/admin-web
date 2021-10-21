@@ -10,9 +10,8 @@
 
 <script lang="ts">
 import {computed, defineComponent, PropType, reactive, toRefs} from 'vue';
-import {tree} from "../../api/sys/org";
+import {entityTree} from "../../api/sys/org";
 import {useQueryOrgReq} from "../../model/req/query/QueryOrgReq";
-import {useOrgVO} from "../../model/vo/OrgVO";
 
 export default defineComponent({
   name: "Cascader",
@@ -38,7 +37,7 @@ export default defineComponent({
       options: []
     })
     //组织树
-    tree(queryOrgReq).then((response) => {
+    entityTree(queryOrgReq).then((response) => {
       orgTree.options = response.data
     })
 
