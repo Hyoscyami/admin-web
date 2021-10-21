@@ -12,10 +12,8 @@ export interface TaxDeductionColumns {
   borrowTime: boolean
   /** 到期日期 */
   expireTime: boolean
-  /** 还款金额 */
-  repayAmount: boolean
-  /** 借款金额 */
-  loanAmount: boolean
+  /** 资产余额 */
+  assetBalance: boolean
   /** 核销本金 */
   capital: boolean
   /** 核销收回本金 */
@@ -73,12 +71,11 @@ export function useTaxDeductionColumns(): TaxDeductionColumns {
     confirmationConditionsName: true,
     expireTime: false,
     loanAccountNo: true,
-    loanAmount: false,
+    assetBalance: false,
     offBalanceSheetInterest: false,
     onBalanceSheetInterest: false,
     orgName: true,
     preTaxDate: true,
-    repayAmount: false,
     revokeCapital: false,
     revokeCharges: false,
     revokeDate: false,
@@ -106,12 +103,11 @@ export function useUnDeclareColumns(): TaxDeductionColumns {
     confirmationConditionsName: false,
     expireTime: false,
     loanAccountNo: true,
-    loanAmount: true,
+    assetBalance: true,
     offBalanceSheetInterest: false,
     onBalanceSheetInterest: false,
     orgName: true,
     preTaxDate: false,
-    repayAmount: false,
     revokeCapital: false,
     revokeCharges: false,
     revokeDate: false,
@@ -138,12 +134,11 @@ export function useRevokeTaxDeductionColumns(): TaxDeductionColumns {
     confirmationConditionsName: false,
     expireTime: false,
     loanAccountNo: true,
-    loanAmount: true,
+    assetBalance: true,
     offBalanceSheetInterest: false,
     onBalanceSheetInterest: false,
     orgName: true,
     preTaxDate: true,
-    repayAmount: false,
     revokeCapital: true,
     revokeCharges: false,
     revokeDate: true,

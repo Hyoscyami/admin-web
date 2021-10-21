@@ -66,17 +66,12 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="借款金额" prop="loanAmount">
-              <el-input v-model="form.loanAmount" autocomplete="off" tabindex="5"/>
+            <el-form-item label="资产余额" prop="assetBalance">
+              <el-input v-model="form.assetBalance" autocomplete="off" tabindex="5"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
-          <el-col :span="8">
-            <el-form-item label="还款金额" prop="repayAmount">
-              <el-input v-model="form.repayAmount" autocomplete="off" tabindex="6"/>
-            </el-form-item>
-          </el-col>
           <el-col :span="8">
             <el-form-item label="核销本金" prop="capital">
               <el-input v-model="form.capital" autocomplete="off" tabindex="7"/>
@@ -87,13 +82,13 @@
               <el-input v-model="form.onBalanceSheetInterest" autocomplete="off" tabindex="8"/>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="核销表外利息" prop="offBalanceSheetInterest">
               <el-input v-model="form.offBalanceSheetInterest" autocomplete="off" tabindex="9"/>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="核销应收费用" prop="charges">
               <el-input v-model="form.charges" autocomplete="off" tabindex="10"/>

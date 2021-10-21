@@ -39,14 +39,9 @@ export interface UpdateBadDebtReq {
   writeOffDate: string
 
   /**
-   * 借款金额
+   * 资产余额
    */
-  loanAmount: number
-
-  /**
-   * 还款金额
-   */
-  repayAmount: number
+  assetBalance: number
 
   /**
    * 本金
@@ -87,10 +82,9 @@ export function useUpdateBadDebtReq(): UpdateBadDebtReq {
     expireTime: '',
     id: 0,
     loanAccountNo: '',
-    loanAmount: 0,
+    assetBalance: 0,
     offBalanceSheetInterest: 0,
     onBalanceSheetInterest: 0,
-    repayAmount: 0,
     writeOffDate: ''
   }
 }

@@ -37,12 +37,8 @@
           :formatter="formatDate"
       />
       <el-table-column
-          prop="loanAmount"
-          label="借款金额"
-      />
-      <el-table-column
-          prop="repayAmount"
-          label="还款金额"
+          prop="assetBalance"
+          label="资产余额"
       />
       <el-table-column
           prop="capital"

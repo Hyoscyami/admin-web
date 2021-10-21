@@ -1,10 +1,9 @@
 import {
+  validateAssetBalance,
   validateCapital,
   validateCharges,
-  validateLoanAmount,
   validateOffBalanceSheetInterest,
-  validateOnBalanceSheetInterest,
-  validateRepayAmount
+  validateOnBalanceSheetInterest
 } from '../../../composables/bad-debt/confirm'
 
 export interface AddBadDebtReq {
@@ -47,14 +46,9 @@ export interface AddBadDebtReq {
   writeOffDate: string
 
   /**
-   * 借款金额
+   * 资产余额
    */
-  loanAmount?: number
-
-  /**
-   * 还款金额
-   */
-  repayAmount?: number
+  assetBalance?: number
 
   /**
    * 本金
@@ -130,12 +124,7 @@ export interface BadDebtRule {
   /**
    * 借款金额
    */
-  loanAmount: Array<Object>
-
-  /**
-   * 还款金额
-   */
-  repayAmount: Array<Object>
+  assetBalance: Array<Object>
 
   /**
    * 本金
@@ -176,11 +165,11 @@ export function useBadDebtRule(): BadDebtRule {
     charges: [{ required: true, trigger: 'change', validator: validateCharges }],
     expireTime: [{ required: true, message: '请选择到期日期', trigger: 'change' }],
     loanAccountNo: [{ required: true, message: '请输入贷款账号', trigger: 'change' }],
-    loanAmount: [
+    assetBalance: [
       {
         required: true,
         trigger: 'change',
-        validator: validateLoanAmount
+        validator: validateAssetBalance
       }
     ],
     offBalanceSheetInterest: [
@@ -195,13 +184,6 @@ export function useBadDebtRule(): BadDebtRule {
         required: true,
         trigger: 'change',
         validator: validateOnBalanceSheetInterest
-      }
-    ],
-    repayAmount: [
-      {
-        required: true,
-        trigger: 'change',
-        validator: validateRepayAmount
       }
     ],
     writeOffDate: [{ required: true, message: '请选择核销日期', trigger: 'change' }]
@@ -222,11 +204,11 @@ export function useBadDebtRevokeRule(): BadDebtRule {
     charges: [{ required: true, trigger: 'change', validator: validateCharges }],
     expireTime: [{ required: true, message: '请选择到期日期', trigger: 'change' }],
     loanAccountNo: [{ required: true, message: '请输入贷款账号', trigger: 'change' }],
-    loanAmount: [
+    assetBalance: [
       {
         required: true,
         trigger: 'change',
-        validator: validateLoanAmount
+        validator: validateAssetBalance
       }
     ],
     offBalanceSheetInterest: [
@@ -243,13 +225,6 @@ export function useBadDebtRevokeRule(): BadDebtRule {
         validator: validateOnBalanceSheetInterest
       }
     ],
-    repayAmount: [
-      {
-        required: true,
-        trigger: 'change',
-        validator: validateRepayAmount
-      }
-    ],
     writeOffDate: [{ required: true, message: '请选择核销日期', trigger: 'change' }]
   }
 }
@@ -264,10 +239,9 @@ export function useAddBadDebtReq(): AddBadDebtReq {
     charges: undefined,
     expireTime: '',
     loanAccountNo: '',
-    loanAmount: undefined,
+    assetBalance: undefined,
     offBalanceSheetInterest: undefined,
     onBalanceSheetInterest: undefined,
-    repayAmount: undefined,
     writeOffDate: ''
   }
 }

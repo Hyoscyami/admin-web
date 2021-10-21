@@ -34,11 +34,8 @@ export interface BadDebtWriteOffVO extends BaseVO {
   /** 核销日期 */
   writeOffDate: string
 
-  /** 借款金额 */
-  loanAmount: number
-
-  /** 还款金额 */
-  repayAmount: number
+  /** 资产金额 */
+  assetBalance: number
 
   /** 本金 */
   capital: number
@@ -99,7 +96,7 @@ export function useBadDebtVO(): BadDebtWriteOffVO {
     id: 0,
     importAmount: 0,
     loanAccountNo: '',
-    loanAmount: 0,
+    assetBalance: 0,
     modifierName: '',
     modifyTime: '',
     name: '',
@@ -107,7 +104,6 @@ export function useBadDebtVO(): BadDebtWriteOffVO {
     onBalanceSheetInterest: 0,
     orgId: 0,
     orgNo: '',
-    repayAmount: 0,
     type: 0,
     writeOffDate: '',
     overdueDays: undefined,

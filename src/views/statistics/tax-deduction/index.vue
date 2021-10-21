@@ -40,9 +40,9 @@
           v-if="columns.borrowerIdNo"
       />
       <el-table-column
-          prop="loanAmount"
-          label="借款金额"
-          v-if="columns.loanAmount"
+          prop="assetBalance"
+          label="资产余额"
+          v-if="columns.assetBalance"
       />
       <el-table-column
           prop="capital"
@@ -91,11 +91,6 @@
           label="到期日期"
           :formatter="formatYYYYMMDD"
           v-if="columns.expireTime"
-      />
-      <el-table-column
-          prop="repayAmount"
-          label="还款金额"
-          v-if="columns.repayAmount"
       />
       <el-table-column
           prop="revokeOnBalanceSheetInterest"
@@ -148,7 +143,7 @@
         <el-checkbox label="贷款账号" v-model="columns.loanAccountNo"></el-checkbox>
         <el-checkbox label="借款人" v-model="columns.borrowerName"></el-checkbox>
         <el-checkbox label="借款人证件号" v-model="columns.borrowerIdNo"></el-checkbox>
-        <el-checkbox label="借款金额" v-model="columns.loanAmount"></el-checkbox>
+        <el-checkbox label="资产余额" v-model="columns.assetBalance"></el-checkbox>
         <el-checkbox label="核销金额（本金）" v-model="columns.capital"></el-checkbox>
         <el-checkbox label="核销年度" v-model="columns.writeOffDate"></el-checkbox>
         <el-checkbox label="贷款类型" v-model="columns.assetTypeName"></el-checkbox>
@@ -157,7 +152,6 @@
         <el-checkbox label="呆账核销状态" v-model="columns.status"></el-checkbox>
         <el-checkbox label="借款日期" v-model="columns.borrowTime"></el-checkbox>
         <el-checkbox label="到期日期" v-model="columns.expireTime"></el-checkbox>
-        <el-checkbox label="还款金额" v-model="columns.repayAmount"></el-checkbox>
         <el-checkbox label="核销金额（表内利息）" v-model="columns.revokeOnBalanceSheetInterest"></el-checkbox>
         <el-checkbox label="核销金额（表外利息）" v-model="columns.revokeOffBalanceSheetInterest"></el-checkbox>
         <el-checkbox label="应收费用" v-model="columns.charges"></el-checkbox>

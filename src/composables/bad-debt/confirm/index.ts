@@ -150,33 +150,17 @@ export function delRow(row: any) {
 }
 
 /**
- * 检验借款金额
+ * 检验资产余额
  * @param _rule
  * @param value
  * @param callback
  */
-export function validateLoanAmount(_rule: any, value: number, callback: any) {
+export function validateAssetBalance(_rule: any, value: number, callback: any) {
   if (!value) {
-    callback(new Error('借款金额必填'))
+    callback(new Error('资产余额必填'))
   }
   if (value < 0) {
-    callback(new Error('借款金额不能为负数'))
-  }
-  callback()
-}
-
-/**
- * 检验还款金额
- * @param _rule
- * @param value
- * @param callback
- */
-export function validateRepayAmount(_rule: any, value: number, callback: any) {
-  if (!value) {
-    callback(new Error('还款金额必填'))
-  }
-  if (value < 0) {
-    callback(new Error('还款金额不能为负数'))
+    callback(new Error('资产余额不能为负数'))
   }
   callback()
 }
