@@ -49,13 +49,13 @@
           label="收回金额（本金）"
       />
       <el-table-column
+          prop="revokeAmount"
+          label="核销收回税前扣除金额"
+      />
+      <el-table-column
           prop="revokeDate"
           label="收回日期"
           :formatter="formatDate"
-      />
-      <el-table-column
-          prop="accountingDocumentNo"
-          label="会计凭证号"
       />
       <el-table-column
           prop="writeOffStatus"
