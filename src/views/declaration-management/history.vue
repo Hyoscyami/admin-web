@@ -35,6 +35,18 @@
           {{ convertStatus(scope.row.status) }}
         </template>
       </el-table-column>
+      <el-table-column
+          fixed="right"
+          label="操作"
+          width="150"
+      >
+        <template #default="scope">
+          <el-button type="text" size="small">
+            <router-link :to="{ path: '/declaration-management/detail',query: { id:scope.row.id }}">详情
+            </router-link>
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
     <pagination

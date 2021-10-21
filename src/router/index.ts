@@ -204,6 +204,12 @@ export const constantRoutes = [
         name: 'DeclarationManagementHistory',
         component: () => import('@/views/declaration-management/history.vue'),
         meta: { title: '申报记录', icon: 'dashboard' }
+      },
+      {
+        path: 'detail',
+        name: 'DeclarationManagementDetail',
+        component: () => import('@/views/declaration-management/detail.vue'),
+        meta: { title: '申报详情', icon: 'dashboard' }
       }
     ]
   },
