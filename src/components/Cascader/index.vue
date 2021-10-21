@@ -1,6 +1,6 @@
 <template>
   <el-cascader
-      :options="orgTree"
+      :options="options"
       v-model="selectedOrg"
       :props="{ checkStrictly: true,label:'name',value:'id' }"
       @change="handleChange"
@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, reactive} from 'vue';
+import {computed, defineComponent, PropType, reactive, toRefs} from 'vue';
 import {tree} from "../../api/sys/org";
 import {useQueryOrgReq} from "../../model/req/query/QueryOrgReq";
 import {useOrgVO} from "../../model/vo/OrgVO";
@@ -34,14 +34,15 @@ export default defineComponent({
     const queryOrgReq = useQueryOrgReq(20);
     queryOrgReq.page = undefined
     queryOrgReq.size = undefined
-    let orgTree = reactive([useOrgVO()])
+    const orgTree = reactive({
+      options: []
+    })
     //组织树
     tree(queryOrgReq).then((response) => {
-      Object.assign(orgTree, response.data)
+      orgTree.options = response.data
     })
 
     function handleChange(value) {
-      console.log('value', value)
       if (value) {
         emit('update:orgId', value[value.length - 1])
       } else {
@@ -57,8 +58,7 @@ export default defineComponent({
         emit('update:selectedOrg', value)
       }
     })
-    console.log('selectedOrg', selectedOrg)
-    return {handleChange, orgTree, selectedOrg}
+    return {handleChange, ...toRefs(orgTree), selectedOrg}
   }
 })
 </script>
