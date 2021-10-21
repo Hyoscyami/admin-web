@@ -5,6 +5,7 @@ import { AddBadDebtReq } from '../../model/req/add/AddBadDebtReq'
 import { ImportAccountDocumentReq } from '../../model/req/other/ImportAccountDocumentReq'
 import { MatchBasicFileConfigReq } from '../../model/vo/MatchBasicFileConfigReq'
 import { BadDebtConfirmReq } from '../../model/req/other/BadDebtConfirmReq'
+import { UpdateBatchBadDebtReq } from '../../model/req/update/UpdateBatchBadDebtReq'
 
 export function del(id: number) {
   return request({
@@ -129,6 +130,17 @@ export function confirm(data: BadDebtConfirmReq) {
 export function waitConfirm(data: BadDebtConfirmReq) {
   return request({
     url: '/bad-debt-write-off/waitConfirm',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: JSON.stringify(data)
+  })
+}
+
+export function updateBatch(data: UpdateBatchBadDebtReq) {
+  return request({
+    url: '/bad-debt-write-off/updateBatch',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
