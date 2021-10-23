@@ -162,9 +162,9 @@ export function filterTableStatus(value: number) {
 // 状态转换
 export function convertStatusToChinese(status: number): string {
   if (status === StatusEnum.IMPORTED) {
-    return '待呆账核销'
+    return '待核销呆账'
   } else if (status === StatusEnum.WRITTEN_OFF) {
-    return '已呆账核销'
+    return '已核销呆账'
   } else if (status === StatusEnum.PRE_TAX_DEDUCTION) {
     return '拟申报税前扣除'
   } else if (status === StatusEnum.WAITING_OVERDUE_ONE_YEAR) {

@@ -11,18 +11,23 @@
           </el-col>
         </el-form-item>
         <el-form-item>
-          <el-upload
-              action="/api/file/upload"
-              multiple
-              :headers="headers"
-              :limit="1"
-              :disabled="uploadDisable"
-              :on-exceed="handleExceed"
-              :on-preview="handlePreview"
-              :on-success="handleUploadSuccess"
-          >
-            <el-button size="small" :disabled="uploadDisable" type="primary">点击上传会计凭证</el-button>
-          </el-upload>
+          <el-col :span="12">
+            <el-upload
+                action="/api/file/upload"
+                multiple
+                :headers="headers"
+                :limit="1"
+                :disabled="uploadDisable"
+                :on-exceed="handleExceed"
+                :on-preview="handlePreview"
+                :on-success="handleUploadSuccess"
+            >
+              <el-button size="small" :disabled="uploadDisable" type="primary">点击上传会计凭证</el-button>
+            </el-upload>
+          </el-col>
+          <el-col :span="12" :offset="1" v-if="riskTips">
+            <span style="color: red;">风险提示: </span><span>会计核销金额大于导入金额，请再次核对</span>
+          </el-col>
         </el-form-item>
         <el-form-item>
           <el-col :span="6">
@@ -67,7 +72,11 @@ export default defineComponent({
     const formRef = ref(null)
     //上传表单禁用，会计核销金额和导入金额不相等，则禁用
     const uploadDisable = computed(() => {
-      return form.writeOffAmount != sumCapital.value
+      return form.writeOffAmount < sumCapital.value
+    })
+    // 风险提示，会计核销基恩大于导入金额
+    const riskTips = computed(() => {
+      return form.writeOffAmount > sumCapital.value
     })
     //获取核销本金总额
     const getSumCapital = (accountDocumentNo: string) => {
@@ -144,7 +153,7 @@ export default defineComponent({
     }
     return {
       closeCurrentTag, form, cellClass, headerClass, sumCapital, formRef, rules, formatDate,
-      handleExceed, handleUploadSuccess, headers, onSubmit, uploadDisable, handlePreview
+      handleExceed, handleUploadSuccess, headers, onSubmit, uploadDisable, handlePreview, riskTips
     }
   }
 })
