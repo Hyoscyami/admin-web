@@ -79,6 +79,8 @@
             <el-button v-if="scope.row.failCount > 0" type="text" size="small"><a
                 :href="`${scope.row.resultFilePath}`" download="`核销数据导入错误报告.xlsx">下载错误报告</a>
             </el-button>
+            <el-button type="text" size="small" @click="handlePreview(scope.row.filePath)">查看
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -106,7 +108,7 @@ import {
   searchFormRef,
   searchFormSubmit,
   table,
-  convertStatusToChinese, handleExceed, handleUploadSuccess, formatDate
+  convertStatusToChinese, handleExceed, handleUploadSuccess, formatDate, handlePreview
 } from '@/composables/bad-debt/import'
 
 export default {
@@ -127,7 +129,7 @@ export default {
       cellClass,
       headerClass,
       convertStatusToChinese,
-      handleExceed, headers, handleUploadSuccess, formatDate
+      handleExceed, headers, handleUploadSuccess, formatDate, handlePreview
     }
   }
 }

@@ -151,6 +151,13 @@ export function handleUploadSuccess(response: any) {
   getList()
 }
 
+/**
+ * 文件预览
+ */
+export function handlePreview(url: any) {
+  window.open(url)
+}
+
 // 日期转换
 export function formatDate(_row: any, _column: any, cellValue: any): string {
   return format(cellValue)

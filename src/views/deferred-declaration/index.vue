@@ -27,6 +27,10 @@
           label="贷款账号"
       />
       <el-table-column
+          prop="writeOffYear"
+          label="核销年度"
+      />
+      <el-table-column
           prop="borrowTime"
           label="借款日期"
           :formatter="formatDate"

@@ -18,6 +18,15 @@
     <el-form-item label="所属组织" prop="orgId">
       <Cascader v-model:orgId="listQuery.orgId" v-model:selectedOrg="selectOrg"></Cascader>
     </el-form-item>
+    <el-form-item label="核销年度" prop="declareYear">
+      <el-date-picker
+          v-model="listQuery.writeOffYear"
+          :disabled-date="disabledDate"
+          type="year"
+          format="YYYY"
+          placeholder="请选择核销年度">
+      </el-date-picker>
+    </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="searchFormSubmit">查询</el-button>
       <el-button @click="resetSearchForm">重置</el-button>
@@ -49,9 +58,14 @@ export default defineComponent({
       emit("reset-search-form")
     }
 
+    //时间选择，禁用时间
+    function disabledDate(time) {
+      return time.getTime() > Date.now()
+    }
+
     const searchFormRef = ref(null)
     const selectOrg = []
-    return {searchFormSubmit, resetSearchForm, searchFormRef, selectOrg}
+    return {searchFormSubmit, resetSearchForm, searchFormRef, selectOrg, disabledDate}
   }
 })
 </script>

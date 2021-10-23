@@ -6,7 +6,7 @@ import { QueryBadDebtReq, useQueryBadDebtReq } from '../../../model/req/query/Qu
 import { DictVO } from '../../../model/vo/DictVO'
 import { BadDebtWriteOffVO } from '../../../model/vo/BadDebtWriteOffVO'
 import { SelectGroup, useTable } from '../../../model/req/query/Table'
-import { formatYYYYMMDD } from '../../../utils/time'
+import { formatYYYY, formatYYYYMMDD } from '../../../utils/time'
 import { CommonEnum } from '../../../enums/CommonEnum'
 import { errorMsg, successMsg } from '../../../utils/common'
 import { ApiResponse } from '../../../model/resp/base/ApiResponse'
@@ -83,6 +83,9 @@ export function searchFormSubmit() {
 export function getList() {
   table.listLoading = true
   table.listQuery.status = [StatusEnum.IMPORTED]
+  if (table.listQuery.writeOffYear) {
+    table.listQuery.writeOffYear = formatYYYY(table.listQuery.writeOffYear)
+  }
   list(table.listQuery).then((response) => {
     table.tableData = response.data.records
     table.total = response.data.total
