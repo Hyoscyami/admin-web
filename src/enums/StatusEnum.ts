@@ -60,5 +60,12 @@ export enum StatusEnum {
    */
   DECLARE_PRE_TAX_DEDUCTION = 15,
   //延后申报税前扣除
-  WAITING_DECLARE = 16
+  WAITING_DECLARE = 16,
+  //法律法规
+  //未发布
+  LAWS_REGULATIONS_UNPUBLISHED = 1,
+  //已发布
+  LAWS_REGULATIONS_PUBLISHED = 2,
+  //已下架
+  LAWS_REGULATIONS_OFF_SHELF = 3
 }

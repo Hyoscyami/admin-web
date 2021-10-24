@@ -332,7 +332,26 @@ export const constantRoutes = [
         path: 'laws-regulations',
         name: 'LawsRegulations',
         component: () => import('@/views/laws-regulations/index.vue'),
-        meta: { title: '法律法规', icon: 'dashboard' }
+        meta: { title: '制度法规', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
+    path: '/laws-regulations',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'add',
+        name: 'LawsRegulationsAdd',
+        component: () => import('@/views/laws-regulations/add.vue'),
+        meta: { title: '新增制度法规', icon: 'dashboard' }
+      },
+      {
+        path: 'edit',
+        name: 'LawsRegulationsEdit',
+        component: () => import('@/views/laws-regulations/edit.vue'),
+        meta: { title: '编辑制度法规', icon: 'dashboard' }
       }
     ]
   },
