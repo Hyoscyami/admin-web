@@ -252,7 +252,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="8" v-if="needDeclareYear">
+        <el-col :span="8">
           <el-form-item label="申报年份" prop="declareYear">
             <el-date-picker
                 v-model="form.declareYear"
@@ -550,14 +550,6 @@ export default defineComponent({
       }
     }
 
-    // 是否需要显示申报年度
-    const needDeclareYear = computed(() => {
-      if (!form.status) {
-        return false
-      }
-      return form.status.some(status => status === 3)
-    })
-
     return {
       table,
       cellClass,
@@ -595,7 +587,7 @@ export default defineComponent({
       closeCurrentTag,
       formSubmit,
       handleEvidenceUploadSuccess,
-      handleEvidenceRemove, needDeclareYear
+      handleEvidenceRemove
     }
   }
 })
