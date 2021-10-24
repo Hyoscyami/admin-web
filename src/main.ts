@@ -12,7 +12,6 @@ import '@/styles/index.scss' // global css
 import App from '@/App.vue'
 import store from '@/store'
 import router from './router'
-import TEditor from '@/components/Tinymce/index.vue'
 import '@/icons' // icon
 import './permission' // permission control
 
@@ -33,5 +32,4 @@ app.use(ElementPlus, { locale: zhCn })
 app.use(router)
 app.use(store)
 app.component('SvgIcon', SvgIcon)
-app.component('TEditor', TEditor)
 app.mount('#app')
