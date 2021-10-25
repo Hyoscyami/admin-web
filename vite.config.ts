@@ -6,6 +6,7 @@ import { svgBuilder } from './src/plugins/svgBuilder'
 function pathResolve(dir: string) {
   return resolve(__dirname, '.', dir)
 }
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), svgBuilder('./src/icons/svg/')], // 配置需要使用的插件列表，这里将vue和图标添加进去
@@ -29,7 +30,7 @@ export default defineConfig({
     outDir: 'dist', //指定输出路径
     assetsDir: 'assets', // 指定生成静态资源的存放路径
     minify: 'terser', // 混淆器，terser构建后文件体积更小
-    chunkSizeWarningLimit: 1000 //打包单文件大小
+    chunkSizeWarningLimit: 1500 //打包单文件大小
   },
   // 本地运行配置，及反向代理配置
   server: {
