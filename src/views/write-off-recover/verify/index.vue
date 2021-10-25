@@ -80,6 +80,10 @@
       >
         <template #default="scope">
           <el-button type="text" size="small">
+            <router-link :to="{ path: '/write-off-recover/make-up/edit',query: { id:scope.row.id }}">编辑
+            </router-link>
+          </el-button>
+          <el-button type="text" size="small">
             <router-link :to="{ path: '/write-off-recover/verify/import',query: { id:scope.row.id }}">操作
             </router-link>
           </el-button>

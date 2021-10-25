@@ -54,10 +54,6 @@
           width="150"
       >
         <template #default="scope">
-          <el-button type="text" size="small">
-            <router-link :to="{ path: '/write-off-recover/make-up/edit',query: { id:scope.row.id }}">编辑
-            </router-link>
-          </el-button>
           <el-button type="text" size="small"
                      v-if="scope.row.writeOffStatus === undefined || scope.row.writeOffStatus === null">
             <router-link :to="{ path: '/write-off-recover/make-up/revoke',query: { id:scope.row.id }}">补录

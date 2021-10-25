@@ -36,6 +36,10 @@
         </template>
       </el-table-column>
       <el-table-column
+          prop="remark"
+          label="失败原因"
+      />
+      <el-table-column
           fixed="right"
           label="操作"
           width="150"
