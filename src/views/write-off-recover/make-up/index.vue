@@ -91,7 +91,7 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, convertStatusToChinese
+  table
 } from "@/composables/write-off-recover/make-up";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "@/views/bad-debt/confirm/components/SearchForm.vue";
@@ -111,7 +111,7 @@ export default {
       cellClass,
       headerClass,
       formatDate,
-      delRow, addFormRef, convertStatusToChinese
+      delRow, addFormRef
     }
   }
 }

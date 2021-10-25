@@ -30,6 +30,8 @@ export interface UpdateBadDebtRevokeReq {
 
   /** 收回日期 */
   revokeDate: string
+  //级联选择用
+  parentOrgIds?: Array<number>
 }
 
 export function useUpdateBadDebtRevokeReq(): UpdateBadDebtRevokeReq {
