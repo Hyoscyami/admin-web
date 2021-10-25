@@ -36,6 +36,10 @@
           label="贷款账号"
       />
       <el-table-column
+          prop="accountingDocumentNo"
+          label="会计凭证号"
+      />
+      <el-table-column
           prop="writeOffCapital"
           label="核销金额（本金）"
       />
