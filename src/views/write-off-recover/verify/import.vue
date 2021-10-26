@@ -63,46 +63,54 @@
           </el-table-column>
         </el-table>
       </el-row>
-      <el-form ref="formRef" :model="form" label-width="120px" :rules="rules">
-        <el-form-item label="会计凭证号" prop="accountingDocumentNo">
-          <el-col :span="6">
-            <el-input v-model="form.accountingDocumentNo" placeholder="请输入会计凭证号"></el-input>
+      <el-form ref="formRef" :model="form" label-width="auto" :rules="rules">
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item label="会计凭证号" prop="accountingDocumentNo">
+              <el-input v-model="form.accountingDocumentNo" placeholder="请输入会计凭证号"></el-input>
+            </el-form-item>
           </el-col>
-          <el-col :span="5" :offset="1">
-            <span>核销收回税前扣除金额: </span><span style="color: red;">{{ deductionAmount }}</span><span> 元</span>
+          <el-col :span="16">
+            <el-form-item label="核销收回税前扣除金额" prop="revokeAmount">
+              <el-input v-model="form.revokeAmount" placeholder="请输入核销收回税前扣除金额" type="number">
+                <template #append>元</template>
+              </el-input>
+            </el-form-item>
           </el-col>
-        </el-form-item>
-        <el-form-item>
-          <el-upload
-              action="/api/file/upload"
-              multiple
-              :headers="headers"
-              :limit="1"
-              :file-list="tableVO.accountDocumentFiles"
-              :on-exceed="handleExceed"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :on-success="handleUploadSuccess"
-          >
-            <el-button size="small" type="primary">点击上传会计凭证</el-button>
-          </el-upload>
-        </el-form-item>
-        <el-form-item>
-          <el-col :span="6">
+        </el-row>
+        <el-row :gutter="20">
+          <el-form-item>
+            <el-upload
+                action="/api/file/upload"
+                multiple
+                :headers="headers"
+                :limit="1"
+                :file-list="tableVO.accountDocumentFiles"
+                :on-exceed="handleExceed"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                :on-success="handleUploadSuccess"
+            >
+              <el-button size="small" type="primary">点击上传会计凭证</el-button>
+            </el-upload>
+          </el-form-item>
+        </el-row>
+        <el-row :gutter="20">
+          <el-form-item>
             <el-button type="primary" @click="onSubmit">提交</el-button>
             <el-button @click="closeCurrentTag">关闭</el-button>
-          </el-col>
-        </el-form-item>
+          </el-form-item>
+        </el-row>
       </el-form>
     </el-main>
   </el-container>
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, reactive, ref, computed} from 'vue';
+import {computed, defineComponent, onMounted, reactive, ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
-import {importAccountDocument} from "../../../api/write-off-recover/make-up";
+import {detail, importAccountDocument} from "../../../api/write-off-recover/make-up";
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import Pagination from "../../../components/Pagination/index.vue";
 import {useImportAccountReq} from "../../../model/req/other/ImportAccountDocumentReq";
@@ -110,15 +118,10 @@ import {formatDate, handleExceed} from '@/composables/write-off-recover/verify'
 import {ApiResponse} from "../../../model/resp/base/ApiResponse";
 import {CommonEnum} from "../../../enums/CommonEnum";
 import {errorMsg} from "../../../utils/common";
-import {detail} from "../../../api/write-off-recover/make-up";
 import {BadDebtRevokeVO, useBadDebtRevokeVO} from "../../../model/vo/BadDebtRevokeVO";
 import {useTable} from "../../../model/req/query/Table";
 import {QueryBadDebtRevokeReq, useQueryBadDebtRevokeReq} from "../../../model/req/query/QueryBadDebtRevokeReq";
-import {
-  convertStatusToChinese
-} from "@/composables/write-off-recover/make-up";
-import {format} from "../../../utils/time";
-import {dialog} from "../../../composables/sys/operator";
+import {convertStatusToChinese} from "@/composables/write-off-recover/make-up";
 
 export default defineComponent({
   name: "WriteOffRecoverVerifyImport",
@@ -144,6 +147,12 @@ export default defineComponent({
         Object.assign(tableVO, response.data)
         // @ts-ignore
         form.accountingDocumentNo = response.data.accountingDocumentNo
+        // 核销收回税前扣除金额
+        if (tableVO.capital <= tableVO.writeOffCapital) {
+          form.revokeAmount = tableVO.capital
+        } else {
+          form.revokeAmount = tableVO.writeOffCapital
+        }
         // @ts-ignore
         if (response.data.accountDocumentFiles) {
           // @ts-ignore
@@ -201,13 +210,6 @@ export default defineComponent({
     const handlePreview = function (file) {
       window.open(file.response.data)
     }
-    // 核销收回税前扣除金额
-    const deductionAmount = computed(() => {
-      if (tableVO.capital <= tableVO.writeOffCapital) {
-        return tableVO.capital
-      }
-      return tableVO.writeOffCapital
-    })
     return {
       closeCurrentTag,
       form,
@@ -224,7 +226,7 @@ export default defineComponent({
       table,
       tableVO,
       convertStatusToChinese,
-      deductionAmount, handleRemove
+      handleRemove
     }
   }
 })
