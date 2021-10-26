@@ -300,7 +300,7 @@ export function handleExceed(files: any, fileList: any) {
  * @param row
  */
 export function canOperate(row: any): Boolean {
-    if (row.status === StatusEnum.PRE_TAX_DEDUCTION && row.revokeAmount !== null && row.revokeAmount !== undefined) {
+    if (row.status === StatusEnum.PRE_TAX_DEDUCTION && (row.revokeAmount === null || row.revokeAmount === undefined)) {
         return true
     }
     return false
