@@ -281,17 +281,6 @@ export function handleExceed(files: any, fileList: any) {
 }
 
 /**
- * 是否能编辑
- * @param row
- */
-export function canEdit(row: any): Boolean {
-    if (row.accountingDocumentNo === null || row.accountingDocumentNo === undefined) {
-        return true
-    }
-    return false
-}
-
-/**
  * 是否能操作
  * @param row
  */
