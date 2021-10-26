@@ -5,20 +5,20 @@
                   @search-form-submit="searchFormSubmit"
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
-    <!--    <div class="filter-container">-->
-    <!--      <el-button type="primary">-->
-    <!--        <router-link :to="{ name: 'WriteOffRecoverMakeUpAdd'}">新增</router-link>-->
-    <!--      </el-button>-->
-    <!--    </div>-->
+    <div class="filter-container">
+      <el-button type="primary" @click="openDialog">批量录入会计凭证号</el-button>
+    </div>
     <el-table
         v-loading="table.listLoading"
         class="el-table"
         :cell-style="cellClass"
         :header-cell-style="headerClass"
         :data="table.tableData"
+        @selection-change="handleSelectionChange"
         style="width: 100%"
         border
     >
+      <el-table-column type="selection" width="55"/>
       <el-table-column
           prop="orgNo"
           label="机构代码"
@@ -102,6 +102,19 @@
         v-model:limit="table.listQuery.size"
         @pagination="getList"
     />
+    <el-dialog
+        :model-value="dialogVisible"
+        title="录入会计凭证号"
+        :before-close="cancelAddForm"
+    >
+      <el-input v-model="updateBatchBadDebtForm.accountingDocumentNo"/>
+      <template #footer>
+            <span class="dialog-footer">
+              <el-button @click="cancelAddForm">关闭</el-button>
+              <el-button type="primary" @click="addFormSubmit">确 定</el-button>
+            </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -111,11 +124,21 @@ import {
   addFormRef,
   delRow,
   formatDate,
-  getList, init,
+  getList,
+  init,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, convertStatusToChinese, convertOperateStatus, canOperate, convertRevokeStatus
+  table,
+  convertStatusToChinese,
+  convertOperateStatus,
+  canOperate,
+  convertRevokeStatus,
+  dialogVisible,
+  cancelAddForm,
+  addFormSubmit,
+  openDialog,
+  updateBatchBadDebtForm, handleSelectionChange
 } from "@/composables/write-off-recover/verify";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -135,7 +158,18 @@ export default {
       cellClass,
       headerClass,
       formatDate,
-      delRow, addFormRef, convertStatusToChinese, convertOperateStatus, canOperate, convertRevokeStatus
+      delRow,
+      addFormRef,
+      convertStatusToChinese,
+      convertOperateStatus,
+      canOperate,
+      convertRevokeStatus,
+      handleSelectionChange,
+      dialogVisible,
+      cancelAddForm,
+      addFormSubmit,
+      openDialog,
+      updateBatchBadDebtForm
     }
   }
 }

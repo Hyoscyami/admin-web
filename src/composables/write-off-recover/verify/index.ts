@@ -14,6 +14,9 @@ import {CommonEnum} from '../../../enums/CommonEnum'
 import {errorMsg, successMsg} from '../../../utils/common'
 import {ApiResponse} from '../../../model/resp/base/ApiResponse'
 import {StatusEnum} from '../../../enums/StatusEnum'
+import {useUpdateBatchBadDebtReq} from "../../../model/req/update/UpdateBatchBadDebtReq";
+import {BadDebtWriteOffVO} from "../../../model/vo/BadDebtWriteOffVO";
+import {updateBatch} from "../../../api/write-off-recover/make-up";
 
 // 初始化表格的对象
 const initTable = useTable<BadDebtRevokeVO, QueryBadDebtRevokeReq>(useQueryBadDebtRevokeReq(20))
@@ -26,6 +29,10 @@ export const tableRef = ref(null)
 export const searchFormRef = ref(null)
 // 对话框新增表单ref
 export const addFormRef = ref(null)
+// 对话框显示
+export const dialogVisible = ref(false)
+// 批量更新会计凭证号
+export const updateBatchBadDebtForm = reactive(useUpdateBatchBadDebtReq())
 
 // 初始化
 export function init() {
@@ -141,7 +148,7 @@ export function convertStatusToChinese(status: number): string {
         return '待核销呆账'
     } else if (status === StatusEnum.WRITTEN_OFF) {
         return '已核销呆账'
-    } else if (status === StatusEnum.PRE_TAX_DEDUCTION || status === StatusEnum.REVOKE_VERIFY_SUCCESS) {
+    } else if (status === StatusEnum.PRE_TAX_DEDUCTION) {
         return '拟申报税前扣除'
     } else if (status === StatusEnum.WAITING_OVERDUE_ONE_YEAR) {
         return '等待逾期时间满1年'
@@ -173,7 +180,7 @@ export function convertStatusToChinese(status: number): string {
 
 // 核销收回状态转换
 export function convertRevokeStatus(status: number): string {
-    if (status === StatusEnum.PRE_TAX_DEDUCTION || status === StatusEnum.REVOKE_VERIFY_SUCCESS) {
+    if (status === StatusEnum.PRE_TAX_DEDUCTION) {
         return '拟申报税前扣除'
     }
     return ''
@@ -297,4 +304,51 @@ export function canOperate(row: any): Boolean {
         return true
     }
     return false
+}
+
+/**
+ * 批量选择数据
+ * @param val
+ */
+export function handleSelectionChange(val: Array<BadDebtWriteOffVO>) {
+    if (val !== undefined && val.length > 0) {
+        updateBatchBadDebtForm.ids.length = 0
+        val.forEach((vo) => {
+            updateBatchBadDebtForm.ids.push(vo.id)
+        })
+    }
+}
+
+// 打开对话框
+export function openDialog() {
+    dialogVisible.value = true
+}
+
+// 新增机构表单取消
+export function cancelAddForm() {
+    dialogVisible.value = false
+    updateBatchBadDebtForm.ids.length = 0
+    updateBatchBadDebtForm.accountingDocumentNo = ''
+}
+
+// 新增数据字典表单提交
+export function addFormSubmit() {
+    if (updateBatchBadDebtForm.ids === undefined || updateBatchBadDebtForm.ids.length === 0) {
+        errorMsg('请先选择核销收回数据')
+        return
+    }
+    if (!updateBatchBadDebtForm.accountingDocumentNo) {
+        errorMsg('请先填写会计凭证号')
+        return
+    }
+    // @ts-ignore
+    updateBatch(updateBatchBadDebtForm).then((response: ApiResponse<object>) => {
+        if (response.code !== CommonEnum.SUCCESS_CODE) {
+            errorMsg(response.msg)
+        } else {
+            successMsg('操作成功')
+            cancelAddForm()
+            getList()
+        }
+    })
 }

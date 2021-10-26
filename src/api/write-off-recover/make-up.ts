@@ -3,6 +3,7 @@ import {QueryBadDebtRevokeReq} from '../../model/req/query/QueryBadDebtRevokeReq
 import {AddBadDebtRevokeReq} from '../../model/req/add/AddBadDebtRevokeReq'
 import {UpdateBadDebtRevokeReq} from '../../model/req/update/UpdateBadDebtRevokeReq'
 import {ImportAccountDocumentReq} from '../../model/req/other/ImportAccountDocumentReq'
+import {UpdateBatchBadDebtReq} from "../../model/req/update/UpdateBatchBadDebtReq";
 
 export function detail(id: number) {
     return request({
@@ -78,6 +79,17 @@ export function update(data: AddBadDebtRevokeReq | UpdateBadDebtRevokeReq) {
 export function importAccountDocument(data: ImportAccountDocumentReq) {
     return request({
         url: '/bad-debt-revoke/importAccountDocument',
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        data: JSON.stringify(data)
+    })
+}
+
+export function updateBatch(data: UpdateBatchBadDebtReq) {
+    return request({
+        url: '/bad-debt-revoke/updateBatch',
         method: 'post',
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'
