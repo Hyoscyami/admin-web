@@ -150,3 +150,34 @@ export function useRevokeTaxDeductionColumns(): TaxDeductionColumns {
     relationTypeName: true
   }
 }
+
+//单个债务人全状态查询
+export function useFullStatusQuery(): TaxDeductionColumns {
+  return {
+    accountingDocumentNo: false,
+    assetBalance: true,
+    assetTypeName: true,
+    borrowTime: true,
+    borrowerIdNo: false,
+    borrowerName: false,
+    capital: true,
+    charges: false,
+    confirmationConditionsName: true,
+    expireTime: true,
+    loanAccountNo: true,
+    offBalanceSheetInterest: false,
+    onBalanceSheetInterest: false,
+    orgName: false,
+    preTaxDate: false,
+    relationTypeName: false,
+    revokeCapital: true,
+    revokeCharges: false,
+    revokeDate: true,
+    revokeOffBalanceSheetInterest: false,
+    revokeOnBalanceSheetInterest: false,
+    status: true,
+    warningLeftDays: false,
+    writeOffDate: true,
+    writeOffStatus: true
+  }
+}
