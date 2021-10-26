@@ -130,7 +130,6 @@ import {
   searchFormRef,
   searchFormSubmit,
   table,
-  convertStatusToChinese,
   convertOperateStatus,
   canOperate,
   convertRevokeStatus,
@@ -142,6 +141,8 @@ import {
 } from "@/composables/write-off-recover/verify";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
+import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
+
 
 export default {
   name: "WriteOffRecoverVerify",
