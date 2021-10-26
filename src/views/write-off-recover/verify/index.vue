@@ -74,7 +74,7 @@
           label="核销收回状态"
       >
         <template #default="scope">
-          {{ convertStatusToChinese(scope.row.status) }}
+          {{ convertRevokeStatus(scope.row.status) }}
         </template>
       </el-table-column>
       <el-table-column
@@ -115,7 +115,7 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, convertStatusToChinese, convertOperateStatus, canOperate
+  table, convertStatusToChinese, convertOperateStatus, canOperate, convertRevokeStatus
 } from "@/composables/write-off-recover/verify";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -135,7 +135,7 @@ export default {
       cellClass,
       headerClass,
       formatDate,
-      delRow, addFormRef, convertStatusToChinese, convertOperateStatus, canOperate
+      delRow, addFormRef, convertStatusToChinese, convertOperateStatus, canOperate, convertRevokeStatus
     }
   }
 }

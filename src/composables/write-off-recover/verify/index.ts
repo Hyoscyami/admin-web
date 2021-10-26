@@ -171,6 +171,14 @@ export function convertStatusToChinese(status: number): string {
     return ''
 }
 
+// 核销收回状态转换
+export function convertRevokeStatus(status: number): string {
+    if (status === StatusEnum.PRE_TAX_DEDUCTION || status === StatusEnum.REVOKE_VERIFY_SUCCESS) {
+        return '拟申报税前扣除'
+    }
+    return ''
+}
+
 // 核销收回审核状态
 export function convertOperateStatus(revokeAmount: number): string {
     if (revokeAmount) {
