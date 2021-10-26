@@ -83,11 +83,11 @@
           width="150"
       >
         <template #default="scope">
-          <el-button type="text" size="small">
+          <el-button type="text" size="small" v-if="canEdit(scope.row)">
             <router-link :to="{ path: '/write-off-recover/make-up/edit',query: { id:scope.row.id }}">编辑
             </router-link>
           </el-button>
-          <el-button type="text" size="small">
+          <el-button type="text" size="small" v-if="canOperate(scope.row)">
             <router-link :to="{ path: '/write-off-recover/verify/import',query: { id:scope.row.id }}">操作
             </router-link>
           </el-button>
@@ -115,7 +115,7 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, convertStatusToChinese, convertOperateStatus
+  table, convertStatusToChinese, convertOperateStatus, canEdit, canOperate
 } from "@/composables/write-off-recover/verify";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -135,7 +135,7 @@ export default {
       cellClass,
       headerClass,
       formatDate,
-      delRow, addFormRef, convertStatusToChinese, convertOperateStatus
+      delRow, addFormRef, convertStatusToChinese, convertOperateStatus, canEdit, canOperate
     }
   }
 }

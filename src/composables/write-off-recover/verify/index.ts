@@ -279,3 +279,25 @@ export function handleExceed(files: any, fileList: any) {
     console.log('files,fileList', files, fileList)
     errorMsg('上传文件超过限制')
 }
+
+/**
+ * 是否能编辑
+ * @param row
+ */
+export function canEdit(row: any): Boolean {
+    if (row.accountingDocumentNo === null || row.accountingDocumentNo === undefined) {
+        return true
+    }
+    return false
+}
+
+/**
+ * 是否能操作
+ * @param row
+ */
+export function canOperate(row: any): Boolean {
+    if (row.status === StatusEnum.PRE_TAX_DEDUCTION) {
+        return true
+    }
+    return false
+}
