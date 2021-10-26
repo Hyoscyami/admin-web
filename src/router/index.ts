@@ -398,31 +398,31 @@ export const constantRoutes = [
         path: 'tax-deduction',
         name: 'StatisticsTaxDeduction',
         component: () => import('@/views/statistics/tax-deduction/index.vue'),
-        meta: { title: '呆账核销已申报税前扣除查询', icon: 'table' }
+        meta: { title: '呆账核销已税前扣除', icon: 'table' }
       },
       {
         path: 'undeclare',
         name: 'StatisticsUnDeclare',
         component: () => import('../views/statistics/undeclare/index.vue'),
-        meta: { title: '呆账核销未申报税前扣除查询', icon: 'table' }
+        meta: { title: '呆账核销未税前扣除', icon: 'table' }
       },
       {
         path: 'revoke-tax-deduction',
         name: 'StatisticsRevokeTaxDeduction',
         component: () => import('@/views/statistics/revoke-tax-deduction/index.vue'),
-        meta: { title: '核销收回已税前扣除查询', icon: 'table' }
+        meta: { title: '核销收回已税前扣除', icon: 'table' }
       },
       {
         path: 'revoke-undeclare',
         name: 'StatisticsRevokeUnDeclare',
         component: () => import('@/views/statistics/revoke-undeclare/index.vue'),
-        meta: { title: '核销收回未税前扣除查询', icon: 'table' }
+        meta: { title: '核销收回未税前扣除', icon: 'table' }
       },
       {
         path: 'full-status-query',
         name: 'StatisticsFullStatusQuery',
         component: () => import('@/views/statistics/full-status-query/index.vue'),
-        meta: { title: '单个债务人损失核销全状态查询', icon: 'table' }
+        meta: { title: '单个债务人查询', icon: 'table' }
       }
     ]
   },
