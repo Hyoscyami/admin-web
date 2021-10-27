@@ -118,7 +118,7 @@
       />
       <el-table-column
           prop="accountingDocumentNo"
-          label="会计凭证号码"
+          label="核销会计凭证号码"
           v-if="columns.accountingDocumentNo"
       />
     </el-table>
@@ -153,7 +153,7 @@
         <el-checkbox label="核销金额（表内利息）" v-model="columns.revokeOnBalanceSheetInterest"></el-checkbox>
         <el-checkbox label="核销金额（表外利息）" v-model="columns.revokeOffBalanceSheetInterest"></el-checkbox>
         <el-checkbox label="应收费用" v-model="columns.charges"></el-checkbox>
-        <el-checkbox label="会计凭证号码" v-model="columns.accountingDocumentNo"></el-checkbox>
+        <el-checkbox label="核销会计凭证号码" v-model="columns.accountingDocumentNo"></el-checkbox>
       </div>
       <template #footer>
             <span class="dialog-footer">

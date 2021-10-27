@@ -3,7 +3,7 @@ import {revokeUnDeclareList as list} from '@/api/statistics/statistics'
 import {useTable} from '../../../model/req/query/Table'
 import {formatYYYY} from '../../../utils/time'
 import {TaxDeductionVO} from '../../../model/vo/TaxDeductionVO'
-import {useRevokeTaxDeductionColumns} from '../../../model/vo/TaxDeductionColumns'
+import {useRevokeUnDeclareColumns} from '../../../model/vo/TaxDeductionColumns'
 import {QueryBadDebtRevokeReq, useQueryBadDebtRevokeReq} from "../../../model/req/query/QueryBadDebtRevokeReq";
 
 // 初始化表格的对象
@@ -17,8 +17,8 @@ export const tableRef = ref(null)
 export const searchFormRef = ref(null)
 // 对话框新增表单ref
 export const addFormRef = ref(null)
-// 核销收回已税前扣除查询 表格展示列
-export const columns = reactive(useRevokeTaxDeductionColumns())
+// 核销收回未税前扣除查询 表格展示列
+export const columns = reactive(useRevokeUnDeclareColumns())
 // 对话框展示
 export const dialogVisible = ref(false)
 

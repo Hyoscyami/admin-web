@@ -151,6 +151,37 @@ export function useRevokeTaxDeductionColumns(): TaxDeductionColumns {
     }
 }
 
+//核销收回未税前扣除查询
+export function useRevokeUnDeclareColumns(): TaxDeductionColumns {
+    return {
+        accountingDocumentNo: false,
+        assetTypeName: false,
+        borrowTime: false,
+        writeOffStatus: false,
+        borrowerIdNo: true,
+        borrowerName: true,
+        capital: true,
+        charges: false,
+        confirmationConditionsName: false,
+        expireTime: false,
+        loanAccountNo: true,
+        assetBalance: true,
+        offBalanceSheetInterest: false,
+        onBalanceSheetInterest: false,
+        orgName: true,
+        preTaxDate: true,
+        revokeCapital: true,
+        revokeCharges: false,
+        revokeDate: true,
+        revokeOffBalanceSheetInterest: false,
+        revokeOnBalanceSheetInterest: false,
+        warningLeftDays: true,
+        writeOffDate: true,
+        status: true,
+        relationTypeName: true
+    }
+}
+
 //单个债务人全状态查询
 export function useFullStatusQuery(): TaxDeductionColumns {
     return {
