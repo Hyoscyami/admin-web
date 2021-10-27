@@ -118,7 +118,7 @@
           v-if="columns.relationTypeName"
       />
       <el-table-column
-          prop="relationTypeName"
+          prop="warningLeftDays"
           label="关联事项剩余时间"
           v-if="columns.warningLeftDays"
       />
