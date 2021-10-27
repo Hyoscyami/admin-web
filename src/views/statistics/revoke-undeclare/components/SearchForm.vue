@@ -9,7 +9,7 @@
           :disabled-date="disabledDate"
           type="year"
           format="YYYY"
-          placeholder="请选择核销年度">
+          placeholder="请选择收回年度">
       </el-date-picker>
     </el-form-item>
     <el-form-item>
