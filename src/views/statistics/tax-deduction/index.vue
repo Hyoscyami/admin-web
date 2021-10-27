@@ -57,7 +57,7 @@
       />
       <el-table-column
           prop="assetTypeName"
-          label="贷款类型"
+          label="资产类型"
           v-if="columns.assetTypeName"
       />
       <el-table-column
@@ -146,7 +146,7 @@
         <el-checkbox label="资产余额" v-model="columns.assetBalance"></el-checkbox>
         <el-checkbox label="核销金额（本金）" v-model="columns.capital"></el-checkbox>
         <el-checkbox label="核销年度" v-model="columns.writeOffDate"></el-checkbox>
-        <el-checkbox label="贷款类型" v-model="columns.assetTypeName"></el-checkbox>
+        <el-checkbox label="资产类型" v-model="columns.assetTypeName"></el-checkbox>
         <el-checkbox label="认定条件" v-model="columns.confirmationConditionsName"></el-checkbox>
         <el-checkbox label="税前扣除年度" v-model="columns.preTaxDate"></el-checkbox>
         <el-checkbox label="呆账核销状态" v-model="columns.status"></el-checkbox>
