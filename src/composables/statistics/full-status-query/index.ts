@@ -8,6 +8,8 @@ import {useFullStatusQuery} from '../../../model/vo/TaxDeductionColumns'
 
 // 初始化表格的对象
 const initTable = useTable<TaxDeductionVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
+// 最开始不要加载，因为没点击查询按钮，不需要查询列表
+initTable.listLoading = false
 // 父机构表格数据
 export const table = reactive(initTable)
 
