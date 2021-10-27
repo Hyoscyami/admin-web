@@ -78,7 +78,7 @@
           v-if="columns.writeOffStatus"
       >
         <template #default="scope">
-          {{ convertStatusToChinese(scope.row.status) }}
+          {{ convertStatusToChinese(scope.row.writeOffStatus) }}
         </template>
       </el-table-column>
       <el-table-column
