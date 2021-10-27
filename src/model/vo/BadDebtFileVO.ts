@@ -3,6 +3,10 @@ import { FileVO } from './FileVO'
 import { EvidenceFileVO } from './EvidenceFileVO'
 
 export interface BadDebtFileVO extends BaseVO {
+  /**
+   * 核销会计凭证
+   */
+  accountDocumentList: Array<FileVO>
   /** 呆账核销申报审批表 */
   approveList: Array<FileVO>
   /** 呆账核销申请报告 */
@@ -26,6 +30,7 @@ export interface BadDebtFileVO extends BaseVO {
 export function useBadDebtFileVO(): BadDebtFileVO {
   return {
     applyList: [],
+    accountDocumentList: [],
     approveList: [],
     createTime: '',
     creatorName: '',

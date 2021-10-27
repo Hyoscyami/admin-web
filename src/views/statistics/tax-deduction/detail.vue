@@ -1,6 +1,11 @@
 <template>
   <div class="app-container">
     <el-descriptions title="基础材料">
+      <el-descriptions-item label="核销会计凭证">
+        <el-tag size="small" v-for="item in fileVO.accountDocumentList" :key="item.id" style="margin-right:10px;">
+          <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
+        </el-tag>
+      </el-descriptions-item>
       <el-descriptions-item label="呆账核销申报审批表">
         <el-tag size="small" v-for="item in fileVO.approveList" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
