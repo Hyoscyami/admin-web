@@ -169,7 +169,7 @@ export function useRevokeUnDeclareColumns(): TaxDeductionColumns {
         offBalanceSheetInterest: false,
         onBalanceSheetInterest: false,
         orgName: true,
-        preTaxDate: true,
+        preTaxDate: false,
         revokeCapital: true,
         revokeCharges: false,
         revokeDate: true,
