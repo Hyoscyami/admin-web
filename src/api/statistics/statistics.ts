@@ -24,6 +24,17 @@ export function unDeclareList(data: QueryBadDebtReq) {
     })
 }
 
+export function revokeTaxDeductionList(data: QueryBadDebtRevokeReq) {
+    return request({
+        url: '/statistics/revoke/taxDeductionList',
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        data
+    })
+}
+
 export function revokeUnDeclareList(data: QueryBadDebtRevokeReq) {
     return request({
         url: '/statistics/revoke/unDeclareList',

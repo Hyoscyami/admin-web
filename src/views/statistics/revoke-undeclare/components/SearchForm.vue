@@ -3,9 +3,9 @@
     <el-form-item label="所属组织" prop="orgId">
       <Cascader v-model:orgId="listQuery.orgId" v-model:selectedOrg="selectOrg"></Cascader>
     </el-form-item>
-    <el-form-item label="核销年度" prop="revokeDate">
+    <el-form-item label="收回年度" prop="revokeDate">
       <el-date-picker
-          v-model="listQuery.writeOffYear"
+          v-model="listQuery.revokeDate"
           :disabled-date="disabledDate"
           type="year"
           format="YYYY"
