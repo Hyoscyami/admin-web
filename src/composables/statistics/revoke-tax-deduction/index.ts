@@ -31,9 +31,6 @@ export function init() {
 // 搜索机构表单查询
 export function searchFormSubmit() {
     table.listQuery.page = 1
-    if (table.listQuery.revokeDate) {
-        table.listQuery.revokeDate = formatYYYY(table.listQuery.revokeDate)
-    }
     getList()
 }
 

@@ -24,16 +24,13 @@ export const dialogVisible = ref(false)
 
 // 初始化
 export function init() {
-    // 初始化表格
-    searchFormSubmit()
+    // 不输入查询条件，不初始化表格
+    // searchFormSubmit()
 }
 
 // 搜索机构表单查询
 export function searchFormSubmit() {
     table.listQuery.page = 1
-    if (table.listQuery.writeOffYear) {
-        table.listQuery.writeOffYear = formatYYYY(table.listQuery.writeOffYear)
-    }
     getList()
 }
 

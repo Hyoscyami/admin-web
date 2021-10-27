@@ -56,6 +56,17 @@
           v-if="columns.writeOffDate"
       />
       <el-table-column
+          prop="revokeCapital"
+          label="收回金额（本金）"
+          v-if="columns.revokeCapital"
+      />
+      <el-table-column
+          prop="revokeDate"
+          label="收回年度"
+          :formatter="formatYear"
+          v-if="columns.revokeDate"
+      />
+      <el-table-column
           prop="assetTypeName"
           label="资产类型"
           v-if="columns.assetTypeName"
@@ -145,7 +156,6 @@
         <el-checkbox label="核销年度" v-model="columns.writeOffDate"></el-checkbox>
         <el-checkbox label="资产类型" v-model="columns.assetTypeName"></el-checkbox>
         <el-checkbox label="认定条件" v-model="columns.confirmationConditionsName"></el-checkbox>
-        <el-checkbox label="税前扣除年度" v-model="columns.preTaxDate"></el-checkbox>
         <el-checkbox label="呆账核销状态" v-model="columns.writeOffStatus"></el-checkbox>
         <el-checkbox label="核销收回状态" v-model="columns.status"></el-checkbox>
         <el-checkbox label="借款日期" v-model="columns.borrowTime"></el-checkbox>
