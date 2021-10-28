@@ -108,7 +108,7 @@
       />
       <el-table-column
           prop="accountingDocumentNo"
-          label="会计凭证号码"
+          label="核销会计凭证号码"
           v-if="columns.accountingDocumentNo"
       />
       <el-table-column

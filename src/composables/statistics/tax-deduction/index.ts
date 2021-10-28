@@ -40,6 +40,9 @@ export function getList() {
   if (table.listQuery.writeOffYear) {
     table.listQuery.writeOffYear = formatYYYY(table.listQuery.writeOffYear)
   }
+  if (table.listQuery.preTaxYear) {
+    table.listQuery.preTaxYear = formatYYYY(table.listQuery.preTaxYear)
+  }
   list(table.listQuery).then((response) => {
     table.tableData = response.data.records
     table.total = response.data.total

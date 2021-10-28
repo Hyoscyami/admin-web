@@ -110,10 +110,10 @@ export default defineComponent({
 
     // 初始化对象
     const init = {
-      language_url: '/src/assets/langs/zh_CN.js',  //引入语言包文件
+      language_url: '/tinymce/langs/zh_CN.js',  //引入语言包文件
       language: 'zh_CN',  //语言类型
 
-      skin_url: '/src/assets/skins/ui/oxide',  //皮肤：浅色
+      skin_url: '/tinymce/skins/ui/oxide',  //皮肤：浅色
       // skin_url: '/Tinymce/skins/ui/oxide-dark',//皮肤：暗色
 
       plugins: props.plugins,  //插件配置
@@ -132,7 +132,7 @@ export default defineComponent({
       elementpath: false,  //元素路径是否显示
 
       content_style: "img {max-width:100%;}",  //直接自定义可编辑区域的css样式
-      content_css: '/src/assets/skins/content/default/content.min.css',  //以css文件方式自定义可编辑区域的css样式，css文件需自己创建并引入
+      content_css: '/tinymce/skins/content/default/content.min.css',  //以css文件方式自定义可编辑区域的css样式，css文件需自己创建并引入
 
       // images_upload_url: '/apib/api-upload/uploadimg',  //后端处理程序的url，建议直接自定义上传函数image_upload_handler，这个就可以不用了
       // images_upload_base_path: '/demo',  //相对基本路径--关于图片上传建议查看--http://tinymce.ax-z.cn/general/upload-images.php

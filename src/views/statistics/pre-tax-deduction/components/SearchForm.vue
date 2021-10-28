@@ -1,20 +1,21 @@
 <template>
   <el-form ref="searchFormRef" :model="listQuery" :inline="true">
-    <el-form-item label="借款人名称" prop="borrowerName">
-      <el-input v-model="listQuery.borrowerName" placeholder="模糊查询名称" @keyup.enter.native="searchFormSubmit"/>
-    </el-form-item>
-    <el-form-item label="借款人证件号码" prop="borrowerIdNo">
-      <el-input v-model="listQuery.borrowerIdNo" placeholder="精确查询证件号"
-                @keyup.enter.native="searchFormSubmit"/>
-    </el-form-item>
-    <el-form-item label="贷款账号" prop="loanAccountNo">
-      <el-input v-model="listQuery.loanAccountNo" placeholder="精确贷款账号"
-                @keyup.enter.native="searchFormSubmit"/>
-    </el-form-item>
-    <el-form-item label="文件类型" prop="type" tabindex="2">
-      <el-select v-model="listQuery.types" placeholder="请选择文件类型" multiple clearable filterable>
-        <el-option v-for="item in typesSelect" :key="item.id" :label="item.text" :value="item.value"/>
+    <el-form-item label="资产类型" prop="type" tabindex="2">
+      <el-select v-model="table.listQuery.assetTypes" multiple filterable placeholder="请选择资产类型" clearable>
+        <el-option v-for="item in assertTypes" :key="item.id" :label="item.text" :value="item.value"/>
       </el-select>
+    </el-form-item>
+    <el-form-item label="所属组织" prop="orgId">
+      <Cascader v-model:orgId="listQuery.orgId" v-model:selectedOrg="selectOrg"></Cascader>
+    </el-form-item>
+    <el-form-item label="核销年度" prop="writeOffYear">
+      <el-date-picker
+          v-model="listQuery.writeOffYear"
+          :disabled-date="disabledDate"
+          type="year"
+          format="YYYY"
+          placeholder="请选择核销年度">
+      </el-date-picker>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="searchFormSubmit">查询</el-button>
