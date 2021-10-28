@@ -77,10 +77,9 @@
           v-if="columns.confirmationConditionsName"
       />
       <el-table-column
-          prop="preTaxDate"
+          prop="preTaxYear"
           label="税前扣除年度"
-          :formatter="formatYear"
-          v-if="columns.preTaxDate"
+          v-if="columns.preTaxYear"
       />
       <el-table-column
           prop="status"

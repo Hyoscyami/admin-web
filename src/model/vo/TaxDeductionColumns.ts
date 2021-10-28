@@ -41,7 +41,7 @@ export interface TaxDeductionColumns {
     /** 资产类型名称 */
     assetTypeName: boolean
     /** 税前扣除时间 */
-    preTaxDate: boolean
+    preTaxYear: boolean
     /** 预警剩余时间，单位为天 */
     warningLeftDays: boolean
     /**
@@ -75,7 +75,7 @@ export function useTaxDeductionColumns(): TaxDeductionColumns {
         offBalanceSheetInterest: false,
         onBalanceSheetInterest: false,
         orgName: true,
-        preTaxDate: true,
+        preTaxYear: true,
         revokeCapital: false,
         revokeCharges: false,
         revokeDate: false,
@@ -107,7 +107,7 @@ export function useUnDeclareColumns(): TaxDeductionColumns {
         offBalanceSheetInterest: false,
         onBalanceSheetInterest: false,
         orgName: true,
-        preTaxDate: false,
+        preTaxYear: false,
         revokeCapital: false,
         revokeCharges: false,
         revokeDate: false,
@@ -138,7 +138,7 @@ export function useRevokeTaxDeductionColumns(): TaxDeductionColumns {
         offBalanceSheetInterest: false,
         onBalanceSheetInterest: false,
         orgName: true,
-        preTaxDate: true,
+        preTaxYear: true,
         revokeCapital: true,
         revokeCharges: false,
         revokeDate: true,
@@ -169,7 +169,7 @@ export function useRevokeUnDeclareColumns(): TaxDeductionColumns {
         offBalanceSheetInterest: false,
         onBalanceSheetInterest: false,
         orgName: true,
-        preTaxDate: false,
+        preTaxYear: false,
         revokeCapital: true,
         revokeCharges: false,
         revokeDate: true,
@@ -199,7 +199,7 @@ export function useFullStatusQuery(): TaxDeductionColumns {
         offBalanceSheetInterest: false,
         onBalanceSheetInterest: false,
         orgName: false,
-        preTaxDate: false,
+        preTaxYear: false,
         relationTypeName: false,
         revokeCapital: true,
         revokeCharges: false,

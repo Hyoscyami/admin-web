@@ -46,7 +46,7 @@ export interface TaxDeductionVO extends BaseVO {
   /** 资产类型名称 */
   assetTypeName: string
   /** 税前扣除时间 */
-  preTaxDate: string
+  preTaxYear: string
   /** 预警剩余时间，单位为天 */
   warningLeftDays: number
   /**
@@ -79,7 +79,7 @@ export function useTaxDeductionVO(): TaxDeductionVO {
     onBalanceSheetInterest: 0,
     orgId: 0,
     orgName: '',
-    preTaxDate: '',
+    preTaxYear: '',
     revokeCapital: 0,
     revokeCharges: 0,
     revokeDate: '',
