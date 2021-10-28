@@ -55,8 +55,8 @@ import 'tinymce/plugins/visualchars'  //显示不可见字符
 import 'tinymce/plugins/wordcount'  //字数统计
 import {defineComponent, ref, reactive, computed} from 'vue';
 import {useStore} from 'vuex'
-import request from "../../utils/request";
-import {successMsg} from "../../utils/common";
+import request from "@/utils/request";
+import {successMsg} from "@/utils/common";
 
 
 export default defineComponent({

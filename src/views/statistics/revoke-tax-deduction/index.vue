@@ -150,7 +150,7 @@
         <el-checkbox label="核销年度" v-model="columns.writeOffDate"></el-checkbox>
         <el-checkbox label="资产类型" v-model="columns.assetTypeName"></el-checkbox>
         <el-checkbox label="认定条件" v-model="columns.confirmationConditionsName"></el-checkbox>
-        <el-checkbox label="税前扣除年度" v-model="columns.preTaxYear"></el-checkbox>
+        <el-checkbox label="收回年度" v-model="columns.revokeDate"></el-checkbox>
         <el-checkbox label="呆账核销状态" v-model="columns.writeOffStatus"></el-checkbox>
         <el-checkbox label="核销收回状态" v-model="columns.status"></el-checkbox>
         <el-checkbox label="借款日期" v-model="columns.borrowTime"></el-checkbox>
@@ -158,7 +158,7 @@
         <el-checkbox label="核销金额（表内利息）" v-model="columns.revokeOnBalanceSheetInterest"></el-checkbox>
         <el-checkbox label="核销金额（表外利息）" v-model="columns.revokeOffBalanceSheetInterest"></el-checkbox>
         <el-checkbox label="应收费用" v-model="columns.charges"></el-checkbox>
-        <el-checkbox label="核销会计凭证号码" v-model="columns.accountingDocumentNo"></el-checkbox>
+        <el-checkbox label="收回会计凭证号码" v-model="columns.accountingDocumentNo"></el-checkbox>
       </div>
       <template #footer>
             <span class="dialog-footer">

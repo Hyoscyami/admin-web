@@ -12,6 +12,15 @@
           placeholder="请选择核销年度">
       </el-date-picker>
     </el-form-item>
+    <el-form-item label="税前扣除年度" prop="writeOffYear">
+      <el-date-picker
+          v-model="listQuery.preTaxYear"
+          :disabled-date="disabledDate"
+          type="year"
+          format="YYYY"
+          placeholder="请选择税前扣除年度">
+      </el-date-picker>
+    </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="searchFormSubmit">查询</el-button>
       <el-button @click="resetSearchForm">重置</el-button>
