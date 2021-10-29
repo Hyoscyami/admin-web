@@ -56,6 +56,10 @@ export interface TaxDeductionColumns {
      * 关联事项中文名称
      */
     relationTypeName: boolean
+    /**
+     * 申报年度
+     */
+    declareYear: boolean
 }
 
 //呆账核销已申报税前扣除查询
@@ -68,14 +72,14 @@ export function useTaxDeductionColumns(): TaxDeductionColumns {
         borrowerName: true,
         capital: true,
         charges: false,
-        confirmationConditionsName: true,
+        confirmationConditionsName: true, declareYear: true,
         expireTime: false,
         loanAccountNo: true,
         assetBalance: false,
         offBalanceSheetInterest: false,
         onBalanceSheetInterest: false,
         orgName: true,
-        preTaxYear: true,
+        preTaxYear: false,
         revokeCapital: false,
         revokeCharges: false,
         revokeDate: false,
@@ -102,7 +106,7 @@ export function useUnDeclareColumns(): TaxDeductionColumns {
         charges: false,
         confirmationConditionsName: false,
         expireTime: false,
-        loanAccountNo: true,
+        loanAccountNo: true, declareYear: false,
         assetBalance: true,
         offBalanceSheetInterest: false,
         onBalanceSheetInterest: false,
@@ -138,7 +142,7 @@ export function useRevokeTaxDeductionColumns(): TaxDeductionColumns {
         offBalanceSheetInterest: false,
         onBalanceSheetInterest: false,
         orgName: true,
-        preTaxYear: true,
+        preTaxYear: false, declareYear: true,
         revokeCapital: true,
         revokeCharges: false,
         revokeDate: true,
@@ -159,7 +163,7 @@ export function useRevokeUnDeclareColumns(): TaxDeductionColumns {
         borrowTime: false,
         writeOffStatus: false,
         borrowerIdNo: true,
-        borrowerName: true,
+        borrowerName: true, declareYear: false,
         capital: true,
         charges: false,
         confirmationConditionsName: false,
@@ -189,7 +193,7 @@ export function useFullStatusQuery(): TaxDeductionColumns {
         assetBalance: true,
         assetTypeName: true,
         borrowTime: true,
-        borrowerIdNo: true,
+        borrowerIdNo: true, declareYear: false,
         borrowerName: true,
         capital: true,
         charges: false,

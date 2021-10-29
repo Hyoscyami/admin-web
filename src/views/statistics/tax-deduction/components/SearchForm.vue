@@ -12,9 +12,9 @@
           placeholder="请选择核销年度">
       </el-date-picker>
     </el-form-item>
-    <el-form-item label="税前扣除年度" prop="writeOffYear">
+    <el-form-item label="税前扣除年度" prop="declareYear">
       <el-date-picker
-          v-model="listQuery.preTaxYear"
+          v-model="listQuery.declareYear"
           :disabled-date="disabledDate"
           type="year"
           format="YYYY"
