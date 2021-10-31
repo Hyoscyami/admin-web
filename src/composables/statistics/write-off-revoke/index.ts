@@ -14,6 +14,8 @@ import { QueryStatisticReq, useQueryStatisticReq } from '../../../model/req/quer
 
 // 初始化表格的对象
 const initTable = useTable<StatisticVO, QueryStatisticReq>(useQueryStatisticReq(20))
+//默认为按机构查询
+initTable.listQuery.type = 2
 // 父机构表格数据
 export const table = reactive(initTable)
 
@@ -30,7 +32,7 @@ export const tableTotal = ref<Array<string | number>>(['合计'])
 // 初始化
 export function init() {
   // 初始化资产类型
-  listTypes()
+  // listTypes()
   //初始化年份
   listYears()
   // 初始化表格
@@ -92,7 +94,7 @@ export function getList() {
     table.total = response.data.total
     table.listLoading = false
   })
-  //获取表格列总数
+  //刷新表格合计总数
   getSummaries()
 }
 

@@ -69,6 +69,17 @@ export function preTaxDeduction(data: QueryStatisticReq) {
   })
 }
 
+export function writeOffRevokeCount(data: QueryStatisticReq) {
+  return request({
+    url: '/statistics/writeOffRevokeCount',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
+
 export function totalPreTaxDeduction(data: QueryStatisticReq) {
   return request({
     url: '/statistics/totalPreTaxDeduction',

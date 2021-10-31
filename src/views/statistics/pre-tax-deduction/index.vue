@@ -73,7 +73,7 @@ import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
   formatDate, formatProportion,
-  getList, getTableTotal, getTableTotal, init,
+  getList, getTableTotal, init,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
