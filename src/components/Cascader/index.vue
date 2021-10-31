@@ -1,15 +1,16 @@
 <template>
   <el-cascader
       :options="options"
+      ref="cascaderRef"
       v-model="selectedOrg"
-      :props="{ checkStrictly: true,label:'name',value:'id' }"
+      :props="cascaderProps"
       @change="handleChange"
       placeholder="请选择所属组织"
       clearable></el-cascader>
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, reactive, toRefs} from 'vue';
+import {computed, defineComponent, PropType, reactive, toRefs, ref} from 'vue';
 import {entityTree} from "../../api/sys/org";
 import {useQueryOrgReq} from "../../model/req/query/QueryOrgReq";
 
@@ -27,6 +28,12 @@ export default defineComponent({
     //选中的组织ID
     orgId: {
       type: Number
+    },
+    cascaderProps: {
+      type: Object,
+      default(): Object {
+        return {checkStrictly: true, label: 'name', value: 'id'}
+      }
     }
   },
   setup(props, {attrs, slots, emit}) {
@@ -49,6 +56,8 @@ export default defineComponent({
       }
     }
 
+    const cascaderRef = ref(null)
+
     const selectedOrg = computed({
       get() {
         return props.selectedOrg;
@@ -57,7 +66,7 @@ export default defineComponent({
         emit('update:selectedOrg', value)
       }
     })
-    return {handleChange, ...toRefs(orgTree), selectedOrg}
+    return {handleChange, ...toRefs(orgTree), selectedOrg, cascaderRef}
   }
 })
 </script>

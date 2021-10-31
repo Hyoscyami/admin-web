@@ -174,7 +174,10 @@
         </table>
       </el-descriptions-item>
     </el-descriptions>
-    <el-button type="primary" @click="closeCurrentTag">返回</el-button>
+    <el-button type="primary">
+      <a :href="`/api/declare-history/export?id=${id}`">下载</a>
+    </el-button>
+    <el-button @click="closeCurrentTag">返回</el-button>
   </div>
 </template>
 
@@ -215,7 +218,7 @@ export default {
       })
     }
     return {
-      closeCurrentTag, tableVO
+      closeCurrentTag, tableVO, id
     }
   }
 }

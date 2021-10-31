@@ -423,6 +423,24 @@ export const constantRoutes = [
         name: 'StatisticsFullStatusQuery',
         component: () => import('@/views/statistics/full-status-query/index.vue'),
         meta: { title: '单个债务人全状态查询', icon: 'table' }
+      },
+      {
+        path: 'pre-tax-deduction',
+        name: 'StatisticsPreTaxDeduction',
+        component: () => import('@/views/statistics/pre-tax-deduction/index.vue'),
+        meta: { title: '呆账核销扣除情况分析', icon: 'table' }
+      },
+      {
+        path: 'write-off-revoke',
+        name: 'StatisticsWriteOffRevoke',
+        component: () => import('@/views/statistics/write-off-revoke/index.vue'),
+        meta: { title: '呆账核销收回情况分析', icon: 'table' }
+      },
+      {
+        path: 'revoke',
+        name: 'StatisticsRevoke',
+        component: () => import('@/views/statistics/revoke/index.vue'),
+        meta: { title: '核销收回扣除情况分析', icon: 'table' }
       }
     ]
   },

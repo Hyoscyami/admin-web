@@ -102,7 +102,7 @@ export function updateStatus(row: any) {
   } else if (row.status === StatusEnum.LAWS_REGULATIONS_OFF_SHELF) {
     req.status = StatusEnum.LAWS_REGULATIONS_PUBLISHED
   }
-  sendUpdateStatus(req).then((response) => {
+  sendUpdateStatus(req).then(() => {
     successMsg('操作成功')
     //刷新列表
     getList()

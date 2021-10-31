@@ -8,12 +8,31 @@ export interface QueryStatisticReq extends BaseQuery {
    *
    */
   type: number
+  /**
+   * 查询方式，1：按表格，2：按图形
+   */
+  queryType: number
   /** 组织id */
   orgId: number
   /** 组织id列表 */
   orgIds: Array<number>
   /** 年份 */
-  year: number
+  year: string
   /** 按年度展示时 mapper.xml用到 */
   years: Array<number>
+}
+
+export function useQueryStatisticReq(size: number): QueryStatisticReq {
+  return {
+    assetTypes: [],
+    name: '',
+    orgId: 0,
+    orgIds: [],
+    queryType: 1,
+    page: 1,
+    size,
+    type: 1,
+    year: '',
+    years: []
+  }
 }

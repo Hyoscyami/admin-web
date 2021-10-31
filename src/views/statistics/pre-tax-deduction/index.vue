@@ -15,53 +15,43 @@
         border
     >
       <el-table-column
-          prop="orgName"
-          label="所属机构"
+          prop="name"
+          label="类型"
       />
-      <el-table-column
-          prop="writeOffDate"
-          label="核销年度"
-          :formatter="formatDate"
-      />
-      <el-table-column
-          prop="borrowerName"
-          label="借款人"
-      />
-      <el-table-column
-          prop="borrowerIdNo"
-          label="借款人证件号"
-      />
-      <el-table-column
-          prop="loanAccountNo"
-          label="贷款账号"
-      />
-      <el-table-column
-          prop="status"
-          label="文件类型"
-      >
-        <template #default="scope">
-          {{ convertTypeToChinese(scope.row) }}
-        </template>
+      <el-table-column label="已核销呆账" align="center">
+        <el-table-column
+            prop="writtenOffCount"
+            label="笔数"
+        />
+        <el-table-column
+            prop="writtenOffAmount"
+            label="金额"
+        />
       </el-table-column>
-      <el-table-column
-          prop="status"
-          label="呆账核销状态"
-      >
-        <template #default="scope">
-          {{ convertStatusToChinese(scope.row.status) }}
-        </template>
+      <el-table-column label="已税前申报扣除" align="center">
+        <el-table-column
+            prop="declareTaxDeductionCount"
+            label="笔数"
+        />
+        <el-table-column
+            prop="declareTaxDeductionAmount"
+            label="金额"
+        />
+        <el-table-column
+            prop="declareTaxDeductionProportion"
+            :formatter="formatProportion"
+            label="比例"
+        />
       </el-table-column>
-      <el-table-column
-          fixed="right"
-          label="操作"
-          width="150"
-      >
-        <template #default="scope">
-          <a :download="`${scope.row.name}`" :href="`${scope.row.url}`">
-            <el-button size="small" class="filter-item" type="primary">下载</el-button>
-          </a>
-          <el-button size="small" class="filter-item" type="primary" @click="handlePreview(scope.row)">打开</el-button>
-        </template>
+      <el-table-column label="未税前申报扣除" align="center">
+        <el-table-column
+            prop="unDeclareTaxDeductionCount"
+            label="笔数"
+        />
+        <el-table-column
+            prop="unDeclareTaxDeductionAmount"
+            label="金额"
+        />
       </el-table-column>
     </el-table>
 
@@ -79,13 +69,13 @@
 import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
-  formatDate,
+  formatDate, formatProportion,
   getList, init,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
   table
-} from "@/composables/file";
+} from "@/composables/statistics/pre-tax-deduction";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
@@ -108,7 +98,7 @@ export default {
       formatDate,
       addFormRef,
       convertStatusToChinese,
-      convertTypeToChinese, handlePreview
+      convertTypeToChinese, handlePreview, formatProportion
     }
   }
 }
