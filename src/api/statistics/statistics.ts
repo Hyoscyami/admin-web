@@ -80,6 +80,17 @@ export function writeOffRevokeCount(data: QueryStatisticReq) {
   })
 }
 
+export function revokeCount(data: QueryStatisticReq) {
+  return request({
+    url: '/statistics/revokeCount',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
+
 export function totalPreTaxDeduction(data: QueryStatisticReq) {
   return request({
     url: '/statistics/totalPreTaxDeduction',
