@@ -7,22 +7,18 @@
         <el-option label="分年度展示" :value="3"/>
       </el-select>
     </el-form-item>
-    <el-form-item label="资产类型" prop="assetTypes" v-if="listQuery.type === 1">
+    <el-form-item label="资产类型" prop="assetTypes">
       <el-select v-model="listQuery.assetTypes" multiple filterable placeholder="请选择资产类型" clearable>
         <el-option v-for="item in typesSelect" :key="item.id" :label="item.text" :value="item.value"/>
       </el-select>
     </el-form-item>
-    <el-form-item label="所属组织" prop="orgId" v-if="listQuery.type === 2">
+    <el-form-item label="所属组织" prop="orgId">
       <Cascader ref="cascaderRef" v-model:orgId="listQuery.orgId"></Cascader>
     </el-form-item>
-    <el-form-item label="核销年度" prop="year" v-if="listQuery.type === 3">
-      <el-date-picker
-          v-model="listQuery.year"
-          :disabled-date="disabledDate"
-          type="year"
-          format="YYYY"
-          placeholder="请选择核销年度">
-      </el-date-picker>
+    <el-form-item label="核销年度" prop="years">
+      <el-select v-model="listQuery.years" multiple filterable placeholder="请选择核销年度" clearable>
+        <el-option v-for="item in yearsSelect" :key="item.id" :label="item.text" :value="item.value"/>
+      </el-select>
     </el-form-item>
     <el-form-item label="展示方式">
       <el-radio-group v-model="listQuery.queryType">
@@ -53,6 +49,10 @@ export default defineComponent({
       required: true
     },
     typesSelect: {
+      type: Array as PropType<SelectGroup[]>,
+      required: true
+    },
+    yearsSelect: {
       type: Array as PropType<SelectGroup[]>,
       required: true
     }

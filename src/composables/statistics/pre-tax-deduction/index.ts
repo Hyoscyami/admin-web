@@ -1,5 +1,9 @@
-import { reactive, ref } from 'vue'
-import { preTaxDeduction as list } from '@/api/statistics/statistics'
+import { reactive, ref, unref } from 'vue'
+import {
+  listPreTaxDeductionYears,
+  preTaxDeduction as list,
+  totalPreTaxDeduction
+} from '@/api/statistics/statistics'
 import { SelectGroup, useTable } from '@/model/req/query/Table'
 import { formatYYYY } from '@/utils/time'
 import { listChildrenByCode } from '@/api/sys/dict'
@@ -20,13 +24,19 @@ export const searchFormRef = ref(null)
 // 级联选择
 // 对话框新增表单ref
 export const addFormRef = ref(null)
+//表格合计
+export const tableTotal = ref<Array<string | number>>(['合计'])
 
 // 初始化
 export function init() {
-  // 初始化类型
+  // 初始化资产类型
   listTypes()
+  //初始化年份
+  listYears()
   // 初始化表格
   searchFormSubmit()
+  //合计
+  getSummaries()
 }
 
 // 搜索机构表单查询
@@ -35,7 +45,7 @@ export function searchFormSubmit() {
   getList()
 }
 
-// 获取状态下拉框
+// 获取资产类型下拉框
 export function listTypes() {
   listChildrenByCode(DictEnum.ASSERT_TYPE).then((response) => {
     if (table.typesSelect) {
@@ -54,12 +64,28 @@ export function listTypes() {
   })
 }
 
+// 获取可选择年份下拉框
+export function listYears() {
+  listPreTaxDeductionYears().then((response) => {
+    if (table.typesSelect) {
+      table.typesSelect.length = 0
+    }
+    response.data.forEach((item: number) => {
+      const type: SelectGroup = {
+        id: item,
+        text: item.toString(),
+        value: item
+      }
+      if (table.yearsSelect) {
+        table.yearsSelect.push(type)
+      }
+    })
+  })
+}
+
 // 获取父机构列表数据
 export function getList() {
   table.listLoading = true
-  if (table.listQuery.year) {
-    table.listQuery.year = formatYYYY(table.listQuery.year)
-  }
   if (table.listQuery.orgId) {
     table.listQuery.orgIds = [table.listQuery.orgId]
   }
@@ -106,4 +132,22 @@ export function formatDate(_row: any, _column: any, cellValue: any): string {
 // 比例显示
 export function formatProportion(_row: any, _column: any, cellValue: any): string {
   return cellValue + '%'
+}
+
+//表格合计行
+function getSummaries() {
+  totalPreTaxDeduction(table.listQuery).then((response) => {
+    tableTotal.value.push(response.data.writtenOffCount)
+    tableTotal.value.push(response.data.writtenOffAmount)
+    tableTotal.value.push(response.data.declareTaxDeductionCount)
+    tableTotal.value.push(response.data.declareTaxDeductionAmount)
+    tableTotal.value.push(response.data.declareTaxDeductionProportion + '%')
+    tableTotal.value.push(response.data.unDeclareTaxDeductionCount)
+    tableTotal.value.push(response.data.unDeclareTaxDeductionAmount)
+  })
+}
+
+//表格合计行
+export function getTableTotal() {
+  return unref(tableTotal)
 }

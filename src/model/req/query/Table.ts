@@ -12,6 +12,8 @@ export interface Table<T, Q> {
   statusSelect: Array<SelectGroup>
   // 类型选择器
   typesSelect?: Array<SelectGroup>
+  //年份选择器
+  yearsSelect?: Array<SelectGroup>
 }
 
 /**
@@ -25,6 +27,7 @@ export interface SelectGroup {
   //值
   value: number
 }
+
 /**
  * 初始化table
  * @param query
@@ -38,6 +41,8 @@ export function useTable<T, Q>(query: Q): Table<T, Q> {
     // 状态选择器
     statusSelect: [],
     // 类型选择器
-    typesSelect: []
+    typesSelect: [],
+    //年份选择器
+    yearsSelect: []
   }
 }

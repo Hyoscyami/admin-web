@@ -2,6 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <SearchForm ref="searchFormRef" :list-query="table.listQuery" :types-select="table.typesSelect"
+                  :years-select="table.yearsSelect"
                   @search-form-submit="searchFormSubmit"
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
@@ -11,6 +12,8 @@
         :cell-style="cellClass"
         :header-cell-style="headerClass"
         :data="table.tableData"
+        :summary-method="getTableTotal"
+        show-summary
         style="width: 100%"
         border
     >
@@ -70,11 +73,11 @@ import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
   formatDate, formatProportion,
-  getList, init,
+  getList, getTableTotal, getTableTotal, init,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table
+  table, tableTotal
 } from "@/composables/statistics/pre-tax-deduction";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -98,7 +101,7 @@ export default {
       formatDate,
       addFormRef,
       convertStatusToChinese,
-      convertTypeToChinese, handlePreview, formatProportion
+      convertTypeToChinese, handlePreview, formatProportion, getTableTotal
     }
   }
 }
