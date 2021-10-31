@@ -91,6 +91,17 @@ export function totalPreTaxDeduction(data: QueryStatisticReq) {
   })
 }
 
+export function totalWriteOffRevokeCount(data: QueryStatisticReq) {
+  return request({
+    url: '/statistics/totalWriteOffRevokeCount',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
+
 export function listPreTaxDeductionYears() {
   return request({
     url: '/statistics/listPreTaxDeductionYears',

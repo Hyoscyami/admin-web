@@ -33,26 +33,26 @@
       </el-table-column>
       <el-table-column label="核销收回" align="center">
         <el-table-column
-            prop="declareTaxDeductionCount"
+            prop="revokeCount"
             label="笔数"
         />
         <el-table-column
-            prop="declareTaxDeductionAmount"
+            prop="revokeAmount"
             label="金额"
         />
         <el-table-column
-            prop="declareTaxDeductionProportion"
+            prop="revokedProportion"
             :formatter="formatProportion"
             label="比例"
         />
       </el-table-column>
       <el-table-column label="核销未收回" align="center">
         <el-table-column
-            prop="unDeclareTaxDeductionCount"
+            prop="unRevokeCount"
             label="笔数"
         />
         <el-table-column
-            prop="unDeclareTaxDeductionAmount"
+            prop="unRevokeAmount"
             label="金额"
         />
       </el-table-column>
@@ -72,12 +72,15 @@
 import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
-  formatDate, formatProportion,
-  getList, getTableTotal, init,
+  formatDate,
+  formatProportion,
+  getList,
+  getTableTotal,
+  init,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, tableTotal
+  table
 } from "@/composables/statistics/write-off-revoke";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";

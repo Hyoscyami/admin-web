@@ -72,12 +72,15 @@
 import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
-  formatDate, formatProportion,
-  getList, getTableTotal, init,
+  formatDate,
+  formatProportion,
+  getList,
+  getTableTotal,
+  init,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, tableTotal
+  table
 } from "@/composables/statistics/pre-tax-deduction";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
