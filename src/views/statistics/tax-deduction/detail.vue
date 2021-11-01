@@ -41,7 +41,7 @@
         </el-tag>
       </el-descriptions-item>
     </el-descriptions>
-    <el-descriptions title="会计资料" column="2">
+    <el-descriptions title="（四）会计资料" column="2">
       <el-descriptions-item label="核销会计凭证" width="300px">
         <el-tag size="small" v-for="item in fileVO.accountDocumentList" :key="item.id" style="margin-right:10px;">
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
