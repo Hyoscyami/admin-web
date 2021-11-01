@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <SearchForm ref="searchFormRef" :list-query="table.listQuery" :types-select="table.typesSelect"
-                  :years-select="table.yearsSelect"
+                  :years-select="table.yearsSelect" :orgs-select="table.orgsSelect"
                   @search-form-submit="searchFormSubmit"
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
@@ -16,6 +16,7 @@
         show-summary
         style="width: 100%"
         border
+        v-show="table.listQuery.queryType === 1"
     >
       <el-table-column
           prop="name"
@@ -57,7 +58,10 @@
         />
       </el-table-column>
     </el-table>
+    <!--    图形-->
+    <div id="main" style="width: 1000px;height:600px;" v-show="table.listQuery.queryType === 2">
 
+    </div>
     <pagination
         v-show="table.total>0"
         :total="table.total"
@@ -71,12 +75,12 @@
 <script lang="ts">
 import Pagination from "@/components/Pagination/index.vue";
 import {
-  addFormRef,
+  addFormRef, echart, echartsData, echartXData,
   formatDate,
   formatProportion,
   getList,
   getTableTotal,
-  init,
+  init, initEcharts,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
@@ -86,6 +90,7 @@ import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
 import {convertTypeToChinese, handlePreview} from "@/composables/deferred-declaration";
+import {onMounted, onUnmounted} from 'vue'
 
 export default {
   name: "StatisticsPreTaxDeduction",
@@ -93,6 +98,13 @@ export default {
   setup() {
     // 初始化
     init()
+    // onMounted(() => {
+    //   initEcharts()
+    // })
+    onUnmounted(() => {
+      echart.dispose
+    })
+
     return {
       table,
       searchFormRef,
@@ -104,7 +116,7 @@ export default {
       formatDate,
       addFormRef,
       convertStatusToChinese,
-      convertTypeToChinese, handlePreview, formatProportion, getTableTotal
+      convertTypeToChinese, handlePreview, formatProportion, getTableTotal, echartsData, echart, echartXData
     }
   }
 }

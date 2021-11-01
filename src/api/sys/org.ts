@@ -41,6 +41,17 @@ export function list(data: QueryOrgReq) {
   })
 }
 
+export function entityList(data: QueryOrgReq) {
+  return request({
+    url: '/org/entity/list',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: JSON.stringify(data)
+  })
+}
+
 export function listChildrenById(id: number) {
   return request({
     url: '/listChildrenById',

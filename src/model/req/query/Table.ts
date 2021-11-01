@@ -14,6 +14,8 @@ export interface Table<T, Q> {
   typesSelect?: Array<SelectGroup>
   //年份选择器
   yearsSelect?: Array<SelectGroup>
+  //组织选择器
+  orgsSelect?: Array<SelectGroup>
 }
 
 /**
@@ -43,6 +45,8 @@ export function useTable<T, Q>(query: Q): Table<T, Q> {
     // 类型选择器
     typesSelect: [],
     //年份选择器
-    yearsSelect: []
+    yearsSelect: [],
+    //组织选择器
+    orgsSelect: []
   }
 }
