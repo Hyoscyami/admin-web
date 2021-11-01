@@ -10,9 +10,6 @@
         <el-option label="已下架" :value="3"/>
       </el-select>
     </el-form-item>
-    <el-form-item label="所属组织" prop="orgId">
-      <Cascader v-model:orgId="listQuery.orgId" v-model:selectedOrg="selectOrg"></Cascader>
-    </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="searchFormSubmit">查询</el-button>
       <el-button @click="resetSearchForm">重置</el-button>
