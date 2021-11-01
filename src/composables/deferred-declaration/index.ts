@@ -12,6 +12,7 @@ import { errorMsg } from '@/utils/common'
 import { ApiResponse } from '@/model/resp/base/ApiResponse'
 import { StatusEnum } from '@/enums/StatusEnum'
 import { TypeEnum } from '../../enums/TypeEnum'
+import { taxDeductionListExport } from '../../api/statistics/statistics'
 
 // 初始化表格的对象
 const initTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
@@ -27,6 +28,8 @@ export const tableRef = ref(null)
 export const searchFormRef = ref(null)
 // 对话框新增表单ref
 export const addFormRef = ref(null)
+//导出加载
+export const exportLoading = ref(false)
 
 // 初始化
 export function init() {
@@ -236,4 +239,13 @@ export function handlePreview(file: any) {
   window.open(
     'https://view.officeapps.live.com/op/view.aspx?src=' + window.location.host + file.url
   )
+}
+
+//导出
+export function exportList() {
+  exportLoading.value = true
+  taxDeductionListExport(table.listQuery).then((response) => {
+    window.open(response.data)
+    exportLoading.value = false
+  })
 }

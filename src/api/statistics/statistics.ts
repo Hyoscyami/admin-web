@@ -14,6 +14,28 @@ export function taxDeductionList(data: QueryBadDebtReq) {
   })
 }
 
+export function taxDeductionListExport(data: QueryBadDebtReq) {
+  return request({
+    url: '/statistics/taxDeductionList/export',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
+
+export function unDeclareListExport(data: QueryBadDebtReq) {
+  return request({
+    url: '/statistics/unDeclareList/export',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
+
 export function unDeclareList(data: QueryBadDebtReq) {
   return request({
     url: '/statistics/unDeclareList',

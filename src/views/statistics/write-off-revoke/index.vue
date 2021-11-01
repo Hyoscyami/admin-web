@@ -6,6 +6,9 @@
                   @search-form-submit="searchFormSubmit"
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
+    <div class="filter-container">
+      <el-button type="primary" @click="exportList" :loading="exportLoading">导出</el-button>
+    </div>
     <el-table
         v-loading="table.listLoading"
         class="el-table"
@@ -85,7 +88,7 @@ import {
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
-import {convertTypeToChinese, handlePreview} from "@/composables/deferred-declaration";
+import {convertTypeToChinese, exportList, exportLoading, handlePreview} from "@/composables/deferred-declaration";
 
 export default {
   name: "StatisticsWriteOffRevoke",
@@ -104,7 +107,7 @@ export default {
       formatDate,
       addFormRef,
       convertStatusToChinese,
-      convertTypeToChinese, handlePreview, formatProportion, getTableTotal
+      convertTypeToChinese, handlePreview, formatProportion, getTableTotal, exportList, exportLoading
     }
   }
 }

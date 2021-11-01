@@ -2,6 +2,7 @@ import { reactive, ref } from 'vue'
 import {
   listPreTaxDeductionYears,
   preTaxDeduction as list,
+  taxDeductionListExport,
   totalPreTaxDeduction
 } from '@/api/statistics/statistics'
 import { SelectGroup, useTable } from '@/model/req/query/Table'
@@ -34,6 +35,8 @@ export const echartsData = ref<Array<Array<string | number>>>([])
 export const echartXData = ref<Array<string>>([])
 // echart
 export const echart = echarts
+//导出加载
+export const exportLoading = ref(false)
 
 // 初始化
 export function init() {
@@ -113,10 +116,6 @@ export function listYears() {
 // 获取父机构列表数据
 export function getList() {
   table.listLoading = true
-  if (table.listQuery.orgId) {
-    table.listQuery.orgIds = [table.listQuery.orgId]
-  }
-  echartsData.value.push()
   list(table.listQuery).then((response) => {
     table.tableData = response.data.records
     table.total = response.data.total
@@ -240,4 +239,13 @@ export function initEcharts() {
     ]
   })
   myChart.setOption(option)
+}
+
+//导出
+export function exportList() {
+  exportLoading.value = true
+  taxDeductionListExport(table.listQuery).then((response) => {
+    window.open(response.data)
+    exportLoading.value = false
+  })
 }
