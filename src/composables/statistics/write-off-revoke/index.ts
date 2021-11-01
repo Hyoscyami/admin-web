@@ -11,6 +11,8 @@ import { DictEnum } from '@/enums/DictEnum'
 import { DictVO } from '@/model/vo/DictVO'
 import { StatisticVO } from '../../../model/vo/StatisticVO'
 import { QueryStatisticReq, useQueryStatisticReq } from '../../../model/req/query/QueryStatisticReq'
+import { entityList } from '../../../api/sys/org'
+import { useQueryOrgReq } from '../../../model/req/query/QueryOrgReq'
 
 // 初始化表格的对象
 const initTable = useTable<StatisticVO, QueryStatisticReq>(useQueryStatisticReq(20))
@@ -35,6 +37,8 @@ export function init() {
   // listTypes()
   //初始化年份
   listYears()
+  //初始化组织
+  listOrgs()
   // 初始化表格
   searchFormSubmit()
 }
@@ -59,6 +63,25 @@ export function listTypes() {
       }
       if (table.typesSelect) {
         table.typesSelect.push(type)
+      }
+    })
+  })
+}
+
+// 获取组织下拉框
+export function listOrgs() {
+  entityList(useQueryOrgReq(20)).then((response) => {
+    if (table.orgsSelect) {
+      table.orgsSelect.length = 0
+    }
+    response.data.forEach((item: DictVO) => {
+      const type: SelectGroup = {
+        id: item.id,
+        text: item.name,
+        value: item.id
+      }
+      if (table.orgsSelect) {
+        table.orgsSelect.push(type)
       }
     })
   })

@@ -19,7 +19,6 @@ import * as echarts from 'echarts'
 const initTable = useTable<StatisticVO, QueryStatisticReq>(useQueryStatisticReq(20))
 // 父机构表格数据
 export const table = reactive(initTable)
-table.listQuery.queryType = 2
 // 表格ref
 export const tableRef = ref(null)
 // 搜索表格的搜索表单

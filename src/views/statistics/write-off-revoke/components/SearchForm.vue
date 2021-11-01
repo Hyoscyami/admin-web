@@ -12,8 +12,10 @@
     <!--        <el-option v-for="item in typesSelect" :key="item.id" :label="item.text" :value="item.value"/>-->
     <!--      </el-select>-->
     <!--    </el-form-item>-->
-    <el-form-item label="所属组织" prop="orgId">
-      <Cascader ref="cascaderRef" v-model:orgId="listQuery.orgId"></Cascader>
+    <el-form-item label="所属组织" prop="orgIds">
+      <el-select v-model="listQuery.orgIds" multiple filterable placeholder="请选择所属组织" clearable>
+        <el-option v-for="item in orgsSelect" :key="item.id" :label="item.text" :value="item.value"/>
+      </el-select>
     </el-form-item>
     <el-form-item label="核销年度" prop="years">
       <el-select v-model="listQuery.years" multiple filterable placeholder="请选择核销年度" clearable>
@@ -53,6 +55,10 @@ export default defineComponent({
       required: true
     },
     yearsSelect: {
+      type: Array as PropType<SelectGroup[]>,
+      required: true
+    },
+    orgsSelect: {
       type: Array as PropType<SelectGroup[]>,
       required: true
     }
