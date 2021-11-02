@@ -66,11 +66,6 @@
           v-if="columns.confirmationConditionsName"
       />
       <el-table-column
-          prop="declareYear"
-          label="税前扣除年度"
-          v-if="columns.declareYear"
-      />
-      <el-table-column
           prop="status"
           label="呆账核销状态"
           v-if="columns.writeOffStatus"
@@ -155,7 +150,6 @@
         <el-checkbox label="资产余额" v-model="columns.assetBalance"></el-checkbox>
         <el-checkbox label="核销金额（本金）" v-model="columns.capital"></el-checkbox>
         <el-checkbox label="核销年度" v-model="columns.writeOffDate"></el-checkbox>
-        <el-checkbox label="税前扣除年度" v-model="columns.declareYear"></el-checkbox>
         <el-checkbox label="呆账核销状态" v-model="columns.writeOffStatus"></el-checkbox>
         <el-checkbox label="借款日期" v-model="columns.borrowTime"></el-checkbox>
         <el-checkbox label="到期日期" v-model="columns.expireTime"></el-checkbox>
