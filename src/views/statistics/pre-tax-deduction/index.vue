@@ -62,11 +62,20 @@
       </el-table-column>
     </el-table>
     <!--    图形-->
-    <div id="main" style="width: 1000px;height:600px;" v-show="table.listQuery.queryType === 2">
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <div id="echartCount" style="width: 800px;height:600px;" v-show="table.listQuery.queryType === 2">
 
-    </div>
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div id="echartAmount" style="width: 600px;height:600px;" v-show="table.listQuery.queryType === 2">
+
+        </div>
+      </el-col>
+    </el-row>
     <pagination
-        v-show="table.total>0"
+        v-show="table.total>0 && table.listQuery.queryType === 1"
         :total="table.total"
         v-model:page="table.listQuery.page"
         v-model:limit="table.listQuery.size"
@@ -78,12 +87,16 @@
 <script lang="ts">
 import Pagination from "@/components/Pagination/index.vue";
 import {
-  addFormRef, echart, echartsData, echartXData, exportList, exportLoading,
+  addFormRef,
+  echart,
+  echartsCountData,
+  exportList,
+  exportLoading,
   formatDate,
   formatProportion,
   getList,
   getTableTotal,
-  init, initEcharts,
+  init,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
@@ -93,7 +106,7 @@ import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
 import {convertTypeToChinese, handlePreview} from "@/composables/deferred-declaration";
-import {onMounted, onUnmounted} from 'vue'
+import {onUnmounted} from 'vue'
 
 export default {
   name: "StatisticsPreTaxDeduction",
@@ -123,9 +136,8 @@ export default {
       handlePreview,
       formatProportion,
       getTableTotal,
-      echartsData,
+      echartsData: echartsCountData,
       echart,
-      echartXData,
       exportLoading,
       exportList
     }

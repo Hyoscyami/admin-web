@@ -29,10 +29,10 @@ export const searchFormRef = ref(null)
 export const addFormRef = ref(null)
 //表格合计
 export const tableTotal = ref<Array<string | number>>(['合计'])
-// echarts数据
-export const echartsData = ref<Array<Array<string | number>>>([])
-//echarts横坐标
-export const echartXData = ref<Array<string>>([])
+// echarts笔数数据
+export const echartsCountData = ref<Array<object>>([])
+//金额
+export const echartsAmountData = ref<Array<object>>([])
 // echart
 export const echart = echarts
 //导出加载
@@ -120,33 +120,6 @@ export function getList() {
     table.tableData = response.data.records
     table.total = response.data.total
     table.listLoading = false
-    if (echartsData.value) {
-      echartsData.value.length = 0
-    }
-    echartsData.value.push([
-      'name',
-      '已核销呆账笔数',
-      '已核销呆账金额',
-      '已税前申报扣除笔数',
-      '已税前申报扣除金额',
-      '已税前扣除比例',
-      '未申报税前扣除笔数',
-      '未申报税前扣除金额'
-    ])
-    table.tableData.forEach((item) => {
-      const data = []
-      data.push(item.name)
-      data.push(item.writtenOffCount)
-      data.push(item.writtenOffAmount)
-      data.push(item.declareTaxDeductionCount)
-      data.push(item.declareTaxDeductionAmount)
-      data.push(item.declareTaxDeductionProportion)
-      data.push(item.unDeclareTaxDeductionCount)
-      data.push(item.unDeclareTaxDeductionAmount)
-      echartsData.value.push(data)
-    })
-    // 初始化echarts
-    initEcharts()
   })
   //获取表格列总数
   getSummaries()
@@ -199,6 +172,25 @@ function getSummaries() {
     tableTotal.value.push(response.data.declareTaxDeductionProportion + '%')
     tableTotal.value.push(response.data.unDeclareTaxDeductionCount)
     tableTotal.value.push(response.data.unDeclareTaxDeductionAmount)
+    //初始化echarts
+    echartsCountData.value.push({
+      value: response.data.declareTaxDeductionCount,
+      name: '已申报税前扣除笔数'
+    })
+    echartsCountData.value.push({
+      value: response.data.unDeclareTaxDeductionCount,
+      name: '未申报税前扣除笔数'
+    })
+    echartsAmountData.value.push({
+      value: response.data.declareTaxDeductionAmount,
+      name: '已申报税前扣除金额'
+    })
+    echartsAmountData.value.push({
+      value: response.data.unDeclareTaxDeductionAmount,
+      name: '未申报税前扣除金额'
+    })
+    // 初始化echarts
+    initEcharts()
   })
 }
 
@@ -212,33 +204,75 @@ export function initEcharts() {
   type EChartsOption = echarts.EChartsOption
 
   // @ts-ignore
-  const myChart = echart.init(document.getElementById('main'))
-  let option: EChartsOption
+  const myChartCount = echart.init(document.getElementById('echartCount'))
+  // @ts-ignore
+  const myChartAmount = echart.init(document.getElementById('echartAmount'))
+  //笔数
+  let countOption: EChartsOption
+  //金额
+  let amountOption: EChartsOption
 
-  option = reactive({
-    legend: {},
-    tooltip: {},
-    dataset: {
-      source: echartsData.value
+  countOption = reactive({
+    title: {
+      text: '核销税前扣除情况笔数分析',
+      subtext: '',
+      left: 'center'
     },
-    xAxis: {
-      type: 'category',
-      axisLabel: { interval: 0 }
+    tooltip: {
+      trigger: 'item'
     },
-    yAxis: {},
-    // Declare several bar series, each will be mapped
-    // to a column of dataset.source by default.
+    legend: {
+      orient: 'vertical',
+      left: 'left'
+    },
     series: [
-      { type: 'bar' },
-      { type: 'bar' },
-      { type: 'bar' },
-      { type: 'bar' },
-      { type: 'bar' },
-      { type: 'bar' },
-      { type: 'bar' }
+      {
+        name: '',
+        type: 'pie',
+        radius: '50%',
+        data: echartsCountData.value,
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
     ]
   })
-  myChart.setOption(option)
+  amountOption = reactive({
+    title: {
+      text: '核销税前扣除情况金额分析',
+      subtext: '',
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left'
+    },
+    series: [
+      {
+        name: '',
+        type: 'pie',
+        radius: '50%',
+        data: echartsAmountData.value,
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  })
+
+  myChartCount.setOption(countOption)
+  myChartAmount.setOption(amountOption)
 }
 
 //导出

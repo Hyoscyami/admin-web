@@ -428,19 +428,19 @@ export const constantRoutes = [
         path: 'pre-tax-deduction',
         name: 'StatisticsPreTaxDeduction',
         component: () => import('@/views/statistics/pre-tax-deduction/index.vue'),
-        meta: { title: '呆账核销扣除情况分析', icon: 'table' }
+        meta: { title: '核销税前扣除情况分析', icon: 'table' }
       },
       {
         path: 'write-off-revoke',
         name: 'StatisticsWriteOffRevoke',
         component: () => import('@/views/statistics/write-off-revoke/index.vue'),
-        meta: { title: '呆账核销收回情况分析', icon: 'table' }
+        meta: { title: '核销收回情况分析', icon: 'table' }
       },
       {
         path: 'revoke',
         name: 'StatisticsRevoke',
         component: () => import('@/views/statistics/revoke/index.vue'),
-        meta: { title: '核销收回扣除情况分析', icon: 'table' }
+        meta: { title: '收回税前扣除情况分析', icon: 'table' }
       }
     ]
   },
