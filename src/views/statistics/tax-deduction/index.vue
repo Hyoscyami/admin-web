@@ -73,10 +73,10 @@
       <el-table-column
           prop="status"
           label="呆账核销状态"
-          v-if="columns.status"
+          v-if="columns.writeOffStatus"
       >
         <template #default="scope">
-          {{ convertStatusToChinese(scope.row.status) }}
+          {{ convertStatusToChinese(scope.row.writeOffStatus) }}
         </template>
       </el-table-column>
       <el-table-column
@@ -148,7 +148,7 @@
         <el-checkbox label="资产类型" v-model="columns.assetTypeName"></el-checkbox>
         <el-checkbox label="认定条件" v-model="columns.confirmationConditionsName"></el-checkbox>
         <el-checkbox label="税前扣除年度" v-model="columns.declareYear"></el-checkbox>
-        <el-checkbox label="呆账核销状态" v-model="columns.status"></el-checkbox>
+        <el-checkbox label="呆账核销状态" v-model="columns.writeOffStatus"></el-checkbox>
         <el-checkbox label="借款日期" v-model="columns.borrowTime"></el-checkbox>
         <el-checkbox label="到期日期" v-model="columns.expireTime"></el-checkbox>
         <el-checkbox label="核销金额（表内利息）" v-model="columns.revokeOnBalanceSheetInterest"></el-checkbox>
