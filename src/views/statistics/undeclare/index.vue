@@ -122,7 +122,7 @@
           width="150"
       >
         <template #default="scope">
-          <el-button type="text" size="small">
+          <el-button type="text" size="small" v-if="scope.row.type === 1">
             <router-link :to="{ path: '/statistics/tax-deduction/detail',query: { id:scope.row.id }}">材料查询
             </router-link>
           </el-button>
