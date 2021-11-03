@@ -97,12 +97,13 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table
+  table, echart
 } from "@/composables/statistics/revoke";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
 import {convertTypeToChinese, handlePreview} from "@/composables/deferred-declaration";
+import {onUnmounted} from 'vue'
 
 export default {
   name: "StatisticsRevoke",
@@ -110,6 +111,9 @@ export default {
   setup() {
     // 初始化
     init()
+    onUnmounted(() => {
+      echart.dispose
+    })
     return {
       table,
       searchFormRef,
@@ -121,7 +125,7 @@ export default {
       formatDate,
       addFormRef,
       convertStatusToChinese,
-      convertTypeToChinese, handlePreview, formatProportion, getTableTotal, exportLoading, exportList
+      convertTypeToChinese, handlePreview, formatProportion, getTableTotal, exportLoading, exportList, echart
     }
   }
 }

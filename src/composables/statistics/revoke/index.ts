@@ -1,9 +1,9 @@
 import { reactive, ref } from 'vue'
 import {
   listPreTaxDeductionYears,
-  totalWriteOffRevokeCount,
   revokeCount as list,
-  revokeCountExport
+  revokeCountExport,
+  totalRevokeCount
 } from '@/api/statistics/statistics'
 import { SelectGroup, useTable } from '@/model/req/query/Table'
 import { formatYYYY } from '@/utils/time'
@@ -147,7 +147,7 @@ export function formatProportion(_row: any, _column: any, cellValue: any): strin
 
 //表格合计行
 function getSummaries() {
-  totalWriteOffRevokeCount(table.listQuery).then((response) => {
+  totalRevokeCount(table.listQuery).then((response) => {
     tableTotal.value.push(response.data.revokeCount)
     tableTotal.value.push(response.data.revokeAmount)
     tableTotal.value.push(response.data.revokedCount)

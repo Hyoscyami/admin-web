@@ -190,6 +190,17 @@ export function totalWriteOffRevokeCount(data: QueryStatisticReq) {
   })
 }
 
+export function totalRevokeCount(data: QueryStatisticReq) {
+  return request({
+    url: '/statistics/totalRevokeCount',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
+
 export function listPreTaxDeductionYears() {
   return request({
     url: '/statistics/listPreTaxDeductionYears',
