@@ -11,6 +11,7 @@ import { CommonEnum } from '../../../enums/CommonEnum'
 import { errorMsg } from '../../../utils/common'
 import { ApiResponse } from '../../../model/resp/base/ApiResponse'
 import { StatusEnum } from '../../../enums/StatusEnum'
+import { revokeTaxDeductionListExport } from '../../../api/statistics/statistics'
 
 // 初始化表格的对象
 const initTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
@@ -26,6 +27,8 @@ export const tableRef = ref(null)
 export const searchFormRef = ref(null)
 // 对话框新增表单ref
 export const addFormRef = ref(null)
+//导出加载
+export const exportLoading = ref(false)
 
 // 初始化
 export function init() {
@@ -236,9 +239,18 @@ export function formatDetailDate(_row: any, _column: any, cellValue: any): strin
   return formatYYYYMMDD(cellValue)
 }
 
-export function convertStatus(status): string {
+export function convertStatus(status: number): string {
   if (status === 1) {
     return '申报成功'
   }
   return '申报失败'
+}
+
+//导出
+export function exportList() {
+  exportLoading.value = true
+  revokeTaxDeductionListExport(table.listQuery).then((response) => {
+    window.open(response.data)
+    exportLoading.value = false
+  })
 }

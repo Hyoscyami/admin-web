@@ -1,6 +1,7 @@
 import { reactive, ref } from 'vue'
 import {
   listPreTaxDeductionYears,
+  revokeCountExport,
   totalWriteOffRevokeCount,
   writeOffRevokeCount as list
 } from '@/api/statistics/statistics'
@@ -30,6 +31,8 @@ export const searchFormRef = ref(null)
 export const addFormRef = ref(null)
 //表格合计
 export const tableTotal = ref<Array<string | number>>(['合计'])
+//导出加载
+export const exportLoading = ref(false)
 
 // 初始化
 export function init() {
@@ -175,4 +178,13 @@ function getSummaries() {
 //表格合计行
 export function getTableTotal() {
   return tableTotal.value
+}
+
+//导出
+export function exportList() {
+  exportLoading.value = true
+  revokeCountExport(table.listQuery).then((response) => {
+    window.open(response.data)
+    exportLoading.value = false
+  })
 }

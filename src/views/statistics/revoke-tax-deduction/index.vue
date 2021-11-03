@@ -9,6 +9,7 @@
       <el-button type="primary" @click="openDialog">
         选择展示列
       </el-button>
+      <el-button type="primary" @click="exportList" :loading="exportLoading">导出</el-button>
     </div>
     <el-table
         v-loading="table.listLoading"
@@ -174,7 +175,7 @@ import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
   cancelAddForm, columns,
-  dialogVisible,
+  dialogVisible, exportList, exportLoading,
   formatYear,
   formatYYYYMMDD,
   getList,
@@ -205,7 +206,7 @@ export default {
       headerClass,
       formatYear,
       formatYYYYMMDD,
-      addFormRef, convertStatusToChinese, columns, dialogVisible, cancelAddForm, openDialog
+      addFormRef, convertStatusToChinese, columns, dialogVisible, cancelAddForm, openDialog, exportLoading, exportList
     }
   }
 }

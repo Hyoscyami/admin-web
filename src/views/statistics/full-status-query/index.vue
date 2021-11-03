@@ -9,6 +9,7 @@
       <el-button type="primary" @click="openDialog">
         选择展示列
       </el-button>
+      <el-button type="primary" @click="exportList" :loading="exportLoading">导出</el-button>
     </div>
     <el-table
         v-loading="table.listLoading"
@@ -65,6 +66,21 @@
           prop="capital"
           label="核销金额（本金）"
           v-if="columns.capital"
+      />
+      <el-table-column
+          prop="revokeOnBalanceSheetInterest"
+          label="核销金额（表内利息）"
+          v-if="columns.revokeOnBalanceSheetInterest"
+      />
+      <el-table-column
+          prop="revokeOffBalanceSheetInterest"
+          label="核销金额（表外利息）"
+          v-if="columns.revokeOffBalanceSheetInterest"
+      />
+      <el-table-column
+          prop="charges"
+          label="核销金额（应收费用）"
+          v-if="columns.charges"
       />
       <el-table-column
           prop="writeOffDate"
@@ -135,6 +151,9 @@
         <el-checkbox label="呆账核销状态" v-model="columns.writeOffStatus"></el-checkbox>
         <el-checkbox label="借款日期" v-model="columns.borrowTime"></el-checkbox>
         <el-checkbox label="到期日期" v-model="columns.expireTime"></el-checkbox>
+        <el-checkbox label="核销金额（表内利息）" v-model="columns.onBalanceSheetInterest"></el-checkbox>
+        <el-checkbox label="核销金额（表外利息）" v-model="columns.offBalanceSheetInterest"></el-checkbox>
+        <el-checkbox label="核销金额（应收费用）" v-model="columns.charges"></el-checkbox>
         <el-checkbox label="收回金额（表内利息）" v-model="columns.revokeOnBalanceSheetInterest"></el-checkbox>
         <el-checkbox label="收回金额（表外利息）" v-model="columns.revokeOffBalanceSheetInterest"></el-checkbox>
         <el-checkbox label="收回金额（应收费用）" v-model="columns.revokeCharges"></el-checkbox>
@@ -159,7 +178,7 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, taxDeductionColumns, dialogVisible, cancelAddForm, openDialog
+  table, taxDeductionColumns, dialogVisible, cancelAddForm, openDialog, exportLoading, exportList
 } from "@/composables/statistics/full-status-query";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -181,7 +200,14 @@ export default {
       headerClass,
       formatYear,
       formatYYYYMMDD,
-      addFormRef, convertStatusToChinese, columns: taxDeductionColumns, dialogVisible, cancelAddForm, openDialog
+      addFormRef,
+      convertStatusToChinese,
+      columns: taxDeductionColumns,
+      dialogVisible,
+      cancelAddForm,
+      openDialog,
+      exportLoading,
+      exportList
     }
   }
 }

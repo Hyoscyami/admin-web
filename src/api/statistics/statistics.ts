@@ -36,6 +36,28 @@ export function unDeclareListExport(data: QueryBadDebtReq) {
   })
 }
 
+export function revokeTaxDeductionListExport(data: QueryBadDebtRevokeReq) {
+  return request({
+    url: '/statistics/revoke/taxDeductionList/export',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
+
+export function fullStatusQueryExport(data: QueryBadDebtReq) {
+  return request({
+    url: '/statistics/fullStatusQuery/export',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
+
 export function unDeclareList(data: QueryBadDebtReq) {
   return request({
     url: '/statistics/unDeclareList',
@@ -91,6 +113,17 @@ export function preTaxDeduction(data: QueryStatisticReq) {
   })
 }
 
+export function preTaxDeductionExport(data: QueryStatisticReq) {
+  return request({
+    url: '/statistics/preTaxDeduction/export',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
+
 export function writeOffRevokeCount(data: QueryStatisticReq) {
   return request({
     url: '/statistics/writeOffRevokeCount',
@@ -105,6 +138,17 @@ export function writeOffRevokeCount(data: QueryStatisticReq) {
 export function revokeCount(data: QueryStatisticReq) {
   return request({
     url: '/statistics/revokeCount',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
+
+export function revokeCountExport(data: QueryStatisticReq) {
+  return request({
+    url: '/statistics/revokeCount/export',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'

@@ -6,6 +6,9 @@
                   @search-form-submit="searchFormSubmit"
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
+    <div class="filter-container">
+      <el-button type="primary" @click="exportList" :loading="exportLoading">导出</el-button>
+    </div>
     <el-table
         v-loading="table.listLoading"
         class="el-table"
@@ -71,7 +74,7 @@
 <script lang="ts">
 import Pagination from "@/components/Pagination/index.vue";
 import {
-  addFormRef,
+  addFormRef, exportList, exportLoading,
   formatDate,
   formatProportion,
   getList,
@@ -104,7 +107,7 @@ export default {
       formatDate,
       addFormRef,
       convertStatusToChinese,
-      convertTypeToChinese, handlePreview, formatProportion, getTableTotal
+      convertTypeToChinese, handlePreview, formatProportion, getTableTotal, exportLoading, exportList
     }
   }
 }

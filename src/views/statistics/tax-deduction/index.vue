@@ -9,6 +9,7 @@
       <el-button type="primary" @click="openDialog">
         选择展示列
       </el-button>
+      <el-button type="primary" @click="exportList" :loading="exportLoading">导出</el-button>
     </div>
     <el-table
         v-loading="table.listLoading"
@@ -175,7 +176,7 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, taxDeductionColumns, dialogVisible, cancelAddForm, openDialog
+  table, taxDeductionColumns, dialogVisible, cancelAddForm, openDialog, exportList, exportLoading
 } from "@/composables/statistics/tax-deduction";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -197,7 +198,14 @@ export default {
       headerClass,
       formatYear,
       formatYYYYMMDD,
-      addFormRef, convertStatusToChinese, columns: taxDeductionColumns, dialogVisible, cancelAddForm, openDialog
+      addFormRef,
+      convertStatusToChinese,
+      columns: taxDeductionColumns,
+      dialogVisible,
+      cancelAddForm,
+      openDialog,
+      exportList,
+      exportLoading
     }
   }
 }

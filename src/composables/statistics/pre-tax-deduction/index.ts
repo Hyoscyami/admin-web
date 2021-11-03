@@ -2,7 +2,7 @@ import { reactive, ref } from 'vue'
 import {
   listPreTaxDeductionYears,
   preTaxDeduction as list,
-  taxDeductionListExport,
+  preTaxDeductionExport,
   totalPreTaxDeduction
 } from '@/api/statistics/statistics'
 import { SelectGroup, useTable } from '@/model/req/query/Table'
@@ -278,7 +278,7 @@ export function initEcharts() {
 //导出
 export function exportList() {
   exportLoading.value = true
-  taxDeductionListExport(table.listQuery).then((response) => {
+  preTaxDeductionExport(table.listQuery).then((response) => {
     window.open(response.data)
     exportLoading.value = false
   })
