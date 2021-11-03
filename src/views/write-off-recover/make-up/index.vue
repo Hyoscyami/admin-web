@@ -53,6 +53,10 @@
           label="操作"
           width="150"
       >
+        <el-button type="text" size="small">
+          <router-link :to="{ path: '/write-off-recover/make-up/edit',query: { id:scope.row.id }}">编辑
+          </router-link>
+        </el-button>
         <template #default="scope">
           <el-button type="text" size="small"
                      v-if="scope.row.writeOffStatus === undefined || scope.row.writeOffStatus === null">
