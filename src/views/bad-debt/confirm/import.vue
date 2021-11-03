@@ -22,7 +22,7 @@
                 :on-preview="handlePreview"
                 :on-success="handleUploadSuccess"
             >
-              <el-button size="small" :disabled="uploadDisable" type="primary">点击上传会计凭证</el-button>
+              <el-button size="small" :disabled="uploadDisable" type="primary">点击上传核销会计凭证</el-button>
             </el-upload>
           </el-col>
           <el-col :span="12" :offset="1" v-if="riskTips">
