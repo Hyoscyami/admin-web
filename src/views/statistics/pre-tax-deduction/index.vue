@@ -89,7 +89,6 @@ import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
   echart,
-  echartsCountData,
   exportList,
   exportLoading,
   formatDate,
@@ -136,7 +135,6 @@ export default {
       handlePreview,
       formatProportion,
       getTableTotal,
-      echartsData: echartsCountData,
       echart,
       exportLoading,
       exportList

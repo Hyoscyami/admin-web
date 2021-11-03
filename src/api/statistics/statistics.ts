@@ -135,6 +135,17 @@ export function writeOffRevokeCount(data: QueryStatisticReq) {
   })
 }
 
+export function writeOffRevokeCountExport(data: QueryStatisticReq) {
+  return request({
+    url: '/statistics/writeOffRevokeCount/export',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
+
 export function revokeCount(data: QueryStatisticReq) {
   return request({
     url: '/statistics/revokeCount',

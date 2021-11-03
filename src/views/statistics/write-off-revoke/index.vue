@@ -19,6 +19,7 @@
         show-summary
         style="width: 100%"
         border
+        v-show="table.listQuery.queryType === 1"
     >
       <el-table-column
           prop="name"
@@ -62,12 +63,25 @@
     </el-table>
 
     <pagination
-        v-show="table.total>0"
+        v-show="table.total>0 && table.listQuery.queryType === 1"
         :total="table.total"
         v-model:page="table.listQuery.page"
         v-model:limit="table.listQuery.size"
         @pagination="getList"
     />
+    <!--    图形-->
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <div id="echartCount" style="width: 800px;height:600px;" v-show="table.listQuery.queryType === 2">
+
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div id="echartAmount" style="width: 600px;height:600px;" v-show="table.listQuery.queryType === 2">
+
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -83,12 +97,13 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table
+  table, exportList, exportLoading, echart
 } from "@/composables/statistics/write-off-revoke";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
-import {convertTypeToChinese, exportList, exportLoading, handlePreview} from "@/composables/deferred-declaration";
+import {convertTypeToChinese, handlePreview} from "@/composables/deferred-declaration";
+import {onUnmounted} from 'vue'
 
 export default {
   name: "StatisticsWriteOffRevoke",
@@ -96,6 +111,9 @@ export default {
   setup() {
     // 初始化
     init()
+    onUnmounted(() => {
+      echart.dispose
+    })
     return {
       table,
       searchFormRef,
@@ -107,7 +125,7 @@ export default {
       formatDate,
       addFormRef,
       convertStatusToChinese,
-      convertTypeToChinese, handlePreview, formatProportion, getTableTotal, exportList, exportLoading
+      convertTypeToChinese, handlePreview, formatProportion, getTableTotal, exportList, exportLoading, echart
     }
   }
 }
