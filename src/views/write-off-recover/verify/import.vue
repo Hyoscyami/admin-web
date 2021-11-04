@@ -66,8 +66,8 @@
       <el-form ref="formRef" :model="form" label-width="auto" :rules="rules">
         <el-row :gutter="20">
           <el-col :span="8">
-            <el-form-item label="会计凭证号" prop="accountingDocumentNo">
-              <el-input v-model="form.accountingDocumentNo" placeholder="请输入会计凭证号"></el-input>
+            <el-form-item label="核销收回会计凭证号" prop="accountingDocumentNo">
+              <el-input v-model="form.accountingDocumentNo" placeholder="请输入核销收回会计凭证号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="16">
@@ -91,7 +91,7 @@
                 :on-remove="handleRemove"
                 :on-success="handleUploadSuccess"
             >
-              <el-button size="small" type="primary">点击上传会计凭证</el-button>
+              <el-button size="small" type="primary">点击上传核销收回会计凭证</el-button>
             </el-upload>
           </el-form-item>
         </el-row>

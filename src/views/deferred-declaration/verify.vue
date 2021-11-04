@@ -114,12 +114,12 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :file-list="item.fileVOList"
+              :file-list="item.evidenceList"
               :on-exceed="handleExceed"
               :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
               :on-preview="handlePreview"
               :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
-              v-for="item in tableVO.badDebtFileVO.evidenceList" :key="item.id"
+              v-for="item in tableVO.evidenceList" :key="item.id"
           >
             <el-button size="small" type="primary">{{ item.name }}
             </el-button>
@@ -212,7 +212,7 @@
               :on-remove="handleRemove6"
               :on-success="handleUploadSuccess6"
           >
-            <el-button size="small" type="primary">上传风险五级</el-button>
+            <el-button size="small" type="primary">上传风险五级分类认定表</el-button>
           </el-upload>
         </el-col>
       </el-row>
@@ -228,7 +228,7 @@
               :on-remove="handleRemove7"
               :on-success="handleUploadSuccess7"
           >
-            <el-button size="small" type="primary">上传贷款余额查询</el-button>
+            <el-button size="small" type="primary">上传贷款余额查询表</el-button>
           </el-upload>
         </el-col>
         <el-col :span="8">

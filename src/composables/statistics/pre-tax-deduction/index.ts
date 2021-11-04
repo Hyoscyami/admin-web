@@ -172,6 +172,12 @@ function getSummaries() {
     tableTotal.value.push(response.data.declareTaxDeductionProportion + '%')
     tableTotal.value.push(response.data.unDeclareTaxDeductionCount)
     tableTotal.value.push(response.data.unDeclareTaxDeductionAmount)
+    if (echartsCountData.value.length > 0) {
+      echartsCountData.value.length = 0
+    }
+    if (echartsAmountData.value.length > 0) {
+      echartsAmountData.value.length = 0
+    }
     //初始化echarts
     echartsCountData.value.push({
       value: response.data.declareTaxDeductionCount,

@@ -201,7 +201,7 @@
               :on-remove="handleRemove6"
               :on-success="handleUploadSuccess6"
           >
-            <el-button size="small" type="primary">上传风险五级</el-button>
+            <el-button size="small" type="primary">上传风险五级分类认定表</el-button>
           </el-upload>
         </el-col>
       </el-row>
@@ -216,7 +216,7 @@
               :on-remove="handleRemove7"
               :on-success="handleUploadSuccess7"
           >
-            <el-button size="small" type="primary">上传贷款余额查询</el-button>
+            <el-button size="small" type="primary">上传贷款余额查询表</el-button>
           </el-upload>
         </el-col>
         <el-col :span="8">
