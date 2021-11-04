@@ -64,7 +64,7 @@ export default defineComponent({
     }
 
     const searchFormRef = ref(null)
-    const selectOrg = []
+    const selectOrg = ref([])
     return {searchFormSubmit, resetSearchForm, searchFormRef, selectOrg, disabledDate}
   }
 })

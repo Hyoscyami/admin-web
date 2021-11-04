@@ -102,28 +102,28 @@
       <el-table-column
           prop="borrowTime"
           label="借款日期"
-          :formatter="formatYYYYMMDD"
+          :formatter="formatDay"
           v-if="columns.borrowTime"
       />
       <el-table-column
           prop="expireTime"
           label="到期日期"
-          :formatter="formatYYYYMMDD"
+          :formatter="formatDay"
           v-if="columns.expireTime"
       />
       <el-table-column
           prop="revokeOnBalanceSheetInterest"
-          label="核销金额（表内利息）"
+          label="收回金额（表内利息）"
           v-if="columns.revokeOnBalanceSheetInterest"
       />
       <el-table-column
           prop="revokeOffBalanceSheetInterest"
-          label="核销金额（表外利息）"
+          label="收回金额（表外利息）"
           v-if="columns.revokeOffBalanceSheetInterest"
       />
       <el-table-column
           prop="charges"
-          label="应收费用"
+          label="收回金额（应收费用）"
           v-if="columns.charges"
       />
       <el-table-column
@@ -157,9 +157,9 @@
         <el-checkbox label="核销收回状态" v-model="columns.status"></el-checkbox>
         <el-checkbox label="借款日期" v-model="columns.borrowTime"></el-checkbox>
         <el-checkbox label="到期日期" v-model="columns.expireTime"></el-checkbox>
-        <el-checkbox label="核销金额（表内利息）" v-model="columns.revokeOnBalanceSheetInterest"></el-checkbox>
-        <el-checkbox label="核销金额（表外利息）" v-model="columns.revokeOffBalanceSheetInterest"></el-checkbox>
-        <el-checkbox label="应收费用" v-model="columns.charges"></el-checkbox>
+        <el-checkbox label="收回金额（表内利息）" v-model="columns.revokeOnBalanceSheetInterest"></el-checkbox>
+        <el-checkbox label="收回金额（表外利息）" v-model="columns.revokeOffBalanceSheetInterest"></el-checkbox>
+        <el-checkbox label="收回金额（应收费用）" v-model="columns.charges"></el-checkbox>
         <el-checkbox label="收回会计凭证号码" v-model="columns.accountingDocumentNo"></el-checkbox>
       </div>
       <template #footer>
@@ -176,12 +176,12 @@ import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
   formatYear,
-  formatYYYYMMDD,
+  formatDay,
   getList, init,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, columns, dialogVisible, cancelAddForm, openDialog
+  table, columns, dialogVisible, cancelAddForm, openDialog, formatDay
 } from "@/composables/statistics/revoke-undeclare";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -202,7 +202,7 @@ export default {
       cellClass,
       headerClass,
       formatYear,
-      formatYYYYMMDD,
+      formatDay,
       addFormRef, convertStatusToChinese, columns, dialogVisible, cancelAddForm, openDialog
     }
   }

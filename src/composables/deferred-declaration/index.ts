@@ -146,6 +146,8 @@ export function getList() {
 export function resetSearchForm() {
   // @ts-ignore
   searchFormRef.value.searchFormRef.resetFields()
+  table.listQuery.orgId = undefined
+  table.listQuery.writeOffYear = undefined
 }
 
 // 根据类型刷新表格

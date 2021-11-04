@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue'
 import { taxDeductionList as list, taxDeductionListExport } from '@/api/statistics/statistics'
 import { useTable } from '../../../model/req/query/Table'
-import { formatYYYY } from '../../../utils/time'
+import { formatYYYY, formatYYYYMMDD } from '../../../utils/time'
 import { QueryBadDebtReq, useQueryBadDebtReq } from '../../../model/req/query/QueryBadDebtReq'
 import { TaxDeductionVO } from '../../../model/vo/TaxDeductionVO'
 import { useTaxDeductionColumns } from '../../../model/vo/TaxDeductionColumns'
@@ -67,9 +67,9 @@ export function formatYear(_row: any, _column: any, cellValue: any): string {
 }
 
 // 日期转换
-export function formatYYYYMMDD(_row: any, _column: any, cellValue: any): string {
+export function formatDay(_row: any, _column: any, cellValue: any): string {
   if (cellValue) {
-    return formatYYYY(cellValue)
+    return formatYYYYMMDD(cellValue)
   }
   return ''
 }

@@ -39,6 +39,10 @@
           prop="assetBalance"
           label="资产余额"
       />
+      <el-table-column
+          prop="relationTypeName"
+          label="关联事项类型"
+      />
       <el-table-column label="核销金额" align="center">
         <el-table-column
             prop="capital"
@@ -114,12 +118,11 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :file-list="item.evidenceList"
               :on-exceed="handleExceed"
               :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
               :on-preview="handlePreview"
               :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
-              v-for="item in tableVO.evidenceList" :key="item.id"
+              v-for="item in basicFileConfigVO.evidenceList" :key="item.id"
           >
             <el-button size="small" type="primary">{{ item.name }}
             </el-button>

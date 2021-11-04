@@ -53,13 +53,13 @@
       <el-table-column
           prop="borrowTime"
           label="借款日期"
-          :formatter="formatYYYYMMDD"
+          :formatter="formatDay"
           v-if="columns.borrowTime"
       />
       <el-table-column
           prop="expireTime"
           label="到期日期"
-          :formatter="formatYYYYMMDD"
+          :formatter="formatDay"
           v-if="columns.expireTime"
       />
       <el-table-column
@@ -173,12 +173,12 @@ import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
   formatYear,
-  formatYYYYMMDD,
+  formatDay,
   getList, init,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, taxDeductionColumns, dialogVisible, cancelAddForm, openDialog, exportLoading, exportList
+  table, taxDeductionColumns, dialogVisible, cancelAddForm, openDialog, exportLoading, exportList, formatDay
 } from "@/composables/statistics/full-status-query";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -199,7 +199,7 @@ export default {
       cellClass,
       headerClass,
       formatYear,
-      formatYYYYMMDD,
+      formatDay,
       addFormRef,
       convertStatusToChinese,
       columns: taxDeductionColumns,

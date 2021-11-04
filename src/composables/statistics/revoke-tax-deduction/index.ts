@@ -4,7 +4,7 @@ import {
   revokeTaxDeductionListExport
 } from '@/api/statistics/statistics'
 import { useTable } from '../../../model/req/query/Table'
-import { formatYYYY } from '../../../utils/time'
+import { formatYYYY, formatYYYYMMDD } from '../../../utils/time'
 import { TaxDeductionVO } from '../../../model/vo/TaxDeductionVO'
 import { useRevokeTaxDeductionColumns } from '../../../model/vo/TaxDeductionColumns'
 import {
@@ -70,9 +70,9 @@ export function formatYear(_row: any, _column: any, cellValue: any): string {
 }
 
 // 日期转换
-export function formatYYYYMMDD(_row: any, _column: any, cellValue: any): string {
+export function formatDay(_row: any, _column: any, cellValue: any): string {
   if (cellValue) {
-    return formatYYYY(cellValue)
+    return formatYYYYMMDD(cellValue)
   }
   return ''
 }

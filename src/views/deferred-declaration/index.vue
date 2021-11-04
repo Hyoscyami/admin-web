@@ -49,6 +49,10 @@
           label="核销金额本金"
       />
       <el-table-column
+          prop="relationTypeName"
+          label="关联事项类型"
+      />
+      <el-table-column
           prop="warningLeftDays"
           label="预警剩余天数"
       />
@@ -112,7 +116,7 @@ export default {
       cellClass,
       headerClass,
       convertStatusToChinese, formatDate,
-      addFormRef, getList
+      addFormRef, getList,
     }
   }
 }

@@ -98,28 +98,28 @@
       <el-table-column
           prop="borrowTime"
           label="借款日期"
-          :formatter="formatYYYYMMDD"
+          :formatter="formatDay"
           v-if="columns.borrowTime"
       />
       <el-table-column
           prop="expireTime"
           label="到期日期"
-          :formatter="formatYYYYMMDD"
+          :formatter="formatDay"
           v-if="columns.expireTime"
       />
       <el-table-column
           prop="revokeOnBalanceSheetInterest"
-          label="核销金额（表内利息）"
+          label="收回金额（表内利息）"
           v-if="columns.revokeOnBalanceSheetInterest"
       />
       <el-table-column
           prop="revokeOffBalanceSheetInterest"
-          label="核销金额（表外利息）"
+          label="收回金额（表外利息）"
           v-if="columns.revokeOffBalanceSheetInterest"
       />
       <el-table-column
           prop="charges"
-          label="应收费用"
+          label="收回金额（应收费用）"
           v-if="columns.charges"
       />
       <el-table-column
@@ -149,16 +149,14 @@
         <el-checkbox label="资产余额" v-model="columns.assetBalance"></el-checkbox>
         <el-checkbox label="核销金额（本金）" v-model="columns.capital"></el-checkbox>
         <el-checkbox label="核销年度" v-model="columns.writeOffDate"></el-checkbox>
-        <el-checkbox label="资产类型" v-model="columns.assetTypeName"></el-checkbox>
-        <el-checkbox label="认定条件" v-model="columns.confirmationConditionsName"></el-checkbox>
         <el-checkbox label="收回年度" v-model="columns.revokeDate"></el-checkbox>
         <el-checkbox label="呆账核销状态" v-model="columns.writeOffStatus"></el-checkbox>
         <el-checkbox label="核销收回状态" v-model="columns.status"></el-checkbox>
         <el-checkbox label="借款日期" v-model="columns.borrowTime"></el-checkbox>
         <el-checkbox label="到期日期" v-model="columns.expireTime"></el-checkbox>
-        <el-checkbox label="核销金额（表内利息）" v-model="columns.revokeOnBalanceSheetInterest"></el-checkbox>
-        <el-checkbox label="核销金额（表外利息）" v-model="columns.revokeOffBalanceSheetInterest"></el-checkbox>
-        <el-checkbox label="应收费用" v-model="columns.charges"></el-checkbox>
+        <el-checkbox label="收回金额（表内利息）" v-model="columns.revokeOnBalanceSheetInterest"></el-checkbox>
+        <el-checkbox label="收回金额（表外利息）" v-model="columns.revokeOffBalanceSheetInterest"></el-checkbox>
+        <el-checkbox label="收回金额（应收费用）" v-model="columns.charges"></el-checkbox>
         <el-checkbox label="收回会计凭证号码" v-model="columns.accountingDocumentNo"></el-checkbox>
       </div>
       <template #footer>
@@ -175,9 +173,9 @@ import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
   cancelAddForm, columns,
-  dialogVisible, exportList, exportLoading,
+  dialogVisible, exportList, exportLoading, formatDay,
   formatYear,
-  formatYYYYMMDD,
+  formatDay,
   getList,
   init,
   openDialog,
@@ -205,7 +203,7 @@ export default {
       cellClass,
       headerClass,
       formatYear,
-      formatYYYYMMDD,
+      formatDay,
       addFormRef, convertStatusToChinese, columns, dialogVisible, cancelAddForm, openDialog, exportLoading, exportList
     }
   }

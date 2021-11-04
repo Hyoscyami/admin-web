@@ -83,24 +83,24 @@
       <el-table-column
           prop="borrowTime"
           label="借款日期"
-          :formatter="formatYYYYMMDD"
+          :formatter="formatDay"
           v-if="columns.borrowTime"
       />
       <el-table-column
           prop="expireTime"
           label="到期日期"
-          :formatter="formatYYYYMMDD"
+          :formatter="formatDay"
           v-if="columns.expireTime"
       />
       <el-table-column
-          prop="revokeOnBalanceSheetInterest"
+          prop="onBalanceSheetInterest"
           label="核销金额（表内利息）"
-          v-if="columns.revokeOnBalanceSheetInterest"
+          v-if="columns.onBalanceSheetInterest"
       />
       <el-table-column
-          prop="revokeOffBalanceSheetInterest"
+          prop="offBalanceSheetInterest"
           label="核销金额（表外利息）"
-          v-if="columns.revokeOffBalanceSheetInterest"
+          v-if="columns.offBalanceSheetInterest"
       />
       <el-table-column
           prop="charges"
@@ -152,8 +152,8 @@
         <el-checkbox label="呆账核销状态" v-model="columns.writeOffStatus"></el-checkbox>
         <el-checkbox label="借款日期" v-model="columns.borrowTime"></el-checkbox>
         <el-checkbox label="到期日期" v-model="columns.expireTime"></el-checkbox>
-        <el-checkbox label="核销金额（表内利息）" v-model="columns.revokeOnBalanceSheetInterest"></el-checkbox>
-        <el-checkbox label="核销金额（表外利息）" v-model="columns.revokeOffBalanceSheetInterest"></el-checkbox>
+        <el-checkbox label="核销金额（表内利息）" v-model="columns.onBalanceSheetInterest"></el-checkbox>
+        <el-checkbox label="核销金额（表外利息）" v-model="columns.offBalanceSheetInterest"></el-checkbox>
         <el-checkbox label="应收费用" v-model="columns.charges"></el-checkbox>
         <el-checkbox label="核销会计凭证号码" v-model="columns.accountingDocumentNo"></el-checkbox>
       </div>
@@ -171,7 +171,7 @@ import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
   formatYear,
-  formatYYYYMMDD,
+  formatDay,
   getList, init,
   resetSearchForm,
   searchFormRef,
@@ -197,7 +197,7 @@ export default {
       cellClass,
       headerClass,
       formatYear,
-      formatYYYYMMDD,
+      formatDay,
       addFormRef,
       convertStatusToChinese,
       columns: taxDeductionColumns,
