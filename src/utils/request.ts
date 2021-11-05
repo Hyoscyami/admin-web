@@ -3,6 +3,7 @@ import {ElMessageBox, ElMessage} from 'element-plus'
 import store from '@/store'
 import {getToken} from '@/utils/auth'
 import {CommonEnum} from '../enums/CommonEnum'
+import {isBlank} from "./common";
 
 // create an axios instance
 const service = axios.create({
@@ -22,7 +23,9 @@ service.interceptors.request.use(
             // please modify it according to the actual situation
             config.headers['X-Auth-Token'] = getToken()
             config.headers['orgId'] = store.getters.orgId
-            config.headers['permissionId'] = store.getters.permissionId
+            if (!isBlank(store.getters.permissionId)) {
+                config.headers['permissionId'] = store.getters.permissionId
+            }
         }
         return config
     },
