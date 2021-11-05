@@ -12,7 +12,7 @@ const getDefaultState = () => {
         avatar: '',
         orgId: '',
         //当前页面的id，用来纪录操作日志
-        permissionId: undefined,
+        permissionId: '',
         // 树状路由
         routes: [],
         // 树状路由平铺成list
