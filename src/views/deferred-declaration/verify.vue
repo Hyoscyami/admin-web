@@ -94,10 +94,11 @@
         <el-col :span="8">
           <el-form-item label="起始时间">
             <el-date-picker
-                v-model="tableVO.expireTime"
+                v-model="matchFileConfigReq.startTime"
                 :disabled-date="disabledDate"
                 type="date"
                 format="YYYYMMDD"
+                @change="matchConfig"
                 placeholder="请选择起始时间">
             </el-date-picker>
           </el-form-item>
@@ -113,20 +114,23 @@
       </el-row>
       <el-row class="row-margin">
         <el-form-item label="税收确认证据">
-          <el-upload
-              class="upload-demo"
-              action="/api/file/upload"
-              multiple
-              :headers="headers"
-              :on-exceed="handleExceed"
-              :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
-              :on-preview="handlePreview"
-              :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
-              v-for="item in basicFileConfigVO.evidenceList" :key="item.id"
-          >
-            <el-button size="small" type="primary">{{ item.name }}
-            </el-button>
-          </el-upload>
+          <el-row class="row-margin">
+            <el-col :span="8" v-for="item in basicFileConfigVO.evidenceList" :key="item.id">
+              <el-upload
+                  class="upload-demo"
+                  action="/api/file/upload"
+                  multiple
+                  :headers="headers"
+                  :on-exceed="handleExceed"
+                  :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
+                  :on-preview="handlePreview"
+                  :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
+              >
+                <el-button size="small" type="primary">{{ item.name }}
+                </el-button>
+              </el-upload>
+            </el-col>
+          </el-row>
         </el-form-item>
       </el-row>
       <el-row class="row-margin">
