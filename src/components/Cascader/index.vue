@@ -6,6 +6,7 @@
       :props="cascaderProps"
       @change="handleChange"
       placeholder="请选择所属组织"
+      filterable
       clearable></el-cascader>
 </template>
 

@@ -28,6 +28,10 @@ export function isBlank(str: string | undefined) {
   return str === undefined || str === ''
 }
 
+export function isNull(value: number) {
+  return value === undefined || value === null
+}
+
 /**
  * 数据字典转换
  * @param code

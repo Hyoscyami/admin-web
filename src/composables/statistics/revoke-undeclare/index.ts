@@ -54,6 +54,8 @@ export function getList() {
 export function resetSearchForm() {
   // @ts-ignore
   searchFormRef.value.searchFormRef.resetFields()
+  table.listQuery.orgId = undefined
+  table.listQuery.selectOrg = undefined
 }
 
 // 日期转换

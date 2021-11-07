@@ -77,6 +77,14 @@ export interface AddBadDebtReq {
    * 呆账核销状态
    */
   status?: number
+  /**
+   * 申报年份
+   */
+  declareYear?: string
+  /**
+   * 资产类型
+   */
+  assetType?: number
 }
 
 /**

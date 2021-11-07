@@ -57,8 +57,9 @@
     <el-form ref="addFormRef" :model="form" label-width="130px">
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-form-item label="资产类型" prop="confirmationConditions">
-            <el-select v-model="matchFileConfigReq.assetType" placeholder="请选择资产类型" @change="matchConfig" clearable>
+          <el-form-item label="资产类型" prop="assetType">
+            <el-select v-model="matchFileConfigReq.assetType" placeholder="请选择资产类型" @change="matchConfig" filterable
+                       clearable>
               <el-option v-for="item in assetTypes" :key="item.id" :label="item.text" :value="item.value"/>
             </el-select>
           </el-form-item>
@@ -71,7 +72,7 @@
         <el-col :span="8">
           <el-form-item label="认定条件" prop="confirmationConditions">
             <el-select v-model="matchFileConfigReq.confirmationConditions" @change="matchConfig" placeholder="请选择认定条件"
-                       clearable>
+                       filterable clearable>
               <el-option v-for="item in confirmConditions" :key="item.id" :label="item.text" :value="item.value"/>
             </el-select>
           </el-form-item>

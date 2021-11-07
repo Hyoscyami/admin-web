@@ -1,7 +1,7 @@
 <template>
   <el-form ref="searchFormRef" :model="listQuery" :inline="true">
     <el-form-item label="所属组织" prop="orgId">
-      <Cascader v-model:orgId="listQuery.orgId" v-model:selectedOrg="selectOrg"></Cascader>
+      <Cascader v-model:orgId="listQuery.orgId" v-model:selectedOrg="listQuery.selectOrg"></Cascader>
     </el-form-item>
     <el-form-item label="核销年度" prop="writeOffYear">
       <el-date-picker
@@ -22,7 +22,7 @@
 <script lang="ts">
 import {defineComponent, PropType, ref} from 'vue';
 import Cascader from '@/components/Cascader/index.vue'
-import {QueryBadDebtRevokeReq} from "@/model/req/query/QueryBadDebtRevokeReq";
+import {QueryBadDebtReq} from "../../../../model/req/query/QueryBadDebtReq";
 
 export default defineComponent({
   name: "SearchForm",
@@ -30,7 +30,7 @@ export default defineComponent({
 
   props: {
     listQuery: {
-      type: Object as PropType<QueryBadDebtRevokeReq>,
+      type: Object as PropType<QueryBadDebtReq>,
       required: true
     }
   },
@@ -49,8 +49,7 @@ export default defineComponent({
     }
 
     const searchFormRef = ref(null)
-    const selectOrg = []
-    return {searchFormSubmit, resetSearchForm, searchFormRef, selectOrg, disabledDate}
+    return {searchFormSubmit, resetSearchForm, searchFormRef, disabledDate}
   }
 })
 </script>

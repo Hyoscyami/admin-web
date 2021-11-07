@@ -129,6 +129,7 @@ export function getList() {
 export function resetSearchForm() {
   // @ts-ignore
   searchFormRef.value.searchFormRef.resetFields()
+  table.listQuery.orgIds.length = 0
 }
 
 // 根据类型刷新表格
@@ -165,6 +166,7 @@ export function formatProportion(_row: any, _column: any, cellValue: any): strin
 //表格合计行
 function getSummaries() {
   totalPreTaxDeduction(table.listQuery).then((response) => {
+    tableTotal.value = ['合计']
     tableTotal.value.push(response.data.writtenOffCount)
     tableTotal.value.push(response.data.writtenOffAmount)
     tableTotal.value.push(response.data.declareTaxDeductionCount)

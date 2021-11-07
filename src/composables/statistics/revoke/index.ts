@@ -148,6 +148,7 @@ export function formatProportion(_row: any, _column: any, cellValue: any): strin
 //表格合计行
 function getSummaries() {
   totalRevokeCount(table.listQuery).then((response) => {
+    tableTotal.value = ['合计']
     tableTotal.value.push(response.data.revokeCount)
     tableTotal.value.push(response.data.revokeAmount)
     tableTotal.value.push(response.data.revokedCount)

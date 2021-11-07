@@ -24,6 +24,10 @@ export interface QueryBadDebtRevokeReq extends BaseQuery {
    * 核销收回年度
    */
   revokeDate?: string
+  /**
+   * 前端级联组件回显数据
+   */
+  selectOrg?: []
 }
 
 /**

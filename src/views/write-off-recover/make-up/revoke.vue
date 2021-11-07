@@ -102,6 +102,27 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item label="资产类型" prop="assetType">
+              <el-select v-model="form.assetType" placeholder="请选择资产类型" filterable
+                         clearable>
+                <el-option v-for="item in assetTypes" :key="item.id" :label="item.text" :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item label="申报年份" prop="declareYear" v-if="form.status === 15">
+              <el-date-picker
+                  v-model="form.declareYear"
+                  :disabled-date="disabledDate"
+                  type="year"
+                  format="YYYY"
+                  placeholder="请选择申报年份">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-form-item>
           <el-button type="primary" @click="formSubmit">提交</el-button>
@@ -124,6 +145,12 @@ import {CommonEnum} from "../../../enums/CommonEnum";
 import {errorMsg} from "../../../utils/common";
 import {ApiResponse} from "../../../model/resp/base/ApiResponse";
 import {detail} from "../../../api/write-off-recover/make-up";
+import {listChildrenByCode} from "../../../api/sys/dict";
+import {DictEnum} from "../../../enums/DictEnum";
+import {DictVO} from "../../../model/vo/DictVO";
+import {SelectGroup} from "../../../model/req/query/Table";
+import {assetTypes} from "../../../composables/write-off-recover/make-up";
+import {formatYYYY} from "../../../utils/time";
 
 export default defineComponent({
   name: "WriteOffRecoverMakeUpRevoke",
@@ -142,6 +169,8 @@ export default defineComponent({
     form.offBalanceSheetInterest = 0
     form.charges = 0
     const rules = useBadDebtRevokeRule()
+    //资产类型
+    const assetTypes = reactive([])
     //获取详情
     detail(id).then((response: ApiResponse<object>) => {
       if (response.code !== CommonEnum.SUCCESS_CODE) {
@@ -150,6 +179,18 @@ export default defineComponent({
         Object.assign(form, response.data)
         form.status = undefined
       }
+    })
+    //获取资产类型
+    listChildrenByCode(DictEnum.ASSERT_TYPE).then((response) => {
+      assetTypes.length = 0
+      response.data.forEach((item: DictVO) => {
+        const type: SelectGroup = {
+          id: item.id,
+          text: item.name,
+          value: Number(item.id)
+        }
+        assetTypes.push(type)
+      })
     })
 
     //关闭当前标签页
@@ -169,6 +210,9 @@ export default defineComponent({
     const formSubmit = () => {
       addFormRef.value.validate((valid) => {
         if (valid) {
+          if (form.declareYear) {
+            form.declareYear = formatYYYY(form.declareYear)
+          }
           revoke(form).then((response: ApiResponse<object>) => {
             if (response.code !== CommonEnum.SUCCESS_CODE) {
               errorMsg(response.msg)
@@ -182,7 +226,7 @@ export default defineComponent({
         }
       })
     }
-    return {closeCurrentTag, form, disabledDate, formSubmit, rules, addFormRef}
+    return {closeCurrentTag, form, disabledDate, formSubmit, rules, addFormRef, assetTypes}
   }
 })
 </script>

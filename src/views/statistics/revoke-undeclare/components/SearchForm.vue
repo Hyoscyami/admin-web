@@ -1,7 +1,7 @@
 <template>
   <el-form ref="searchFormRef" :model="listQuery" :inline="true">
     <el-form-item label="所属组织" prop="orgId">
-      <Cascader v-model:orgId="listQuery.orgId" v-model:selectedOrg="selectOrg"></Cascader>
+      <Cascader v-model:orgId="listQuery.orgId" v-model:selectedOrg="listQuery.selectOrg"></Cascader>
     </el-form-item>
     <el-form-item label="收回年度" prop="revokeDate">
       <el-date-picker
@@ -49,8 +49,7 @@ export default defineComponent({
     }
 
     const searchFormRef = ref(null)
-    const selectOrg = []
-    return {searchFormSubmit, resetSearchForm, searchFormRef, selectOrg, disabledDate}
+    return {searchFormSubmit, resetSearchForm, searchFormRef, disabledDate}
   }
 })
 </script>

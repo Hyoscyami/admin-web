@@ -8,7 +8,7 @@
                 @keyup.enter.native="searchFormSubmit"/>
     </el-form-item>
     <el-form-item label="所属组织" prop="orgId">
-      <Cascader v-model:orgId="listQuery.orgId" v-model:selectedOrg="selectOrg"></Cascader>
+      <Cascader v-model:orgId="listQuery.orgId" v-model:selectedOrg="listQuery.selectOrg"></Cascader>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="searchFormSubmit">查询</el-button>
@@ -47,8 +47,7 @@ export default defineComponent({
     }
 
     const searchFormRef = ref(null)
-    const selectOrg = []
-    return {searchFormSubmit, resetSearchForm, searchFormRef, selectOrg}
+    return {searchFormSubmit, resetSearchForm, searchFormRef}
   }
 })
 </script>
