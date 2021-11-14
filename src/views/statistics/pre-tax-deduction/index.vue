@@ -59,6 +59,11 @@
             prop="unDeclareTaxDeductionAmount"
             label="金额"
         />
+        <el-table-column
+            prop="unDeclareTaxDeductionProportion"
+            :formatter="formatProportion"
+            label="比例"
+        />
       </el-table-column>
     </el-table>
     <!--    图形-->

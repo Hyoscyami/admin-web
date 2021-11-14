@@ -17,6 +17,8 @@ export interface StatisticVO extends BaseVO {
   unDeclareTaxDeductionCount: number
   /** 未申报税前扣除金额，取取“呆账核销状态”为“已核销呆账”、“延后申报税收确认”本金之和 */
   unDeclareTaxDeductionAmount: number
+  /** 未申报税前扣除比例，取“呆账核销状态”为“已核销呆账”、“延后申报税收确认”总数 ÷ 已核销呆账金额 */
+  unDeclareTaxDeductionProportion: number
   /** 核销收回笔数，总数 */
   revokeCount: number
   /** 核销收回金额， 本金之和 */
@@ -51,6 +53,7 @@ export function useStatisticVO(): StatisticVO {
     revokedProportion: 0,
     unDeclareTaxDeductionAmount: 0,
     unDeclareTaxDeductionCount: 0,
+    unDeclareTaxDeductionProportion: 0,
     unRevokeAmount: 0,
     unRevokeCount: 0,
     writtenOffAmount: 0,

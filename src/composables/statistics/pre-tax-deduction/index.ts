@@ -174,6 +174,7 @@ function getSummaries() {
     tableTotal.value.push(response.data.declareTaxDeductionProportion + '%')
     tableTotal.value.push(response.data.unDeclareTaxDeductionCount)
     tableTotal.value.push(response.data.unDeclareTaxDeductionAmount)
+    tableTotal.value.push(response.data.unDeclareTaxDeductionProportion + '%')
     if (echartsCountData.value.length > 0) {
       echartsCountData.value.length = 0
     }
@@ -183,7 +184,7 @@ function getSummaries() {
     //初始化echarts
     echartsCountData.value.push({
       value: response.data.declareTaxDeductionCount,
-      name: '已申报税前扣除笔数'
+      name: '已申报税前扣除笔数:'
     })
     echartsCountData.value.push({
       value: response.data.unDeclareTaxDeductionCount,
