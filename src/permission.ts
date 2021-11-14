@@ -40,7 +40,7 @@ router.beforeEach(async (to, _from, next) => {
             next({ path: '/401' })
           }
         } else {
-          store.dispatch('user/setPermissionId', to.meta.id)
+          store.dispatch('user/setPermissionId', to.path)
           next()
         }
       } catch (error) {

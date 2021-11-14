@@ -13,3 +13,16 @@ export function setToken(token) {
 export function removeToken() {
   return Cookies.remove(TokenKey)
 }
+const orgIdKey = 'orgId'
+
+export function getOrgId() {
+  return Cookies.get(orgIdKey)
+}
+
+export function setOrgId(orgId) {
+  return Cookies.set(orgIdKey, orgId)
+}
+
+export function removeOrgId() {
+  return Cookies.remove(orgIdKey)
+}
