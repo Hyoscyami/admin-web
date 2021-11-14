@@ -100,6 +100,18 @@ export const constantRoutes = [
         name: 'SysFileConfig',
         component: () => import('@/views/sys/file-config/index.vue'),
         meta: { title: '基础档案设置', icon: 'table' }
+      },
+      {
+        path: 'operator-log',
+        name: 'SysOperatorLog',
+        component: () => import('@/views/sys/operator-log/index.vue'),
+        meta: { title: '操作日志', icon: 'table' }
+      },
+      {
+        path: 'login-log',
+        name: 'SysLoginLog',
+        component: () => import('@/views/sys/login-log/index.vue'),
+        meta: { title: '登录日志', icon: 'table' }
       }
     ]
   },
