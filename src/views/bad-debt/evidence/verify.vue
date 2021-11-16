@@ -105,26 +105,24 @@
           <span>{{ basicFileConfigVO.evidenceDescription }}</span>
         </el-form-item>
       </el-row>
-      <el-row class="row-margin">
-        <el-form-item label="税收确认证据">
-          <el-row class="row-margin">
-            <el-col :span="8" v-for="item in basicFileConfigVO.evidenceList" :key="item.id">
-              <el-upload
-                  class="upload-demo"
-                  action="/api/file/upload"
-                  multiple
-                  :headers="headers"
-                  :on-exceed="handleExceed"
-                  :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
-                  :on-preview="handlePreview"
-                  :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
-              >
-                <el-button size="small" type="primary">上传{{ item.name }}</el-button>
-              </el-upload>
-            </el-col>
-          </el-row>
-        </el-form-item>
-      </el-row>
+      <el-form-item label="税收确认证据">
+        <el-row class="row-margin">
+          <el-col :span="8" v-for="item in basicFileConfigVO.evidenceList" :key="item.id">
+            <el-upload
+                class="upload-demo"
+                action="/api/file/upload"
+                multiple
+                :headers="headers"
+                :on-exceed="handleExceed"
+                :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
+                :on-preview="handlePreview"
+                :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
+            >
+              <el-button size="small" type="primary">上传{{ item.name }}</el-button>
+            </el-upload>
+          </el-col>
+        </el-row>
+      </el-form-item>
       <el-row class="row-margin">
         <el-col :span="8">
           <el-upload
