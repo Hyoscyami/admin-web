@@ -118,7 +118,6 @@
                   :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
                   :on-preview="handlePreview"
                   :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
-                  v-for="item in basicFileConfigVO.evidenceList" :key="item.id"
               >
                 <el-button size="small" type="primary">上传{{ item.name }}</el-button>
               </el-upload>
