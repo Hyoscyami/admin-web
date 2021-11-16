@@ -80,7 +80,6 @@
       <el-table-column
           fixed="right"
           label="操作"
-          width="150"
       >
         <template #default="scope">
           <el-button type="text" size="small">

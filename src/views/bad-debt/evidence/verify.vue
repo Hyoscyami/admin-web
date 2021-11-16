@@ -254,6 +254,7 @@
               <el-option label="等待侦查时间满2年" :value="12"/>
               <el-option label="等待补充证据" :value="13"/>
               <el-option label="等待诉诸法律" :value="14"/>
+              <el-option label="诉讼案件执行中" :value="17"/>
             </el-select>
           </el-form-item>
         </el-col>
