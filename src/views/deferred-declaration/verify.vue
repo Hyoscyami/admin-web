@@ -115,7 +115,7 @@
       </el-row>
       <el-form-item label="税收确认证据">
         <el-row class="row-margin">
-          <el-col :span="8" v-for="item in basicFileConfigVO.evidenceList" :key="item.id">
+          <el-col :span="12" v-for="item in basicFileConfigVO.evidenceList" :key="item.id">
             <el-upload
                 class="upload-demo"
                 action="/api/file/upload"
