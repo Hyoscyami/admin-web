@@ -68,13 +68,23 @@
           v-if="columns.capital"
       />
       <el-table-column
-          prop="revokeOnBalanceSheetInterest"
+          prop="onBalanceSheetInterest"
           label="核销金额（表内利息）"
+          v-if="columns.onBalanceSheetInterest"
+      />
+      <el-table-column
+          prop="offBalanceSheetInterest"
+          label="核销金额（表外利息）"
+          v-if="columns.offBalanceSheetInterest"
+      />
+      <el-table-column
+          prop="revokeOnBalanceSheetInterest"
+          label="收回金额（表内利息）"
           v-if="columns.revokeOnBalanceSheetInterest"
       />
       <el-table-column
           prop="revokeOffBalanceSheetInterest"
-          label="核销金额（表外利息）"
+          label="收回金额（表外利息）"
           v-if="columns.revokeOffBalanceSheetInterest"
       />
       <el-table-column
@@ -103,6 +113,21 @@
           label="收回年度"
           :formatter="formatYear"
           v-if="columns.revokeDate"
+      />
+      <el-table-column
+          prop="preTaxYear"
+          label="税前扣除年度"
+          v-if="columns.preTaxYear"
+      />
+      <el-table-column
+          prop="accountingDocumentNo"
+          label="核销会计凭证"
+          v-if="columns.accountingDocumentNo"
+      />
+      <el-table-column
+          prop="revokeAccountingDocumentNo"
+          label="收回会计凭证"
+          v-if="columns.revokeAccountingDocumentNo"
       />
       <el-table-column
           prop="writeOffStatus"
@@ -158,6 +183,7 @@
         <el-checkbox label="收回金额（表外利息）" v-model="columns.revokeOffBalanceSheetInterest"></el-checkbox>
         <el-checkbox label="收回金额（应收费用）" v-model="columns.revokeCharges"></el-checkbox>
         <el-checkbox label="核销会计凭证号码" v-model="columns.accountingDocumentNo"></el-checkbox>
+        <el-checkbox label="收回会计凭证号码" v-model="columns.revokeAccountingDocumentNo"></el-checkbox>
       </div>
       <template #footer>
             <span class="dialog-footer">

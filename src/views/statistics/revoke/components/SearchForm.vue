@@ -2,7 +2,6 @@
   <el-form ref="searchFormRef" :model="listQuery" :inline="true">
     <el-form-item label="统计方式">
       <el-select v-model="listQuery.type" filterable placeholder="请选择资产类型">
-        <el-option label="分类型展示" :value="1"/>
         <el-option label="分机构展示" :value="2"/>
         <el-option label="分年度展示" :value="3"/>
       </el-select>
@@ -15,8 +14,8 @@
     <el-form-item label="所属组织" prop="orgId">
       <Cascader ref="cascaderRef" v-model:orgId="listQuery.orgId"></Cascader>
     </el-form-item>
-    <el-form-item label="核销年度" prop="years">
-      <el-select v-model="listQuery.years" multiple filterable placeholder="请选择核销年度" clearable>
+    <el-form-item label="收回年度" prop="years">
+      <el-select v-model="listQuery.years" multiple filterable placeholder="请选择收回年度" clearable>
         <el-option v-for="item in yearsSelect" :key="item.id" :label="item.text" :value="item.value"/>
       </el-select>
     </el-form-item>
