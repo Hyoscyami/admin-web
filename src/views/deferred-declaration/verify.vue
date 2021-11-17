@@ -113,27 +113,25 @@
           <span>{{ basicFileConfigVO.evidenceDescription }}</span>
         </el-form-item>
       </el-row>
-      <el-row class="row-margin">
-        <el-form-item label="税收确认证据">
-          <el-row class="row-margin">
-            <el-col :span="8" v-for="item in basicFileConfigVO.evidenceList" :key="item.id">
-              <el-upload
-                  class="upload-demo"
-                  action="/api/file/upload"
-                  multiple
-                  :headers="headers"
-                  :on-exceed="handleExceed"
-                  :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
-                  :on-preview="handlePreview"
-                  :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
-              >
-                <el-button size="small" type="primary">{{ item.name }}
-                </el-button>
-              </el-upload>
-            </el-col>
-          </el-row>
-        </el-form-item>
-      </el-row>
+      <el-form-item label="税收确认证据">
+        <el-row class="row-margin">
+          <el-col :span="12" v-for="item in basicFileConfigVO.evidenceList" :key="item.id">
+            <el-upload
+                class="upload-demo"
+                action="/api/file/upload"
+                multiple
+                :headers="headers"
+                :on-exceed="handleExceed"
+                :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
+                :on-preview="handlePreview"
+                :on-success="(response, file, fileList) => handleEvidenceUploadSuccess( response, file, fileList, item )"
+            >
+              <el-button size="small" type="primary">{{ item.name }}
+              </el-button>
+            </el-upload>
+          </el-col>
+        </el-row>
+      </el-form-item>
       <el-row class="row-margin">
         <el-col :span="8">
           <el-upload
@@ -270,6 +268,7 @@
               <el-option label="等待侦查时间满2年" :value="12"/>
               <el-option label="等待补充证据" :value="13"/>
               <el-option label="等待诉诸法律" :value="14"/>
+              <el-option label="诉讼案件执行中" :value="17"/>
             </el-select>
           </el-form-item>
         </el-col>
