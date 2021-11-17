@@ -78,7 +78,7 @@
           v-if="columns.confirmationConditionsName"
       />
       <el-table-column
-          prop="status"
+          prop="writeOffStatus"
           label="呆账核销状态"
           v-if="columns.writeOffStatus"
       >
