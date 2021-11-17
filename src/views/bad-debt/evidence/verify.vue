@@ -424,7 +424,7 @@ export default defineComponent({
 
     // 上传放款会计凭证
     function handleUploadSuccess5(response, file, fileList) {
-      form.otherApplyMaterials = fileList.map(file => ({
+      form.loanAccountDocumentList = fileList.map(file => ({
         name: file.name,
         url: file.response.data
       }))
@@ -448,7 +448,7 @@ export default defineComponent({
 
     // 上传其他申报材料凭证
     function handleUploadSuccess8(response, file, fileList) {
-      form.loanAccountDocumentList = fileList.map(file => ({
+      form.otherApplyMaterials = fileList.map(file => ({
         name: file.name,
         url: file.response.data
       }))
