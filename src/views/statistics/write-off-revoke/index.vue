@@ -59,6 +59,11 @@
             prop="unRevokeAmount"
             label="金额"
         />
+        <el-table-column
+            prop="unRevokeProportion"
+            :formatter="formatProportion"
+            label="金额"
+        />
       </el-table-column>
     </el-table>
 
