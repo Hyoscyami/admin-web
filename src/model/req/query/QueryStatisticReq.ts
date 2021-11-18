@@ -12,6 +12,10 @@ export interface QueryStatisticReq extends BaseQuery {
    * 查询方式，1：按表格，2：按图形
    */
   queryType: number
+  /**
+   * 搜索类型，1：本级，2：本下级
+   */
+  searchType: number
   /** 组织id */
   orgId: number
   /** 组织id列表 */
@@ -33,6 +37,7 @@ export function useQueryStatisticReq(size: number): QueryStatisticReq {
     size,
     type: 1,
     year: '',
+    searchType: 1,
     years: []
   }
 }

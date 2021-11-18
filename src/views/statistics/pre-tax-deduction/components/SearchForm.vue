@@ -17,6 +17,12 @@
         <el-option v-for="item in orgsSelect" :key="item.id" :label="item.text" :value="item.value"/>
       </el-select>
     </el-form-item>
+    <el-form-item label="组织搜索类型">
+      <el-radio-group v-model="listQuery.searchType">
+        <el-radio :label="1">本级</el-radio>
+        <el-radio :label="2">本下级</el-radio>
+      </el-radio-group>
+    </el-form-item>
     <el-form-item label="核销年度" prop="years">
       <el-select v-model="listQuery.years" multiple filterable placeholder="请选择核销年度" clearable>
         <el-option v-for="item in yearsSelect" :key="item.id" :label="item.text" :value="item.value"/>
