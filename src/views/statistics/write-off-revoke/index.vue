@@ -62,7 +62,7 @@
         <el-table-column
             prop="unRevokeProportion"
             :formatter="formatProportion"
-            label="金额"
+            label="比例"
         />
       </el-table-column>
     </el-table>
