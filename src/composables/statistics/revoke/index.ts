@@ -1,10 +1,5 @@
 import {reactive, ref} from 'vue'
-import {
-    listPreTaxDeductionYears,
-    revokeCount as list,
-    revokeCountExport,
-    totalRevokeCount
-} from '@/api/statistics/statistics'
+import {listRevokeYears, revokeCount as list, revokeCountExport, totalRevokeCount} from '@/api/statistics/statistics'
 import {SelectGroup, useTable} from '@/model/req/query/Table'
 import {formatYYYY} from '@/utils/time'
 import {listChildrenByCode} from '@/api/sys/dict'
@@ -76,7 +71,7 @@ export function listTypes() {
 
 // 获取可选择年份下拉框
 export function listYears() {
-    listPreTaxDeductionYears().then((response) => {
+    listRevokeYears().then((response) => {
         if (table.yearsSelect) {
             table.yearsSelect.length = 0
         }
