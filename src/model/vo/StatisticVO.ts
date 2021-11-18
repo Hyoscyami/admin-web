@@ -33,6 +33,10 @@ export interface StatisticVO extends BaseVO {
   unRevokeCount: number
   /** 核销未收回金额， 已核销呆账金额-核销收回金额 */
   unRevokeAmount: number
+  /**
+   * 核销未收回比例
+   */
+  unRevokeProportion: number
 }
 
 export function useStatisticVO(): StatisticVO {
