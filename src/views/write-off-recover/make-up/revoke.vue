@@ -26,7 +26,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="会计凭证号码" prop="accountingDocumentNo">
+            <el-form-item label="核销会计凭证号码" prop="accountingDocumentNo">
               <el-input v-model="form.accountingDocumentNo" autocomplete="off" tabindex="4"/>
             </el-form-item>
           </el-col>
