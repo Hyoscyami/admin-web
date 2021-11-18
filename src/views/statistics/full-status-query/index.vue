@@ -115,9 +115,9 @@
           v-if="columns.revokeDate"
       />
       <el-table-column
-          prop="preTaxYear"
+          prop="declareYear"
           label="税前扣除年度"
-          v-if="columns.preTaxYear"
+          v-if="columns.declareYear"
       />
       <el-table-column
           prop="accountingDocumentNo"
@@ -171,7 +171,7 @@
         <el-checkbox label="核销年度" v-model="columns.writeOffDate"></el-checkbox>
         <el-checkbox label="资产类型" v-model="columns.assetTypeName"></el-checkbox>
         <el-checkbox label="认定条件" v-model="columns.confirmationConditionsName"></el-checkbox>
-        <el-checkbox label="税前扣除年度" v-model="columns.preTaxYear"></el-checkbox>
+        <el-checkbox label="税前扣除年度" v-model="columns.declareYear"></el-checkbox>
         <el-checkbox label="核销收回状态" v-model="columns.status"></el-checkbox>
         <el-checkbox label="呆账核销状态" v-model="columns.writeOffStatus"></el-checkbox>
         <el-checkbox label="借款日期" v-model="columns.borrowTime"></el-checkbox>
