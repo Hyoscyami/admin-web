@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <SearchForm ref="searchFormRef" :list-query="table.listQuery" :types-select="table.typesSelect"
-                  :years-select="table.yearsSelect"
+                  :years-select="table.yearsSelect" :orgs-select="table.orgsSelect"
                   @search-form-submit="searchFormSubmit"
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>

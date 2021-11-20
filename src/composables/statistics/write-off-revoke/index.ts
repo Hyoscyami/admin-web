@@ -189,20 +189,12 @@ function getSummaries() {
     }
     //初始化echarts
     echartsCountData.value.push({
-      value: response.data.writtenOffCount,
-      name: '已核销呆账笔数'
-    })
-    echartsCountData.value.push({
       value: response.data.revokeCount,
       name: '核销收回笔数'
     })
     echartsCountData.value.push({
       value: response.data.unRevokeCount,
       name: '核销未收回笔数'
-    })
-    echartsAmountData.value.push({
-      value: response.data.writtenOffAmount,
-      name: '已核销呆账金额'
     })
     echartsAmountData.value.push({
       value: response.data.revokeAmount,
@@ -257,6 +249,19 @@ export function initEcharts() {
       orient: 'vertical',
       left: 'left'
     },
+    label: {
+      alignTo: 'edge',
+      formatter: '{b}\n{c} 笔;\n比例:{d}%',
+      minMargin: 5,
+      edgeDistance: 10,
+      lineHeight: 15,
+      rich: {
+        time: {
+          fontSize: 10,
+          color: '#999'
+        }
+      }
+    },
     series: [
       {
         name: '',
@@ -285,6 +290,19 @@ export function initEcharts() {
     legend: {
       orient: 'vertical',
       left: 'left'
+    },
+    label: {
+      alignTo: 'edge',
+      formatter: '{b}\n{c} 元;\n比例:{d}%',
+      minMargin: 5,
+      edgeDistance: 10,
+      lineHeight: 15,
+      rich: {
+        time: {
+          fontSize: 10,
+          color: '#999'
+        }
+      }
     },
     series: [
       {

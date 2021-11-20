@@ -13,6 +13,8 @@ import { DictVO } from '@/model/vo/DictVO'
 import { StatisticVO } from '../../../model/vo/StatisticVO'
 import { QueryStatisticReq, useQueryStatisticReq } from '../../../model/req/query/QueryStatisticReq'
 import * as echarts from 'echarts'
+import { entityList } from '../../../api/sys/org'
+import { useQueryOrgReq } from '../../../model/req/query/QueryOrgReq'
 
 // 初始化表格的对象
 const initTable = useTable<StatisticVO, QueryStatisticReq>(useQueryStatisticReq(20))
@@ -45,6 +47,8 @@ export function init() {
   // listTypes()
   //初始化年份
   listYears()
+  //初始化组织
+  listOrgs()
   // 初始化表格
   searchFormSubmit()
 }
@@ -53,6 +57,25 @@ export function init() {
 export function searchFormSubmit() {
   table.listQuery.page = 1
   getList()
+}
+
+// 获取组织下拉框
+export function listOrgs() {
+  entityList(useQueryOrgReq(20)).then((response) => {
+    if (table.orgsSelect) {
+      table.orgsSelect.length = 0
+    }
+    response.data.forEach((item: DictVO) => {
+      const type: SelectGroup = {
+        id: item.id,
+        text: item.name,
+        value: item.id
+      }
+      if (table.orgsSelect) {
+        table.orgsSelect.push(type)
+      }
+    })
+  })
 }
 
 // 获取资产类型下拉框
@@ -112,6 +135,7 @@ export function getList() {
 export function resetSearchForm() {
   // @ts-ignore
   searchFormRef.value.searchFormRef.resetFields()
+  table.listQuery.orgIds.length = 0
 }
 
 // 根据类型刷新表格
@@ -173,7 +197,7 @@ function getSummaries() {
       name: '核销未收回笔数'
     })
     echartsAmountData.value.push({
-      value: response.data.revokeAmount,
+      value: response.data.revokedAmount,
       name: '核销收回金额'
     })
     echartsAmountData.value.push({
@@ -225,6 +249,19 @@ export function initEcharts() {
       orient: 'vertical',
       left: 'left'
     },
+    label: {
+      alignTo: 'edge',
+      formatter: '{b}\n{c} 笔;\n比例:{d}%',
+      minMargin: 5,
+      edgeDistance: 10,
+      lineHeight: 15,
+      rich: {
+        time: {
+          fontSize: 10,
+          color: '#999'
+        }
+      }
+    },
     series: [
       {
         name: '',
@@ -253,6 +290,19 @@ export function initEcharts() {
     legend: {
       orient: 'vertical',
       left: 'left'
+    },
+    label: {
+      alignTo: 'edge',
+      formatter: '{b}\n{c} 元;\n比例:{d}%',
+      minMargin: 5,
+      edgeDistance: 10,
+      lineHeight: 15,
+      rich: {
+        time: {
+          fontSize: 10,
+          color: '#999'
+        }
+      }
     },
     series: [
       {

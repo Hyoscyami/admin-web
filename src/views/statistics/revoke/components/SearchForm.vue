@@ -1,29 +1,26 @@
 <template>
   <el-form ref="searchFormRef" :model="listQuery" :inline="true">
     <el-form-item label="统计方式">
-      <el-select v-model="listQuery.type" filterable placeholder="请选择资产类型">
+      <el-select v-model="listQuery.type" filterable placeholder="请选择统计方式">
         <el-option label="分机构展示" :value="2"/>
         <el-option label="分年度展示" :value="3"/>
       </el-select>
     </el-form-item>
-    <el-form-item label="资产类型" prop="assetTypes">
-      <el-select v-model="listQuery.assetTypes" multiple filterable placeholder="请选择资产类型" clearable>
-        <el-option v-for="item in typesSelect" :key="item.id" :label="item.text" :value="item.value"/>
+    <el-form-item label="收回年度" prop="years">
+      <el-select v-model="listQuery.years" multiple filterable placeholder="请选择收回年度" clearable>
+        <el-option v-for="item in yearsSelect" :key="item.id" :label="item.text" :value="item.value"/>
       </el-select>
     </el-form-item>
-    <el-form-item label="所属组织" prop="orgId">
-      <Cascader ref="cascaderRef" v-model:orgId="listQuery.orgId"></Cascader>
+    <el-form-item label="所属组织" prop="orgIds">
+      <el-select v-model="listQuery.orgIds" multiple filterable placeholder="请选择所属组织" clearable>
+        <el-option v-for="item in orgsSelect" :key="item.id" :label="item.text" :value="item.value"/>
+      </el-select>
     </el-form-item>
     <el-form-item label="组织搜索类型">
       <el-radio-group v-model="listQuery.searchType">
         <el-radio :label="1">本级</el-radio>
         <el-radio :label="2">本下级</el-radio>
       </el-radio-group>
-    </el-form-item>
-    <el-form-item label="收回年度" prop="years">
-      <el-select v-model="listQuery.years" multiple filterable placeholder="请选择收回年度" clearable>
-        <el-option v-for="item in yearsSelect" :key="item.id" :label="item.text" :value="item.value"/>
-      </el-select>
     </el-form-item>
     <el-form-item label="展示方式">
       <el-radio-group v-model="listQuery.queryType">
@@ -58,6 +55,10 @@ export default defineComponent({
       required: true
     },
     yearsSelect: {
+      type: Array as PropType<SelectGroup[]>,
+      required: true
+    },
+    orgsSelect: {
       type: Array as PropType<SelectGroup[]>,
       required: true
     }

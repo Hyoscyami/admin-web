@@ -69,7 +69,7 @@
     <!--    图形-->
     <el-row :gutter="20">
       <el-col :span="12">
-        <div id="echartCount" style="width: 800px;height:600px;" v-show="table.listQuery.queryType === 2">
+        <div id="echartCount" style="width: 700px;height:600px;" v-show="table.listQuery.queryType === 2">
 
         </div>
       </el-col>
