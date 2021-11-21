@@ -266,7 +266,7 @@ export function initEcharts() {
       {
         name: '',
         type: 'pie',
-        radius: '50%',
+        radius: '40%',
         data: echartsCountData.value,
         emphasis: {
           itemStyle: {
@@ -308,7 +308,7 @@ export function initEcharts() {
       {
         name: '',
         type: 'pie',
-        radius: '50%',
+        radius: '40%',
         data: echartsAmountData.value,
         emphasis: {
           itemStyle: {
