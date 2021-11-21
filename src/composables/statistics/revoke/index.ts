@@ -190,19 +190,19 @@ function getSummaries() {
     //初始化echarts
     echartsCountData.value.push({
       value: response.data.revokedCount,
-      name: '核销收回笔数'
+      name: '收回已税前扣除笔数'
     })
     echartsCountData.value.push({
       value: response.data.unRevokeCount,
-      name: '核销未收回笔数'
+      name: '收回未税前扣除笔数'
     })
     echartsAmountData.value.push({
       value: response.data.revokedAmount,
-      name: '核销收回金额'
+      name: '收回已税前扣除金额'
     })
     echartsAmountData.value.push({
       value: response.data.unRevokeAmount,
-      name: '核销未收回金额'
+      name: '收回未税前扣除金额'
     })
     // 初始化echarts
     initEcharts()
@@ -238,7 +238,7 @@ export function initEcharts() {
 
   countOption = reactive({
     title: {
-      text: '收回税前扣除情况笔数分析',
+      text: '收回已税前扣除情况笔数分析',
       subtext: '',
       left: 'center'
     },
@@ -280,7 +280,7 @@ export function initEcharts() {
   })
   amountOption = reactive({
     title: {
-      text: '收回税前扣除金额分析',
+      text: '收回未税前扣除金额分析',
       subtext: '',
       left: 'center'
     },
