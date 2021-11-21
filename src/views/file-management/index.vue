@@ -37,14 +37,6 @@
       />
       <el-table-column
           prop="status"
-          label="文件类型"
-      >
-        <template #default="scope">
-          {{ convertTypeToChinese(scope.row) }}
-        </template>
-      </el-table-column>
-      <el-table-column
-          prop="status"
           label="呆账核销状态"
       >
         <template #default="scope">
@@ -57,10 +49,14 @@
           width="150"
       >
         <template #default="scope">
-          <a :download="`${scope.row.name}`" :href="`${scope.row.url}`">
-            <el-button size="small" class="filter-item" type="primary">下载</el-button>
-          </a>
-          <!--          <el-button size="small" class="filter-item" type="primary" @click="handlePreview(scope.row)">预览</el-button>-->
+          <el-button type="text" size="small">
+            <router-link :to="{ path: '/file-management/detail',query: { id:scope.row.id }}">详情
+            </router-link>
+          </el-button>
+          <el-button type="text" size="small" v-if="scope.row.status === 3 || scope.row.status === 15">
+            <router-link :to="{ path: '/file-management/edit',query: { id:scope.row.id }}">编辑
+            </router-link>
+          </el-button>
         </template>
       </el-table-column>
     </el-table>

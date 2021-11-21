@@ -30,6 +30,10 @@ export interface BadDebtConfirmReq {
    * 其他申报材料
    */
   otherApplyMaterials: Array<FileReq>
+  /**
+   * 核销收回会计凭证
+   */
+  revokeAccountDocumentList: Array<FileReq>
   /** 附加证据列表，ID是basic_file_config_evidence的id */
   evidenceList: Array<EvidenceFileReq>
   // 资产类型
@@ -58,6 +62,7 @@ export function useBadDebtConfirmReq(): BadDebtConfirmReq {
     loanContractList: [],
     loanBalanceQueryList: [],
     otherApplyMaterials: [],
-    riskFiveLevelList: []
+    riskFiveLevelList: [],
+    revokeAccountDocumentList: []
   }
 }

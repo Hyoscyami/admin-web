@@ -227,7 +227,8 @@ export function handleUploadSuccess(response: ApiResponse<string>, _file: any, _
  * 文件预览
  */
 export function handlePreview(file: any) {
-  window.open(
-    'https://view.officeapps.live.com/op/view.aspx?src=' + window.location.host + file.url
-  )
+  window.open(file.response.data)
+  // window.open(
+  //   'https://view.officeapps.live.com/op/view.aspx?src=' + window.location.host + file.url
+  // )
 }

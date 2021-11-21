@@ -400,6 +400,25 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/file-management',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'edit',
+        name: 'FileManagementEdit',
+        component: () => import('@/views/file-management/edit.vue'),
+        meta: { title: '编辑', icon: 'dashboard' }
+      },
+      {
+        path: 'detail',
+        name: 'FileManagementDetail',
+        component: () => import('@/views/file-management/detail.vue'),
+        meta: { title: '详情', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
     path: '/statistics',
     component: Layout,
     redirect: 'noRedirect',
