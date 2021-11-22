@@ -22,6 +22,14 @@ export function listBadDebtAllFiles(id: number) {
   })
 }
 
+export function listAllFiles(id: number) {
+  return request({
+    url: '/file/list/allFiles',
+    method: 'get',
+    params: { id }
+  })
+}
+
 export function listBasicMaterials(id: number) {
   return request({
     url: '/file/list/basicMaterials',

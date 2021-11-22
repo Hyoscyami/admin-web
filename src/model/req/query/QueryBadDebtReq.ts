@@ -49,6 +49,10 @@ export interface QueryBadDebtReq extends BaseQuery {
    * 前端级联组件回显数据
    */
   selectOrg?: []
+  /**
+   * 文档完善状态
+   */
+  fileCompleteStatus?: number
 }
 
 /**

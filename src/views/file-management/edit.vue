@@ -8,6 +8,21 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
+              :file-list="fileVO.approveList"
+              :on-exceed="handleExceed"
+              :on-remove="handleRemove"
+              :on-preview="handlePreview"
+              :on-success="handleUploadSuccess"
+          >
+            <el-button size="small" type="primary">上传呆账核销申请报告</el-button>
+          </el-upload>
+        </el-col>
+        <el-col :span="8">
+          <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
               :file-list="fileVO.applyList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove2"
@@ -41,8 +56,8 @@
               :headers="headers"
               :file-list="fileVO.loanCertificateList"
               :on-exceed="handleExceed"
-              :on-remove="handleRemove5"
-              :on-success="handleUploadSuccess5"
+              :on-remove="handleRemove4"
+              :on-success="handleUploadSuccess4"
           >
             <el-button size="small" type="primary">上传借据或垫款凭证</el-button>
           </el-upload>
@@ -93,12 +108,13 @@
         </el-col>
       </el-row>
       <el-row :gutter="20" class="row-margin">
-        <el-col :span="12" v-for="item in fileVO.evidenceList" :key="item.id">
+        <el-col :span="12" v-for="item in fileVO.evidenceList" :key="item.id" class="row-margin">
           <el-upload
               class="upload-demo"
               action="/api/file/upload"
               multiple
               :headers="headers"
+              :file-list="item.fileVOList"
               :on-exceed="handleExceed"
               :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
               :on-preview="handlePreview"
@@ -118,8 +134,8 @@
               :headers="headers"
               :file-list="fileVO.accountDocumentList"
               :on-exceed="handleExceed"
-              :on-remove="handleRemove5"
-              :on-success="handleUploadSuccess5"
+              :on-remove="handleRemove9"
+              :on-success="handleUploadSuccess9"
           >
             <el-button size="small" type="primary">上传核销会计凭证</el-button>
           </el-upload>
@@ -138,6 +154,20 @@
             <el-button size="small" type="primary">上传放款会计凭证</el-button>
           </el-upload>
         </el-col>
+        <el-col :span="8">
+          <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              multiple
+              :headers="headers"
+              :file-list="fileVO.revokeAccountDocumentList"
+              :on-exceed="handleExceed"
+              :on-remove="handleRemove5"
+              :on-success="handleUploadSuccess5"
+          >
+            <el-button size="small" type="primary">上传核销收回凭证</el-button>
+          </el-upload>
+        </el-col>
       </el-row>
       <el-form-item>
         <el-button type="primary" @click="formSubmit">提交</el-button>
@@ -151,7 +181,7 @@
 import {useRoute, useRouter} from "vue-router";
 import {useStore} from "vuex";
 import {ApiResponse} from "@/model/resp/base/ApiResponse";
-import {listBadDebtAllFiles, missMaterialAdd} from "@/api/file/file";
+import {listAllFiles, missMaterialAdd} from "@/api/file/file";
 import {BadDebtFileVO, useBadDebtFileVO} from "@/model/vo/BadDebtFileVO";
 import {reactive} from "vue";
 import {errorMsg} from "../../utils/common";
@@ -174,9 +204,14 @@ export default {
     // 呆账核销数据所有文件
     const fileVO = reactive(useBadDebtFileVO())
     //获取详情
-    listBadDebtAllFiles(Number(id)).then((response: ApiResponse<BadDebtFileVO>) => {
+    listAllFiles(Number(id)).then((response: ApiResponse<BadDebtFileVO>) => {
       Object.assign(fileVO, response.data)
       Object.assign(form, response.data)
+      if (form.evidenceList) {
+        form.evidenceList.forEach((evidence) => {
+          evidence.evidenceList = evidence.fileVOList
+        })
+      }
       form.id = id
     })
     //关闭当前标签页
@@ -294,7 +329,7 @@ export default {
 
     // 删除放款会计凭证成功
     function handleRemove5(file, fileList) {
-      form.loanCertificateList = fileList.map(file => ({
+      form.loanAccountDocumentList = fileList.map(file => ({
         name: file.name,
         url: file.response.data
       }))
@@ -324,23 +359,40 @@ export default {
       }))
     }
 
+    // 上传核销会计凭证
+    function handleUploadSuccess9(response, file, fileList) {
+      form.accountDocumentList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
+    // 删除核销会计凭证成功
+    function handleRemove9(file, fileList) {
+      form.accountDocumentList = fileList.map(file => ({
+        name: file.name,
+        url: file.response.data
+      }))
+    }
+
 // 上传附加证件
     function handleEvidenceUploadSuccess(response, file, fileList, item) {
       // 是否存在
       let isExist = form.evidenceList.some((evidence) => evidence.id === item.id)
       if (isExist) {
         form.evidenceList.forEach((evidence) => {
-          //存在，则替换掉文件列表
-          evidence.evidenceList = fileList.map(file => ({
-            name: file.name,
-            url: file.response.data
-          }))
+          if (evidence.id === item.id) {
+            console.log('item替换', item, 'evidence', evidence)
+            //存在，则替换掉文件列表
+            evidence.evidenceList = fileList.map(file => ({
+              name: file.name,
+              url: file.response.data
+            }))
+          }
         })
       } else {
         // 不存在，push文件
         let evidence = reactive(useEvidenceFileReq())
-        evidence.badDebtEvidenceId = item.id
-        evidence.evidenceName = item.name
         evidence.evidenceList = fileList.map(file => ({
           name: file.name,
           url: file.response.data
@@ -355,11 +407,13 @@ export default {
       let isExist = form.evidenceList.some((evidence) => evidence.id === item.id)
       if (isExist) {
         form.evidenceList.forEach((evidence) => {
-          //存在，则替换掉文件列表
-          evidence.evidenceList = fileList.map(file => ({
-            name: file.name,
-            url: file.response.data
-          }))
+          if (evidence.id === item.id) {
+            //存在，则替换掉文件列表
+            evidence.evidenceList = fileList.map(file => ({
+              name: file.name,
+              url: file.response.data
+            }))
+          }
         })
       }
     }
@@ -371,21 +425,33 @@ export default {
       })
     }
     return {
-      fileVO, closeCurrentTag, headers, handleExceed, form, handleUploadSuccess,
+      fileVO,
+      closeCurrentTag,
+      headers,
+      handleExceed,
+      form,
+      handleUploadSuccess,
       handleUploadSuccess2,
       handleUploadSuccess3,
       handleUploadSuccess4,
       handleUploadSuccess5,
       handleUploadSuccess6,
       handleUploadSuccess7,
-      handleUploadSuccess8, handleRemove,
+      handleUploadSuccess8,
+      handleRemove,
       handleRemove2,
       handleRemove3,
       handleRemove4,
       handleRemove5,
       handleRemove6,
       handleRemove7,
-      handleRemove8, handlePreview, handleEvidenceUploadSuccess, handleEvidenceRemove, formSubmit
+      handleRemove8,
+      handleUploadSuccess9,
+      handleRemove9,
+      handlePreview,
+      handleEvidenceUploadSuccess,
+      handleEvidenceRemove,
+      formSubmit
     }
   }
 }

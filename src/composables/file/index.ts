@@ -139,3 +139,10 @@ export function filterTableStatus(value: number) {
 export function formatDate(_row: any, _column: any, cellValue: any): string {
   return formatYYYYMMDD(cellValue)
 }
+
+export function convertFileCompleteStatus(status: boolean): string {
+  if (status === true) {
+    return '已完善'
+  }
+  return '未完善'
+}

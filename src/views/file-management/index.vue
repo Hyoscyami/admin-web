@@ -36,6 +36,14 @@
           label="贷款账号"
       />
       <el-table-column
+          prop="fileCompleteStatus"
+          label="文档完善状态"
+      >
+        <template #default="scope">
+          {{ convertFileCompleteStatus(scope.row.fileCompleteStatus) }}
+        </template>
+      </el-table-column>
+      <el-table-column
           prop="status"
           label="呆账核销状态"
       >
@@ -74,7 +82,7 @@
 <script lang="ts">
 import Pagination from "@/components/Pagination/index.vue";
 import {
-  addFormRef,
+  addFormRef, convertFileCompleteStatus,
   formatDate,
   getList, init,
   resetSearchForm,
@@ -104,7 +112,7 @@ export default {
       formatDate,
       addFormRef,
       convertStatusToChinese,
-      convertTypeToChinese, handlePreview
+      convertTypeToChinese, handlePreview, convertFileCompleteStatus
     }
   }
 }

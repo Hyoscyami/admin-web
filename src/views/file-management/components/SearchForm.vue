@@ -11,6 +11,12 @@
       <el-input v-model="listQuery.loanAccountNo" placeholder="精确贷款账号"
                 @keyup.enter.native="searchFormSubmit"/>
     </el-form-item>
+    <el-form-item label="文档完善状态" prop="fileCompleteStatus">
+      <el-select v-model="listQuery.fileCompleteStatus" filterable placeholder="请选择文档完善状态" clearable>
+        <el-option label="已完善" :value="1"/>
+        <el-option label="未完善" :value="0"/>
+      </el-select>
+    </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="searchFormSubmit">查询</el-button>
       <el-button @click="resetSearchForm">重置</el-button>

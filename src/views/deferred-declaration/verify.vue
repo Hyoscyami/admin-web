@@ -478,7 +478,7 @@ export default defineComponent({
 
     // 删除放款会计凭证成功
     function handleRemove5(file, fileList) {
-      form.loanCertificateList = fileList.map(file => ({
+      form.loanAccountDocumentList = fileList.map(file => ({
         name: file.name,
         url: file.response.data
       }))
@@ -544,17 +544,17 @@ export default defineComponent({
       let isExist = form.evidenceList.some((evidence) => evidence.id === item.id)
       if (isExist) {
         form.evidenceList.forEach((evidence) => {
-          //存在，则替换掉文件列表
-          evidence.evidenceList = fileList.map(file => ({
-            name: file.name,
-            url: file.response.data
-          }))
+          if (evidence.id === item.id) {
+            //存在，则替换掉文件列表
+            evidence.evidenceList = fileList.map(file => ({
+              name: file.name,
+              url: file.response.data
+            }))
+          }
         })
       } else {
         // 不存在，push文件
         let evidence = reactive(useEvidenceFileReq())
-        evidence.badDebtEvidenceId = item.id
-        evidence.evidenceName = item.name
         evidence.evidenceList = fileList.map(file => ({
           name: file.name,
           url: file.response.data

@@ -57,6 +57,11 @@
           <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
         </el-tag>
       </el-descriptions-item>
+      <el-descriptions-item label="收回会计凭证" width="300px">
+        <el-tag size="small" v-for="item in fileVO.revokeAccountDocumentList" :key="item.id" style="margin-right:10px;">
+          <a :download="`${item.name}`" :href="`${item.url}`">{{ item.name }}</a>
+        </el-tag>
+      </el-descriptions-item>
     </el-descriptions>
     <el-button type="primary" @click="closeCurrentTag">返回</el-button>
   </div>
@@ -66,7 +71,7 @@
 import {useRoute, useRouter} from "vue-router";
 import {useStore} from "vuex";
 import {ApiResponse} from "@/model/resp/base/ApiResponse";
-import {listBadDebtAllFiles} from "@/api/file/file";
+import {listAllFiles, listBadDebtAllFiles} from "@/api/file/file";
 import {BadDebtFileVO, useBadDebtFileVO} from "@/model/vo/BadDebtFileVO";
 import {reactive} from "vue";
 
@@ -81,7 +86,7 @@ export default {
     // 呆账核销数据所有文件
     const fileVO = reactive(useBadDebtFileVO())
     //获取详情
-    listBadDebtAllFiles(Number(id)).then((response: ApiResponse<BadDebtFileVO>) => {
+    listAllFiles(Number(id)).then((response: ApiResponse<BadDebtFileVO>) => {
       Object.assign(fileVO, response.data)
     })
     //关闭当前标签页

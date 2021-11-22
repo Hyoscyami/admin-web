@@ -455,7 +455,7 @@ export default defineComponent({
 
     // 删除放款会计凭证成功
     function handleRemove5(file, fileList) {
-      form.loanCertificateList = fileList.map(file => ({
+      form.loanAccountDocumentList = fileList.map(file => ({
         name: file.name,
         url: file.response.data
       }))
