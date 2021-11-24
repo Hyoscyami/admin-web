@@ -45,7 +45,7 @@
 <script lang="ts">
 import {mapGetters} from 'vuex'
 import {onUnmounted} from 'vue'
-import {init, echart} from "@/composables/dashboard";
+import {init, echart, echart2} from "@/composables/dashboard";
 
 export default {
   name: 'Dashboard',
@@ -58,6 +58,7 @@ export default {
     init()
     onUnmounted(() => {
       echart.dispose
+      echart2.dispose
     })
     return {}
   }
