@@ -528,8 +528,8 @@ export default defineComponent({
       } else {
         // 不存在，push文件
         let evidence = reactive(useEvidenceFileReq())
-        evidence.badDebtEvidenceId = item.id
-        evidence.evidenceName = item.name
+        evidence.id = item.id
+        evidence.name = item.name
         evidence.evidenceList = fileList.map(file => ({
           name: file.name,
           url: file.response.data
