@@ -78,6 +78,11 @@ export function initEcharts() {
   let amountOption: EChartsOption
 
   countOption = reactive({
+    title: {
+      text: '核销税前扣除情况笔数分析',
+      subtext: '',
+      left: 'center'
+    },
     tooltip: {
       trigger: 'item'
     },
@@ -111,6 +116,11 @@ export function initEcharts() {
     ]
   })
   amountOption = reactive({
+    title: {
+      text: '核销税前扣除情况金额分析',
+      subtext: '',
+      left: 'center'
+    },
     tooltip: {
       trigger: 'item'
     },
@@ -193,6 +203,11 @@ export function initEcharts2() {
   let amountOption: EChartsOption
 
   countOption = reactive({
+    title: {
+      text: '核销收回情况笔数分析',
+      subtext: '',
+      left: 'center'
+    },
     tooltip: {
       trigger: 'item'
     },
@@ -226,6 +241,11 @@ export function initEcharts2() {
     ]
   })
   amountOption = reactive({
+    title: {
+      text: '核销收回情况金额分析',
+      subtext: '',
+      left: 'center'
+    },
     tooltip: {
       trigger: 'item'
     },
