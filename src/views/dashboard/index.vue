@@ -3,25 +3,12 @@
     <!--    核销-->
     <el-row :gutter="20">
       <el-col :span="12">
-        <div id="echartCount" style="width: 700px;height:400px;">
+        <div id="echartCount" style="width: 700px;height:300px;">
 
         </div>
       </el-col>
       <el-col :span="12">
-        <div id="echartAmount" style="width: 600px;height:400px;">
-
-        </div>
-      </el-col>
-    </el-row>
-    <!--    核销收回-->
-    <el-row :gutter="20">
-      <el-col :span="12">
-        <div id="echartCount2" style="width: 700px;height:400px;">
-
-        </div>
-      </el-col>
-      <el-col :span="12">
-        <div id="echartAmount2" style="width: 600px;height:400px;">
+        <div id="echartAmount" style="width: 600px;height:300px;">
 
         </div>
       </el-col>
@@ -29,12 +16,12 @@
     <!--    收回-->
     <el-row :gutter="20">
       <el-col :span="12">
-        <div id="echartCount3" style="width: 800px;height:400px;">
+        <div id="echartCount2" style="width: 700px;height:300px;">
 
         </div>
       </el-col>
       <el-col :span="12">
-        <div id="echartAmount3" style="width: 600px;height:400px;">
+        <div id="echartAmount2" style="width: 600px;height:300px;">
 
         </div>
       </el-col>

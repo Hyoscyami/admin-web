@@ -1,6 +1,6 @@
 import { reactive, ref } from 'vue'
 import * as echarts from 'echarts'
-import { totalPreTaxDeduction, totalWriteOffRevokeCount } from '../../api/statistics/statistics'
+import { totalPreTaxDeduction, totalRevokeCount } from '../../api/statistics/statistics'
 import { useTable } from '../../model/req/query/Table'
 import { StatisticVO } from '../../model/vo/StatisticVO'
 import { QueryStatisticReq, useQueryStatisticReq } from '../../model/req/query/QueryStatisticReq'
@@ -29,7 +29,7 @@ export const table2 = reactive(initTable2)
 export function init() {
   //核销数据表格合计
   getSummaries()
-  //核销收回数据合计
+  //收回数据合计
   getSummaries2()
 }
 
@@ -78,17 +78,8 @@ export function initEcharts() {
   let amountOption: EChartsOption
 
   countOption = reactive({
-    title: {
-      text: '核销税前扣除情况笔数分析',
-      subtext: '',
-      left: 'center'
-    },
     tooltip: {
       trigger: 'item'
-    },
-    legend: {
-      orient: 'vertical',
-      left: 'left'
     },
     label: {
       alignTo: 'edge',
@@ -107,7 +98,7 @@ export function initEcharts() {
       {
         name: '',
         type: 'pie',
-        radius: '30%',
+        radius: '40%',
         data: echartsCountData.value,
         emphasis: {
           itemStyle: {
@@ -120,17 +111,8 @@ export function initEcharts() {
     ]
   })
   amountOption = reactive({
-    title: {
-      text: '核销税前扣除情况金额分析',
-      subtext: '',
-      left: 'center'
-    },
     tooltip: {
       trigger: 'item'
-    },
-    legend: {
-      orient: 'vertical',
-      left: 'left'
     },
     label: {
       alignTo: 'edge',
@@ -149,7 +131,7 @@ export function initEcharts() {
       {
         name: '',
         type: 'pie',
-        radius: '30%',
+        radius: '40%',
         data: echartsAmountData.value,
         emphasis: {
           itemStyle: {
@@ -168,7 +150,7 @@ export function initEcharts() {
 
 //表格合计行
 function getSummaries2() {
-  totalWriteOffRevokeCount(table.listQuery).then((response) => {
+  totalRevokeCount(table.listQuery).then((response) => {
     if (echartsCountData2.value.length > 0) {
       echartsCountData2.value.length = 0
     }
@@ -177,20 +159,20 @@ function getSummaries2() {
     }
     //初始化echarts
     echartsCountData2.value.push({
-      value: response.data.revokeCount,
-      name: '核销收回笔数'
+      value: response.data.revokedCount,
+      name: '收回已税前扣除笔数'
     })
     echartsCountData2.value.push({
       value: response.data.unRevokeCount,
-      name: '核销未收回笔数'
+      name: '收回未税前扣除笔数'
     })
     echartsAmountData2.value.push({
-      value: response.data.revokeAmount,
-      name: '核销收回金额'
+      value: response.data.revokedAmount,
+      name: '收回已税前扣除金额'
     })
     echartsAmountData2.value.push({
       value: response.data.unRevokeAmount,
-      name: '核销未收回金额'
+      name: '收回未税前扣除金额'
     })
     // 初始化echarts
     initEcharts2()
@@ -211,17 +193,8 @@ export function initEcharts2() {
   let amountOption: EChartsOption
 
   countOption = reactive({
-    title: {
-      text: '核销收回情况笔数分析',
-      subtext: '',
-      left: 'center'
-    },
     tooltip: {
       trigger: 'item'
-    },
-    legend: {
-      orient: 'vertical',
-      left: 'left'
     },
     label: {
       alignTo: 'edge',
@@ -240,7 +213,7 @@ export function initEcharts2() {
       {
         name: '',
         type: 'pie',
-        radius: '30%',
+        radius: '40%',
         data: echartsCountData2.value,
         emphasis: {
           itemStyle: {
@@ -253,17 +226,8 @@ export function initEcharts2() {
     ]
   })
   amountOption = reactive({
-    title: {
-      text: '核销收回情况金额分析',
-      subtext: '',
-      left: 'center'
-    },
     tooltip: {
       trigger: 'item'
-    },
-    legend: {
-      orient: 'vertical',
-      left: 'left'
     },
     label: {
       alignTo: 'edge',
@@ -282,7 +246,7 @@ export function initEcharts2() {
       {
         name: '',
         type: 'pie',
-        radius: '30%',
+        radius: '40%',
         data: echartsAmountData2.value,
         emphasis: {
           itemStyle: {
