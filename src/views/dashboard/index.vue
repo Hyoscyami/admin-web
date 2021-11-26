@@ -45,8 +45,8 @@ export default {
   setup() {
     init()
     onUnmounted(() => {
-      echart.dispose()
-      echart2.dispose()
+      echart.dispose
+      echart2.dispose
     })
     return {}
   }
