@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-container">
+    <h1 align="center">欢迎进入"资产损失税收管理系统"！</h1>
     <!--    核销-->
     <el-row :gutter="20">
       <el-col :span="12">
