@@ -28,6 +28,7 @@ export interface OrgRole {
    */
   roleId?: number
 }
+
 //组织角色表单选择
 export interface OrgRoleForm {
   /**
@@ -39,12 +40,14 @@ export interface OrgRoleForm {
    */
   roleList: Array<RoleVO>
 }
+
 export function userOrgRoleForm(): OrgRoleForm {
   return {
     orgList: [],
     roleList: []
   }
 }
+
 /**
  * 初始化新增的数据字典
  */
@@ -58,7 +61,7 @@ export function useAddOperatorReq(): AddOperatorReq {
       }
     ],
     password: '',
-    status: 0,
+    status: 1,
     username: ''
   }
 }
