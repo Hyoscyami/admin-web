@@ -86,6 +86,8 @@ export function getList() {
   }
   if (table.listQuery.fileCompleteStatus === 1 || table.listQuery.fileCompleteStatus === 0) {
     table.listQuery.status = [StatusEnum.PRE_TAX_DEDUCTION, StatusEnum.DECLARE_PRE_TAX_DEDUCTION]
+  } else {
+    table.listQuery.status = []
   }
   if (table.listQuery.declareYear) {
     table.listQuery.declareYear = formatYYYY(table.listQuery.declareYear)
