@@ -107,6 +107,9 @@
           </el-upload>
         </el-col>
       </el-row>
+      <el-row class="row-margin">
+        <span>您需上传以下税收证据：{{ evidenceDescription }}</span>
+      </el-row>
       <el-row :gutter="20" class="row-margin">
         <el-col :span="12" v-for="item in fileVO.evidenceList" :key="item.id" class="row-margin">
           <el-upload
@@ -183,11 +186,13 @@ import {useStore} from "vuex";
 import {ApiResponse} from "@/model/resp/base/ApiResponse";
 import {listAllFiles, missMaterialAdd} from "@/api/file/file";
 import {BadDebtFileVO, useBadDebtFileVO} from "@/model/vo/BadDebtFileVO";
-import {reactive} from "vue";
+import {reactive, computed} from "vue";
 import {errorMsg} from "../../utils/common";
 import {useBadDebtConfirmReq} from "../../model/req/other/BadDebtConfirmReq";
 import {handlePreview} from "../../composables/deferred-declaration";
 import {useEvidenceFileReq} from "../../model/req/other/EvidenceFileReq";
+import {getNewestFileConfigVOById} from "../../api/bad-debt/confirm";
+import {BadDebtWriteOffVO, useBadDebtVO} from "../../model/vo/BadDebtWriteOffVO";
 
 export default {
   name: "FileManagementEdit",
@@ -203,7 +208,9 @@ export default {
     const form = reactive(useBadDebtConfirmReq())
     // 呆账核销数据所有文件
     const fileVO = reactive(useBadDebtFileVO())
-    //获取详情
+    //呆账核销VO
+    const badDebtWriteOffVO = reactive(useBadDebtVO())
+    //获取文件详情
     listAllFiles(Number(id)).then((response: ApiResponse<BadDebtFileVO>) => {
       Object.assign(fileVO, response.data)
       Object.assign(form, response.data)
@@ -214,6 +221,11 @@ export default {
       }
       form.id = id
     })
+    //档案和基本详情
+    getNewestFileConfigVOById(Number(id)).then((response: ApiResponse<BadDebtWriteOffVO>) => {
+      Object.assign(badDebtWriteOffVO, response.data)
+    })
+
     //关闭当前标签页
     const closeCurrentTag = () => {
       store.dispatch('tagsView/delCurrentViews', {
@@ -426,6 +438,13 @@ export default {
         closeCurrentTag()
       })
     }
+    //税收证据描述
+    const evidenceDescription = computed(() => {
+      if (badDebtWriteOffVO.basicFileConfigVO && badDebtWriteOffVO.basicFileConfigVO.evidenceDescription) {
+        return badDebtWriteOffVO.basicFileConfigVO.evidenceDescription
+      }
+      return ''
+    })
     return {
       fileVO,
       closeCurrentTag,
@@ -453,7 +472,7 @@ export default {
       handlePreview,
       handleEvidenceUploadSuccess,
       handleEvidenceRemove,
-      formSubmit
+      formSubmit, evidenceDescription
     }
   }
 }

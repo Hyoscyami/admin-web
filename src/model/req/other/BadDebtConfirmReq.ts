@@ -48,6 +48,10 @@ export interface BadDebtConfirmReq {
   status?: Array<number>
   // 申报年份
   declareYear?: string
+  /**
+   * 附加证据描述
+   */
+  evidenceDescription?: string
 }
 
 export function useBadDebtConfirmReq(): BadDebtConfirmReq {

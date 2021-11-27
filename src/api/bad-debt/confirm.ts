@@ -23,6 +23,14 @@ export function detail(id: number) {
   })
 }
 
+export function getNewestFileConfigVOById(id: number) {
+  return request({
+    url: '/bad-debt-write-off/getNewestFileConfigVOById',
+    method: 'get',
+    params: { id }
+  })
+}
+
 export function waitingDetail(id: number) {
   return request({
     url: '/bad-debt-write-off/waitingDetail',
