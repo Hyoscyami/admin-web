@@ -13,7 +13,6 @@
 <script lang="ts">
 import {computed, defineComponent, PropType, reactive, toRefs, ref} from 'vue';
 import {entityTree} from "../../api/sys/org";
-import {useQueryOrgReq} from "../../model/req/query/QueryOrgReq";
 
 export default defineComponent({
   name: "Cascader",
@@ -38,14 +37,11 @@ export default defineComponent({
     }
   },
   setup(props, {attrs, slots, emit}) {
-    const queryOrgReq = useQueryOrgReq(20);
-    queryOrgReq.page = undefined
-    queryOrgReq.size = undefined
     const orgTree = reactive({
       options: []
     })
     //组织树
-    entityTree(queryOrgReq).then((response) => {
+    entityTree().then((response) => {
       orgTree.options = response.data
     })
 

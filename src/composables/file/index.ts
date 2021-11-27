@@ -84,6 +84,12 @@ export function getList() {
   if (table.listQuery.writeOffYear) {
     table.listQuery.writeOffYear = formatYYYY(table.listQuery.writeOffYear)
   }
+  if (table.listQuery.fileCompleteStatus === 1 || table.listQuery.fileCompleteStatus === 2) {
+    table.listQuery.status = [StatusEnum.PRE_TAX_DEDUCTION, StatusEnum.DECLARE_PRE_TAX_DEDUCTION]
+  }
+  if (table.listQuery.declareYear) {
+    table.listQuery.declareYear = formatYYYY(table.listQuery.declareYear)
+  }
   list(table.listQuery).then((response) => {
     table.tableData = response.data.records
     table.total = response.data.total
@@ -95,6 +101,8 @@ export function getList() {
 export function resetSearchForm() {
   // @ts-ignore
   searchFormRef.value.searchFormRef.resetFields()
+  table.listQuery.orgId = undefined
+  table.listQuery.declareYear = undefined
 }
 
 // 表格的搜索表单重置

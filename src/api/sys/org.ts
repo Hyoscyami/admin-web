@@ -98,13 +98,12 @@ export function tree(data: QueryOrgReq) {
   })
 }
 
-export function entityTree(data: QueryOrgReq) {
+export function entityTree() {
   return request({
     url: '/org/entityTree',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
-    },
-    data: JSON.stringify(data)
+    }
   })
 }

@@ -216,7 +216,7 @@ export function initEcharts2() {
     myChartAmount2.value = echart2.init(document.getElementById('echartAmount2'))
     countOption = reactive({
       title: {
-        text: '核销收回情况笔数分析',
+        text: '收回税前扣除情况笔数分析',
         subtext: '',
         left: 'center'
       },
@@ -254,7 +254,7 @@ export function initEcharts2() {
     })
     amountOption = reactive({
       title: {
-        text: '核销收回情况金额分析',
+        text: '收回税前扣除情况金额分析',
         subtext: '',
         left: 'center'
       },

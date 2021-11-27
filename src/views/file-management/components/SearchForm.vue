@@ -17,6 +17,24 @@
         <el-option label="未完善" :value="0"/>
       </el-select>
     </el-form-item>
+    <el-form-item label="所属组织" prop="orgId">
+      <Cascader v-model:orgId="listQuery.orgId" v-model:selectedOrg="selectOrg"></Cascader>
+    </el-form-item>
+    <el-form-item label="组织搜索类型">
+      <el-radio-group v-model="listQuery.searchType">
+        <el-radio :label="1">本级</el-radio>
+        <el-radio :label="2">本下级</el-radio>
+      </el-radio-group>
+    </el-form-item>
+    <el-form-item label="申报年度" prop="declareYear">
+      <el-date-picker
+          v-model="listQuery.declareYear"
+          :disabled-date="disabledDate"
+          type="year"
+          format="YYYY"
+          placeholder="请选择申报年度">
+      </el-date-picker>
+    </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="searchFormSubmit">查询</el-button>
       <el-button @click="resetSearchForm">重置</el-button>
@@ -42,6 +60,10 @@ export default defineComponent({
     typesSelect: {
       type: Array as PropType<SelectGroup[]>,
       required: true
+    },
+    orgsSelect: {
+      type: Array as PropType<SelectGroup[]>,
+      required: true
     }
   },
   setup(props, {attrs, slots, emit}) {
@@ -53,9 +75,14 @@ export default defineComponent({
       emit("reset-search-form")
     }
 
+//时间选择，禁用时间
+    function disabledDate(time) {
+      return time.getTime() > Date.now()
+    }
+
     const searchFormRef = ref(null)
     const selectOrg = []
-    return {searchFormSubmit, resetSearchForm, searchFormRef, selectOrg}
+    return {searchFormSubmit, resetSearchForm, searchFormRef, selectOrg, disabledDate}
   }
 })
 </script>

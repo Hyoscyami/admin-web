@@ -8,7 +8,10 @@ export interface QueryBadDebtReq extends BaseQuery {
    * 组织id,即org.id
    */
   orgId?: number
-
+  /**
+   * 组织ID列表
+   */
+  orgIds?: Array<number>
   /**
    * 呆账核销编号
    */
@@ -23,7 +26,10 @@ export interface QueryBadDebtReq extends BaseQuery {
    * 借款人证件号码
    */
   borrowerIdNo?: string
-
+  /**
+   * 搜索类型，1：本级，2：本下级
+   */
+  searchType: number
   /**
    * 贷款账号
    */
@@ -60,5 +66,5 @@ export interface QueryBadDebtReq extends BaseQuery {
  * @param size
  */
 export function useQueryBadDebtReq(size: number): QueryBadDebtReq {
-  return { name: '', page: 1, size }
+  return { name: '', page: 1, size, searchType: 1 }
 }

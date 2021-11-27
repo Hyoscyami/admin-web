@@ -2,6 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <SearchForm ref="searchFormRef" :list-query="table.listQuery" :types-select="table.typesSelect"
+                  :orgs-select="table.orgsSelect"
                   @search-form-submit="searchFormSubmit"
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
@@ -22,6 +23,10 @@
           prop="writeOffDate"
           label="核销年度"
           :formatter="formatDate"
+      />
+      <el-table-column
+          prop="declareYear"
+          label="申报年度"
       />
       <el-table-column
           prop="borrowerName"
