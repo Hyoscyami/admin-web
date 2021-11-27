@@ -40,7 +40,7 @@
           label="文档完善状态"
       >
         <template #default="scope">
-          {{ convertFileCompleteStatus(scope.row.fileCompleteStatus) }}
+          {{ convertFileCompleteStatus(scope.row) }}
         </template>
       </el-table-column>
       <el-table-column

@@ -33,7 +33,7 @@
 <script lang="ts">
 import {mapGetters} from 'vuex'
 import {onUnmounted} from 'vue'
-import {init, echart, echart2} from "@/composables/dashboard";
+import {init, myChartCount, myChartAmount, myChartCount2, myChartAmount2} from "@/composables/dashboard";
 
 export default {
   name: 'Dashboard',
@@ -45,8 +45,10 @@ export default {
   setup() {
     init()
     onUnmounted(() => {
-      echart.dispose
-      echart2.dispose
+      myChartCount.value.dispose()
+      myChartAmount.value.dispose()
+      myChartCount2.value.dispose()
+      myChartAmount2.value.dispose()
     })
     return {}
   }

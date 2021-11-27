@@ -9,6 +9,7 @@ import { SelectGroup, useTable } from '@/model/req/query/Table'
 import { formatYYYY, formatYYYYMMDD } from '@/utils/time'
 import { useUpdateBatchBadDebtReq } from '@/model/req/update/UpdateBatchBadDebtReq'
 import { TypeEnum } from '@/enums/TypeEnum'
+import { StatusEnum } from '../../enums/StatusEnum'
 
 // 初始化表格的对象
 const initTable = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
@@ -140,8 +141,11 @@ export function formatDate(_row: any, _column: any, cellValue: any): string {
   return formatYYYYMMDD(cellValue)
 }
 
-export function convertFileCompleteStatus(status: boolean): string {
-  if (status === true) {
+export function convertFileCompleteStatus(row: any): string {
+  if (row.status === StatusEnum.WAITING_DECLARE) {
+    return ''
+  }
+  if (row.fileCompleteStatus === true) {
     return '已完善'
   }
   return '未完善'

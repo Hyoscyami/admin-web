@@ -1,4 +1,4 @@
-import { reactive, ref } from 'vue'
+import { reactive, ref, nextTick } from 'vue'
 import * as echarts from 'echarts'
 import { totalPreTaxDeduction, totalRevokeCount } from '../../api/statistics/statistics'
 import { useTable } from '../../model/req/query/Table'
@@ -21,6 +21,15 @@ export const echartsCountData2 = ref<Array<object>>([])
 export const echartsAmountData2 = ref<Array<object>>([])
 // echart
 export const echart2 = echarts
+// @ts-ignore
+export const myChartCount = ref(null)
+
+// @ts-ignore
+export const myChartAmount = ref(null)
+// @ts-ignore
+export const myChartCount2 = ref(null)
+// @ts-ignore
+export const myChartAmount2 = ref(null)
 // 初始化表格的对象
 const initTable2 = useTable<StatisticVO, QueryStatisticReq>(useQueryStatisticReq(20))
 // 父机构表格数据
@@ -68,94 +77,96 @@ function getSummaries() {
 export function initEcharts() {
   type EChartsOption = echarts.EChartsOption
 
-  // @ts-ignore
-  const myChartCount = echart.init(document.getElementById('echartCount'))
-  // @ts-ignore
-  const myChartAmount = echart.init(document.getElementById('echartAmount'))
   //笔数
   let countOption: EChartsOption
   //金额
   let amountOption: EChartsOption
-
-  countOption = reactive({
-    title: {
-      text: '核销税前扣除情况笔数分析',
-      subtext: '',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    label: {
-      alignTo: 'edge',
-      formatter: '{b}\n{c} 笔;\n比例:{d}%',
-      minMargin: 5,
-      edgeDistance: 10,
-      lineHeight: 15,
-      rich: {
-        time: {
-          fontSize: 10,
-          color: '#999'
-        }
-      }
-    },
-    series: [
-      {
-        name: '',
-        type: 'pie',
-        radius: '40%',
-        data: echartsCountData.value,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
+  nextTick(() => {
+    // @ts-ignore
+    myChartCount.value = echart.init(document.getElementById('echartCount'))
+    // @ts-ignore
+    myChartAmount.value = echart.init(document.getElementById('echartAmount'))
+    countOption = reactive({
+      title: {
+        text: '核销税前扣除情况笔数分析',
+        subtext: '',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      label: {
+        alignTo: 'edge',
+        formatter: '{b}\n{c} 笔;\n比例:{d}%',
+        minMargin: 5,
+        edgeDistance: 10,
+        lineHeight: 15,
+        rich: {
+          time: {
+            fontSize: 10,
+            color: '#999'
           }
         }
-      }
-    ]
-  })
-  amountOption = reactive({
-    title: {
-      text: '核销税前扣除情况金额分析',
-      subtext: '',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    label: {
-      alignTo: 'edge',
-      formatter: '{b}\n{c} 元;\n比例:{d}%',
-      minMargin: 5,
-      edgeDistance: 10,
-      lineHeight: 15,
-      rich: {
-        time: {
-          fontSize: 10,
-          color: '#999'
-        }
-      }
-    },
-    series: [
-      {
-        name: '',
-        type: 'pie',
-        radius: '40%',
-        data: echartsAmountData.value,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
+      },
+      series: [
+        {
+          name: '',
+          type: 'pie',
+          radius: '40%',
+          data: echartsCountData.value,
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
           }
         }
-      }
-    ]
+      ]
+    })
+    amountOption = reactive({
+      title: {
+        text: '核销税前扣除情况金额分析',
+        subtext: '',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      label: {
+        alignTo: 'edge',
+        formatter: '{b}\n{c} 元;\n比例:{d}%',
+        minMargin: 5,
+        edgeDistance: 10,
+        lineHeight: 15,
+        rich: {
+          time: {
+            fontSize: 10,
+            color: '#999'
+          }
+        }
+      },
+      series: [
+        {
+          name: '',
+          type: 'pie',
+          radius: '40%',
+          data: echartsAmountData.value,
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+    })
+    // @ts-ignore
+    myChartCount.value.setOption(countOption)
+    // @ts-ignore
+    myChartAmount.value.setOption(amountOption)
   })
-
-  myChartCount.setOption(countOption)
-  myChartAmount.setOption(amountOption)
 }
 
 //表格合计行
@@ -193,92 +204,96 @@ function getSummaries2() {
 export function initEcharts2() {
   type EChartsOption = echarts.EChartsOption
 
-  // @ts-ignore
-  const myChartCount = echart2.init(document.getElementById('echartCount2'))
-  // @ts-ignore
-  const myChartAmount = echart2.init(document.getElementById('echartAmount2'))
   //笔数
   let countOption: EChartsOption
   //金额
   let amountOption: EChartsOption
 
-  countOption = reactive({
-    title: {
-      text: '核销收回情况笔数分析',
-      subtext: '',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    label: {
-      alignTo: 'edge',
-      formatter: '{b}\n{c} 笔;\n比例:{d}%',
-      minMargin: 5,
-      edgeDistance: 10,
-      lineHeight: 15,
-      rich: {
-        time: {
-          fontSize: 10,
-          color: '#999'
-        }
-      }
-    },
-    series: [
-      {
-        name: '',
-        type: 'pie',
-        radius: '40%',
-        data: echartsCountData2.value,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
+  nextTick(() => {
+    // @ts-ignore
+    myChartCount2.value = echart2.init(document.getElementById('echartCount2'))
+    // @ts-ignore
+    myChartAmount2.value = echart2.init(document.getElementById('echartAmount2'))
+    countOption = reactive({
+      title: {
+        text: '核销收回情况笔数分析',
+        subtext: '',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      label: {
+        alignTo: 'edge',
+        formatter: '{b}\n{c} 笔;\n比例:{d}%',
+        minMargin: 5,
+        edgeDistance: 10,
+        lineHeight: 15,
+        rich: {
+          time: {
+            fontSize: 10,
+            color: '#999'
           }
         }
-      }
-    ]
-  })
-  amountOption = reactive({
-    title: {
-      text: '核销收回情况金额分析',
-      subtext: '',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    label: {
-      alignTo: 'edge',
-      formatter: '{b}\n{c} 元;\n比例:{d}%',
-      minMargin: 5,
-      edgeDistance: 10,
-      lineHeight: 15,
-      rich: {
-        time: {
-          fontSize: 10,
-          color: '#999'
-        }
-      }
-    },
-    series: [
-      {
-        name: '',
-        type: 'pie',
-        radius: '40%',
-        data: echartsAmountData2.value,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
+      },
+      series: [
+        {
+          name: '',
+          type: 'pie',
+          radius: '40%',
+          data: echartsCountData2.value,
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
           }
         }
-      }
-    ]
-  })
+      ]
+    })
+    amountOption = reactive({
+      title: {
+        text: '核销收回情况金额分析',
+        subtext: '',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      label: {
+        alignTo: 'edge',
+        formatter: '{b}\n{c} 元;\n比例:{d}%',
+        minMargin: 5,
+        edgeDistance: 10,
+        lineHeight: 15,
+        rich: {
+          time: {
+            fontSize: 10,
+            color: '#999'
+          }
+        }
+      },
+      series: [
+        {
+          name: '',
+          type: 'pie',
+          radius: '40%',
+          data: echartsAmountData2.value,
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+    })
 
-  myChartCount.setOption(countOption)
-  myChartAmount.setOption(amountOption)
+    // @ts-ignore
+    myChartCount2.value.setOption(countOption)
+    // @ts-ignore
+    myChartAmount2.value.setOption(amountOption)
+  })
 }
