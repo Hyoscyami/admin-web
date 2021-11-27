@@ -84,7 +84,7 @@ export function getList() {
   if (table.listQuery.writeOffYear) {
     table.listQuery.writeOffYear = formatYYYY(table.listQuery.writeOffYear)
   }
-  if (table.listQuery.fileCompleteStatus === 1 || table.listQuery.fileCompleteStatus === 2) {
+  if (table.listQuery.fileCompleteStatus === 1 || table.listQuery.fileCompleteStatus === 0) {
     table.listQuery.status = [StatusEnum.PRE_TAX_DEDUCTION, StatusEnum.DECLARE_PRE_TAX_DEDUCTION]
   }
   if (table.listQuery.declareYear) {
@@ -150,7 +150,7 @@ export function formatDate(_row: any, _column: any, cellValue: any): string {
 }
 
 export function convertFileCompleteStatus(row: any): string {
-  if (row.status === StatusEnum.WAITING_DECLARE) {
+  if (row.status === StatusEnum.WAITING_DECLARE || row.status === StatusEnum.IMPORTED) {
     return ''
   }
   if (row.fileCompleteStatus === true) {
