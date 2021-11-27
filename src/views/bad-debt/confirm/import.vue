@@ -67,6 +67,7 @@ export default defineComponent({
     //表单
     let form = reactive(useImportAccountReq())
     form.accountingDocumentNo = accountingDocumentNo
+    form.id = route.query.accountingDocumentNo
     //核销本金总额
     let sumCapital = ref(0)
     const formRef = ref(null)
