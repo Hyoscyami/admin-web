@@ -285,7 +285,8 @@
         </el-col>
       </el-row>
       <el-form-item>
-        <el-button type="primary" @click="formSubmit">提交</el-button>
+        <el-button v-if="hasPermission('/deferred-declaration/submit')" type="primary" @click="formSubmit">提交
+        </el-button>
         <el-button @click="closeCurrentTag">返回</el-button>
       </el-form-item>
     </el-form>
@@ -294,22 +295,23 @@
 
 <script lang="ts">
 import Pagination from "@/components/Pagination/index.vue";
-import {defineComponent, reactive, ref, toRaw, onMounted, computed} from 'vue';
+import {defineComponent, onMounted, reactive, ref, toRaw} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
+import hasPermission from '@/utils/permission'
 import {
   addFormRef,
   assetTypes,
   confirmConditions,
+  detailInit,
   formatDate,
   handleExceed,
-  handlePreview,
-  detailInit
+  handlePreview
 } from "@/composables/deferred-declaration";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import {useBadDebtConfirmReq} from "@/model/req/other/BadDebtConfirmReq";
-import {waitConfirm, match, waitingDetail} from "@/api/bad-debt/confirm";
+import {match, waitingDetail} from "@/api/bad-debt/confirm";
 import {ApiResponse} from "@/model/resp/base/ApiResponse";
 import {BadDebtWriteOffVO, useBadDebtVO} from "@/model/vo/BadDebtWriteOffVO";
 import {useMatchBasicFileConfigReq} from "@/model/vo/MatchBasicFileConfigReq";
@@ -618,7 +620,7 @@ export default defineComponent({
       closeCurrentTag,
       formSubmit,
       handleEvidenceUploadSuccess,
-      handleEvidenceRemove
+      handleEvidenceRemove, hasPermission
     }
   }
 })

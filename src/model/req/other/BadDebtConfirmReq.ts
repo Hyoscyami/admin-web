@@ -52,6 +52,10 @@ export interface BadDebtConfirmReq {
    * 附加证据描述
    */
   evidenceDescription?: string
+  /**
+   * 文档资料完善状态
+   */
+  fileCompleteStatus?: number
 }
 
 export function useBadDebtConfirmReq(): BadDebtConfirmReq {

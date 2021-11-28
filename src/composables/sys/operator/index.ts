@@ -54,6 +54,7 @@ export const dialogFormRef = ref(null)
 export const searchFormRef = ref(null)
 //组织角色对话框
 export const dialogOrgRole = reactive(userOrgRoleForm())
+
 // 初始化
 export function init() {
   // 初始化状态
@@ -117,6 +118,7 @@ export function selectOrgChange(orgId: number) {
   dialog.form.orgRoles[0].roleId = undefined
   getSelectRole(orgId, '')
 }
+
 /**
  * 根据选择的组织ID，查询组织下的角色列表
  * @param orgId
@@ -131,6 +133,7 @@ export function getSelectRole(orgId: number, roleName: string) {
     dialogOrgRole.roleList = response.data.records
   })
 }
+
 /**
  * 获取新增和编辑时弹框的组织下拉框
  * @param orgName
@@ -142,12 +145,14 @@ export function getSelectOrg(orgName: string) {
     dialogOrgRole.orgList = response.data.records
   })
 }
+
 // 查看详情
 export async function viewDetail(row: any) {
   dialog.viewDialogVisible = true
   Object.assign(dialog.viewDetailData, row)
   dialog.viewDetailData.statusStr = await dictConvert(DictEnum.DICT_STATUS, String(row.status))
 }
+
 // 新增数据字典表单提交
 export function addFormSubmit() {
   // @ts-ignore
@@ -179,6 +184,7 @@ export function addFormSubmit() {
     }
   })
 }
+
 // 新增数据字典表单取消
 export function cancelDialog() {
   dialog.visible = false
@@ -187,10 +193,12 @@ export function cancelDialog() {
   // dialog.form.orgRoles[0].orgId = undefined
   // dialog.form.orgRoles[0].roleId = undefined
 }
+
 // 查看详情字典弹框取消
 export function cancelView() {
   dialog.viewDialogVisible = false
 }
+
 // 获取列表数据
 export function getList() {
   table.listLoading = true
@@ -202,6 +210,7 @@ export function getList() {
     table.listLoading = false
   })
 }
+
 // 修改数据字典详情
 export function updateDetail(row: any) {
   dialog.dialogStatus = CommonEnum.UPDATE
@@ -215,6 +224,7 @@ export function updateDetail(row: any) {
     getSelectRole(dialog.form.orgRoles[0].orgId, '')
   }
 }
+
 // 删除数据字典
 export function delRow(row: any) {
   del(row.id).then(() => {
@@ -223,6 +233,7 @@ export function delRow(row: any) {
     searchFormSubmit()
   })
 }
+
 /**
  * 加载子树数据的方法，仅当 lazy 属性为true 时生效
  * @param node 节点
@@ -253,6 +264,7 @@ export async function loadNode(node: any, resolve: any) {
     return resolve(tree.loadChildrenTreeData)
   }
 }
+
 // 清除node的子节点查看下一页的标识
 export function clearHasNext(node: any) {
   const childNodes = node.parent.childNodes
@@ -261,6 +273,7 @@ export function clearHasNext(node: any) {
   const lastNode = treeRef.value.getNode(childNodes[childNodes.length - 1].data.id)
   lastNode.data.hasNext = false
 }
+
 // 加载下一页的数据
 export function loadNextPageData() {
   tree.listQuery.page = tree.listQuery.page + 1
@@ -282,6 +295,7 @@ export function loadNextPageData() {
     }
   })
 }
+
 /**
  * 根据id获取直接子节点
  * @param id 当前节点id
@@ -299,6 +313,7 @@ export async function getChildrenNode(id: number) {
     setHasNext()
   })
 }
+
 // 设置最后一个节点是否有下一页链接
 export function setHasNext() {
   if (isNotEmptyCollection(tree.loadChildrenTreeData)) {
@@ -306,6 +321,7 @@ export function setHasNext() {
     lastNode.hasNext = tree.listQuery.page * tree.listQuery.size < tree.total
   }
 }
+
 // 节点被点击
 export function handleNodeClick(data: any) {
   // 保存被选择节点
@@ -314,16 +330,19 @@ export function handleNodeClick(data: any) {
   // 刷新表格
   getList()
 }
+
 // 节点被展开
 export function handleNodeExpand(data: any) {
   // 保存被选择节点
   Object.assign(tree.checkedNodeDropdown, data)
 }
+
 // 节点被关闭
 export function handleNodeCollapse(data: any) {
   // 保存被选择节点，此时传当前被关闭的节点的父节点，因为当前节点被关闭，有下拉分页的需求最多是当前节点的父节点
   Object.assign(tree.checkedNodeDropdown, data.parent)
 }
+
 // 更新状态
 export function updateStatus(data: any) {
   if (!data.id) {
@@ -342,6 +361,7 @@ export function updateStatus(data: any) {
     data.status = param.status
   })
 }
+
 // 点击下一页
 export function viewNextPage(clickedNode: any) {
   // 加载下一页的数据
@@ -349,6 +369,7 @@ export function viewNextPage(clickedNode: any) {
   // 清除之前的下一页超链接
   clearHasNext(clickedNode)
 }
+
 // 重置树的搜索条件
 export function resetQuery() {
   tree.listQuery.page = 1
@@ -361,6 +382,7 @@ export function resetQuery() {
   tree.listQuery.minDistance = 1
   tree.listQuery.maxDistance = undefined
 }
+
 // 表格的搜索表单重置
 export function resetSearchForm() {
   // @ts-ignore

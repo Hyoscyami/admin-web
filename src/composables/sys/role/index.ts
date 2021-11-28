@@ -146,7 +146,10 @@ export function addFormSubmit() {
     if (valid) {
       dialog.form.orgId = tree.checkedNodeClick.id
       // @ts-ignore
-      dialog.form.permissionIds = permissionTreeRef.value.getCheckedKeys()
+      dialog.form.permissionIds = permissionTreeRef.value
+        .getCheckedKeys()
+        // @ts-ignore
+        .concat(permissionTreeRef.value.getHalfCheckedKeys())
       if (dialog.dialogStatus === CommonEnum.CREATE) {
         add(dialog.form).then(() => {
           // 关闭弹框
@@ -156,7 +159,10 @@ export function addFormSubmit() {
         })
       } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
         // @ts-ignore
-        dialog.form.permissionIds = permissionTreeRef.value.getCheckedKeys()
+        dialog.form.permissionIds = permissionTreeRef.value
+          .getCheckedKeys()
+          // @ts-ignore
+          .concat(permissionTreeRef.value.getHalfCheckedKeys())
         update(dialog.form).then(() => {
           // 关闭弹框
           cancelAddForm()
@@ -187,7 +193,7 @@ export function cancelView() {
 // 获取父角色列表数据
 export function getList() {
   table.listLoading = true
-  table.listQuery.parentId = toRaw(tree).checkedNodeClick.id
+  table.listQuery.orgId = toRaw(tree).checkedNodeClick.id
   list(table.listQuery).then((response) => {
     table.tableData = response.data.records
     table.total = response.data.total

@@ -66,7 +66,8 @@
             <router-link :to="{ path: '/file-management/detail',query: { id:scope.row.id }}">详情
             </router-link>
           </el-button>
-          <el-button type="text" size="small" v-if="scope.row.status === 3 || scope.row.status === 15">
+          <el-button type="text" size="small"
+                     v-if="(scope.row.status === 3 || scope.row.status === 15) && hasPermission('/file-management/edit')">
             <router-link :to="{ path: '/file-management/edit',query: { id:scope.row.id }}">编辑
             </router-link>
           </el-button>
@@ -99,6 +100,7 @@ import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
 import {convertTypeToChinese, handlePreview} from "@/composables/deferred-declaration";
+import hasPermission from '@/utils/permission'
 
 export default {
   name: "FileManagement",
@@ -117,7 +119,7 @@ export default {
       formatDate,
       addFormRef,
       convertStatusToChinese,
-      convertTypeToChinese, handlePreview, convertFileCompleteStatus
+      convertTypeToChinese, handlePreview, convertFileCompleteStatus, hasPermission
     }
   }
 }

@@ -173,6 +173,12 @@
         </el-col>
       </el-row>
       <el-form-item>
+        <el-select v-model="form.fileCompleteStatus" placeholder="请选择文档完善状态" clearable>
+          <el-option label="未完善" :value="false"/>
+          <el-option label="已完善" :value="true"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
         <el-button type="primary" @click="formSubmit">提交</el-button>
         <el-button @click="closeCurrentTag">返回</el-button>
       </el-form-item>

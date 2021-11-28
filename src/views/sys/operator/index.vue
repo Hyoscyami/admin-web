@@ -103,7 +103,7 @@
               <el-input v-model="dialog.form.username" autocomplete="off" tabindex="2"/>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-              <el-input v-model="dialog.form.password" autocomplete="off" tabindex="3"/>
+              <el-input v-model="dialog.form.password" show-password autocomplete="off" tabindex="3"/>
             </el-form-item>
             <el-form-item label="组织角色" prop="orgRoles">
               <div v-for="item in dialog.form.orgRoles">
