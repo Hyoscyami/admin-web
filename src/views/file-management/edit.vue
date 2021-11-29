@@ -14,7 +14,7 @@
               :on-preview="handlePreview"
               :on-success="handleUploadSuccess"
           >
-            <el-button size="small" type="primary">上传呆账核销申请报告</el-button>
+            <el-button size="small" type="primary">上传呆账核销申报审批表</el-button>
           </el-upload>
         </el-col>
         <el-col :span="8">
