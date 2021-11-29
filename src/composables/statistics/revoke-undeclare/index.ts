@@ -1,5 +1,5 @@
 import { reactive, ref } from 'vue'
-import { revokeUnDeclareList as list } from '@/api/statistics/statistics'
+import { revokeUnDeclareList as list, revokeUnDeclareListExport } from '@/api/statistics/statistics'
 import { useTable } from '../../../model/req/query/Table'
 import { formatYYYY, formatYYYYMMDD } from '../../../utils/time'
 import { TaxDeductionVO } from '../../../model/vo/TaxDeductionVO'
@@ -24,6 +24,8 @@ export const addFormRef = ref(null)
 export const columns = reactive(useRevokeUnDeclareColumns())
 // 对话框展示
 export const dialogVisible = ref(false)
+//导出加载
+export const exportLoading = ref(false)
 
 // 初始化
 export function init() {
@@ -82,4 +84,13 @@ export function cancelAddForm() {
 // 打开对话框
 export function openDialog() {
   dialogVisible.value = true
+}
+
+//导出
+export function exportList() {
+  exportLoading.value = true
+  revokeUnDeclareListExport(table.listQuery).then((response) => {
+    window.open(response.data)
+    exportLoading.value = false
+  })
 }
