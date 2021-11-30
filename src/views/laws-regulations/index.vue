@@ -64,7 +64,7 @@
             </router-link>
           </el-button>
           <el-button type="text" size="small">
-            <router-link :to="{ path: '/laws-regulations/edit',query: { id:scope.row.id }}">查看
+            <router-link :to="{ path: '/laws-regulations/detail',query: { id:scope.row.id }}">查看
             </router-link>
           </el-button>
           <el-popconfirm
