@@ -63,6 +63,10 @@
             <router-link :to="{ path: '/laws-regulations/edit',query: { id:scope.row.id }}">编辑
             </router-link>
           </el-button>
+          <el-button type="text" size="small">
+            <router-link :to="{ path: '/laws-regulations/edit',query: { id:scope.row.id }}">查看
+            </router-link>
+          </el-button>
           <el-popconfirm
               title="确定发布吗？"
               v-if="scope.row.status === StatusEnum.LAWS_REGULATIONS_UNPUBLISHED && hasPermission('/laws-regulations/edit')"
