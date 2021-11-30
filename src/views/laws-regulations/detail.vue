@@ -1,7 +1,11 @@
 <template>
-  <h1 align="center">{{ form.title }}</h1>
-  <div v-html="form.content"></div>
-  <el-button @click="closeCurrentTag">返回</el-button>
+  <div>
+    <h1 align="center">{{ form.title }}</h1>
+    <el-row>
+      <div v-html="form.content"></div>
+    </el-row>
+    <el-button @click="closeCurrentTag">返回</el-button>
+  </div>
 </template>
 
 <script lang="ts">
