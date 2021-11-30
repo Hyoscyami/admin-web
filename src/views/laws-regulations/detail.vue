@@ -1,21 +1,7 @@
 <template>
-  <el-container>
-    <el-main>
-      <el-form ref="addFormRef" :model="form" :rules="rules" label-width="120px">
-        <el-form-item label="制度法规标题" prop="name">
-          <el-input v-model="form.name" autocomplete="off"/>
-        </el-form-item>
-        <el-form-item label="制度法规内容" prop="content">
-          <TEditor ref="editor" v-model:value="form.content"/>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" v-if="hasPermission('/laws-regulations/edit')" @click="formSubmit">提交
-          </el-button>
-          <el-button @click="closeCurrentTag">取消</el-button>
-        </el-form-item>
-      </el-form>
-    </el-main>
-  </el-container>
+  <h1 align="center">{{ form.title }}</h1>
+  <div v-html="form.content"></div>
+  <el-button @click="closeCurrentTag">返回</el-button>
 </template>
 
 <script lang="ts">
