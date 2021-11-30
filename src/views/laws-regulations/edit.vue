@@ -9,7 +9,8 @@
           <TEditor ref="editor" v-model:value="form.content"/>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="formSubmit">提交</el-button>
+          <el-button type="primary" v-if="hasPermission('/laws-regulations/edit')" @click="formSubmit">提交
+          </el-button>
           <el-button @click="closeCurrentTag">取消</el-button>
         </el-form-item>
       </el-form>
@@ -19,15 +20,15 @@
 
 <script lang="ts">
 import TEditor from "@/components/Tinymce/index.vue";
-import {ref, defineComponent, reactive} from 'vue'
+import {defineComponent, reactive, ref} from 'vue'
 import {useAddLawsRegulationsReq, useLawsRegulationsRule} from "../../model/req/add/AddLawsRegulationsReq";
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
-import {add, update} from "@/api/laws-regulations/laws-regulations";
+import {detail, update} from "@/api/laws-regulations/laws-regulations";
 import {ApiResponse} from "../../model/resp/base/ApiResponse";
 import {CommonEnum} from "../../enums/CommonEnum";
 import {errorMsg} from "../../utils/common";
-import {detail} from "@/api/laws-regulations/laws-regulations";
+import hasPermission from '@/utils/permission'
 
 export default defineComponent({
   name: "LawsRegulationsEdit",
@@ -76,7 +77,7 @@ export default defineComponent({
         }
       })
     }
-    return {addFormRef, form, closeCurrentTag, rules, formSubmit}
+    return {addFormRef, form, closeCurrentTag, rules, formSubmit, hasPermission}
   }
 })
 </script>

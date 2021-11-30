@@ -6,7 +6,7 @@
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
     <div class="filter-container">
-      <el-button type="primary">
+      <el-button type="primary" v-if="hasPermission('/laws-regulations/add')">
         <router-link :to="{ name: 'LawsRegulationsAdd'}">新增</router-link>
       </el-button>
     </div>
@@ -59,13 +59,13 @@
           width="150"
       >
         <template #default="scope">
-          <el-button type="text" size="small">
+          <el-button type="text" size="small" v-if="hasPermission('/laws-regulations/edit')">
             <router-link :to="{ path: '/laws-regulations/edit',query: { id:scope.row.id }}">编辑
             </router-link>
           </el-button>
           <el-popconfirm
               title="确定发布吗？"
-              v-if="scope.row.status === StatusEnum.LAWS_REGULATIONS_UNPUBLISHED"
+              v-if="scope.row.status === StatusEnum.LAWS_REGULATIONS_UNPUBLISHED && hasPermission('/laws-regulations/edit')"
               @confirm="updateStatus(scope.row)"
           >
             <template #reference>
@@ -76,7 +76,7 @@
           </el-popconfirm>
           <el-popconfirm
               title="确定下架吗？"
-              v-if="scope.row.status === StatusEnum.LAWS_REGULATIONS_PUBLISHED"
+              v-if="scope.row.status === StatusEnum.LAWS_REGULATIONS_PUBLISHED && hasPermission('/laws-regulations/edit')"
               @confirm="updateStatus(scope.row)"
           >
             <template #reference>
@@ -86,7 +86,7 @@
           </el-popconfirm>
           <el-popconfirm
               title="确定上架吗？"
-              v-if="scope.row.status === StatusEnum.LAWS_REGULATIONS_OFF_SHELF"
+              v-if="scope.row.status === StatusEnum.LAWS_REGULATIONS_OFF_SHELF && hasPermission('/laws-regulations/edit')"
               @confirm="updateStatus(scope.row)"
           >
             <template #reference>
@@ -122,6 +122,7 @@ import {
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
 import {StatusEnum} from "@/enums/StatusEnum";
+import hasPermission from '@/utils/permission'
 
 export default {
   name: "LawsRegulations",
@@ -139,7 +140,7 @@ export default {
       headerClass,
       formatDate,
       addFormRef,
-      convertStatusToChinese, updateStatus, StatusEnum
+      convertStatusToChinese, updateStatus, StatusEnum, hasPermission
     }
   }
 }
