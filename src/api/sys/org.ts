@@ -87,14 +87,13 @@ export function getDetailByCode(code: string) {
   })
 }
 
-export function tree(data: QueryOrgReq) {
+export function tree() {
   return request({
     url: '/org/tree',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
-    },
-    data: JSON.stringify(data)
+    }
   })
 }
 

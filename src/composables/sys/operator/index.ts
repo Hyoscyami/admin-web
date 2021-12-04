@@ -23,9 +23,10 @@ import {
 import { listChildrenByCode } from '../../../api/sys/dict'
 import { QueryOrgReq, useQueryOrgReq } from '../../../model/req/query/QueryOrgReq'
 import { OrgVO, useOrgVO } from '../../../model/vo/OrgVO'
-import { list as getOrgList } from '@/api/sys/org'
+import { list as getOrgList, tree as getOrgTree } from '@/api/sys/org'
 import { list as getRoleList } from '@/api/sys/role'
 import { useQueryRoleReq } from '../../../model/req/query/QueryRoleReq'
+import { doEncrypt } from '../../../utils/password-utils'
 
 // 初始化树的对象
 const initTree = getTree<QueryOrgReq, OrgVO>(useQueryOrgReq(100), useOrgVO())
@@ -59,6 +60,8 @@ export const dialogOrgRole = reactive(userOrgRoleForm())
 export function init() {
   // 初始化状态
   listStatus()
+  //获取组织树
+  initOrgTree()
   // 初始化表格
   searchFormSubmit()
 }
@@ -66,6 +69,13 @@ export function init() {
 // 状态转换
 export function viewDetailDataStatus() {
   return dictConvert(DictEnum.DICT_STATUS, String(dialog.viewDetailData.status))
+}
+
+//获取组织树
+export function initOrgTree() {
+  getOrgTree().then((response) => {
+    tree.data = response.data
+  })
 }
 
 // 获取状态下拉框
@@ -82,21 +92,25 @@ export function searchFormSubmit() {
 }
 
 // 搜索tree
-export function filterTree(searchText: string) {
-  // 重置树的搜索条件
-  resetQuery()
+export function filterTree(searchText: string, data: any): boolean {
   if (isBlank(searchText)) {
-    tree.listQuery.maxDistance = 1
+    return true
   }
-  tree.listQuery.parentId = toRaw(tree).rootNode.id
-  tree.listQuery.name = searchText
-  getOrgList(tree.listQuery).then((response: { data: { total: number; records: any } }) => {
-    tree.total = response.data.total
-    if (treeRef.value) {
-      // @ts-ignore
-      treeRef.value.lazyTreeRef.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
-    }
-  })
+  return data.name.indexOf(searchText) !== -1
+  // // 重置树的搜索条件
+  // resetQuery()
+  // if (isBlank(searchText)) {
+  //   tree.listQuery.maxDistance = 1
+  // }
+  // tree.listQuery.parentId = toRaw(tree).rootNode.id
+  // tree.listQuery.name = searchText
+  // getOrgList(tree.listQuery).then((response: { data: { total: number; records: any } }) => {
+  //   tree.total = response.data.total
+  //   if (treeRef.value) {
+  //     // @ts-ignore
+  //     treeRef.value.lazyTreeRef.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
+  //   }
+  // })
 }
 
 // 打开新增数据字典对话框
@@ -158,16 +172,18 @@ export function addFormSubmit() {
   // @ts-ignore
   dialogFormRef.value.validate((valid) => {
     if (valid) {
+      if (dialog.form.password) {
+        // @ts-ignore
+        dialog.form.password = doEncrypt(dialog.form.password)
+      }
       if (dialog.dialogStatus === CommonEnum.CREATE) {
-        add(dialog.form).then((response) => {
+        add(dialog.form).then(() => {
           // 关闭弹框
           cancelDialog()
           // 刷新表格
           getList()
           // 刷新树
-          console.log('刷新树:', response.data, tree.checkedNodeClick)
-          // @ts-ignore
-          treeRef.value.append(response.data, tree.checkedNodeClick)
+          initOrgTree()
         })
       } else if (dialog.dialogStatus === CommonEnum.UPDATE) {
         update(dialog.form).then(() => {
@@ -176,7 +192,7 @@ export function addFormSubmit() {
           // 刷新表格
           getList()
           // 刷新树
-          filterTree('')
+          initOrgTree()
         })
       }
     } else {

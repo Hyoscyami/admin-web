@@ -11,7 +11,7 @@ import { useTable } from '../../../model/req/query/Table'
 import { useDialog } from '../../../model/vo/Dialog'
 import { AddRoleReq, RoleRule, useAddRoleReq, useRoleRule } from '../../../model/req/add/AddRoleReq'
 import { UpdateRoleReq, useUpdateRoleReq } from '../../../model/req/update/UpdateRoleReq'
-import { list as listOrg } from '@/api/sys/org'
+import { list as listOrg, tree as getOrgTree } from '@/api/sys/org'
 import { QueryOrgReq, useQueryOrgReq } from '../../../model/req/query/QueryOrgReq'
 import { OrgVO, useOrgVO } from '../../../model/vo/OrgVO'
 import { getPermissions } from '../../../api/sys/permission'
@@ -46,6 +46,8 @@ export const searchFormRef = ref(null)
 export function init() {
   // 初始化状态
   listStatus()
+  //获取组织树
+  initOrgTree()
   // 初始化表格
   searchFormSubmit()
 }
@@ -53,6 +55,13 @@ export function init() {
 // 状态转换
 export function viewDetailDataStatus() {
   return dictConvert(DictEnum.DICT_STATUS, String(dialog.viewDetailData.status))
+}
+
+//获取组织树
+export function initOrgTree() {
+  getOrgTree().then((response) => {
+    tree.data = response.data
+  })
 }
 
 // 获取状态下拉框
@@ -69,19 +78,11 @@ export function searchFormSubmit() {
 }
 
 // 搜索tree
-export function filterTree(searchText: string) {
-  // 重置树的搜索条件
-  resetTreeQuery()
+export function filterTree(searchText: string, data: any): boolean {
   if (isBlank(searchText)) {
-    tree.listQuery.maxDistance = 1
+    return true
   }
-  tree.listQuery.parentId = toRaw(tree).rootNode.id
-  tree.listQuery.name = searchText
-  listOrg(tree.listQuery).then((response) => {
-    tree.total = response.data.total
-    // @ts-ignore
-    treeRef.value.lazyTreeRef.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
-  })
+  return data.name.indexOf(searchText) !== -1
 }
 
 // 打开新增角色对话框
@@ -168,8 +169,6 @@ export function addFormSubmit() {
           cancelAddForm()
           // 刷新表格
           getList()
-          // 刷新树
-          filterTree('')
         })
       }
     } else {

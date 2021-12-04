@@ -1,8 +1,29 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <el-tree ref="treeRef" :data="tree" @node-click="handleNodeClick"
-      />
+      <el-col :span="6">
+        <el-input
+            v-model="tree.filterTreeText"
+            placeholder="输入关键字进行过滤"
+        />
+        <div
+            class="tree-box"
+        >
+          <el-tree
+              ref="treeRef"
+              :props="tree.treeProps"
+              node-key="id"
+              :data="tree.data"
+              :default-expanded-keys="tree.defaultExpandedKeys"
+              :expand-on-click-node="false"
+              :highlight-current="true"
+              :filter-node-method="filterTree"
+              @node-click="handleNodeClick"
+          >
+          </el-tree>
+        </div>
+      </el-col>
+      <!--      <Tree ref="treeRef" :tree="tree" @node-click="handleNodeClick" @filter-node="filterTree"/>-->
       <el-col :span="18">
         <div class="filter-container">
           <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">
@@ -189,7 +210,6 @@
 
 <script lang="ts">
 import Pagination from '@/components/Pagination/index.vue'
-import LazyTree from "@/components/LazyTree/index.vue";
 import {format} from '@/utils/time'
 import {
   addFormSubmit,
@@ -198,28 +218,34 @@ import {
   delRow,
   dialog,
   dialogFormRef,
+  dialogOrgRole,
+  filterTree,
   getList,
+  handleNodeClick,
+  handleNodeCollapse,
+  handleNodeExpand,
   init,
+  loadNode,
   openAddDialog,
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
+  selectOrgChange,
   table,
+  tree,
+  treeRef,
   updateDetail,
   updateStatus,
   viewDetail,
-  handleNodeClick,
-  handleNodeCollapse,
-  handleNodeExpand,
-  loadNode, viewNextPage, tree, treeRef, filterTree,
-  dialogOrgRole, selectOrgChange
+  viewNextPage
 } from '@/composables/sys/operator'
 import {cellClass, headerClass} from '@/composables/sys/dict'
 import {computed, watch} from 'vue'
+import Tree from "../../../components/Tree/index.vue";
 
 export default {
   name: 'SysOperator',
-  components: {LazyTree, Pagination},
+  components: {Tree, Pagination},
   setup() {
     // 初始化
     init()
@@ -228,7 +254,7 @@ export default {
       return format(dialog.viewDetailData.createTime)
     })
     // 搜索树
-    watch(() => tree.filterTreeText, (searchText) => filterTree(searchText))
+    watch(() => tree.filterTreeText, (searchText) => treeRef.value.filter(searchText))
     return {
       tree,
       table,
@@ -255,7 +281,7 @@ export default {
       cancelDialog,
       addFormSubmit,
       cancelView,
-      dialogOrgRole, selectOrgChange
+      dialogOrgRole, selectOrgChange, filterTree
     }
   }
 }
