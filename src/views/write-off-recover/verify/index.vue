@@ -90,6 +90,15 @@
             <router-link :to="{ path: '/write-off-recover/verify/import',query: { id:scope.row.id }}">操作
             </router-link>
           </el-button>
+          <el-popconfirm
+              title="确定删除吗？"
+              v-if="scope.row.assetBalance === 0"
+              @confirm="delRow(scope.row)"
+          >
+            <template #reference>
+              <el-button type="text" size="small">删除</el-button>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>

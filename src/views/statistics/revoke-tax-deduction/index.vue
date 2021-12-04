@@ -42,7 +42,7 @@
       />
       <el-table-column
           prop="assetBalance"
-          label="资产余额"
+          label="收回资产余额"
           v-if="columns.assetBalance"
       />
       <el-table-column
@@ -146,7 +146,7 @@
         <el-checkbox label="贷款账号" v-model="columns.loanAccountNo"></el-checkbox>
         <el-checkbox label="借款人" v-model="columns.borrowerName"></el-checkbox>
         <el-checkbox label="借款人证件号" v-model="columns.borrowerIdNo"></el-checkbox>
-        <el-checkbox label="资产余额" v-model="columns.assetBalance"></el-checkbox>
+        <el-checkbox label="收回资产余额" v-model="columns.assetBalance"></el-checkbox>
         <el-checkbox label="核销金额（本金）" v-model="columns.capital"></el-checkbox>
         <el-checkbox label="核销年度" v-model="columns.writeOffDate"></el-checkbox>
         <el-checkbox label="收回年度" v-model="columns.revokeDate"></el-checkbox>
