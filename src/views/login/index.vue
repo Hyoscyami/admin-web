@@ -149,9 +149,6 @@ export default {
       loginFormRef.value.validate((valid) => {
         if (valid) {
           loading.value = true
-          if (loginForm.password) {
-            loginForm.password = doEncrypt(loginForm.password)
-          }
           store
               .dispatch('user/login', loginForm)
               .then(() => {

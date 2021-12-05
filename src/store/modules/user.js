@@ -5,6 +5,7 @@ import Layout from '@/layout/index.vue'
 import { isNotEmptyCollection } from '@/utils/common'
 import { CommonEnum } from '@/enums/CommonEnum'
 import { isNull } from '../../utils/common'
+import { doEncrypt } from '../../utils/password-utils'
 
 const getDefaultState = () => {
   return {
@@ -99,6 +100,8 @@ function convertRouteList(treeRoutes, routeList, routeMap) {
 const actions = {
   // user login
   login({ commit }, userInfo) {
+    const formPassword = userInfo.password
+    userInfo.password = doEncrypt(userInfo.password)
     const { username, password, verifyCode, verifyCodeId, rememberMe } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password, verifyCode, verifyCodeId, rememberMe })
@@ -112,6 +115,7 @@ const actions = {
           resolve()
         })
         .catch((error) => {
+          userInfo.password = formPassword
           reject(error)
         })
     })
