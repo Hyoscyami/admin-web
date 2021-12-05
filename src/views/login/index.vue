@@ -96,6 +96,8 @@ import {
   validateUsername,
   validateVerifyCode
 } from '@/composables/login/login'
+import {login} from "../../api/user";
+import {doEncrypt} from "../../utils/password-utils";
 
 export default {
   name: 'Login',
@@ -147,6 +149,9 @@ export default {
       loginFormRef.value.validate((valid) => {
         if (valid) {
           loading.value = true
+          if (loginForm.password) {
+            loginForm.password = doEncrypt(loginForm.password)
+          }
           store
               .dispatch('user/login', loginForm)
               .then(() => {

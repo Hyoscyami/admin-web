@@ -97,20 +97,6 @@ export function filterTree(searchText: string, data: any): boolean {
     return true
   }
   return data.name.indexOf(searchText) !== -1
-  // // 重置树的搜索条件
-  // resetQuery()
-  // if (isBlank(searchText)) {
-  //   tree.listQuery.maxDistance = 1
-  // }
-  // tree.listQuery.parentId = toRaw(tree).rootNode.id
-  // tree.listQuery.name = searchText
-  // getOrgList(tree.listQuery).then((response: { data: { total: number; records: any } }) => {
-  //   tree.total = response.data.total
-  //   if (treeRef.value) {
-  //     // @ts-ignore
-  //     treeRef.value.lazyTreeRef.updateKeyChildren(toRaw(tree).rootNode.id, response.data.records)
-  //   }
-  // })
 }
 
 // 打开新增数据字典对话框

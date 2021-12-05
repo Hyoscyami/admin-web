@@ -78,21 +78,21 @@
               :filters="table.typesSelect"
               :formatter="convertTypeToChinese"
           />
-          <el-table-column
-              prop="status"
-              column-key="status"
-              label="状态"
-              :filters="table.statusSelect"
-          >
-            <template #default="scope">
-              <el-switch
-                  :model-value="scope.row.status"
-                  :active-value="1"
-                  :inactive-value="0"
-                  @change="updateStatus(scope.row)"
-              />
-            </template>
-          </el-table-column>
+          <!--          <el-table-column-->
+          <!--              prop="status"-->
+          <!--              column-key="status"-->
+          <!--              label="状态"-->
+          <!--              :filters="table.statusSelect"-->
+          <!--          >-->
+          <!--            <template #default="scope">-->
+          <!--              <el-switch-->
+          <!--                  :model-value="scope.row.status"-->
+          <!--                  :active-value="1"-->
+          <!--                  :inactive-value="0"-->
+          <!--                  @change="updateStatus(scope.row)"-->
+          <!--              />-->
+          <!--            </template>-->
+          <!--          </el-table-column>-->
           <el-table-column
               fixed="right"
               label="操作"

@@ -41,8 +41,8 @@
           label="最后修改人"
       />
       <el-table-column
-          prop="修改时间"
-          label="导入时间"
+          prop="modifyTime"
+          label="最后修改时间"
           :formatter="formatDate"
       />
       <el-table-column

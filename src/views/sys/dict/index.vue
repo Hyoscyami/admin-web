@@ -1,11 +1,33 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <LazyTree ref="treeRef" :tree="tree" @load="loadNode" @node-click="handleNodeClick"
-                @node-expand="handleNodeExpand"
-                @node-collapse="handleNodeCollapse"
-                @view-next-page="viewNextPage"
-      />
+      <el-col :span="6">
+        <el-input
+            v-model="tree.filterTreeText"
+            placeholder="输入关键字进行过滤"
+        />
+        <div
+            class="tree-box"
+        >
+          <el-tree
+              ref="treeRef"
+              :props="tree.treeProps"
+              node-key="id"
+              :data="tree.data"
+              :default-expanded-keys="tree.defaultExpandedKeys"
+              :expand-on-click-node="false"
+              :highlight-current="true"
+              :filter-node-method="filterTree"
+              @node-click="handleNodeClick"
+          >
+          </el-tree>
+        </div>
+      </el-col>
+      <!--      <LazyTree ref="treeRef" :tree="tree" @load="loadNode" @node-click="handleNodeClick"-->
+      <!--                @node-expand="handleNodeExpand"-->
+      <!--                @node-collapse="handleNodeCollapse"-->
+      <!--                @view-next-page="viewNextPage"-->
+      <!--      />-->
       <el-col :span="18">
         <div class="filter-container">
           <el-form ref="searchFormRef" :model="table.listQuery" :inline="true">
@@ -228,7 +250,7 @@ export default {
       return format(dialog.viewDetailData.createTime)
     })
     // 搜索树
-    watch(() => tree.filterTreeText, (searchText) => filterTree(searchText))
+    watch(() => tree.filterTreeText, (searchText) => treeRef.value.filter(searchText))
     return {
       tree,
       table,
@@ -254,7 +276,7 @@ export default {
       getList,
       cancelDialog,
       addFormSubmit,
-      cancelView, hasPermission
+      cancelView, hasPermission, filterTree
     }
   }
 }
