@@ -288,7 +288,7 @@ import {
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import {useBadDebtConfirmReq} from "@/model/req/other/BadDebtConfirmReq";
-import {match, waitConfirm, waitingDetail} from "@/api/bad-debt/confirm";
+import {match, saveWaitConfirmFile, waitConfirm, waitingDetail} from "@/api/bad-debt/confirm";
 import {ApiResponse} from "@/model/resp/base/ApiResponse";
 import {BadDebtWriteOffVO, useBadDebtVO} from "@/model/vo/BadDebtWriteOffVO";
 import {useMatchBasicFileConfigReq} from "@/model/vo/MatchBasicFileConfigReq";
@@ -509,7 +509,7 @@ export default defineComponent({
       form.confirmationConditionsName = toRaw(basicFileConfigVO).confirmationConditionsName
       form.startTime = toRaw(tableVO).expireTime
       form.basicFileConfigId = toRaw(tableVO).confirmResultVO.id
-      waitConfirm(form).then((response: ApiResponse<object>) => {
+      saveWaitConfirmFile(form).then((response: ApiResponse<object>) => {
         if (response.code !== CommonEnum.SUCCESS_CODE) {
           errorMsg(response.msg)
         } else {

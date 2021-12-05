@@ -173,7 +173,8 @@
         </el-col>
       </el-row>
       <el-form-item>
-        <el-select v-model="form.fileCompleteStatus" placeholder="请选择文档完善状态" clearable>
+        <el-select v-if="hasPermission('/file-management/edit/select-status')" v-model="form.fileCompleteStatus"
+                   placeholder="请选择文档完善状态" clearable>
           <el-option label="未完善" :value="false"/>
           <el-option label="已完善" :value="true"/>
         </el-select>
@@ -199,6 +200,7 @@ import {handlePreview} from "../../composables/deferred-declaration";
 import {useEvidenceFileReq} from "../../model/req/other/EvidenceFileReq";
 import {getNewestFileConfigVOById} from "../../api/bad-debt/confirm";
 import {BadDebtWriteOffVO, useBadDebtVO} from "../../model/vo/BadDebtWriteOffVO";
+import hasPermission from '@/utils/permission'
 
 export default {
   name: "FileManagementEdit",
@@ -478,7 +480,7 @@ export default {
       handlePreview,
       handleEvidenceUploadSuccess,
       handleEvidenceRemove,
-      formSubmit, evidenceDescription
+      formSubmit, evidenceDescription, hasPermission
     }
   }
 }
