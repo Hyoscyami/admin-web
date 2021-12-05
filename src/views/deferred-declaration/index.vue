@@ -73,7 +73,7 @@
               审核
             </router-link>
           </el-button>
-          <el-button type="text" size="small" v-if="hasPermission('/deferred-declaration/verify/upload')">
+          <el-button type="text" size="small" v-if="hasPermission('/deferred-declaration/upload')">
             <router-link
                 :to="{ path: '/deferred-declaration/upload',query: { id:scope.row.id }}">
               上传文件

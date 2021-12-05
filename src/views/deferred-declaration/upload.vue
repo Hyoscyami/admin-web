@@ -121,7 +121,7 @@
                 action="/api/file/upload"
                 multiple
                 :headers="headers"
-                :disabled="!hasPermission('/deferred-declaration/verify/upload')"
+                :disabled="!hasPermission('/deferred-declaration/upload')"
                 :on-exceed="handleExceed"
                 :on-remove="(file, fileList) => handleEvidenceRemove(file, fileList, item )"
                 :on-preview="handlePreview"
@@ -140,7 +140,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :disabled="!hasPermission('/deferred-declaration/verify/upload')"
+              :disabled="!hasPermission('/deferred-declaration/upload')"
               :file-list="tableVO.badDebtFileVO.approveList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove"
@@ -156,7 +156,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :disabled="!hasPermission('/deferred-declaration/verify/upload')"
+              :disabled="!hasPermission('/deferred-declaration/upload')"
               :file-list="tableVO.badDebtFileVO.applyList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove2"
@@ -172,7 +172,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :disabled="!hasPermission('/deferred-declaration/verify/upload')"
+              :disabled="!hasPermission('/deferred-declaration/upload')"
               :file-list="tableVO.badDebtFileVO.loanContractList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove3"
@@ -189,7 +189,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :disabled="!hasPermission('/deferred-declaration/verify/upload')"
+              :disabled="!hasPermission('/deferred-declaration/upload')"
               :file-list="tableVO.badDebtFileVO.loanCertificateList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove4"
@@ -204,7 +204,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :disabled="!hasPermission('/deferred-declaration/verify/upload')"
+              :disabled="!hasPermission('/deferred-declaration/upload')"
               :file-list="tableVO.badDebtFileVO.loanAccountDocumentList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove5"
@@ -219,7 +219,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :disabled="!hasPermission('/deferred-declaration/verify/upload')"
+              :disabled="!hasPermission('/deferred-declaration/upload')"
               :file-list="tableVO.badDebtFileVO.riskFiveLevelList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove6"
@@ -236,7 +236,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :disabled="!hasPermission('/deferred-declaration/verify/upload')"
+              :disabled="!hasPermission('/deferred-declaration/upload')"
               :file-list="tableVO.badDebtFileVO.loanBalanceQueryList"
               :on-exceed="handleExceed"
               :on-remove="handleRemove7"
@@ -251,7 +251,7 @@
               action="/api/file/upload"
               multiple
               :headers="headers"
-              :disabled="!hasPermission('/deferred-declaration/verify/upload')"
+              :disabled="!hasPermission('/deferred-declaration/upload')"
               :file-list="tableVO.badDebtFileVO.otherApplyMaterials"
               :on-exceed="handleExceed"
               :on-remove="handleRemove8"
