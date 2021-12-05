@@ -146,6 +146,17 @@ export function waitConfirm(data: BadDebtConfirmReq) {
   })
 }
 
+export function saveWaitConfirmFile(data: BadDebtConfirmReq) {
+  return request({
+    url: '/bad-debt-write-off/saveWaitConfirmFile',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: JSON.stringify(data)
+  })
+}
+
 export function updateBatch(data: UpdateBatchBadDebtReq) {
   return request({
     url: '/bad-debt-write-off/updateBatch',

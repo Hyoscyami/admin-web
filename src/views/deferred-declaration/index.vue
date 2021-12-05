@@ -67,10 +67,16 @@
           width="150"
       >
         <template #default="scope">
-          <el-button type="text" size="small">
+          <el-button type="text" size="small" v-if="hasPermission('/deferred-declaration/verify/submit')">
             <router-link
                 :to="{ path: '/deferred-declaration/verify',query: { id:scope.row.id }}">
               审核
+            </router-link>
+          </el-button>
+          <el-button type="text" size="small" v-if="hasPermission('/deferred-declaration/verify/upload')">
+            <router-link
+                :to="{ path: '/deferred-declaration/upload',query: { id:scope.row.id }}">
+              上传文件
             </router-link>
           </el-button>
         </template>
@@ -101,6 +107,7 @@ import {
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
 import SearchForm from "@/views/bad-debt/confirm/components/SearchForm.vue";
+import hasPermission from '@/utils/permission'
 
 export default {
   name: "DeferredDeclaration",
@@ -116,7 +123,7 @@ export default {
       cellClass,
       headerClass,
       convertStatusToChinese, formatDate,
-      addFormRef, getList,
+      addFormRef, getList, hasPermission
     }
   }
 }

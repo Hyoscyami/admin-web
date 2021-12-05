@@ -261,40 +261,8 @@
           </el-upload>
         </el-col>
       </el-row>
-      <el-row class="row-margin">
-        <el-col :span="8">
-          <el-form-item label="审核结果" prop="daysOverdueType">
-            <el-select v-model="form.status" placeholder="请选择审核结果" multiple clearable>
-              <el-option label="拟申报税前扣除" :value="3"/>
-              <el-option label="等待逾期时间满1年" :value="4"/>
-              <el-option label="等待宣告破产满3年" :value="5"/>
-              <el-option label="等待关闭、解散或撤销满3年" :value="6"/>
-              <el-option label="等待注销、吊销满3年" :value="7"/>
-              <el-option label="等待停止经营活动或下落不明满3年" :value="8"/>
-              <el-option label="等待自然人死亡满3年" :value="9"/>
-              <el-option label="等待丧失能力满3年" :value="10"/>
-              <el-option label="等待自然人失踪满3年" :value="11"/>
-              <el-option label="等待侦查时间满2年" :value="12"/>
-              <el-option label="等待补充证据" :value="13"/>
-              <el-option label="等待诉诸法律" :value="14"/>
-              <el-option label="诉讼案件执行中" :value="17"/>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="申报年份" prop="declareYear">
-            <el-date-picker
-                v-model="form.declareYear"
-                :disabled-date="disabledDate"
-                type="year"
-                format="YYYY"
-                placeholder="请选择申报年份">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-      </el-row>
       <el-form-item>
-        <el-button v-if="hasPermission('/deferred-declaration/verify/submit')" type="primary" @click="formSubmit">提交
+        <el-button type="primary" @click="formSubmit">提交
         </el-button>
         <el-button @click="closeCurrentTag">返回</el-button>
       </el-form-item>
@@ -330,10 +298,11 @@ import {errorMsg, successMsg} from "@/utils/common";
 import {useBasicFileConfigVO} from "@/model/vo/BasicFileConfigVO";
 import {CommonEnum} from "@/enums/CommonEnum";
 import {useEvidenceFileReq} from "../../model/req/other/EvidenceFileReq";
-import {formatYYYY} from "../../utils/time";
+import {listAllFiles} from "../../api/file/file";
+import {BadDebtFileVO, useBadDebtFileVO} from "../../model/vo/BadDebtFileVO";
 
 export default defineComponent({
-  name: "DeferredDeclarationVerify",
+  name: "DeferredDeclarationUpload",
   components: {Pagination},
   setup() {
     // 初始化
@@ -540,9 +509,6 @@ export default defineComponent({
       form.confirmationConditionsName = toRaw(basicFileConfigVO).confirmationConditionsName
       form.startTime = toRaw(tableVO).expireTime
       form.basicFileConfigId = toRaw(tableVO).confirmResultVO.id
-      if (form.declareYear) {
-        form.declareYear = formatYYYY(form.declareYear)
-      }
       waitConfirm(form).then((response: ApiResponse<object>) => {
         if (response.code !== CommonEnum.SUCCESS_CODE) {
           errorMsg(response.msg)
@@ -595,6 +561,18 @@ export default defineComponent({
       }
     }
 
+// 呆账核销数据所有文件
+    const fileVO = reactive(useBadDebtFileVO())
+    //获取文件详情
+    listAllFiles(Number(id)).then((response: ApiResponse<BadDebtFileVO>) => {
+      Object.assign(fileVO, response.data)
+      Object.assign(form, response.data)
+      if (form.evidenceList) {
+        form.evidenceList.forEach((evidence) => {
+          evidence.evidenceList = evidence.fileVOList
+        })
+      }
+    })
     return {
       table,
       cellClass,
@@ -633,7 +611,7 @@ export default defineComponent({
       closeCurrentTag,
       formSubmit,
       handleEvidenceUploadSuccess,
-      handleEvidenceRemove, hasPermission
+      handleEvidenceRemove, hasPermission, fileVO
     }
   }
 })
