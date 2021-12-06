@@ -12,11 +12,13 @@ export interface AddOrgReq {
   /** 排序值，默认为1 */
   sort: number
 }
+
 /**
  * 数据字典规则
  */
 export interface OrgRule {
   name: Array<Object>
+  orgNo: Array<Object>
   type: Array<Object>
   status: Array<Object>
   sort: Array<Object>
@@ -29,11 +31,13 @@ export interface OrgRule {
 export function useOrgRule(): OrgRule {
   return {
     name: [{ required: true, message: '请输入机构名称', trigger: 'change' }],
+    orgNo: [{ required: true, message: '请输入机构代码', trigger: 'change' }],
     type: [{ required: true, message: '请选择机构类型', trigger: 'change' }],
     status: [{ required: true, message: '请选择状态', trigger: 'change' }],
     sort: [{ required: true, message: '请填写排序值', trigger: 'change' }]
   }
 }
+
 /**
  * 初始化
  */

@@ -125,11 +125,11 @@ export function openAddDialog() {
     warningMsg('请先在左侧选择节点')
     return
   }
+  dialog.form = useAddOrgReq()
   dialog.visible = true
   dialog.dialogStatus = CommonEnum.CREATE
   getMaxSortValue(tree.checkedNodeClick.id)
   dialog.form.parentId = toRaw(tree).checkedNodeClick.id
-  console.log('table.typeSelect:', table.typesSelect)
 }
 
 // 查看详情

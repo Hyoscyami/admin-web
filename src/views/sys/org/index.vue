@@ -129,8 +129,12 @@
             <el-form-item label="组织名称" prop="name">
               <el-input v-model="dialog.form.name" autocomplete="off" tabindex="1"/>
             </el-form-item>
+            <el-form-item label="组织代码" prop="orgNo" v-if="dialog.form.type === 1">
+              <el-input v-model="dialog.form.orgNo" autocomplete="off" tabindex="1"/>
+            </el-form-item>
             <el-form-item label="机构类型" prop="type" tabindex="2">
-              <el-select v-model="dialog.form.type" placeholder="请选择机构类型" clearable>
+              <el-select v-model="dialog.form.type" placeholder="请选择机构类型" :disabled="dialog.dialogStatus === 'update'"
+                         clearable>
                 <el-option v-for="item in table.typesSelect" :key="item.id" :label="item.text" :value="item.value"/>
               </el-select>
             </el-form-item>
