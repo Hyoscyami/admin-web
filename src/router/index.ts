@@ -239,6 +239,19 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/',
+    component: Layout,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'account',
+        name: 'Account',
+        component: () => import('@/views/account/index.vue'),
+        meta: { title: '账号管理', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
     path: '/deferred-declaration',
     component: Layout,
     redirect: 'noRedirect',

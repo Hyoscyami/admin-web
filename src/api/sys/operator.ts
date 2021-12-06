@@ -43,3 +43,14 @@ export function update(data: AddOperatorReq | UpdateOperatorReq) {
     data: JSON.stringify(data)
   })
 }
+
+export function updateAccount(data: AddOperatorReq | UpdateOperatorReq) {
+  return request({
+    url: '/operator/update/account',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: JSON.stringify(data)
+  })
+}

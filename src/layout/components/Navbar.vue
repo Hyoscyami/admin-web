@@ -16,7 +16,7 @@
         </div>
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
-            <router-link to="/">
+            <router-link to="/account">
               <el-dropdown-item> 账号管理</el-dropdown-item>
             </router-link>
             <el-dropdown-item divided @click.native="logout">
