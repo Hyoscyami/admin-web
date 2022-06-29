@@ -178,6 +178,7 @@ export default defineComponent({
       } else {
         Object.assign(form, response.data)
         form.status = undefined
+        form.accountingDocumentNo = ''
       }
     })
     //获取资产类型
