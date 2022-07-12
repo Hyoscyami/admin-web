@@ -11,7 +11,7 @@ import { getTree } from '@/model/req/query/Tree'
 import { useDialog } from '../../../model/vo/Dialog'
 import { AddDictReq, DictRule, useAddDictReq, useDictRule } from '../../../model/req/add/AddDictReq'
 import { UpdateDictReq, useUpdateDictReq } from '../../../model/req/update/UpdateDictReq'
-import { tree as getOrgTree } from '../../../api/sys/org'
+import { tree as getDictTree } from '../../../api/sys/dict'
 
 // 初始化树的对象
 const initTree = getTree<QueryDictReq, DictVO>(useQueryDictReq(100), useDictVO())
@@ -44,7 +44,7 @@ export function init() {
   // 初始化状态
   listStatus()
   //获取组织树
-  initOrgTree()
+  initDictTree()
   // 初始化表格
   searchFormSubmit()
 }
@@ -55,8 +55,8 @@ export function viewDetailDataStatus() {
 }
 
 //获取组织树
-export function initOrgTree() {
-  getOrgTree().then((response) => {
+export function initDictTree() {
+  getDictTree().then((response) => {
     tree.data = response.data
   })
 }

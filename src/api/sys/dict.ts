@@ -75,3 +75,12 @@ export function getDetailByCode(code: string) {
     params: { code }
   })
 }
+export function tree() {
+  return request({
+    url: '/dict/tree',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    }
+  })
+}
