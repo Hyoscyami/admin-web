@@ -33,7 +33,7 @@ export const exportLoading = ref(false)
 // 初始化
 export function init() {
   // 获取认定条件
-  listConfirmConditions()
+  // listConfirmConditions()
   // 获取资产类型
   listAssertTypes()
   // 初始化表格

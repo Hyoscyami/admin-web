@@ -304,6 +304,8 @@ import {useBasicFileConfigVO} from "../../../model/vo/BasicFileConfigVO";
 import {CommonEnum} from "../../../enums/CommonEnum";
 import {useEvidenceFileReq} from "../../../model/req/other/EvidenceFileReq";
 import {formatYYYY} from "../../../utils/time";
+import {query as queryConditionRule} from "@/api/sys/confirmation-condition-rule";
+import {useQueryConfirmConditionReq} from "../../../model/req/query/QueryConfirmConditionsReq";
 
 export default defineComponent({
   name: "BadDebtEvidenceVerify",
@@ -332,20 +334,34 @@ export default defineComponent({
     })
     //档案设置
     const basicFileConfigVO = reactive(useBasicFileConfigVO())
+    //查询认定条件
+    const queryConditionRuleReq = reactive(useQueryConfirmConditionReq())
+    queryConditionRuleReq.assetTypeId = matchFileConfigReq.assertType
+    queryConditionRuleReq.badDebtWriteOffId = id
     //匹配档案
     const
         matchConfig = () => {
           //选择了资产类型和认定条件后
-          if (matchFileConfigReq.assetType && matchFileConfigReq.confirmationConditions) {
-            successMsg('开始匹配基础档案')
-            match(matchFileConfigReq).then((response) => {
-              if (response.data) {
-                Object.assign(basicFileConfigVO, response.data)
-              } else {
-                errorMsg('未匹配到基础档案')
-                Object.assign(basicFileConfigVO, useBasicFileConfigVO())
-              }
-            })
+          if (matchFileConfigReq.assetType) {
+            if (matchFileConfigReq.confirmationConditions){
+              successMsg('开始匹配基础档案')
+              match(matchFileConfigReq).then((response) => {
+                if (response.data) {
+                  Object.assign(basicFileConfigVO, response.data)
+                } else {
+                  errorMsg('未匹配到基础档案')
+                  Object.assign(basicFileConfigVO, useBasicFileConfigVO())
+                }
+              })
+            }else {
+              //获取可选择的认定条件
+              queryConditionRule(queryConditionRuleReq).then((response)=>{
+                if (response.data){
+                  Object.assign(confirmConditions,response.data)
+                }
+              })
+            }
+
           }
         }
     const table = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
