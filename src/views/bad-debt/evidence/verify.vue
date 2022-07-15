@@ -244,11 +244,8 @@
               <el-option label="等待宣告破产满3年" :value="5"/>
               <el-option label="等待关闭、解散或撤销满3年" :value="6"/>
               <el-option label="等待注销、吊销满3年" :value="7"/>
-              <el-option label="等待停止经营活动或下落不明满3年" :value="8"/>
               <el-option label="等待自然人死亡满3年" :value="9"/>
-              <el-option label="等待丧失能力满3年" :value="10"/>
               <el-option label="等待自然人失踪满3年" :value="11"/>
-              <el-option label="等待侦查时间满2年" :value="12"/>
               <el-option label="等待补充证据" :value="13"/>
               <el-option label="等待诉诸法律" :value="14"/>
               <el-option label="诉讼案件执行中" :value="17"/>
