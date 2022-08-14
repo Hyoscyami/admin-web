@@ -294,7 +294,7 @@ import {confirm, detail, match} from "../../../api/bad-debt/confirm";
 import {ApiResponse} from "../../../model/resp/base/ApiResponse";
 import {BadDebtWriteOffVO, useBadDebtVO} from "../../../model/vo/BadDebtWriteOffVO";
 import {useMatchBasicFileConfigReq} from "../../../model/vo/MatchBasicFileConfigReq";
-import {useTable} from "../../../model/req/query/Table";
+import {SelectGroup, useTable} from "../../../model/req/query/Table";
 import {QueryBadDebtReq, useQueryBadDebtReq} from "../../../model/req/query/QueryBadDebtReq";
 import {errorMsg, successMsg} from "../../../utils/common";
 import {useBasicFileConfigVO} from "../../../model/vo/BasicFileConfigVO";
@@ -303,6 +303,7 @@ import {useEvidenceFileReq} from "../../../model/req/other/EvidenceFileReq";
 import {formatYYYY} from "../../../utils/time";
 import {query as queryConditionRule} from "@/api/sys/confirmation-condition-rule";
 import {useQueryConfirmConditionReq} from "../../../model/req/query/QueryConfirmConditionsReq";
+import {DictVO} from "../../../model/vo/DictVO";
 
 export default defineComponent({
   name: "BadDebtEvidenceVerify",
@@ -333,7 +334,6 @@ export default defineComponent({
     const basicFileConfigVO = reactive(useBasicFileConfigVO())
     //查询认定条件
     const queryConditionRuleReq = reactive(useQueryConfirmConditionReq())
-    queryConditionRuleReq.assetTypeId = matchFileConfigReq.assertType
     queryConditionRuleReq.badDebtWriteOffId = id
     //匹配档案
     const
@@ -352,13 +352,26 @@ export default defineComponent({
               })
             }else {
               //获取可选择的认定条件
+              queryConditionRuleReq.assetTypeId = toRaw(matchFileConfigReq).assetType
               queryConditionRule(queryConditionRuleReq).then((response)=>{
                 if (response.data){
-                  Object.assign(confirmConditions,response.data)
+                  confirmConditions.length = 0
+                  response.data.forEach((item: DictVO) => {
+                    const status: SelectGroup = {
+                      id: item.id,
+                      text: item.name,
+                      value: Number(item.id)
+                    }
+                    // @ts-ignore
+                    confirmConditions.push(status)
+                  })
                 }
               })
             }
-
+          }else {
+            //没选资产类型的时候，不能选认定条件
+            confirmConditions.length=0
+            matchFileConfigReq.confirmationConditions=undefined
           }
         }
     const table = useTable<BadDebtWriteOffVO, QueryBadDebtReq>(useQueryBadDebtReq(20))
