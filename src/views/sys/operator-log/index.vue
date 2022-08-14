@@ -31,6 +31,10 @@
           label="操作模块"
       />
       <el-table-column
+          prop="content"
+          label="操作内容"
+      />
+      <el-table-column
           prop="createTime"
           label="操作时间"
           :formatter="formatDate"
