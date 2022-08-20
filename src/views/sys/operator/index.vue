@@ -30,8 +30,8 @@
             <el-form-item label="名称" prop="description">
               <el-input v-model="table.listQuery.name" placeholder="模糊查询名称"/>
             </el-form-item>
-            <el-form-item label="手机号" prop="phone">
-              <el-input v-model="table.listQuery.code" placeholder="根据手机号精确查询"/>
+            <el-form-item label="账号" prop="username">
+              <el-input v-model="table.listQuery.username" placeholder="根据登陆账号精确查询"/>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="searchFormSubmit">查询</el-button>
