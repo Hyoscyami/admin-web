@@ -155,7 +155,10 @@ export default {
                 router.push({path: redirect.value || '/dashboard'})
                 loading.value = false
               })
-              .catch(() => {
+              .catch((error) => {
+                if (error.message.includes("验证码")){
+                  changeVerifyCode()
+                }
                 loading.value = false
               })
         } else {

@@ -1,4 +1,3 @@
-import { validUsername } from '@/utils/validate'
 import { getCaptcha } from '@/api/user'
 import { nextTick, unref } from 'vue'
 
