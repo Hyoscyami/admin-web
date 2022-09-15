@@ -107,7 +107,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onMounted, reactive, ref} from 'vue';
+import {defineComponent, onMounted, reactive, ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {useStore} from 'vuex'
 import {detail, importAccountDocument} from "../../../api/write-off-recover/make-up";

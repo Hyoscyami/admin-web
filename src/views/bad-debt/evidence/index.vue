@@ -105,7 +105,7 @@ import {
   init, getList
 } from "../../../composables/bad-debt/evidence";
 import {cellClass, headerClass} from "../../../composables/sys/dict";
-import SearchForm from "../confirm/components/SearchForm.vue";
+import SearchForm from "./components/SearchForm.vue";
 
 export default {
   name: "BadDebtEvidence",

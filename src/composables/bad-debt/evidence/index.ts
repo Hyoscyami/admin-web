@@ -115,7 +115,9 @@ export function searchFormSubmit() {
 // 获取父机构列表数据
 export function getList() {
   table.listLoading = true
-  table.listQuery.status = [StatusEnum.WRITTEN_OFF, StatusEnum.PRE_TAX_DEDUCTION]
+  if (!table.listQuery.status){
+    table.listQuery.status = [StatusEnum.WRITTEN_OFF, StatusEnum.PRE_TAX_DEDUCTION]
+  }
   if (table.listQuery.writeOffYear) {
     table.listQuery.writeOffYear = formatYYYY(table.listQuery.writeOffYear)
   }
