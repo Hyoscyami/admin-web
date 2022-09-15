@@ -58,6 +58,16 @@ export function list(data: QueryBadDebtReq) {
   })
 }
 
+export function evidenceConfirmList(data: QueryBadDebtReq) {
+  return request({
+    url: '/bad-debt-write-off/evidenceConfirmList',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data
+  })
+}
 export function groupByAccountingDocumentNo(data: QueryBadDebtReq) {
   return request({
     url: '/bad-debt-write-off/groupByAccountingDocumentNo',

@@ -1,6 +1,6 @@
 import { reactive, ref } from 'vue'
 import { DictEnum } from '../../../enums/DictEnum'
-import { list } from '@/api/bad-debt/confirm'
+import { evidenceConfirmList as list } from '@/api/bad-debt/confirm'
 import { listChildrenByCode } from '@/api/sys/dict'
 import { QueryBadDebtReq, useQueryBadDebtReq } from '../../../model/req/query/QueryBadDebtReq'
 import { DictVO } from '../../../model/vo/DictVO'
@@ -115,9 +115,6 @@ export function searchFormSubmit() {
 // 获取父机构列表数据
 export function getList() {
   table.listLoading = true
-  if (!table.listQuery.status){
-    table.listQuery.status = [StatusEnum.WRITTEN_OFF, StatusEnum.PRE_TAX_DEDUCTION]
-  }
   if (table.listQuery.writeOffYear) {
     table.listQuery.writeOffYear = formatYYYY(table.listQuery.writeOffYear)
   }
