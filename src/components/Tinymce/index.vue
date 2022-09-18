@@ -77,7 +77,7 @@ export default defineComponent({
     },
     plugins: {
       type: [String, Array],
-      default: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount textpattern autosave '
+      default: 'print preview searchreplace autolink directionality paste visualblocks visualchars fullscreen image link media template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount textpattern autosave '
     },
     toolbar: {
       type: [String, Array],

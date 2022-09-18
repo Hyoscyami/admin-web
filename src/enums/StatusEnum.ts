@@ -1,5 +1,9 @@
 export enum StatusEnum {
     /**
+     * 初始状态
+     */
+    INIT=0,
+    /**
      * 数据导入
      */
     IMPORTED = 1,
@@ -63,6 +67,10 @@ export enum StatusEnum {
     WAITING_DECLARE = 16,
     // 核销收回审核成功
     REVOKE_VERIFY_SUCCESS = 17,
+    /**
+     * 收回已申报
+     */
+    REVOKE_DECLARE=18,
     //法律法规
     //未发布
     LAWS_REGULATIONS_UNPUBLISHED = 1,

@@ -74,7 +74,7 @@
           label="核销收回状态"
       >
         <template #default="scope">
-          {{ convertRevokeStatus(scope.row.status) }}
+          {{ convertRevokeStatusToChinese(scope.row.status) }}
         </template>
       </el-table-column>
       <el-table-column
@@ -149,7 +149,7 @@ import {
 } from "@/composables/write-off-recover/verify";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
-import {convertStatusToChinese} from '@/composables/bad-debt/evidence';
+import {convertStatusToChinese,convertRevokeStatusToChinese} from '@/composables/bad-debt/evidence';
 
 
 export default {
@@ -178,7 +178,7 @@ export default {
       cancelAddForm,
       addFormSubmit,
       openDialog,
-      updateBatchBadDebtForm
+      updateBatchBadDebtForm,convertRevokeStatusToChinese
     }
   }
 }

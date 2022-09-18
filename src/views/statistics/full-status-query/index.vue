@@ -144,7 +144,7 @@
           v-if="columns.status"
       >
         <template #default="scope">
-          {{ convertStatusToChinese(scope.row.status) }}
+          {{ convertRevokeStatusToChinese(scope.row.status) }}
         </template>
       </el-table-column>
     </el-table>
@@ -208,7 +208,7 @@ import {
 } from "@/composables/statistics/full-status-query";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
-import {convertStatusToChinese} from '@/composables/bad-debt/evidence'
+import {convertStatusToChinese,convertRevokeStatusToChinese} from '@/composables/bad-debt/evidence'
 
 export default {
   name: "StatisticsFullStatusQuery",
@@ -233,7 +233,7 @@ export default {
       cancelAddForm,
       openDialog,
       exportLoading,
-      exportList
+      exportList,convertRevokeStatusToChinese
     }
   }
 }

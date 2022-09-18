@@ -92,7 +92,7 @@
           v-if="columns.status"
       >
         <template #default="scope">
-          {{ convertStatusToChinese(scope.row.status) }}
+          {{ convertRevokeStatusToChinese(scope.row.status) }}
         </template>
       </el-table-column>
       <el-table-column
@@ -186,7 +186,7 @@ import {
 } from "@/composables/statistics/revoke-tax-deduction";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
-import {convertStatusToChinese} from '@/composables/bad-debt/evidence'
+import {convertStatusToChinese,convertRevokeStatusToChinese} from '@/composables/bad-debt/evidence'
 
 export default {
   name: "StatisticsRevokeTaxDeduction",
@@ -204,7 +204,7 @@ export default {
       headerClass,
       formatYear,
       formatDay,
-      addFormRef, convertStatusToChinese, columns, dialogVisible, cancelAddForm, openDialog, exportLoading, exportList
+      addFormRef, convertStatusToChinese,convertRevokeStatusToChinese, columns, dialogVisible, cancelAddForm, openDialog, exportLoading, exportList
     }
   }
 }

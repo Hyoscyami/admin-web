@@ -201,7 +201,47 @@ export function convertStatusToChinese(status: number): string {
   }
   return ''
 }
-
+//核销收回状态转换
+export function convertRevokeStatusToChinese(status: number): string {
+  if (status === StatusEnum.INIT){
+    return '收回未确认税收金额';
+  }else if (status === StatusEnum.IMPORTED) {
+    return '待审核呆账'
+  } else if (status === StatusEnum.WRITTEN_OFF) {
+    return '已核销呆账'
+  } else if (status === StatusEnum.PRE_TAX_DEDUCTION) {
+    return '收回拟确认税收金额'
+  } else if (status === StatusEnum.WAITING_OVERDUE_ONE_YEAR) {
+    return '等待逾期时间满1年'
+  } else if (status === StatusEnum.WAITING_BANKRUPTCY_THREE_YEARS) {
+    return '等待宣告破产满3年'
+  } else if (status === StatusEnum.WAITING_CLOSE_THREE_YEARS) {
+    return '等待关闭、解散或撤销满3年'
+  } else if (status === StatusEnum.WAITING_REVOKE_THREE_YEARS) {
+    return '等待停止经营活动或下落不明满3年'
+  } else if (status === StatusEnum.WAITING_STOP_OPERATION_THREE_YEARS) {
+    return '等待停止经营活动或下落不明满3年'
+  } else if (status === StatusEnum.WAITING_DEATH_THREE_YEARS) {
+    return '等待自然人死亡满3年'
+  } else if (status === StatusEnum.WAITING_INCAPACITATED_THREE_YEARS) {
+    return '等待丧失能力满3年'
+  } else if (status === StatusEnum.WAITING_MISSING_THREE_YEARS) {
+    return '等待自然人失踪满3年'
+  } else if (status === StatusEnum.WAITING_INVESTIGATION_TWO_YEARS) {
+    return '等待侦查时间满2年'
+  } else if (status === StatusEnum.WAITING_EVIDENCE_YEARS) {
+    return '等待补充证据'
+  } else if (status === StatusEnum.WAITING_LAW_YEARS) {
+    return '等待诉诸法律'
+  } else if (status === StatusEnum.DECLARE_PRE_TAX_DEDUCTION) {
+    return '收回巳确认税收金额'
+  } else if (status === StatusEnum.WAITING_DECLARE) {
+    return '延后申报'
+  }else if (status === StatusEnum.REVOKE_DECLARE){
+    return '收回未确认税收金额'
+  }
+  return ''
+}
 // 日期转换
 export function formatDate(_row: any, _column: any, cellValue: any): string {
   return formatYYYYMMDD(cellValue)
