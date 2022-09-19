@@ -57,6 +57,9 @@ export function resetSearchForm() {
 
 // 日期转换
 export function formatDate(_row: any, _column: any, cellValue: any): string {
+  if (cellValue == null){
+    return ''
+  }
   return format(cellValue)
 }
 
