@@ -71,8 +71,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="16">
-            <el-form-item label="核销收回税前扣除金额" prop="revokeAmount">
-              <el-input v-model="form.revokeAmount" placeholder="请输入核销收回税前扣除金额" type="number">
+            <el-form-item label="核销收回税收审核金额" prop="revokeAmount">
+              <el-input v-model="form.revokeAmount" placeholder="请输入核销收回税收审核金额" type="number">
                 <template #append>元</template>
               </el-input>
             </el-form-item>
