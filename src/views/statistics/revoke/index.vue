@@ -35,7 +35,7 @@
             label="金额"
         />
       </el-table-column>
-      <el-table-column label="收回已税前扣除" align="center">
+      <el-table-column label="收回已确认税收金额" align="center">
         <el-table-column
             prop="revokedCount"
             label="笔数"
@@ -50,7 +50,7 @@
             label="比例"
         />
       </el-table-column>
-      <el-table-column label="收回未税前扣除" align="center">
+      <el-table-column label="收回未确认税收金额" align="center">
         <el-table-column
             prop="unRevokeCount"
             label="笔数"
