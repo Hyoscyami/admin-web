@@ -25,7 +25,7 @@
       </div>
       <el-table
           v-loading="table.listLoading"
-          :data="table.tableData"
+          :data="table.tableData" max-height="600"
           style="width: 100%"
       >
         <el-table-column

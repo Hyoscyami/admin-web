@@ -50,7 +50,7 @@
         </div>
         <el-table
             v-loading="table.listLoading"
-            :data="table.tableData"
+            :data="table.tableData" max-height="600"
             ref="tableRef"
             style="width: 100%"
             @filter-change="filterTableType"

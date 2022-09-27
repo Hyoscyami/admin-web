@@ -34,7 +34,7 @@
       </div>
       <el-table
           v-loading="table.listLoading"
-          class="el-table"
+          class="el-table" max-height="600"
           :cell-style="cellClass"
           :header-cell-style="headerClass"
           :data="table.tableData"
