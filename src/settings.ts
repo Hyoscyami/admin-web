@@ -12,7 +12,7 @@ interface ISettings {
 
 // You can customize below settings :)
 const settings: ISettings = {
-  title: '资产损失税收管理系统',
+  title: '资产损失税收管理系统V1.2',
   showSettings: true,
   showTagsView: false,
   fixedHeader: false,
