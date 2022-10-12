@@ -5,11 +5,11 @@
                   @search-form-submit="searchFormSubmit"
                   @reset-search-form="resetSearchForm"></SearchForm>
     </div>
-    <!--    <div class="filter-container">-->
-    <!--      <el-button type="primary">-->
-    <!--        <router-link :to="{ name: 'WriteOffRecoverMakeUpAdd'}">新增</router-link>-->
-    <!--      </el-button>-->
-    <!--    </div>-->
+        <div class="filter-container">
+          <el-button type="primary">
+            <router-link :to="{ name: 'WriteOffRecoverMakeUpAdd'}">新增</router-link>
+          </el-button>
+        </div>
     <el-table
         v-loading="table.listLoading"
         class="el-table" max-height="600"
@@ -47,6 +47,11 @@
           prop="revokeDate"
           label="收回日期"
           :formatter="formatDate"
+      />
+      <el-table-column
+          prop="modifyTime"
+          label="最新修改时间"
+          :formatter="formatDateTime"
       />
       <el-table-column
           fixed="right"
@@ -90,7 +95,7 @@ import Pagination from "@/components/Pagination/index.vue";
 import {
   addFormRef,
   delRow,
-  formatDate,
+  formatDate, formatDateTime,
   getList, init,
   resetSearchForm,
   searchFormRef,
@@ -99,6 +104,7 @@ import {
 } from "@/composables/write-off-recover/make-up";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "@/views/bad-debt/confirm/components/SearchForm.vue";
+import {format} from "../../../utils/time";
 
 export default {
   name: "WriteOffRecoverMakeUp",
@@ -114,7 +120,7 @@ export default {
       getList,
       cellClass,
       headerClass,
-      formatDate,
+      formatDate,formatDateTime,
       delRow, addFormRef
     }
   }

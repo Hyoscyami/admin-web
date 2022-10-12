@@ -59,6 +59,11 @@
         />
       </el-table-column>
       <el-table-column
+          prop="modifyTime"
+          label="最新修改时间"
+          :formatter="formatDateTime"
+      />
+      <el-table-column
           prop="status"
           label="呆账核销状态"
       >
@@ -102,7 +107,7 @@ import {
   searchFormRef,
   searchFormSubmit,
   table,
-  init, getList
+  init, getList, formatDateTime
 } from "../../../composables/bad-debt/evidence";
 import {cellClass, headerClass} from "../../../composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -120,7 +125,7 @@ export default {
       resetSearchForm,
       cellClass,
       headerClass,
-      convertStatusToChinese, formatDate,
+      convertStatusToChinese, formatDate,formatDateTime,
       addFormRef, getList
     }
   }

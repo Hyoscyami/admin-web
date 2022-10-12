@@ -6,7 +6,7 @@ import { QueryBadDebtReq, useQueryBadDebtReq } from '../../../model/req/query/Qu
 import { DictVO } from '../../../model/vo/DictVO'
 import { BadDebtWriteOffVO } from '../../../model/vo/BadDebtWriteOffVO'
 import { SelectGroup, useTable } from '../../../model/req/query/Table'
-import { formatYYYY, formatYYYYMMDD } from '../../../utils/time'
+import {format, formatYYYY, formatYYYYMMDD} from '../../../utils/time'
 import { CommonEnum } from '../../../enums/CommonEnum'
 import { errorMsg } from '../../../utils/common'
 import { ApiResponse } from '../../../model/resp/base/ApiResponse'
@@ -246,6 +246,10 @@ export function convertRevokeStatusToChinese(status: number): string {
 export function formatDate(_row: any, _column: any, cellValue: any): string {
   return formatYYYYMMDD(cellValue)
 }
+export function formatDateTime(_row: any, _column: any, cellValue: any): string {
+  return format(cellValue)
+}
+
 
 /**
  * 文件上传超过数量限制处理

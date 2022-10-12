@@ -9,7 +9,7 @@ import {
 import { DictVO } from '../../../model/vo/DictVO'
 import { BadDebtRevokeVO } from '../../../model/vo/BadDebtRevokeVO'
 import { SelectGroup, useTable } from '../../../model/req/query/Table'
-import { formatYYYYMMDD } from '../../../utils/time'
+import {format, formatYYYYMMDD} from '../../../utils/time'
 import { CommonEnum } from '../../../enums/CommonEnum'
 import { errorMsg, successMsg } from '../../../utils/common'
 import { ApiResponse } from '../../../model/resp/base/ApiResponse'
@@ -178,7 +178,12 @@ export function formatDate(_row: any, _column: any, cellValue: any): string {
   }
   return ''
 }
-
+export function formatDateTime(_row: any, _column: any, cellValue: any): string {
+  if (cellValue) {
+    return format(cellValue)
+  }
+  return ''
+}
 // 删除
 export function delRow(row: any) {
   del(row.id).then(() => {
