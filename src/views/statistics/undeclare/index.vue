@@ -180,7 +180,7 @@ import {
   resetSearchForm,
   searchFormRef,
   searchFormSubmit,
-  table, unDeclareColumns, dialogVisible, cancelAddForm, openDialog, formatDay
+  table, unDeclareColumns, dialogVisible, cancelAddForm, openDialog, formatDay,exportList,exportLoading
 } from "@/composables/statistics/un-declare";
 import {cellClass, headerClass} from "@/composables/sys/dict";
 import SearchForm from "./components/SearchForm.vue";
@@ -202,7 +202,7 @@ export default {
       headerClass,
       formatYear,
       formatDay,
-      addFormRef, convertStatusToChinese, columns: unDeclareColumns, dialogVisible, cancelAddForm, openDialog
+      addFormRef, convertStatusToChinese, columns: unDeclareColumns, dialogVisible, cancelAddForm, openDialog,exportList,exportLoading
     }
   }
 }
