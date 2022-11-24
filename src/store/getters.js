@@ -8,9 +8,9 @@ const getters = {
     permissionId: (state) => state.user.permissionId,
     visitedViews: (state) => state.tagsView.visitedViews,
     cachedViews: (state) => state.tagsView.cachedViews,
-    // 树状路由
+
     permissionTreeRoutes: (state) => state.user.routes,
-    // 树状路由平铺成的list
+
     permissionListRoutes: (state) => state.user.routeList
 }
 export default getters

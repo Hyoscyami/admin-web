@@ -1,31 +1,23 @@
 export interface AddRoleReq {
-  /**
-   * 角色类型
-   */
+  
   type: number
-  /**
-   * 父ID
-   */
+  
   parentId: number
-  /** 角色名称 */
+  
   name: string
-  /** 组织ID */
+  
   orgId: string
-  /** 排序值 */
+  
   sort: number
-  /**角色范围*/
+  
   scope: number
-  /**
-   * 状态
-   */
+  
   status: number
-  /** 权限ID列表 */
+  
   permissionIds: Array<number>
 }
 
-/**
- * 角色规则
- */
+
 export interface RoleRule {
   code: Array<Object>
   name: Array<Object>
@@ -35,9 +27,7 @@ export interface RoleRule {
   sort: Array<Object>
 }
 
-/**
- * 初始化
- */
+
 export function useRoleRule(): RoleRule {
   return {
     code: [
@@ -51,9 +41,7 @@ export function useRoleRule(): RoleRule {
     sort: [{ required: true, message: '请填写排序值', trigger: 'change' }]
   }
 }
-/**
- * 初始化
- */
+
 export function useAddRoleReq(): AddRoleReq {
   return {
     name: '',

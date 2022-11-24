@@ -3,41 +3,31 @@ import { RoleVO } from '../../vo/RoleVO'
 import { validatePassword } from '../../../composables/sys/operator'
 
 export interface AddOperatorReq {
-  /** 姓名 */
+  
   name?: String
-  /** 登录账号 */
+  
   username: string
-  /** 密码 */
+  
   password: String
-  /** 状态，1：启用，2：禁用 */
+  
   status: number
-  /** 用户对应的组织角色列表 */
+  
   orgRoles: Array<OrgRole>
 }
 
-/**
- * 机构角色关系
- */
+
 export interface OrgRole {
-  /**
-   * 机构ID
-   */
+  
   orgId?: number
-  /**
-   * 角色ID
-   */
+  
   roleId?: number
 }
 
-//组织角色表单选择
+
 export interface OrgRoleForm {
-  /**
-   * 组织列表
-   */
+  
   orgList: Array<OrgVO>
-  /**
-   * 角色列表
-   */
+  
   roleList: Array<RoleVO>
 }
 
@@ -48,9 +38,7 @@ export function userOrgRoleForm(): OrgRoleForm {
   }
 }
 
-/**
- * 初始化新增的数据字典
- */
+
 export function useAddOperatorReq(): AddOperatorReq {
   return {
     name: '',
@@ -66,9 +54,7 @@ export function useAddOperatorReq(): AddOperatorReq {
   }
 }
 
-/**
- * 规则
- */
+
 export interface OperatorRule {
   username: Array<Object>
   name: Array<Object>
@@ -77,9 +63,7 @@ export interface OperatorRule {
   orgRoles: Array<Object>
 }
 
-/**
- * 初始化表单规则
- */
+
 export function useOperatorRule(): OperatorRule {
   return {
     name: [{ required: true, message: '请输入用户名称', trigger: 'change' }],

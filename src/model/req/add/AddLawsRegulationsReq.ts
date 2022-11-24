@@ -1,8 +1,8 @@
 export interface AddLawsRegulationsReq {
-  /** 法律法规名称 */
+  
   name: string
 
-  /** 法律法规内容 */
+  
   content: string
 }
 

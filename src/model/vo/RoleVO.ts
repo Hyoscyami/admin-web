@@ -2,28 +2,19 @@ import { BaseVO } from '../resp/base/BaseVO'
 import { PermissionVO } from './PermissionVO'
 
 export interface RoleVO extends BaseVO {
-  /**
-   * 父ID
-   */
+
   parentId: number
-  /** 是否有下一页 */
+
   hasNext: boolean
-  /**
-   * 角色类型，1：组织角色
-   *
-   */
+
   type: number
-  /** 角色对应的权限详情 */
+
   permissionVOS: Array<PermissionVO>
-  /**
-   * 权限ID列表
-   */
+
   permissionIds: Array<number>
 }
 
-/**
- * 初始化
- */
+
 export function useRoleVO(): RoleVO {
   return {
     createTime: '',

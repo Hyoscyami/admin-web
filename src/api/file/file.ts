@@ -2,7 +2,7 @@ import { QueryBadDebtReq } from '../../model/req/query/QueryBadDebtReq'
 import request from '../../utils/request'
 import { BadDebtConfirmReq } from '../../model/req/other/BadDebtConfirmReq'
 
-//文档管理
+
 export function list(data: QueryBadDebtReq) {
   return request({
     url: '/bad-debt-write-off/fileList',

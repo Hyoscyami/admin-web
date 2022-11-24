@@ -1,7 +1,7 @@
 import { BaseQuery } from '../base/BaseQuery'
 
 export interface QueryDeclareHistoryReq extends BaseQuery {
-  //申报年度
+
   declareYear?: string
 }
 

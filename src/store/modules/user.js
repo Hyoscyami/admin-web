@@ -13,13 +13,13 @@ const getDefaultState = () => {
     name: '',
     avatar: '',
     orgId: getOrgId(),
-    //当前页面的id，用来纪录操作日志
+
     permissionId: '',
-    // 树状路由
+
     routes: [],
-    // 树状路由平铺成list
+
     routeList: [],
-    //路由map，key是path，value是自己
+
     routeMap: new Map(),
     addRoutes: []
   }
@@ -48,11 +48,11 @@ const mutations = {
     // state.routes = constantRoutes.concat(routes)
     state.routes = routes
   },
-  // 保存树状路由平铺成的list
+
   SET_ROUTE_LIST: (state, routeList) => {
     state.routeList = routeList
   },
-  //保存路由的映射关系
+
   SET_ROUTE_MAP: (state, routeMap) => {
     state.routeMap = routeMap
   },
@@ -61,7 +61,7 @@ const mutations = {
   }
 }
 
-// 后台返回的权限列表转router格式
+
 function convertRoute(routes, data) {
   data.forEach((item) => {
     const menu = {
@@ -70,7 +70,7 @@ function convertRoute(routes, data) {
         ? Layout
         : (resolve) => require([`@/views${item.path}`], resolve),
       name: item.pageName,
-      hidden: item.type === CommonEnum.PERMISSION_MENU ? item.hidden : true, // 是页面的话根据按钮是否隐藏赋值，不是页面的话直接隐藏
+      hidden: item.type === CommonEnum.PERMISSION_MENU ? item.hidden : true,
       meta: { title: item.name, icon: item.icon, type: item.type, id: item.id },
       children: []
     }
@@ -81,12 +81,7 @@ function convertRoute(routes, data) {
   })
 }
 
-/**
- * 树平铺成list，用来判断用户是否有权限
- * @param treeRoutes 树状
- * @param routeList list
- * @param routeMap map
- */
+
 function convertRouteList(treeRoutes, routeList, routeMap) {
   treeRoutes.forEach((item) => {
     if (item.children) {
@@ -98,7 +93,7 @@ function convertRouteList(treeRoutes, routeList, routeMap) {
 }
 
 const actions = {
-  // user login
+
   login({ commit }, userInfo) {
     const formPassword = userInfo.password
     userInfo.password = doEncrypt(userInfo.password)
@@ -121,7 +116,7 @@ const actions = {
     })
   },
 
-  // get user info
+
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token)
@@ -137,24 +132,24 @@ const actions = {
           commit('SET_NAME', name)
           commit('SET_AVATAR', avatar)
 
-          // 根节点不显示
+
           const loadMenuData = response.data.permissionVOS[0].children
-          // 清空之前的路由
+
           asyncRoutes.length = 0
-          // 将后台返回的路由转换成vue需要的格式
+
           convertRoute(asyncRoutes, loadMenuData)
-          // 平铺后的路由
+
           const routeList = []
-          //路由映射,key是path，value是item
+
           const routeMap = new Map()
-          //树平铺成list，用来判断用户是否有权限
+
           convertRouteList(asyncRoutes, routeList, routeMap)
           const accessedRoutes = asyncRoutes
-          // 保存vue需要的树状路由
+
           commit('SET_ROUTES', accessedRoutes)
-          // 保存树状路由平铺成的list
+
           commit('SET_ROUTE_LIST', routeList)
-          //保存路由的映射关系
+
           commit('SET_ROUTE_MAP', routeMap)
           resolve(data)
         })
@@ -189,7 +184,7 @@ const actions = {
       resolve()
     })
   },
-  //设置当前permissionId，用来记录日志使用
+
   setPermissionId({ commit }, path) {
     return new Promise((resolve, reject) => {
       const permission = state.routeMap.get(path)

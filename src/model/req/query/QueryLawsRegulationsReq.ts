@@ -1,7 +1,7 @@
 import { BaseQuery } from '../base/BaseQuery'
 
 export interface QueryLawsRegulationsReq extends BaseQuery {
-  // 组织ID
+
   orgId?: number
 }
 

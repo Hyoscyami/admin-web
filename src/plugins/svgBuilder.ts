@@ -22,8 +22,8 @@ function findSvgFile(dir: PathLike): string[] {
         .toString()
         .replace(clearReturn, '')
         .replace(svgTitle, ($1, $2) => {
-          // console.log(++i)
-          // console.log(dirent.name)
+
+
           let width = 0
           let height = 0
           let content = $2.replace(clearHeightWidth, (s1, s2, s3) => {
@@ -50,8 +50,8 @@ export const svgBuilder = (path: string, perfix = 'icon'): Plugin => {
   if (path === '') return
   idPerfix = perfix
   const res = findSvgFile(path)
-  // console.log(res.length)
-  // const res = []
+
+
   return {
     name: 'svg-transform',
     transformIndexHtml(html): string {
